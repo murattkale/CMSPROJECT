@@ -137,7 +137,7 @@
         Menus_EditFunc = {
             getMenus: function () {
                 $('#dp_ParentId').addOptionAjax("/Menus/GetParent", "", "Id", "Name", function () { }, function () { }, '@Menus_idUrl_select', '', 'Seçiniz');
-            },
+            }, 
             load: function () {
                 Menus_EditFunc.getMenus();
 
