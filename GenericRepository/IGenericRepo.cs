@@ -8,14 +8,19 @@ namespace GenericRepository
 {
     public interface IGenericRepo<T> where T : class
     {
-        RModel<T> Where(
-         Expression<Func<T, T>> selector = null,
+        DTResult<T> GetPaging(
             Expression<Func<T, bool>> filter = null
-            , bool AsNoTracking = true
-            , DTParameters<T> param = null
-            , bool ShowIsDeleted = false
-            , params Expression<Func<T, object>>[] includes
-            );
+           , bool AsNoTracking = true
+           , DTParameters<T> param = null
+           , bool IsDeletedShow = false
+           , params Expression<Func<T, object>>[] includes
+           );
+        RModel<T> Where(
+              Expression<Func<T, bool>> filter = null
+              , bool AsNoTracking = true
+              , bool IsDeletedShow = false
+              , params Expression<Func<T, object>>[] includes
+              );
         T Find(int id, bool AsNoTracking = false, bool ShowIsDeleted = false);
         bool Any(bool AsNoTracking = false, bool ShowIsDeleted = false);
         T Add(T t);

@@ -19,12 +19,40 @@ namespace GenericRepository
             this._context = _context;
         }
 
+        public DTResult<T> GetPaging(
+            Expression<Func<T, bool>> filter = null
+           , bool AsNoTracking = true
+           , DTParameters<T> param = null
+           , bool IsDeletedShow = false
+           , params Expression<Func<T, object>>[] includes
+           )
+        {
+            var query = Where(filter, AsNoTracking, IsDeletedShow, includes).Result;
+
+            var GlobalSearchFilteredData = query.ToGlobalSearchInAllColumn<T>(param);
+            var IndividualColSearchFilteredData = GlobalSearchFilteredData.ToIndividualColumnSearch(param);
+            var SortedFilteredData = IndividualColSearchFilteredData.ToSorting(param);
+            var SortedData = SortedFilteredData.ToPagination(param);
+
+            var rSortedData = SortedData.ToList();
+
+            int Count = query.Count();
+
+            var resultData = new DTResult<T>
+            {
+                draw = param.Draw,
+                data = rSortedData,
+                recordsFiltered = Count,
+                recordsTotal = Count
+            };
+
+            return resultData;
+
+        }
 
         public RModel<T> Where(
-            Expression<Func<T, T>> selector = null,
             Expression<Func<T, bool>> filter = null
             , bool AsNoTracking = true
-            , DTParameters<T> param = null
             , bool IsDeletedShow = false
             , params Expression<Func<T, object>>[] includes
             )
@@ -36,12 +64,12 @@ namespace GenericRepository
             {
                 var query = _context.Set<T>() as IQueryable<T>;
 
-                
+
 
                 if (AsNoTracking)
                     query = query.AsNoTracking();
 
-              
+
 
                 if (!IsDeletedShow)
                     query = query.Where(o => o.IsDeleted == null);
@@ -49,7 +77,7 @@ namespace GenericRepository
                 if (filter != null)
                     query = query.Where(filter);
 
-              
+
 
                 if (includes != null && includes.Count() > 0)
                 {
@@ -70,35 +98,8 @@ namespace GenericRepository
 
                 }
 
-                if (param != null && param.Draw != 0)
-                {
-                    var GlobalSearchFilteredData = query.AsQueryable().ToGlobalSearchInAllColumn(param);
-                    var IndividualColSearchFilteredData = GlobalSearchFilteredData.ToIndividualColumnSearch(param);
-                    var SortedFilteredData = IndividualColSearchFilteredData.ToSorting(param);
-                    var SortedData = SortedFilteredData.ToPagination(param);
-                    if (selector != null)
-                        SortedData = SortedData.Select(selector);
 
-                    var rSortedData = SortedData.ToList();
-
-                    int Count = query.Count();
-
-
-                    var resultData = new DTResult<T>
-                    {
-                        draw = param.Draw,
-                        data = rSortedData,
-                        recordsFiltered = Count,
-                        recordsTotal = Count
-                    };
-                    res.ResultPaging = resultData;
-                }
-                else
-                {
-                    res.Result = query;
-                }
-
-
+                res.Result = query;
                 res.ResultType.RType = RType.OK;
             }
             catch (Exception ex)
@@ -113,6 +114,8 @@ namespace GenericRepository
             //}
             return res;
         }
+
+
         public T Find(int id, bool AsNoTracking = false, bool IsDeletedShow = false)
         {
             var query = _context.Set<T>() as IQueryable<T>;

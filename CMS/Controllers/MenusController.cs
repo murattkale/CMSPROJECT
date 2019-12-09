@@ -21,27 +21,16 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Menus> param, Menus searchModel)
         {
-            var result = _service_Menus.Where(null, null, true, param, false, null);
-
-            if (param == null || param.Draw == 0)
-            {
-                var resultData = result.Result.ToList();
-                return Json(resultData);
-            }
-            else
-            {
-                var resultData = result.ResultPaging;
-                return Json(resultData);
-            }
-
+            var result = _service_Menus.GetPaging( null, true, param, false);
+            return Json(result);
         }
 
 
         [HttpPost]
         public JsonResult GetParent(int? Id)
         {
-            var resultData = GetResult().Where(o => (Id == null ? true : o.Id != Id)).OrderBy(o => o.Id).ToList();
-            return Json(resultData);
+            var result = GetResult().Where(o => (Id == null ? true : o.Id != Id)).OrderBy(o => o.Id).ToList();
+            return Json(result);
         }
 
         IQueryable<Menus> GetResult()

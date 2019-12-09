@@ -68,7 +68,10 @@ public static class ServerSideProcessor
     {
         //Param.SortOrder return sorting column name
         //Param.Order[0].Dir return direction as asc/desc
-        if (Param.SortOrder != null && Param.SortOrder != "Image" && Param.SortOrder != "sitePrice" && Param.SortOrder != "Detail")
+        Type EntityType = typeof(T);
+        var Properties = EntityType.GetProperties();
+        var cl = Param.Columns.Select(o => o.Data).ToList();
+        if (Param.SortOrder != null && Param.SortOrder != "Image" && Param.SortOrder != "sitePrice" && Param.SortOrder != "Detail" && Properties.Any(p => p.Name == Param.SortOrder) && Properties.Any(p => cl.Contains(p.Name)))
         {
             return table.OrderBy(Param.SortOrder + " " + Param.Order[0].Dir).AsQueryable();
         }

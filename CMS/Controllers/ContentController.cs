@@ -19,19 +19,8 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Content> param, Content searchModel)
         {
-            var result = _service_Content.Where(null, null, true, param, false, null);
-
-            if (param == null || param.Draw == 0)
-            {
-                var resultData = result.Result.ToList();
-                return Json(resultData);
-            }
-            else
-            {
-                var resultData = result.ResultPaging;
-                return Json(resultData);
-            }
-
+            var result = _service_Content.GetPaging( null, true, param, false);
+            return Json(result);
         }
 
 

@@ -18,7 +18,7 @@ namespace Services
             res.ResultType.MessageList = new List<string>();
 
             //Duplicate Control
-            var modelControl = Where(null, o => o.Id != model.Id && o.ContentName == model.ContentName, false).Result.FirstOrDefault();
+            var modelControl = Where(o => o.Id != model.Id && o.ContentName == model.ContentName, false).Result.FirstOrDefault();
             if (modelControl != null)
             {
                 res.ResultType.RType = RType.Warning;
