@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:13649",
+      "applicationUrl": "http://localhost:8477",
       "sslPort": 0
     }
   },
@@ -13,10 +13,9 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "nativeDebugging": true
+      }
     },
-    "CMS": {
+    "ilkteknem": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

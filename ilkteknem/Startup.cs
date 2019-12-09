@@ -12,7 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services;
 
-namespace CMS
+
+namespace ilkteknem
 {
     public class Startup
     {
@@ -35,24 +36,15 @@ namespace CMS
                 o.JsonSerializerOptions.DictionaryKeyPolicy = null;
             });
 
-
             services.AddEntityFrameworkSqlServer().AddDbContext<EFContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("EFContext"), b => b.MigrationsAssembly("EFContext")));
+       opt.UseSqlServer(Configuration.GetConnectionString("EFContext"), b => b.MigrationsAssembly("EFContext")));
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<MuhasebeContext>(opt =>
-          opt.UseSqlServer(Configuration.GetConnectionString("MuhasebeContext"), b => b.MigrationsAssembly("MuhasebeContext")));
 
 
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
 
-            services.AddScoped(typeof(IMenusService), typeof(MenusService));
-            services.AddScoped(typeof(IContentService), typeof(ContentService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
-
-            services.AddScoped(typeof(IBankaService), typeof(BankaService));
-
-
 
 
         }
@@ -67,10 +59,7 @@ namespace CMS
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
             }
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -81,7 +70,7 @@ namespace CMS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Menus}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

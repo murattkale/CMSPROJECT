@@ -1,0 +1,236 @@
+﻿
+
+
+
+
+<div class="uk-section-default uk-section uk-padding-remove-vertical">
+    <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid="">
+        <div class="uk-width-1-1@m uk-first-column">
+            <div uk-slideshow="ratio: false;animation: pull" class="uk-margin uk-slideshow">
+                <div class="uk-position-relative uk-visible-toggle" tabindex="-1">
+                    <ul class="uk-slideshow-items" uk-height-viewport="offset-top: true; minHeight: 300; offset-bottom: 20">
+                        <li class="el-item" tabindex="-1">
+                            <img class="el-image" alt="" uk-img="target: !.uk-slideshow-items" uk-cover="" src="/img/4.jpg">
+                        </li>
+                    </ul>
+                    <div class="uk-position-bottom-center uk-position-small uk-light">
+                        <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section-white-bg">
+    <div class="uk-margin-top uk-text-center"><h2 class="uk-h1 uk-text-center light-font"> İLETİŞİM</h2></div>
+
+    <div class="uk-container uk-margin uk-container-small">
+        <div class="content-center">
+
+            <div uk-icon="location">
+                &nbsp;
+            </div>
+            <p>
+
+                19 Mayıs mah. Şemsettin Günaltay Caddesi No:135 kat: 3 Kadıköy İstanbul
+
+
+            </p>
+
+            <div uk-icon="phone">
+                &nbsp;
+            </div>
+
+            <a href="tel:+905067714804" style="color:#666">+90 506 771 48 04</a>
+            / <a href="tel:+02165450527" style="color:#666">0 216 545 05 27 </a>
+
+            <br />
+            <div uk-icon="mail">
+                &nbsp;
+            </div>
+            <a href="mailto:info@ilkteknem.com" style="color:#666">info@ilkteknem.com</a> <br /><br />
+            <p>
+                &nbsp;
+            </p>
+        </div>
+        <p>
+            &nbsp;
+        </p>
+
+    </div>
+</div>
+
+<div class="product-line uk-margin-remove-top" id="iletisim">Daha Fazla Bilgi Almak İçin Aşağıdaki Formu Doldurun</div>
+<div class="uk-width-1-1 uk-margin-top">
+
+    <form class="newform" method="post">
+        <input type="hidden" name="Form" value="">
+        <div class="uk-container uk-container-xsmall">
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="Ad" type="text" name="Ad" placeholder="Adı " required="">
+            </div>
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="Soyad" type="text" name="Soyad" placeholder="Soyadı " required="">
+            </div>
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="Telefon" type="text" name="Telefon" placeholder="Telefon " required="">
+            </div>
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="Mail" type="email" name="Mail" placeholder="Mail">
+            </div>
+
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="dt" type="text" name="dt" placeholder="Doğum Tarihi">
+            </div>
+
+
+
+            <div class="uk-margin">
+                <select class="uk-select" name="dp_tecrube" id="dp_tecrube">
+                    <option value="">Denizcilik Tecrübesi Seçiniz</option>
+                    <option value="YOK">YOK</option>
+
+                    <option value="ÇOK AZ">ÇOK AZ</option>
+
+                    <option value="İYİ">İYİ</option>
+
+                </select>
+            </div>
+
+            <div class="uk-margin">
+                <select class="uk-select" name="dp_sahip" id="dp_sahip">
+                    <option value="">Tekne Sahibi Seçiniz</option>
+
+                    <option value="EVET">EVET</option>
+
+                    <option value="HAYIR">HAYIR</option>
+
+                </select>
+            </div>
+
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="meslek" type="text" name="meslek" placeholder="Meleğiniz">
+            </div>
+
+            <div class="uk-margin">
+                <input class="uk-input medical-home-input" id="saat" value="" type="number" name="saat" placeholder="Saat kaçta sizi arayalım">
+            </div>
+
+
+            <fieldset class="uk-fieldset">
+                <div class="">
+                    <br>
+                    <textarea class="uk-textarea medical-home-input" id="Icerik" style="min-height:80px" name="Icerik" placeholder="Not"></textarea>
+                </div>
+
+            </fieldset>
+
+            <div class="uk-margin">
+                <input style="margin-top:15px;" id="btnOK" type="submit" value="Gönder" class="el-content uk-button uk-button-default" />
+            </div>
+            <br /><br />
+            <hr />
+
+        </div>
+    </form>
+    <div id="message"></div>
+</div>
+
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d192774.11534090934!2d29.028075487636883!3d40.97938846803434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cadcb480ba8fe9%3A0x9e19b804439aaea7!2sPendik%20Marina!5e0!3m2!1str!2str!4v1575668035932!5m2!1str!2str" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+
+
+<script>
+    $(function () {
+        var formid = '.newform';
+        $(formid).submit(function (e) {
+            e.preventDefault();
+            var postModel = $.fn.toForm(formid);
+            postModel.FormType = 9;
+            var str = '';
+
+            if ($('#dp_tecrube').val() != '') {
+                str += 'Tecrübe : ' + $('#dp_tecrube').val() + '<br/>';
+            }
+            if ($('#dp_sahip').val() != '') {
+                str += 'Tekne Sahibi : ' + $('#dp_sahip').val() + '<br/>';
+            }
+            if ($('#meslek').val() != '') {
+                str += 'Meslek: ' + $('#meslek').val() + '<br/>';
+            }
+            if ($('#saat').val() != '') {
+                str += 'Saat: ' + $('#saat').val() + '<br/>';
+            }
+
+            var icerik = str + '<br/>' + postModel.Icerik;
+
+            postModel.Icerik = icerik;
+
+            $.LoadingOverlay("show");
+
+
+            $.ajx('/Home/FormlarSave', { postModel: postModel }, function (resultMenus) {
+                if (resultMenus.ResultType != 3) {
+
+                    alert('Mesajınız ulaşmıştır. Tesekkür ederiz.');
+                    location.reload();
+                }
+                else {
+
+                    alert(resultMenus.MessageList[0]);
+                }
+                $.LoadingOverlay("hide");
+            }, function () { location.reload(); });
+
+        });
+
+
+        //$('.newform').submit(function (e) {
+
+        //    var $this = $(this);
+        //    e.preventDefault();
+        //    if ($('#name').val() !== '' && $('#email').val() !== '' && $('#messages').val() !== '') {
+        //        $.ajax({
+        //            url: 'https://damp.adbuzz.com.tr/send/74',
+        //            crossDomain: true,
+        //            type: 'POST',
+        //            data: $(this).serialize(),
+        //            cache: false,
+        //            success: function (data) {
+
+        //                $('.newform').slideUp('slow');
+        //                $('#message').slideDown('slow');
+
+        //                setTimeout(function () {
+        //                    $("#message").append("<div>Mesajınız ulaşmıştır. Tesekkür ederiz.</div>");
+        //                }, 1200);
+
+        //            }, error: function (data) {
+
+
+        //                $('.newform').slideUp('slow');
+
+        //                $('#message').slideDown('slow');
+
+        //                setTimeout(function () {
+        //                    $("#message").append("<div>Mesajınız ulaşmıştır. Tesekkür ederiz.</div>");
+        //                }, 1200);
+        //            }
+        //        });
+        //    }
+        //});
+
+    });
+
+
+
+
+</script>
