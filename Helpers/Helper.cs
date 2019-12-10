@@ -86,7 +86,7 @@ public static class Helpers
 
 
 
-   
+
     public static List<string> validControl<T>(this T table, string prop, string errorText)
     {
         List<string> list = new List<string>();
@@ -878,7 +878,7 @@ public static class Helpers
         return list;
     }
 
-    public static void ExGetEnumDescription(this string Text, Enum value)
+    public static string ExGetEnumDescription(this string Text, Enum value)
     {
         if (value == null)
             Text = string.Empty;
@@ -898,6 +898,8 @@ public static class Helpers
             Text = attributes[0].Description;
         else
             Text = value.ToStr();
+
+        return Text;
     }
 
     public static string ExGetDescription(this Enum value)

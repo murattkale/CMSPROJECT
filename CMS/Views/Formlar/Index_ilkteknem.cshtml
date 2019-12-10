@@ -67,7 +67,7 @@
             GetPaging: function () {
 
                 var columns = [];
-                columns.push({ "data": "Id", text: "Id","searchable": true });
+                columns.push({ "data": "Id", text: "Id", "searchable": true });
                 columns.push({ "data": "FormType", text: "Form Tipi", });
                 columns.push({ "data": "Ad", text: "Ad" });
                 columns.push({ "data": "Soyad", text: "Soyad" });
@@ -82,7 +82,7 @@
 
                 var table = $(dt_Formlar).DataTable({
                     "ajax": {
-                        "url": '/' + control_Name_Formlar + '/GetPaging',
+                        "url": '/' + control_Name_Formlar + '/GetPagingIlkTeknem',
                         "type": "POST",
                         "datatype": "json",
                         "data": function (searchModel) {
@@ -157,7 +157,7 @@
                     "lengthMenu": [[100, 250, 500, 1000, 2500, 5000], [100, 250, 500, 1000, 2500, 5000]],
                     "lengthChange": true,
                     "processing": true,
-                     "order": [[0, "desc" ]],
+                    "order": [[0, "desc"]],
                     "columnDefs": [
                         //{ "orderable": false, "targets": [0, 1] },
                     ],

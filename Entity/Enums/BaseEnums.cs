@@ -22,5 +22,20 @@ public enum LoginErrorType
     User = 4,
 }
 
+public enum FormType
+{
+    [Description("Anasayfa")]
+    Anasayfa = 1,
+    [Description("Şube")]
+    Şube = 2,
+    [Description("Franch")]
+    Franch = 3,
+    [Description("Diğer")]
+    Diger = 4,
+    [Description("ilkteknem.com")]
+    ilkteknem = 9,
+}
+
+
 
 

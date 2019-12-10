@@ -1,0 +1,110 @@
+﻿@using Entity
+@{
+    Layout = null;
+    string pageTitle = "Formlar";
+    string Formlar_ControlNameUrl = "Formlar";
+    string FormName = "frm_" + Formlar_ControlNameUrl + "_";
+    int Formlar_idUrl = Context.Request.Query["id"].ToInt();
+    var Formlar_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = "Formlar";
+
+    var edit = ViewBag.edit as Formlar;
+    if (edit == null)
+    {
+        edit = new Formlar();
+    }
+    else
+    {
+    }
+
+    var formtype = "";
+    if (edit.FormType > 0)
+        formtype = ((FormType)edit.FormType).ExGetDescription();
+
+    title = formtype + " " + " Formu";
+
+}
+
+<script type="text/javascript">
+        var Formlar_FormName = "@Html.Raw(FormName)";
+        var Formlar_ControlNameUrl = "@Formlar_ControlNameUrl";
+    var Formlar_idUrl = @Formlar_idUrl;
+
+</script>
+
+
+
+<style>
+    .modal-dialog {
+        width: 33% !important;
+    }
+</style>
+
+
+
+<!-- begin:: Content -->
+<div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+
+            <div class="kt-portlet__head-label">
+
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    @Html.Raw(title)
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+            <form name="@FormName" id="@FormName">
+                <div class="form-horizontal">
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12" for="Name">Ad : @Html.Raw(edit.Ad)</label>   <hr />
+
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12" for="Name">Soyad : @Html.Raw(edit.Soyad)</label>  <hr />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12" for="Name">Telefon : @Html.Raw(edit.Telefon)</label>   <hr />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12" for="Name">Mail : @Html.Raw(edit.Mail)</label>   <hr />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12" for="Name">Tarih : @Html.Raw(edit.CreaDate.ToShortDateString())</label>   <hr />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-12" for="Name">Not : <br /> @Html.Raw(edit.Icerik)</label>   <hr />
+                    </div>
+
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end:: Content -->

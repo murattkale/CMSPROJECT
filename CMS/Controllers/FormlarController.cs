@@ -19,7 +19,14 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Formlar> param, Formlar searchModel)
         {
-            var result = _service_Formlar.GetPaging(null, true, param, false);
+            var result = _service_Formlar.GetPaging(o => o.FormType != (int)FormType.ilkteknem, true, param, false);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult GetPagingIlkTeknem(DTParameters<Formlar> param, Formlar searchModel)
+        {
+            var result = _service_Formlar.GetPaging(o => o.FormType == (int)FormType.ilkteknem, true, param, false);
             return Json(result);
         }
 
@@ -48,12 +55,19 @@ namespace CMS.Controllers
             ViewBag.pageTitle = "Formlar";
             return View();
         }
+        public IActionResult Index_ilkteknem()
+        {
+            ViewBag.pageTitle = "Formlar";
+            return View();
+        }
 
         public IActionResult InsertOrUpdatePage()
         {
             ViewBag.edit = Get(Request.Query["id"].ToInt());
             return View();
         }
+
+
 
 
     }

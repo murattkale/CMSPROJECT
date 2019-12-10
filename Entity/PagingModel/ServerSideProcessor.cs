@@ -77,7 +77,7 @@ public static class ServerSideProcessor
         }
         else
         {
-            return table.AsQueryable();
+            return table.OrderBy("order by Id desc").AsQueryable();
         }
 
     }

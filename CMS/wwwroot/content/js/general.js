@@ -30,6 +30,33 @@ function getContentTypeList() {
 }
 
 
+
+function getFT(id) {
+
+    var dataResult = getFormTypeList();
+    var row;
+    for (var i = 0; i < dataResult.length; i++) {
+        var rowItem = dataResult[i];
+        if (rowItem.Id == id) {
+            row = rowItem;
+            break;
+        }
+    }
+
+    return row;
+}
+
+function getFormTypeList() {
+    var dataResult = [];
+    dataResult.push({ Id: 1, Name: "Anasayfa" });
+    dataResult.push({ Id: 2, Name: "Şube" });
+    dataResult.push({ Id: 3, Name: "Franch" });
+    dataResult.push({ Id: 9, Name: "ilkteknem.com" });
+
+    return dataResult;
+}
+
+
 (function ($) {
     $.fn.ceo = function (ayarlar) {
         var ayar = $.extend({
