@@ -51,6 +51,7 @@ namespace CMS
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
 
             services.AddScoped(typeof(IBankaService), typeof(BankaService));
+            services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
 
 
 

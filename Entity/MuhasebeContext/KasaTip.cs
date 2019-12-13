@@ -16,9 +16,6 @@ namespace Entity
         public string Ad { get; set; }
         public int? BankaId { get; set; }
 
-        [ForeignKey(nameof(BankaId))]
-        [InverseProperty("KasaTip")]
-        public virtual Banka Banka { get; set; }
         [InverseProperty("KasaTip")]
         public virtual ICollection<Hesap> Hesap { get; set; }
         [InverseProperty("KasaTip")]

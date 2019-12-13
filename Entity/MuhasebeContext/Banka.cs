@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity
 {
-    public partial class Banka:BaseModel
+    public partial class Banka : BaseModel
     {
         public Banka()
         {
-            KasaTip = new HashSet<KasaTip>();
+            //KasaTip = new HashSet<KasaTip>();
         }
 
         public string Ad { get; set; }
-        public int? KasaTipId { get; set; }
+        //public int? KasaTipId { get; set; }
 
-        [InverseProperty("Banka")]
-        public virtual ICollection<KasaTip> KasaTip { get; set; }
+        //[InverseProperty("Banka")]
+        //public virtual ICollection<KasaTip> KasaTip { get; set; }
     }
 }

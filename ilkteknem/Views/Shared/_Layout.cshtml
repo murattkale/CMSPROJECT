@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="~/assets/css/style.css" />
     <link href="" rel="shortcut icon" type="image/x-icon">
 
+    <link id="favicon" rel="shortcut icon" href="/img/logo.png" type="image/png">
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
@@ -28,6 +30,21 @@
     <script>
         var baseUrl = "";
     </script>
+
+    @*<script type="text/javascript">
+            (function () {
+                var options = {
+                    whatsapp: "+905067714804", // WhatsApp numaranızı buraya girin
+                    call_to_action: "Merhaba, nasıl yardımcı olabiliriz?", // Görünecek metin
+                    position: "right", // Position may be 'right' or 'left'
+                };
+                var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+                var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+                s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+                var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+            })();
+        </script>*@
+
 </head>
 <body class="main page-home">
 
@@ -80,7 +97,7 @@
                     <nav class="uk-navbar" uk-navbar="{&quot;align&quot;:&quot;center&quot;,&quot;boundary&quot;:&quot;!.uk-navbar-container&quot;,&quot;dropbar&quot;:true,&quot;dropbar-anchor&quot;:&quot;!.uk-navbar-container&quot;,&quot;dropbar-mode&quot;:&quot;slide&quot;}">
                         <div class="uk-navbar-left">
                             <a href="/" class="uk-navbar-item uk-logo">
-                                <img alt="" src="~/img/logo.png"><img  style="width:225px;" class="uk-logo-inverse" alt="" src="~/img/logo.png">
+                                <img alt="" src="~/img/logo.png"><img style="width:225px;" class="uk-logo-inverse" alt="" src="~/img/logo.png">
                             </a>
                         </div>
                         <div class="uk-navbar-center">
@@ -200,10 +217,25 @@
             </div>
         </div>
     </div>
+
+    <!-- footer end -->
+
+
+
+
+    <a target="_blank" href="https://api.whatsapp.com/send?phone=905067714804&text=Merhaba%2C+size+okandiyebiri.com+sitenizde+bulunan+makale+%C3%BCzerinden+yaz%C4%B1yorum.">
+        <img style="width:75px;height:75px;right: 0px; bottom:0;position:fixed;" src="~/img/whatsapp.png" />
+
+    </a>
+
+
+
+
+
+
     <script src="~/assets/js/uikit.min.js"></script>
     <script src="~/assets/js/uikit-icons.min.js"></script>
 
-    <!-- footer end -->
 
     @RenderSection("Scripts", required: false)
 </body>

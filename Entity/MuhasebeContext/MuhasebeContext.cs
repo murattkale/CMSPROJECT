@@ -79,10 +79,10 @@ namespace Entity
             modelBuilder.Entity<KasaTip>(entity =>
             {
 
-                entity.HasOne(d => d.Banka)
-                    .WithMany(p => p.KasaTip)
-                    .HasForeignKey(d => d.BankaId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                //entity.HasOne(d => d.Banka);
+                    //.WithMany(p => p.KasaTip)
+                    //.HasForeignKey(d => d.BankaId)
+                    //.OnDelete(DeleteBehavior.Cascade);
                 //.HasConstraintName("FK_KasaTip_Banka");
             });
 
