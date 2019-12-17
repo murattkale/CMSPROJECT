@@ -55,8 +55,8 @@ namespace siteProject
             {
 
                 endpoints.MapControllerRoute(
-        name: "referanslar",
-        pattern: "referanslar/{controller=Home}/{action=referanslar}/{id?}");
+                name: "referanslar",
+                pattern: "referanslar/{controller=Home}/{action=referanslar}/{id?}");
 
                 endpoints.MapControllerRoute(
             name: "paketlerimiz",
