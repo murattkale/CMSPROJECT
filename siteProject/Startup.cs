@@ -53,6 +53,9 @@ namespace siteProject
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+           name: "istatistikler",
+           pattern: "istatistikler/{controller=Home}/{action=istatistikler}/{id?}");
 
                 endpoints.MapControllerRoute(
                 name: "referanslar",
