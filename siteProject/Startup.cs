@@ -54,6 +54,10 @@ namespace siteProject
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+         name: "sosyalmedya",
+         pattern: "sosyalmedya/{controller=Home}/{action=sosyalmedya}/{id?}");
+
+                endpoints.MapControllerRoute(
            name: "istatistikler",
            pattern: "istatistikler/{controller=Home}/{action=istatistikler}/{id?}");
 
