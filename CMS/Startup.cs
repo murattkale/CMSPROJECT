@@ -104,7 +104,7 @@ namespace CMS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Kasa}/{action=Index}/{id?}");
+                    pattern: "{controller=Banka}/{action=Index}/{id?}");
             });
         }
     }

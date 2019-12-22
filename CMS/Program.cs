@@ -23,8 +23,12 @@ namespace CMS
                 {
                     //webBuilder.UseUrls("http://localhost:1111");
                     webBuilder.UseKestrel();
-                    webBuilder.UseStartup<Startup>();
-                });
+                    webBuilder.UseStartup<Startup>()
+                     .CaptureStartupErrors(true)
+                     .UseSetting("detailedErrors", "true")
+                    ;
+                })
+            ;
     }
 
 }
