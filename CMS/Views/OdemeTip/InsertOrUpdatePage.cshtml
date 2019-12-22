@@ -111,11 +111,11 @@
     var customComment = "";
     $(function () {
         OdemeTip_EditFunc = {
-            getOdemeTip: function () {
-                $('#dp_BankaId').addOptionAjax("/Banka/GetAll", "", "Id", "Ad", function () { }, function () { }, '@OdemeTip_idUrl_select', '', 'Seçiniz');
+            getBanka: function () {
+                $('#dp_BankaId').addOptionAjax("/Banka/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.BankaId', '', 'Seçiniz');
             }, 
             load: function () {
-                OdemeTip_EditFunc.getOdemeTip();
+                OdemeTip_EditFunc.getBanka();
 
                 $('#' + OdemeTip_FormName).submit(function (e) {
                     e.preventDefault();

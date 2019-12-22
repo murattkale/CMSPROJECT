@@ -24,6 +24,12 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IBankaService.Where().Result.Select(o => new { value = o.Id, text = o.Ad });
+            return Json(result);
+        }
 
         public JsonResult InsertOrUpdate(Banka postModel)
         {
