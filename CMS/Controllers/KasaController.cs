@@ -30,13 +30,16 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetParent(int? Id)
         {
-            var result = GetResult().Where(o => (Id == null ? true : o.Id != Id)).OrderBy(o => o.Id).ToList();
+            var result = GetResult().Where(o => (Id == null ? true : o.Id != Id)).Select(o => new { value = o.Id,
+                text = (o.Banka == null ? "" : o.Banka.Ad) 
+                + (string.IsNullOrEmpty(o.Ad) ? "" : " / " + o.Ad)
+            }).OrderBy(o => o.text).ToList();
             return Json(result);
         }
 
         IQueryable<Kasa> GetResult()
         {
-            return _service_Kasa.Where().Result;
+            return _service_Kasa.Where(null, true, false, o => o.UstKasa, o => o.Banka, o => o.ParaBirim).Result;
         }
 
 

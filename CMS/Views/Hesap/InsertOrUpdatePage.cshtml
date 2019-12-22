@@ -143,6 +143,12 @@
              getHesapTip: function () {
                 $('#dp_HesapTipId').addOptionAjax("/HesapTip/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.HesapTipId', '', 'Seçiniz');
             },
+              getAliciKasa: function () {
+                  $('#dp_AliciKasaId').addOptionAjax("/Kasa/GetParent", {id:@edit.Id}, "value", "text", function () { }, function () { }, '@edit.AliciKasaId', '', 'Seçiniz');
+            },
+               getIlgiliKasa: function () {
+                $('#dp_IlgiliKasaId').addOptionAjax("/Kasa/GetParent", {id:@edit.Id}, "value", "text", function () { }, function () { }, '@edit.IlgiliKasaId', '', 'Seçiniz');
+            },
               getOdemeTip: function () {
                   $('#dp_OdemeTipId').addOptionAjax("/OdemeTip/GetSelect", "", "value", "text", function () {
                       if ($("#dp_OdemeTipId option:selected").text().toUpperCase() == "ÇEK") {
@@ -159,6 +165,9 @@
             load: function () {
                 Hesap_EditFunc.getHesapTip();
                 Hesap_EditFunc.getOdemeTip();
+                Hesap_EditFunc.getAliciKasa();
+                Hesap_EditFunc.getIlgiliKasa();
+
 
 
 

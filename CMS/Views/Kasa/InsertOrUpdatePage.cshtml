@@ -15,7 +15,7 @@
     }
     else
     {
-        //Kasa_idUrl_select = edit.ParentId.ToStr();
+        Kasa_idUrl_select = edit.UstKasaId.ToStr();
     }
 
 }
@@ -72,22 +72,26 @@
                     <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
                     <input type="hidden" id="KurumId" name="KurumId" value="1" />
 
-                    <input type="hidden" id="GelenTotal" name="GelenTotal" value="@edit.GelenTotal" />
-                    <input type="hidden" id="CekilenTotol" name="CekilenTotol" value="@edit.CekilenTotal" />
-                    <input type="hidden" id="Total" name="Total" value="@edit.Total" />
-
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="Name">@Html.Raw("Kasa Adı".Trans())</label>
+                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Kasa Adı".Trans())</label>
                         <div class="col-md-10">
-                            <input required id="Name" name="Name" placeholder="@Html.Raw("Kasa Adı".Trans())" value="@edit.Ad" class="form-control" type="text">
+                            <input required id="Ad" name="Ad" placeholder="@Html.Raw("Kasa Adı".Trans())" value="@edit.Ad" class="form-control" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Üst Kasa</label>
                         <div class="col-md-10">
-                            <select required class="form-control" id="dp_UstKasaId" name="dp_UstKasaId"></select>
+                            <select class="form-control" id="dp_UstKasaId" name="dp_UstKasaId"></select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Banka</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="dp_BankaId" name="dp_BankaId"></select>
                         </div>
                     </div>
 
@@ -100,9 +104,23 @@
 
 
                     <div class="form-group">
-                        <label class="control-label col-md-2">Banka</label>
+                        <label class="control-label col-md-2" for="GelenTotal">@Html.Raw("Gelen Tutar".Trans())</label>
                         <div class="col-md-10">
-                            <select required class="form-control" id="dp_BankaId" name="dp_BankaId"></select>
+                            <input disabled id="GelenTotal" name="GelenTotal" placeholder="@Html.Raw("Gelen Tutar".Trans())" value="@edit.GelenTotal" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="CekilenTotal">@Html.Raw("Çekilen Tutar".Trans())</label>
+                        <div class="col-md-10">
+                            <input disabled id="CekilenTotal" name="CekilenTotal" placeholder="@Html.Raw("Çekilen Tutar".Trans())" value="@edit.CekilenTotal" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="Total">@Html.Raw("Genel Tutar".Trans())</label>
+                        <div class="col-md-10">
+                            <input disabled id="Total" name="Total" placeholder="@Html.Raw("Genel Tutar".Trans())" value="@edit.Total" class="form-control" type="text">
                         </div>
                     </div>
 
@@ -131,10 +149,18 @@
     $(function () {
         Kasa_EditFunc = {
             getKasa: function () {
-                $('#dp_ParentId').addOptionAjax("/Kasa/GetParent", "", "Id", "Name", function () { }, function () { }, '@Kasa_idUrl_select', '', 'Seçiniz');
-            }, 
+                $('#dp_UstKasaId').addOptionAjax("/Kasa/GetParent", "", "value", "text", function () { }, function () { }, '@Kasa_idUrl_select', '', 'Seçiniz');
+            },
+             getParaBirim: function () {
+                $('#dp_ParaBirimId').addOptionAjax("/ParaBirimi/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.ParaBirimId', '', 'Seçiniz');
+            },
+               getBanka: function () {
+                $('#dp_BankaId').addOptionAjax("/Banka/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.BankaId', '', 'Seçiniz');
+            },
             load: function () {
                 Kasa_EditFunc.getKasa();
+                   Kasa_EditFunc.getParaBirim();
+                   Kasa_EditFunc.getBanka();
 
 
                 $('#' + Kasa_FormName).submit(function (e) {
