@@ -9,7 +9,7 @@ namespace Entity.MuhasebeContext
         {
             HesapAliciKasa = new HashSet<Hesap>();
             HesapIlgiliKasa = new HashSet<Hesap>();
-            AltKasa = new HashSet<Kasa>();
+            InverseUstKasa = new HashSet<Kasa>();
         }
 
         public string Ad { get; set; }
@@ -25,6 +25,6 @@ namespace Entity.MuhasebeContext
         public virtual Kasa UstKasa { get; set; }
         public virtual ICollection<Hesap> HesapAliciKasa { get; set; }
         public virtual ICollection<Hesap> HesapIlgiliKasa { get; set; }
-        public virtual ICollection<Kasa> AltKasa { get; set; }
+        public virtual ICollection<Kasa> InverseUstKasa { get; set; }
     }
 }

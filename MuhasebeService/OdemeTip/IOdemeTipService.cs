@@ -11,13 +11,7 @@ public interface IOdemeTipService : IGenericRepo<OdemeTip>
 {
     RModel<OdemeTip> InsertOrUpdate(OdemeTip model);
 
-    DTResult<OdemeTipModel> GetPagingCustom(
-            Expression<Func<OdemeTip, bool>> filter = null
-           , bool AsNoTracking = true
-           , DTParameters<OdemeTipModel> param = null
-           , bool IsDeletedShow = false
-           , params Expression<Func<OdemeTip, object>>[] includes
-           );
+
 
 }
 

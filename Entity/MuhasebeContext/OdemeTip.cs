@@ -10,6 +10,7 @@ namespace Entity.MuhasebeContext
             Hesap = new HashSet<Hesap>();
         }
 
+     
         public string Ad { get; set; }
         public int? BankaId { get; set; }
 

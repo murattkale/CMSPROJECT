@@ -25,11 +25,11 @@ namespace Entity.MuhasebeContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //            if (!optionsBuilder.IsConfigured)
-            //            {
-            //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-            //                optionsBuilder.UseSqlServer("Server=.;Database=MUHASEBEDB;user id=sa;password=123_*1;MultipleActiveResultSets=True;");
-            //            }
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Server=.;Database=MUHASEBEDB;user id=sa;password=123_*1;MultipleActiveResultSets=True;");
+//            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,7 +48,16 @@ namespace Entity.MuhasebeContext
             modelBuilder.Entity<Hesap>(entity =>
             {
                 entity.Property(e => e.AliciKasaId).HasColumnName("aliciKasaId");
+
+                entity.Property(e => e.CreaDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.IlgiliKasaId).HasColumnName("ilgiliKasaId");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.ModDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.AliciKasa)
                     .WithMany(p => p.HesapAliciKasa)
@@ -58,18 +67,17 @@ namespace Entity.MuhasebeContext
                 entity.HasOne(d => d.HesapTip)
                     .WithMany(p => p.Hesap)
                     .HasForeignKey(d => d.HesapTipId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Hesap_HesapTip");
 
                 entity.HasOne(d => d.IlgiliKasa)
                     .WithMany(p => p.HesapIlgiliKasa)
                     .HasForeignKey(d => d.IlgiliKasaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Hesap_Kasa");
 
                 entity.HasOne(d => d.OdemeTip)
                     .WithMany(p => p.Hesap)
                     .HasForeignKey(d => d.OdemeTipId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Hesap_OdemeTip");
             });
 
@@ -83,9 +91,6 @@ namespace Entity.MuhasebeContext
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
             });
-
-
-
 
             modelBuilder.Entity<Kasa>(entity =>
             {
@@ -106,11 +111,10 @@ namespace Entity.MuhasebeContext
                 entity.HasOne(d => d.ParaBirim)
                     .WithMany(p => p.Kasa)
                     .HasForeignKey(d => d.ParaBirimId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Kasa_ParaBirimi");
 
                 entity.HasOne(d => d.UstKasa)
-                    .WithMany(p => p.AltKasa)
+                    .WithMany(p => p.InverseUstKasa)
                     .HasForeignKey(d => d.UstKasaId)
                     .HasConstraintName("FK_Kasa_Kasa");
             });
@@ -130,7 +134,6 @@ namespace Entity.MuhasebeContext
                 entity.HasOne(d => d.Hesap)
                     .WithMany(p => p.OdemeDetay)
                     .HasForeignKey(d => d.HesapId)
-                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_OdemeDetay_Hesap");
             });
 
@@ -153,11 +156,15 @@ namespace Entity.MuhasebeContext
 
             modelBuilder.Entity<ParaBirimi>(entity =>
             {
+                entity.Property(e => e.Ad).IsRequired();
+
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.Kod).IsRequired();
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
             });

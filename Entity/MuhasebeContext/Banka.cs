@@ -11,6 +11,7 @@ namespace Entity.MuhasebeContext
             OdemeTip = new HashSet<OdemeTip>();
         }
 
+      
         public string Ad { get; set; }
 
         public virtual ICollection<Kasa> Kasa { get; set; }

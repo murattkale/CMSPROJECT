@@ -10,6 +10,7 @@ namespace Entity.MuhasebeContext
             Kasa = new HashSet<Kasa>();
         }
 
+     
         public string Ad { get; set; }
         public string Kod { get; set; }
 

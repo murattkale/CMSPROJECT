@@ -11,12 +11,5 @@ using Entity.MuhasebeContext;
     {
         RModel<ParaBirimi> InsertOrUpdate(ParaBirimi model);
 
-        DTResult<ParaBirimi> GetPaging(
-                    Expression<Func<ParaBirimi, bool>> filter = null
-                   , bool AsNoTracking = true
-                   , DTParameters<ParaBirimi> param = null
-                   , bool IsDeletedShow = false
-                   , params Expression<Func<ParaBirimi, object>>[] includes
-                   );
     }
 
