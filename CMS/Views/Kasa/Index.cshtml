@@ -68,12 +68,14 @@
 
                 var columns = [];
                 columns.push({ "data": "Ad", text: "Kasa Adı" });
-                columns.push({ "data": "UstKasaAd", text: "Bağlı Olunan Kasa" });
+                columns.push({ "data": "UstKasaAd", text: "Bağlı Olduğu Kasa" });
                 columns.push({ "data": "BankaAd", text: "BankaAd" });
                 columns.push({ "data": "ParaBirimAd", text: "Para Birimi" });
                 columns.push({ "data": "GelenTotal", text: "Gelen Toplam" });
-                columns.push({ "data": "Cekilen Total", text: "Çekilen Toplam" });
+                columns.push({ "data": "CekilenTotal", text: "Çekilen Toplam" });
                 columns.push({ "data": "Total", text: "Genel Toplam" });
+
+                columns.push({ "data": "Detail", text: "İşlemler" });
 
                 $.each(columns, function (i, item) {
                     $(dt_Kasa + ' thead tr').append('<td>' + item.text + '</td>');
@@ -82,7 +84,7 @@
 
                 var table = $(dt_Kasa).DataTable({
                     "ajax": {
-                        "url": '/'+control_Name_Kasa + '/GetPaging',
+                        "url": '/' + control_Name_Kasa + '/GetPaging',
                         "type": "POST",
                         "datatype": "json",
                         "data": function (searchModel) {
@@ -103,11 +105,11 @@
 
                                 return_data.push({
                                     'Ad': row.Ad,
-                                    'UstKasaAd': row.Kasa.Ad,
-                                    'BankaAd': row.Banka.Ad,
-                                    'ParaBirimAd': row.ParaBirimi.Ad,
+                                    'UstKasaAd': row.UstKasa == null ? "" : row.UstKasa.Ad,
+                                    'BankaAd': row.Banka == null ? "" : row.Banka.Ad,
+                                    'ParaBirimAd': row.ParaBirim.Ad,
                                     'GelenTotal': row.GelenTotal,
-                                    'GidenTotal': row.GidenTotal,
+                                    'CekilenTotal': row.CekilenTotal,
                                     'Total': row.Total,
 
                                     'Detail': Detail,
@@ -123,7 +125,7 @@
                             alerts("Silinsin mi ?", "yesno", function (result) {
                                 if (result == true) {
                                     $(dt_Kasa).LoadingOverlay("show");
-                                    $.ajx('/'+control_Name_Kasa + "/Delete", { id: dataid }, function (resultData) {
+                                    $.ajx('/' + control_Name_Kasa + "/Delete", { id: dataid }, function (resultData) {
                                         if (resultData && resultData.IsDeleted) {
                                             table.ajax.reload();
                                         }

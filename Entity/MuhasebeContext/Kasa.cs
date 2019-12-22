@@ -17,7 +17,7 @@ namespace Entity.MuhasebeContext
         public int? BankaId { get; set; }
         public int? UstKasaId { get; set; }
         public double? GelenTotal { get; set; }
-        public double? CekilenTotol { get; set; }
+        public double? CekilenTotal { get; set; }
         public double? Total { get; set; }
 
         public virtual Banka Banka { get; set; }

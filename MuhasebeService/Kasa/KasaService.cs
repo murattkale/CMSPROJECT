@@ -9,7 +9,7 @@ namespace Services
 {
     public class KasaService : GenericRepo<Kasa>, IKasaService
     {
-        public KasaService(EFContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public KasaService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Kasa> InsertOrUpdate(Kasa model)
