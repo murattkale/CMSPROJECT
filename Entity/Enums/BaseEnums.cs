@@ -36,6 +36,14 @@ public enum FormType
     ilkteknem = 9,
 }
 
+public enum GelirGiderType
+{
+    [Description("Gelir")]
+    Gelir = 1,
+    [Description("Gider")]
+    Gider = 2,
+}
+
 
 
 

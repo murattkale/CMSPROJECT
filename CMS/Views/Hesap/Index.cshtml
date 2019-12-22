@@ -1,16 +1,16 @@
 ﻿@{
-    string control_Name_Banka = "Banka";
+    string control_Name_Hesap = "Hesap";
 
 }
 
 <script type="text/javascript">
-    var control_Name_Banka = "@control_Name_Banka";
-    var dt_Banka = "#dt_" + control_Name_Banka;
+    var control_Name_Hesap = "@control_Name_Hesap";
+    var dt_Hesap = "#dt_" + control_Name_Hesap;
 </script>
 
 
 
-<!-- begin:: Banka -->
+<!-- begin:: Hesap -->
 <div class="kt-container  kt-grid__item kt-grid__item--fluid">
 
     <div class="kt-portlet kt-portlet--mobile">
@@ -28,7 +28,7 @@
                     <div class="kt-portlet__head-actions">
 
 
-                        <a href="/@control_Name_Banka/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
+                        <a href="/@control_Name_Hesap/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
                             <i class="la la-plus"></i>
                             @Html.Raw(ViewBag.pageTitle + " Ekle")
                         </a>
@@ -39,7 +39,7 @@
 
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
-            <table id="dt_@control_Name_Banka" class="table table-striped- table-bordered table-hover table-checkable">
+            <table id="dt_@control_Name_Hesap" class="table table-striped- table-bordered table-hover table-checkable">
                 <thead>
                     <tr>
                     </tr>
@@ -51,39 +51,46 @@
         </div>
     </div>
 </div>
-<!-- end:: Banka -->
+<!-- end:: Hesap -->
 
 
 
 <script type="text/javascript">
-    var Banka_ListFunc;
+    var Hesap_ListFunc;
     $(function () {
-        Banka_ListFunc = {
+        Hesap_ListFunc = {
             load: function () {
-                Banka_ListFunc.GetPaging();
+                Hesap_ListFunc.GetPaging();
 
             },
 
             GetPaging: function () {
 
                 var columns = [];
-                columns.push({ "data": "Ad", text: "Ad" });
-                //columns.push({ "data": "KasaTipId", text: "KasaTipId" });
+                columns.push({ "data": "HesapTipAd", text: "Hesap Tipi" });
+                columns.push({ "data": "IlgiliKasaAd", text: "İlgili Kasa Adı" });
+                columns.push({ "data": "AliciKasaAd", text: "Alıcı Kasa Adı" });
+                columns.push({ "data": "OdemeTipAd", text: "Ödeme Tipi" });
+                columns.push({ "data": "Tutar", text: "Tutar" });
+                columns.push({ "data": "Aciklama", text: "Not" });
+                columns.push({ "data": "CreaDate", text: "İşlem Tarihi" });
+                columns.push({ "data": "OnayTip", text: "Onay" });
+
                 columns.push({ "data": "Detail", text: "İşlemler" });
 
                 $.each(columns, function (i, item) {
-                    $(dt_Banka + ' thead tr').append('<td>' + item.text + '</td>');
+                    $(dt_Hesap + ' thead tr').append('<td>' + item.text + '</td>');
                 });
 
 
-                var table = $(dt_Banka).DataTable({
+                var table = $(dt_Hesap).DataTable({
                     "ajax": {
-                        "url": '/' + control_Name_Banka + '/GetPaging',
+                        "url": '/' + control_Name_Hesap + '/GetPaging',
                         "type": "POST",
                         "datatype": "json",
                         "data": function (searchModel) {
-                            $(dt_Banka).LoadingOverlay("show");
-                            searchModel.pagingSearchParam = 'BankaName';
+                            $(dt_Hesap).LoadingOverlay("show");
+                            searchModel.pagingSearchParam = 'HesapName';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -92,14 +99,19 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Banka + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
+                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Hesap + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
 
 
-
                                 return_data.push({
-                                    'Ad': row.Ad,
-                                    //'KasaTipId': row.KasaTipId,
+                                    'HesapTipAd': row.HesapTip.Ad,
+                                    'IlgiliKasaAd': row.IlgiliKasa == null ? "" : row.IlgiliKasa.Ad,
+                                    'AliciKasaAd': row.AliciKasa == null ? "" : row.AliciKasa.Ad,
+                                    'OdemeTipAd': row.OdemeTip.Ad,
+                                    'Tutar': row.Tutar,
+                                    'Aciklama': row.Aciklama,
+                                    'CreaDate': row.CreaDate,
+                                    'OnayTip': (row.OnayTip == 1 ? "Onaylı" : "Onaysız"),
 
                                     'Detail': Detail,
                                 })
@@ -109,19 +121,19 @@
                         }
                     },
                     "fnDrawCallback": function (settings, json) {
-                        $(dt_Banka + ' .btnDelete').click(function () {
+                        $(dt_Hesap + ' .btnDelete').click(function () {
                             var dataid = $(this).attr("dataid");
                             alerts("Silinsin mi ?", "yesno", function (result) {
                                 if (result == true) {
-                                    $(dt_Banka).LoadingOverlay("show");
-                                    $.ajx('/' + control_Name_Banka + "/Delete", { id: dataid }, function (resultData) {
+                                    $(dt_Hesap).LoadingOverlay("show");
+                                    $.ajx('/' + control_Name_Hesap + "/Delete", { id: dataid }, function (resultData) {
                                         if (resultData && resultData.IsDeleted) {
                                             table.ajax.reload();
                                         }
                                         else {
                                             alerts(resultData.ResultType.MessageList[0]);
                                         }
-                                        $(dt_Banka).LoadingOverlay("hide");
+                                        $(dt_Hesap).LoadingOverlay("hide");
                                     });
                                 }
                             });
@@ -131,7 +143,7 @@
                         $('.dt-buttons.btn-group.flex-wrap').css('margin-left', '20px');
                         $('.dt-buttons.btn-group.flex-wrap').css('margin-top', '16px');
 
-                        $(dt_Banka).LoadingOverlay("hide");
+                        $(dt_Hesap).LoadingOverlay("hide");
                         ayarlar();
                     },
                     "language": {
@@ -159,7 +171,7 @@
 
 
         }
-        Banka_ListFunc.load();
+        Hesap_ListFunc.load();
 
     });
 

@@ -1,38 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entity
+namespace Entity.MuhasebeContext
 {
-    public partial class Kasa:BaseModel
+    public partial class Kasa : BaseModel
     {
         public Kasa()
         {
-            Hesap = new HashSet<Hesap>();
-            InverseUstKasa = new HashSet<Kasa>();
+            HesapAliciKasa = new HashSet<Hesap>();
+            HesapIlgiliKasa = new HashSet<Hesap>();
+            AltKasa = new HashSet<Kasa>();
         }
 
         public string Ad { get; set; }
-        public int? ParaBirimId { get; set; }
-        public int? KasaTipId { get; set; }
+        public int ParaBirimId { get; set; }
+        public int? BankaId { get; set; }
         public int? UstKasaId { get; set; }
-        public int? SubeId { get; set; }
-        public int? OgrenciId { get; set; }
-        public int? PersonelId { get; set; }
+        public double? GelenTotal { get; set; }
+        public double? CekilenTotol { get; set; }
+        public double? Total { get; set; }
 
-        [ForeignKey(nameof(KasaTipId))]
-        [InverseProperty("Kasa")]
-        public virtual KasaTip KasaTip { get; set; }
-        [ForeignKey(nameof(ParaBirimId))]
-        [InverseProperty(nameof(ParaBirimi.Kasa))]
+        public virtual Banka Banka { get; set; }
         public virtual ParaBirimi ParaBirim { get; set; }
-        [ForeignKey(nameof(UstKasaId))]
-        [InverseProperty(nameof(Kasa.InverseUstKasa))]
         public virtual Kasa UstKasa { get; set; }
-        [InverseProperty("IlgiliKasa")]
-        public virtual ICollection<Hesap> Hesap { get; set; }
-        [InverseProperty(nameof(Kasa.UstKasa))]
-        public virtual ICollection<Kasa> InverseUstKasa { get; set; }
+        public virtual ICollection<Hesap> HesapAliciKasa { get; set; }
+        public virtual ICollection<Hesap> HesapIlgiliKasa { get; set; }
+        public virtual ICollection<Kasa> AltKasa { get; set; }
     }
 }

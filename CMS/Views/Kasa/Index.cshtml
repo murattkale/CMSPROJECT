@@ -1,16 +1,16 @@
 ﻿@{
-    string control_Name_Banka = "Banka";
+    string control_Name_Kasa = "Kasa";
 
 }
 
 <script type="text/javascript">
-    var control_Name_Banka = "@control_Name_Banka";
-    var dt_Banka = "#dt_" + control_Name_Banka;
+    var control_Name_Kasa = "@control_Name_Kasa";
+    var dt_Kasa = "#dt_" + control_Name_Kasa;
 </script>
 
 
 
-<!-- begin:: Banka -->
+<!-- begin:: Content -->
 <div class="kt-container  kt-grid__item kt-grid__item--fluid">
 
     <div class="kt-portlet kt-portlet--mobile">
@@ -28,7 +28,7 @@
                     <div class="kt-portlet__head-actions">
 
 
-                        <a href="/@control_Name_Banka/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
+                        <a href="/@control_Name_Kasa/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
                             <i class="la la-plus"></i>
                             @Html.Raw(ViewBag.pageTitle + " Ekle")
                         </a>
@@ -39,7 +39,7 @@
 
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
-            <table id="dt_@control_Name_Banka" class="table table-striped- table-bordered table-hover table-checkable">
+            <table id="dt_@control_Name_Kasa" class="table table-striped- table-bordered table-hover table-checkable">
                 <thead>
                     <tr>
                     </tr>
@@ -51,39 +51,43 @@
         </div>
     </div>
 </div>
-<!-- end:: Banka -->
+<!-- end:: Content -->
 
 
 
 <script type="text/javascript">
-    var Banka_ListFunc;
+    var Kasa_ListFunc;
     $(function () {
-        Banka_ListFunc = {
+        Kasa_ListFunc = {
             load: function () {
-                Banka_ListFunc.GetPaging();
+                Kasa_ListFunc.GetPaging();
 
             },
 
             GetPaging: function () {
 
                 var columns = [];
-                columns.push({ "data": "Ad", text: "Ad" });
-                //columns.push({ "data": "KasaTipId", text: "KasaTipId" });
-                columns.push({ "data": "Detail", text: "İşlemler" });
+                columns.push({ "data": "Ad", text: "Kasa Adı" });
+                columns.push({ "data": "UstKasaAd", text: "Bağlı Olunan Kasa" });
+                columns.push({ "data": "BankaAd", text: "BankaAd" });
+                columns.push({ "data": "ParaBirimAd", text: "Para Birimi" });
+                columns.push({ "data": "GelenTotal", text: "Gelen Toplam" });
+                columns.push({ "data": "Cekilen Total", text: "Çekilen Toplam" });
+                columns.push({ "data": "Total", text: "Genel Toplam" });
 
                 $.each(columns, function (i, item) {
-                    $(dt_Banka + ' thead tr').append('<td>' + item.text + '</td>');
+                    $(dt_Kasa + ' thead tr').append('<td>' + item.text + '</td>');
                 });
 
 
-                var table = $(dt_Banka).DataTable({
+                var table = $(dt_Kasa).DataTable({
                     "ajax": {
-                        "url": '/' + control_Name_Banka + '/GetPaging',
+                        "url": '/'+control_Name_Kasa + '/GetPaging',
                         "type": "POST",
                         "datatype": "json",
                         "data": function (searchModel) {
-                            $(dt_Banka).LoadingOverlay("show");
-                            searchModel.pagingSearchParam = 'BankaName';
+                            $(dt_Kasa).LoadingOverlay("show");
+                            searchModel.pagingSearchParam = 'Name,Link';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -92,36 +96,41 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Banka + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
+                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Kasa + '/InsertOrUpdatePage?id=' + data[i].Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
 
-
+                                Detail += '<a style="margin-left: 15px;" class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Kasa + '/InsertOrUpdatePage?selectid=' + data[i].Id + '" > ' + 'Alt Menü Ekle' + ' </a > ';
 
                                 return_data.push({
                                     'Ad': row.Ad,
-                                    //'KasaTipId': row.KasaTipId,
+                                    'UstKasaAd': row.Kasa.Ad,
+                                    'BankaAd': row.Banka.Ad,
+                                    'ParaBirimAd': row.ParaBirimi.Ad,
+                                    'GelenTotal': row.GelenTotal,
+                                    'GidenTotal': row.GidenTotal,
+                                    'Total': row.Total,
 
                                     'Detail': Detail,
-                                })
+                                });
 
                             });
                             return return_data;
                         }
                     },
                     "fnDrawCallback": function (settings, json) {
-                        $(dt_Banka + ' .btnDelete').click(function () {
+                        $(dt_Kasa + ' .btnDelete').click(function () {
                             var dataid = $(this).attr("dataid");
                             alerts("Silinsin mi ?", "yesno", function (result) {
                                 if (result == true) {
-                                    $(dt_Banka).LoadingOverlay("show");
-                                    $.ajx('/' + control_Name_Banka + "/Delete", { id: dataid }, function (resultData) {
+                                    $(dt_Kasa).LoadingOverlay("show");
+                                    $.ajx('/'+control_Name_Kasa + "/Delete", { id: dataid }, function (resultData) {
                                         if (resultData && resultData.IsDeleted) {
                                             table.ajax.reload();
                                         }
                                         else {
                                             alerts(resultData.ResultType.MessageList[0]);
                                         }
-                                        $(dt_Banka).LoadingOverlay("hide");
+                                        $(dt_Kasa).LoadingOverlay("hide");
                                     });
                                 }
                             });
@@ -131,7 +140,7 @@
                         $('.dt-buttons.btn-group.flex-wrap').css('margin-left', '20px');
                         $('.dt-buttons.btn-group.flex-wrap').css('margin-top', '16px');
 
-                        $(dt_Banka).LoadingOverlay("hide");
+                        $(dt_Kasa).LoadingOverlay("hide");
                         ayarlar();
                     },
                     "language": {
@@ -159,7 +168,7 @@
 
 
         }
-        Banka_ListFunc.load();
+        Kasa_ListFunc.load();
 
     });
 

@@ -12,41 +12,40 @@ using Entity.MuhasebeContext;
 
 namespace CMS.Controllers
 {
-    public class BankaController : Controller
+    public class OdemeTipController : Controller
     {
-        IBankaService _IBankaService;
-        public BankaController(IBankaService _IBankaService) { this._IBankaService = _IBankaService; }
+        IOdemeTipService _IOdemeTipService;
+        public OdemeTipController(IOdemeTipService _IOdemeTipService) { this._IOdemeTipService = _IOdemeTipService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Banka> param, Banka searchModel)
+        public JsonResult GetPaging(DTParameters<OdemeTip> param, OdemeTip searchModel)
         {
-            var result = _IBankaService.GetPaging(null, true, param, false);
+            var result = _IOdemeTipService.GetPaging(null, true, param, false, o => o.Banka);
             return Json(result);
         }
 
-
-        public JsonResult InsertOrUpdate(Banka postModel)
+        public JsonResult InsertOrUpdate(OdemeTip postModel)
         {
-            var result = _IBankaService.InsertOrUpdate(postModel);
+            var result = _IOdemeTipService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Banka Get(int id)
+        public OdemeTip Get(int id)
         {
-            var result = _IBankaService.Find(id);
+            var result = _IOdemeTipService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IBankaService.Delete(id);
-            _IBankaService.SaveChanges();
+            var result = _IOdemeTipService.Delete(id);
+            _IOdemeTipService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Banka";
+            ViewBag.pageTitle = "OdemeTip";
             return View();
         }
 

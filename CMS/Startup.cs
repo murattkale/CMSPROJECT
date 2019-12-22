@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
+using Entity.MuhasebeContext;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Services;
 
 namespace CMS
@@ -28,20 +31,28 @@ namespace CMS
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            services
+                .AddMvc(option => option.EnableEndpointRouting = false)
+                .AddNewtonsoftJson(opt =>
+                {
+                    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    opt.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                }
+                );
+            ;
+
+
             //unutulmayan hata json result baþ harf küçük > büyük
-            services.AddMvc().AddJsonOptions(o =>
-            {
-                o.JsonSerializerOptions.PropertyNamingPolicy = null;
-                o.JsonSerializerOptions.DictionaryKeyPolicy = null;
-            });
+            //services.AddMvc().AddJsonOptions(o =>
+            //{
+            //    o.JsonSerializerOptions.PropertyNamingPolicy = null;
+            //    o.JsonSerializerOptions.DictionaryKeyPolicy = null;
+            //});
 
 
             services.AddEntityFrameworkSqlServer().AddDbContext<EFContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("EFContext"), b => b.MigrationsAssembly("EFContext")));
-
-            services.AddEntityFrameworkSqlServer().AddDbContext<MuhasebeContext>(opt =>
-          opt.UseSqlServer(Configuration.GetConnectionString("MuhasebeContext"), b => b.MigrationsAssembly("MuhasebeContext")));
-
 
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
@@ -50,8 +61,18 @@ namespace CMS
             services.AddScoped(typeof(IContentService), typeof(ContentService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
 
+
+
+            services.AddEntityFrameworkSqlServer().AddDbContext<MUHASEBEDBContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("MUHASEBEDBContext"), b => b.MigrationsAssembly("MUHASEBEDBContext")));
+
             services.AddScoped(typeof(IBankaService), typeof(BankaService));
             services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
+            services.AddScoped(typeof(IHesapTipService), typeof(HesapTipService));
+            services.AddScoped(typeof(IOdemeTipService), typeof(OdemeTipService));
+
+            services.AddScoped(typeof(IKasaService), typeof(KasaService));
+            services.AddScoped(typeof(IHesapService), typeof(HesapService));
 
 
 
@@ -82,7 +103,7 @@ namespace CMS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Menus}/{action=Index}/{id?}");
+                    pattern: "{controller=Hesap}/{action=Index}/{id?}");
             });
         }
     }

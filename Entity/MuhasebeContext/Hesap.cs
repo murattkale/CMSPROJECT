@@ -1,35 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entity
+namespace Entity.MuhasebeContext
 {
-    public partial class Hesap:BaseModel
+    public partial class Hesap : BaseModel
     {
-        public int? Tip { get; set; }
-        [Column("HesapTipID")]
-        public int? HesapTipId { get; set; }
-        [Column("ilgiliKasaId")]
-        public int? IlgiliKasaId { get; set; }
-        [Column("aliciKasaId")]
-        public int? AliciKasaId { get; set; }
-        public int? KasaTipId { get; set; }
-        [Column(TypeName = "decimal(18, 2)")]
-        public decimal? Tutar { get; set; }
-        [Column("islemTarihi", TypeName = "datetime")]
-        public DateTime? IslemTarihi { get; set; }
-        public string Aciklama { get; set; }
-        public bool? OnayTipId { get; set; }
+        public Hesap()
+        {
+            OdemeDetay = new HashSet<OdemeDetay>();
+        }
 
-        [ForeignKey(nameof(HesapTipId))]
-        [InverseProperty("Hesap")]
-        public virtual HesapTip HesapTip { get; set; }
-        [ForeignKey(nameof(IlgiliKasaId))]
-        [InverseProperty(nameof(Kasa.Hesap))]
+        public int HesapTipId { get; set; }
+        public int IlgiliKasaId { get; set; }
+        public int? AliciKasaId { get; set; }
+        public int OdemeTipId { get; set; }
+        public double Tutar { get; set; }
+        public string Aciklama { get; set; }
+        public bool? OnayTip { get; set; }
+
+        public virtual Kasa AliciKasa { get; set; }
         public virtual Kasa IlgiliKasa { get; set; }
-        [ForeignKey(nameof(KasaTipId))]
-        [InverseProperty("Hesap")]
-        public virtual KasaTip KasaTip { get; set; }
+        public virtual HesapTip HesapTip { get; set; }
+        public virtual OdemeTip OdemeTip { get; set; }
+        public virtual ICollection<OdemeDetay> OdemeDetay { get; set; }
     }
 }

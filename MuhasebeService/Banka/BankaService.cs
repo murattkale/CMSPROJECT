@@ -3,21 +3,20 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
-using Entity;
 using System;
+using Entity.MuhasebeContext;
 
-namespace Services
-{
-    public class ParaBirimiService : GenericRepo<ParaBirimi>, IParaBirimiService
+
+    public class BankaService : GenericRepo<Banka>, IBankaService
     {
 
 
-        public ParaBirimiService(MuhasebeContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public BankaService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
-        public RModel<ParaBirimi> InsertOrUpdate(ParaBirimi model)
+        public RModel<Banka> InsertOrUpdate(Banka model)
         {
-            RModel<ParaBirimi> res = new RModel<ParaBirimi>();
+            RModel<Banka> res = new RModel<Banka>();
             res.ResultType = new ResultType();
             res.ResultType.MessageList = new List<string>();
 
@@ -51,4 +50,4 @@ namespace Services
 
 
     }
-}
+

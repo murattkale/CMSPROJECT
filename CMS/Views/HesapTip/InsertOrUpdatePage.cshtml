@@ -1,29 +1,29 @@
 ﻿@using Entity.MuhasebeContext
 @{
     Layout = null;
-    string pageTitle = "ParaBirimi";
-    string ParaBirimi_ControlNameUrl = "ParaBirimi";
-    string FormName = "frm_" + ParaBirimi_ControlNameUrl + "_";
-    int ParaBirimi_idUrl = Context.Request.Query["id"].ToInt();
-    var ParaBirimi_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = ParaBirimi_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string pageTitle = "HesapTip";
+    string HesapTip_ControlNameUrl = "HesapTip";
+    string FormName = "frm_" + HesapTip_ControlNameUrl + "_";
+    int HesapTip_idUrl = Context.Request.Query["id"].ToInt();
+    var HesapTip_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = HesapTip_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as ParaBirimi;
+    var edit = ViewBag.edit as HesapTip;
     if (edit == null)
     {
-        edit = new ParaBirimi();
+        edit = new HesapTip();
     }
     else
     {
-        //ParaBirimi_idUrl_select = edit.KasaTipId.ToStr();
+        //HesapTip_idUrl_select = edit.KasaTipId.ToStr();
     }
 
 }
 
 <script type="text/javascript">
-        var ParaBirimi_FormName = "@Html.Raw(FormName)";
-        var ParaBirimi_ControlNameUrl = "@ParaBirimi_ControlNameUrl";
-    var ParaBirimi_idUrl = @ParaBirimi_idUrl;
+        var HesapTip_FormName = "@Html.Raw(FormName)";
+        var HesapTip_ControlNameUrl = "@HesapTip_ControlNameUrl";
+    var HesapTip_idUrl = @HesapTip_idUrl;
 
 </script>
 
@@ -37,7 +37,7 @@
 
 
 
-<!-- begin:: ParaBirimi -->
+<!-- begin:: HesapTip -->
 <div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
 
     <div class="kt-portlet kt-portlet--mobile">
@@ -75,16 +75,19 @@
 
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Ad".Trans())</label>
+                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Adı".Trans())</label>
                         <div class="col-md-10">
-                            <input required id="Ad" name="Ad" placeholder="@Html.Raw("Ad".Trans())" value="@edit.Ad" class="form-control" type="text">
+                            <input required id="HesapTipName" name="Ad" placeholder="@Html.Raw("HesapTip Adı".Trans())" value="@edit.Ad" class="form-control" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Kod".Trans())</label>
+                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Gelir Gider Tipi".Trans())</label>
                         <div class="col-md-10">
-                            <input required id="Kod" name="Kod" placeholder="@Html.Raw("Kod".Trans())" value="@edit.Kod" class="form-control" type="text">
+                            <select required id="dp_GelirGiderTipi" name="dp_GelirGiderTipi" class="form-control">
+                                <option value="1">Gelir</option>
+                                <option value="2">Gider</option>
+                            </select>
                         </div>
                     </div>
 
@@ -101,28 +104,28 @@
         </div>
     </div>
 </div>
-<!-- end:: ParaBirimi -->
+<!-- end:: HesapTip -->
 
 
 
 
 
 <script type="text/javascript">
-    var ParaBirimi_EditFunc;
+    var HesapTip_EditFunc;
     var customComment = "";
     $(function () {
-        ParaBirimi_EditFunc = {
+        HesapTip_EditFunc = {
             load: function () {
-                ParaBirimi_EditFunc.GetParent();
+                HesapTip_EditFunc.GetParent();
 
-                $('#' + ParaBirimi_FormName).submit(function (e) {
+                $('#' + HesapTip_FormName).submit(function (e) {
                     e.preventDefault();
-                    var postModel = $.fn.toForm("#" + ParaBirimi_FormName);
+                    var postModel = $.fn.toForm("#" + HesapTip_FormName);
                     $.LoadingOverlay("show");
 
-                    $.ajx(ParaBirimi_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajx(HesapTip_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
-                            ParaBirimi_ListFunc.GetPaging();
+                            HesapTip_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
                         }
                         else {
@@ -137,7 +140,7 @@
 
 
         };
-        ParaBirimi_EditFunc.load();
+        HesapTip_EditFunc.load();
     });
 
 

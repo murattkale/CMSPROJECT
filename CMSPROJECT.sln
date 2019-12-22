@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMS", "CMS\CMS.csproj", "{7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ilkteknem", "ilkteknem\ilkteknem.csproj", "{06224757-F827-4CF5-A138-FCD59285E5E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "siteProject", "siteProject\siteProject.csproj", "{DB087CC8-85FA-4E8D-8C9A-5529EA031DCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "siteProject", "siteProject\siteProject.csproj", "{DB087CC8-85FA-4E8D-8C9A-5529EA031DCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuhasebeService", "MuhasebeService\MuhasebeService.csproj", "{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,10 @@ Global
 		{DB087CC8-85FA-4E8D-8C9A-5529EA031DCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB087CC8-85FA-4E8D-8C9A-5529EA031DCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB087CC8-85FA-4E8D-8C9A-5529EA031DCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

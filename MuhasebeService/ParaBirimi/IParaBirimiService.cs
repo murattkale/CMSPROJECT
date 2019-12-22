@@ -3,11 +3,10 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
-using Entity;
 using System;
+using Entity.MuhasebeContext;
 
-namespace Services
-{
+
     public interface IParaBirimiService : IGenericRepo<ParaBirimi>
     {
         RModel<ParaBirimi> InsertOrUpdate(ParaBirimi model);
@@ -20,4 +19,4 @@ namespace Services
                    , params Expression<Func<ParaBirimi, object>>[] includes
                    );
     }
-}
+

@@ -1,4 +1,4 @@
-﻿@using Entity
+﻿@using Entity.MuhasebeContext
 @{
     Layout = null;
     string pageTitle = "Banka";
@@ -77,7 +77,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-2" for="Ad">@Html.Raw("Banka Adı".Trans())</label>
                         <div class="col-md-10">
-                            <input required id="BankaName" name="Ad" placeholder="@Html.Raw("Banka Adı".Trans())" class="form-control" type="text">
+                            <input required id="BankaName" name="Ad" placeholder="@Html.Raw("Banka Adı".Trans())" value="@edit.Ad" class="form-control" type="text">
                         </div>
                     </div>
 

@@ -12,41 +12,40 @@ using Entity.MuhasebeContext;
 
 namespace CMS.Controllers
 {
-    public class BankaController : Controller
+    public class HesapController : Controller
     {
-        IBankaService _IBankaService;
-        public BankaController(IBankaService _IBankaService) { this._IBankaService = _IBankaService; }
+        IHesapService _IHesapService;
+        public HesapController(IHesapService _IHesapService) { this._IHesapService = _IHesapService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Banka> param, Banka searchModel)
+        public JsonResult GetPaging(DTParameters<Hesap> param, Hesap searchModel)
         {
-            var result = _IBankaService.GetPaging(null, true, param, false);
+            var result = _IHesapService.GetPaging(null, true, param, false, o => o.HesapTip, o => o.IlgiliKasa, o => o.AliciKasa, o => o.OdemeTip);
             return Json(result);
         }
 
-
-        public JsonResult InsertOrUpdate(Banka postModel)
+        public JsonResult InsertOrUpdate(Hesap postModel)
         {
-            var result = _IBankaService.InsertOrUpdate(postModel);
+            var result = _IHesapService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Banka Get(int id)
+        public Hesap Get(int id)
         {
-            var result = _IBankaService.Find(id);
+            var result = _IHesapService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IBankaService.Delete(id);
-            _IBankaService.SaveChanges();
+            var result = _IHesapService.Delete(id);
+            _IHesapService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Banka";
+            ViewBag.pageTitle = "Hesap";
             return View();
         }
 
