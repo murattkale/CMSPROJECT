@@ -24,6 +24,13 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IHesapTipService.Where().Result.Select(o => new { value = o.Id, text = o.Ad + " (" + ((GelirGiderType)o.GelirGiderTipi).ExGetDescription() + ")" });
+            return Json(result);
+        }
+
         public JsonResult InsertOrUpdate(HesapTip postModel)
         {
             var result = _IHesapTipService.InsertOrUpdate(postModel);

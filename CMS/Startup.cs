@@ -73,6 +73,7 @@ namespace CMS
 
             services.AddScoped(typeof(IKasaService), typeof(KasaService));
             services.AddScoped(typeof(IHesapService), typeof(HesapService));
+            services.AddScoped(typeof(IOdemeDetayService), typeof(OdemeDetayService));
 
 
 
@@ -103,7 +104,7 @@ namespace CMS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Hesap}/{action=Index}/{id?}");
+                    pattern: "{controller=Kasa}/{action=Index}/{id?}");
             });
         }
     }

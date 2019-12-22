@@ -71,17 +71,52 @@
                     <input type="hidden" id="IsDeleted" name="IsDeleted" value="@edit.IsDeleted" />
                     <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
                     <input type="hidden" id="KurumId" name="KurumId" value="1" />
+                    <input type="hidden" id="OnayTip" name="OnayTip" value="@Html.Raw(edit.OnayTip == true ? true:false)" />
 
 
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Adı".Trans())</label>
+                        <label class="control-label col-md-2">İlgili Kasa</label>
                         <div class="col-md-10">
-                            <input required id="HesapName" name="Ad" placeholder="@Html.Raw("Hesap Adı".Trans())" value="@edit.HesapTip.Ad" class="form-control" type="text">
+                            <select required class="form-control" id="dp_IlgiliKasaId" name="dp_IlgiliKasaId"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Hesap Tipi</label>
+                        <div class="col-md-10">
+                            <select required class="form-control" id="dp_HesapTipId" name="dp_HesapTipId"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Ödeme Tipi</label>
+                        <div class="col-md-10">
+                            <select required class="form-control" id="dp_OdemeTipId" name="dp_OdemeTipId"></select>
                         </div>
                     </div>
 
 
+                    <div class="form-group div_alici d-none">
+                        <label class="control-label col-md-2">Alici Kasa</label>
+                        <div class="col-md-10">
+                            <select required class="form-control" id="dp_AliciKasaId" name="dp_AliciKasaId"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="Name">@Html.Raw("Tutar".Trans())</label>
+                        <div class="col-md-10">
+                            <input required id="Tutar" name="Tutar" placeholder="@Html.Raw("Tutar".Trans())" value="@edit.Tutar" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2" for="Aciklama">@Html.Raw("Açıklama".Trans())</label>
+                        <div class="col-md-10">
+                            <textarea id="Aciklama" name="Aciklama" placeholder="@Html.Raw("Açıklama".Trans())" class="form-control">@Html.Raw(edit.Aciklama)</textarea>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
@@ -105,8 +140,33 @@
     var customComment = "";
     $(function () {
         Hesap_EditFunc = {
+             getHesapTip: function () {
+                $('#dp_HesapTipId').addOptionAjax("/HesapTip/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.HesapTipId', '', 'Seçiniz');
+            },
+              getOdemeTip: function () {
+                  $('#dp_OdemeTipId').addOptionAjax("/OdemeTip/GetSelect", "", "value", "text", function () {
+                      if ($("#dp_OdemeTipId option:selected").text().toUpperCase() == "ÇEK") {
+                          $('.div_alici').removeClass("d-none");
+                      }
+                      else {
+                          $('.div_alici').addClass("d-none");
+
+                      }
+                  }, function () { }, '@edit.OdemeTipId', '', 'Seçiniz');
+            },
+
+
             load: function () {
-                Hesap_EditFunc.GetParent();
+                Hesap_EditFunc.getHesapTip();
+                Hesap_EditFunc.getOdemeTip();
+
+
+
+                $('#' + Hesap_FormName + ' textarea').each(function () {
+                    if (CKEDITOR.instances[$(this).attr('name')])
+                        CKEDITOR.instances[$(this).attr('name')].destroy();
+                    CKEDITOR.replace($(this).attr('name'));
+                });
 
                 $('#' + Hesap_FormName).submit(function (e) {
                     e.preventDefault();

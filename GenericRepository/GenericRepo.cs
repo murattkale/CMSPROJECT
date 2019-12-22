@@ -83,14 +83,14 @@ namespace GenericRepository
                 {
                     if (!IsDeletedShow)
                     {
-                        if (!AsNoTracking)
+                        if (AsNoTracking)
                             query = includes.Aggregate(query, (current, include) => current.AsNoTracking().Include(include).Where(o => o.IsDeleted == null));
                         else
                             query = includes.Aggregate(query, (current, include) => current.Include(include).Where(o => o.IsDeleted == null));
                     }
                     else
                     {
-                        if (!AsNoTracking)
+                        if (AsNoTracking)
                             query = includes.Aggregate(query, (current, include) => current.AsNoTracking().Include(include));
                         else
                             query = includes.Aggregate(query, (current, include) => current.Include(include));

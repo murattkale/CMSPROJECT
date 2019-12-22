@@ -24,6 +24,14 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IOdemeTipService.Where(null, true, false, o => o.Banka).Result
+                .Select(o => new { value = o.Id, text = o.Ad + (o.Banka == null ? "" : " (" + o.Banka.Ad + ")") });
+            return Json(result);
+        }
+
         public JsonResult InsertOrUpdate(OdemeTip postModel)
         {
             var result = _IOdemeTipService.InsertOrUpdate(postModel);

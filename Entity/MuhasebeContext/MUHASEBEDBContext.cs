@@ -48,9 +48,6 @@ namespace Entity.MuhasebeContext
             modelBuilder.Entity<Hesap>(entity =>
             {
                 entity.Property(e => e.AliciKasaId).HasColumnName("aliciKasaId");
-
-                entity.Property(e => e.HesapTipId).HasColumnName("HesapTipID");
-
                 entity.Property(e => e.IlgiliKasaId).HasColumnName("ilgiliKasaId");
 
                 entity.HasOne(d => d.AliciKasa)

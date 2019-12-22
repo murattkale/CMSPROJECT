@@ -24,6 +24,28 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IHesapService.Where(null, true, false, o => o.HesapTip, o => o.IlgiliKasa, o => o.AliciKasa, o => o.OdemeTip).Result
+                .Select(o => new
+                {
+                    value = o.Id,
+                    text =
+                    //o.IlgiliKasa.Ad
+                     o.HesapTip.Ad + " / "
+
+                    + (o.OdemeTip.Banka == null ? "" : " / " + o.OdemeTip.Banka.Ad + " / ")
+                    + o.OdemeTip.Ad + " / "
+                    + (o.AliciKasa == null ? "" : " / " + o.AliciKasa.Ad + " / ")
+
+
+
+                }).ToList();
+            return Json(result);
+        }
+
+
         public JsonResult InsertOrUpdate(Hesap postModel)
         {
             var result = _IHesapService.InsertOrUpdate(postModel);
