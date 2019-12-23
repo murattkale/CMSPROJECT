@@ -15,7 +15,14 @@ namespace CMS.Controllers
     public class OdemeDetayController : Controller
     {
         IOdemeDetayService _IOdemeDetayService;
-        public OdemeDetayController(IOdemeDetayService _IOdemeDetayService) { this._IOdemeDetayService = _IOdemeDetayService; }
+        IHesapService _IHesapService;
+        public OdemeDetayController(IOdemeDetayService _IOdemeDetayService,
+            IHesapService _IHesapService
+            ) { 
+            this._IOdemeDetayService = _IOdemeDetayService; 
+            this._IHesapService = _IHesapService; 
+        
+        }
 
         [HttpPost]
         public JsonResult GetPaging(DTParameters<OdemeDetay> param, OdemeDetay searchModel)
@@ -32,7 +39,7 @@ namespace CMS.Controllers
 
         public OdemeDetay Get(int id)
         {
-            var result = _IOdemeDetayService.Where(o=>o.HesapId == id).Result.FirstOrDefault();
+            var result = _IOdemeDetayService.Where(o => o.HesapId == id, true, false, o => o.Hesap).Result.FirstOrDefault();
             return (result);
         }
 
@@ -52,6 +59,9 @@ namespace CMS.Controllers
         public IActionResult InsertOrUpdatePage()
         {
             ViewBag.edit = Get(Request.Query["id"].ToInt());
+
+            ViewBag.edit_Hesap = _IHesapService.Where(o => o.Id == Request.Query["id"].ToInt(), true, false, o => o.OdemeTip).Result.FirstOrDefault();
+
             return View();
         }
 

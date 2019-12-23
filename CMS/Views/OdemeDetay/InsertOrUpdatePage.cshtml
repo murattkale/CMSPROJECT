@@ -9,6 +9,9 @@
     string title = OdemeDetay_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
 
     var edit = ViewBag.edit as OdemeDetay;
+
+    var edit_Hesap = ViewBag.edit_Hesap as Hesap;
+
     if (edit == null)
     {
         edit = new OdemeDetay();
@@ -81,77 +84,80 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="BankaSubesi">@Html.Raw("BankaSubesi".Trans())</label>
                         <div class="col-md-10">
                             <input id="BankaSubesi" name="BankaSubesi" placeholder="@Html.Raw("BankaSubesi".Trans())" value="@edit.BankaSubesi" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="BankaHesapNo">@Html.Raw("BankaHesapNo".Trans())</label>
                         <div class="col-md-10">
                             <input id="BankaHesapNo" name="BankaHesapNo" placeholder="@Html.Raw("BankaHesapNo".Trans())" value="@edit.BankaHesapNo" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="Borclu">@Html.Raw("Borclu".Trans())</label>
                         <div class="col-md-10">
                             <input id="Borclu" name="Borclu" placeholder="@Html.Raw("Borclu".Trans())" value="@edit.Borclu" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="CekFazlasi">@Html.Raw("CekFazlasi".Trans())</label>
                         <div class="col-md-10">
                             <input id="CekFazlasi" name="CekFazlasi" placeholder="@Html.Raw("CekFazlasi".Trans())" value="@edit.CekFazlasi" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="VadeTarihi">@Html.Raw("VadeTarihi".Trans())</label>
                         <div class="col-md-10">
                             <input id="VadeTarihi" name="VadeTarihi" placeholder="@Html.Raw("VadeTarihi".Trans())" value="@edit.VadeTarihi" class="form-control" type="datetime">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="CekNo">@Html.Raw("CekNo".Trans())</label>
                         <div class="col-md-10">
                             <input id="CekNo" name="CekNo" placeholder="@Html.Raw("CekNo".Trans())" value="@edit.CekNo" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="EnSonCiroEden">@Html.Raw("EnSonCiroEden".Trans())</label>
                         <div class="col-md-10">
                             <input id="EnSonCiroEden" name="EnSonCiroEden" placeholder="@Html.Raw("EnSonCiroEden".Trans())" value="@edit.EnSonCiroEden" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group cek">
                         <label class="control-label col-md-2" for="EkBilgi">@Html.Raw("EkBilgi".Trans())</label>
                         <div class="col-md-10">
                             <input id="EkBilgi" name="EkBilgi" placeholder="@Html.Raw("EkBilgi".Trans())" value="@edit.EkBilgi" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+
+                    <div class="form-group pos">
                         <label class="control-label col-md-2" for="KullanilanKartTuru">@Html.Raw("KullanilanKartTuru".Trans())</label>
                         <div class="col-md-10">
-                            <input id="KullanilanKartTuru" name="KullanilanKartTuru" placeholder="@Html.Raw("KullanilanKartTuru".Trans())" value="@edit.KullanilanKartTuru" class="form-control" type="text">
+                            <select class="form-control" id="dp_KullanilanKartTuru" name="dp_KullanilanKartTuru">
+                            </select>
+
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group pos">
                         <label class="control-label col-md-2" for="SlipOnayKodu">@Html.Raw("SlipOnayKodu".Trans())</label>
                         <div class="col-md-10">
                             <input id="SlipOnayKodu" name="SlipOnayKodu" placeholder="@Html.Raw("SlipOnayKodu".Trans())" value="@edit.SlipOnayKodu" class="form-control" type="text">
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group pos">
                         <label class="control-label col-md-2" for="TaksitSayisi">@Html.Raw("TaksitSayisi".Trans())</label>
                         <div class="col-md-10">
                             <input id="TaksitSayisi" name="TaksitSayisi" placeholder="@Html.Raw("TaksitSayisi".Trans())" value="@edit.TaksitSayisi" class="form-control" type="number">
@@ -177,21 +183,40 @@
 
 
 
-
+<script>
+    var odemetip = "@edit_Hesap.OdemeTip.Ad";
+    var HesapId = "@edit_Hesap.Id";
+    var KullanilanKartTuru = "@edit.KullanilanKartTuru";
+</script>
 
 <script type="text/javascript">
     var OdemeDetay_EditFunc;
     var customComment = "";
     $(function () {
         OdemeDetay_EditFunc = {
-             getHesap: function () {
-                $('#dp_HesapId').addOptionAjax("/Hesap/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.HesapId', '', 'Seçiniz');
+            getHesap: function () {
+                $('#dp_HesapId').addOptionAjax("/Hesap/GetSelect", "", "value", "text", function () { }, function () { }, HesapId, '', 'Seçiniz');
             },
-           
 
 
             load: function () {
                 OdemeDetay_EditFunc.getHesap();
+
+                var datas = [];
+                datas.push({ text: 'Aynı Banka Kredi Kartı', value: 'Aynı Banka Kredi Kartı' });
+                datas.push({ text: 'Farklı Banka Kredi Kartı', value: 'Farklı Banka Kredi Kartı' });
+                $('#dp_KullanilanKartTuru').addOption(datas, "value", "text", function () { }, function () { }, KullanilanKartTuru, '', 'Seçiniz');
+
+
+                if (odemetip == "POS") {
+                    $('.pos').removeClass("d-none");
+                    $('.cek').addClass("d-none");
+                }
+                else {
+                    $('.pos').addClass("d-none");
+                    $('.cek').removeClass("d-none");
+
+                }
 
                 $('#' + OdemeDetay_FormName).submit(function (e) {
                     e.preventDefault();
