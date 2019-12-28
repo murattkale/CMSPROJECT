@@ -8,11 +8,11 @@ namespace Entity.CMSDB
         public Kurum()
         {
             Brans = new HashSet<Brans>();
-            Kasa = new HashSet<Kasa>();
             Sezon = new HashSet<Sezon>();
             Sube = new HashSet<Sube>();
         }
 
+       
         public string Ad { get; set; }
         public int SehirId { get; set; }
         public int IlceId { get; set; }
@@ -36,7 +36,6 @@ namespace Entity.CMSDB
         public virtual Town Ilce { get; set; }
         public virtual City Sehir { get; set; }
         public virtual ICollection<Brans> Brans { get; set; }
-        public virtual ICollection<Kasa> Kasa { get; set; }
         public virtual ICollection<Sezon> Sezon { get; set; }
         public virtual ICollection<Sube> Sube { get; set; }
     }

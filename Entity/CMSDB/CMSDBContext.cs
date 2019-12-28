@@ -41,11 +41,6 @@ namespace Entity.CMSDB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=.;Database=CMSDB;user id=sa;password=123_*1;MultipleActiveResultSets=True;");
-//            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -65,9 +60,7 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -76,6 +69,7 @@ namespace Entity.CMSDB
                 entity.HasOne(d => d.Kurum)
                     .WithMany(p => p.Brans)
                     .HasForeignKey(d => d.KurumId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Brans_Kurum");
             });
 
@@ -83,9 +77,7 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.CityName).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -96,9 +88,7 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -168,20 +158,10 @@ namespace Entity.CMSDB
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Kasa_Banka");
 
-                entity.HasOne(d => d.Kurum)
-                    .WithMany(p => p.Kasa)
-                    .HasForeignKey(d => d.KurumId)
-                    .HasConstraintName("FK_Kasa_Kurum");
-
                 entity.HasOne(d => d.ParaBirim)
                     .WithMany(p => p.Kasa)
                     .HasForeignKey(d => d.ParaBirimId)
                     .HasConstraintName("FK_Kasa_ParaBirimi");
-
-                entity.HasOne(d => d.Sube)
-                    .WithMany(p => p.Kasa)
-                    .HasForeignKey(d => d.SubeId)
-                    .HasConstraintName("FK_Kasa_Sube");
 
                 entity.HasOne(d => d.UstKasa)
                     .WithMany(p => p.InverseUstKasa)
@@ -193,11 +173,11 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.ModDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Ilce)
                     .WithMany(p => p.Kurum)
@@ -264,9 +244,9 @@ namespace Entity.CMSDB
 
             modelBuilder.Entity<Permissions>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -285,9 +265,9 @@ namespace Entity.CMSDB
 
             modelBuilder.Entity<Roles>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -296,25 +276,13 @@ namespace Entity.CMSDB
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
-
-                entity.HasOne(d => d.Parent)
-                    .WithMany(p => p.InverseParent)
-                    .HasForeignKey(d => d.ParentId)
-                    .HasConstraintName("FK_Roles_Roles");
-
-                entity.HasOne(d => d.StartPage)
-                    .WithMany(p => p.Roles)
-                    .HasForeignKey(d => d.StartPageId)
-                    .HasConstraintName("FK_Roles_ServiceConfig");
             });
 
             modelBuilder.Entity<Seans>(entity =>
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -323,9 +291,7 @@ namespace Entity.CMSDB
 
             modelBuilder.Entity<ServiceConfig>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Description).HasMaxLength(1000);
 
@@ -355,9 +321,9 @@ namespace Entity.CMSDB
 
             modelBuilder.Entity<ServiceConfigAuth>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -389,9 +355,7 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -400,6 +364,7 @@ namespace Entity.CMSDB
                 entity.HasOne(d => d.Kurum)
                     .WithMany(p => p.Sezon)
                     .HasForeignKey(d => d.KurumId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Sezon_Kurum");
             });
 
@@ -407,9 +372,7 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -425,17 +388,21 @@ namespace Entity.CMSDB
                     .HasForeignKey(d => d.SeansId)
                     .HasConstraintName("FK_Sinif_Seans");
 
+                entity.HasOne(d => d.SorumluKisi)
+                    .WithMany(p => p.Sinif)
+                    .HasForeignKey(d => d.SorumluKisiId)
+                    .HasConstraintName("FK_Sinif_Users");
+
                 entity.HasOne(d => d.Sube)
                     .WithMany(p => p.Sinif)
                     .HasForeignKey(d => d.SubeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Sinif_Sube");
             });
 
             modelBuilder.Entity<SinifOgrenci>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -458,39 +425,32 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
+                entity.HasOne(d => d.Ilce)
+                    .WithMany(p => p.Sube)
+                    .HasForeignKey(d => d.IlceId)
+                    .HasConstraintName("FK_Sube_Town");
 
                 entity.HasOne(d => d.Kurum)
                     .WithMany(p => p.Sube)
                     .HasForeignKey(d => d.KurumId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Sube_Kurum");
-
-                entity.HasOne(d => d.Ilce)
-                  .WithMany(p => p.Sube)
-                  .HasForeignKey(d => d.IlceId)
-                  .OnDelete(DeleteBehavior.ClientSetNull)
-                  .HasConstraintName("FK_Sube_Town");
 
                 entity.HasOne(d => d.Sehir)
                     .WithMany(p => p.Sube)
                     .HasForeignKey(d => d.SehirId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Sube_City");
-
             });
 
             modelBuilder.Entity<Town>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -502,14 +462,12 @@ namespace Entity.CMSDB
                     .WithMany(p => p.Town)
                     .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Town__CityId__1F2E9E6D");
+                    .HasConstraintName("FK_Town_City");
             });
 
             modelBuilder.Entity<UserRoles>(entity =>
             {
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
@@ -519,11 +477,6 @@ namespace Entity.CMSDB
                     .WithMany(p => p.UserRoles)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_UserRoles_Roles");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserRoles)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_UserRoles_Users");
             });
 
             modelBuilder.Entity<Users>(entity =>
@@ -534,9 +487,7 @@ namespace Entity.CMSDB
 
                 entity.Property(e => e.BirdhDay).HasColumnType("datetime");
 
-                entity.Property(e => e.CreaDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreaDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Image).HasMaxLength(1000);
 

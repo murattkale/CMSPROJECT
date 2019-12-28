@@ -5,14 +5,7 @@ namespace Entity.CMSDB
 {
     public partial class OdemeDetay : BaseModel
     {
-        public int Id { get; set; }
-        public int CreaUser { get; set; }
-        public DateTime CreaDate { get; set; }
-        public int? ModUser { get; set; }
-        public DateTime? ModDate { get; set; }
-        public int? OrderNo { get; set; }
-        public DateTime? IsDeleted { get; set; }
-        public int? IsStatus { get; set; }
+      
         public int HesapId { get; set; }
         public string BankaSubesi { get; set; }
         public string BankaHesapNo { get; set; }

@@ -7,22 +7,14 @@ namespace Entity.CMSDB
     {
         public Sube()
         {
-            Kasa = new HashSet<Kasa>();
             Sinif = new HashSet<Sinif>();
         }
 
-        public int Id { get; set; }
-        public int CreaUser { get; set; }
-        public DateTime CreaDate { get; set; }
-        public int? ModUser { get; set; }
-        public DateTime? ModDate { get; set; }
-        public int? OrderNo { get; set; }
-        public DateTime? IsDeleted { get; set; }
-        public int? IsStatus { get; set; }
+       
         public int KurumId { get; set; }
         public string Ad { get; set; }
-        public int SehirId { get; set; }
-        public int IlceId { get; set; }
+        public int? SehirId { get; set; }
+        public int? IlceId { get; set; }
         public string Adres { get; set; }
         public string Telefon { get; set; }
         public string Cep { get; set; }
@@ -41,10 +33,8 @@ namespace Entity.CMSDB
         public string VergiDairesi { get; set; }
 
         public virtual Town Ilce { get; set; }
-        public virtual City Sehir { get; set; }
-
         public virtual Kurum Kurum { get; set; }
-        public virtual ICollection<Kasa> Kasa { get; set; }
+        public virtual City Sehir { get; set; }
         public virtual ICollection<Sinif> Sinif { get; set; }
     }
 }

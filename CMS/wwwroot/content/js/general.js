@@ -248,6 +248,7 @@ function alerts(message, button, call) {
             }
         }
         $(id + ' select[disabled],' + id + ' select').each(function () {
+
             var dp = $(this).attr('name');
             if (dp.indexOf('dp_') != -1) {
                 dp = dp.substr(3, dp.length - 1);

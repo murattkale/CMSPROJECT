@@ -102,7 +102,14 @@
                     <div class="form-group">
                         <label class="control-label col-md-2">Derslik</label>
                         <div class="col-md-10">
-                            <select class="form-control" id="dp_Derslik" name="dp_Derslik"></select>
+                            <select class="form-control" id="dp_DerslikId" name="dp_DerslikId"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Seans</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="dp_SeansId" name="dp_SeansId"></select>
                         </div>
                     </div>
 
@@ -165,19 +172,22 @@
              getDerslik: function () {
                         $('#dp_DerslikId').addOptionAjax("/Derslik/GetSelect", null, "value", "text", function () {  }, function () { }, '@edit.DerslikId', '', 'Seçiniz');
             },
+                 getSeans: function () {
+                        $('#dp_SeansId').addOptionAjax("/Seans/GetSelect", null, "value", "text", function () {  }, function () { }, '@edit.SeansId', '', 'Seçiniz');
+            },
             getTur: function () {
                 var selectData = [];
                 selectData.push({text:'TÜR 1',value:'TÜR 1'});
                 selectData.push({text:'TÜR 2',value:'TÜR 2'});
-                selectData.push({text:'TÜR 3',value:'TÜR 3'});
-                        $('#dp_Tur').addOption(selectData, "value", "text", function () {  }, function () { }, '@edit.Tur', '', 'Seçiniz');
+                selectData.push({ text: 'TÜR 3', value: 'TÜR 3' });
+                        $('#dp_Tur').addOption(selectData, "value", "text", function () {  }, function () { }, '@Html.Raw(edit.Tur)', '', 'Seçiniz');
             },
             getSeviye: function () {
                     var selectData = [];
                 selectData.push({text:'SEVİYE 1',value:'SEVİYE 1'});
                 selectData.push({text:'SEVİYE 2',value:'SEVİYE 2'});
                 selectData.push({text:'SEVİYE 3',value:'SEVİYE 3'});
-                        $('#dp_Seviye').addOption(selectData, "value", "text", function () {  }, function () { }, '@edit.Seviye', '', 'Seçiniz');
+                        $('#dp_Seviye').addOption(selectData, "value", "text", function () {  }, function () { }, '@Html.Raw(edit.Seviye)', '', 'Seçiniz');
             },
 
             load: function () {
@@ -186,6 +196,8 @@
                 Sinif_EditFunc.getSeviye();
                 Sinif_EditFunc.getDerslik();
                 Sinif_EditFunc.getSube();
+                Sinif_EditFunc.getSeans();
+
 
                 $('#' + Sinif_FormName).submit(function (e) {
                     e.preventDefault();
