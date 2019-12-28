@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class Seans : BaseModel
+    public partial class Town : BaseModel
     {
-        public Seans()
+        public Town()
         {
-            Sinif = new HashSet<Sinif>();
+            Kurum = new HashSet<Kurum>();
         }
 
         public int Id { get; set; }
@@ -18,8 +18,10 @@ namespace Entity.MuhasebeContext
         public int? OrderNo { get; set; }
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
-        public string Ad { get; set; }
+        public int CityId { get; set; }
+        public string TownName { get; set; }
 
-        public virtual ICollection<Sinif> Sinif { get; set; }
+        public virtual City City { get; set; }
+        public virtual ICollection<Kurum> Kurum { get; set; }
     }
 }

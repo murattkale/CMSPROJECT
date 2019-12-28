@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class SinifOgrenci : BaseModel
+    public partial class Sezon : BaseModel
     {
         public int Id { get; set; }
         public int CreaUser { get; set; }
@@ -13,9 +13,9 @@ namespace Entity.MuhasebeContext
         public int? OrderNo { get; set; }
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
-        public int SinifId { get; set; }
-        public int OgrenciId { get; set; }
+        public string Ad { get; set; }
+        public int KurumId { get; set; }
 
-        public virtual Sinif Sinif { get; set; }
+        public virtual Kurum Kurum { get; set; }
     }
 }

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public class OdemeTipService : GenericRepo<OdemeTip>, IOdemeTipService
 {
 
 
-    public OdemeTipService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+    public OdemeTipService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }
     public RModel<OdemeTip> InsertOrUpdate(OdemeTip model)

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public class HesapTipService : GenericRepo<HesapTip>, IHesapTipService
 {
 
 
-    public HesapTipService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+    public HesapTipService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }
     public RModel<HesapTip> InsertOrUpdate(HesapTip model)

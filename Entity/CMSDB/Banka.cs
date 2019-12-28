@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class Derslik : BaseModel
+    public partial class Banka : BaseModel
     {
-        public Derslik()
+        public Banka()
         {
-            Sinif = new HashSet<Sinif>();
+            Kasa = new HashSet<Kasa>();
+            OdemeTip = new HashSet<OdemeTip>();
         }
 
         public int Id { get; set; }
@@ -20,6 +21,7 @@ namespace Entity.MuhasebeContext
         public int? IsStatus { get; set; }
         public string Ad { get; set; }
 
-        public virtual ICollection<Sinif> Sinif { get; set; }
+        public virtual ICollection<Kasa> Kasa { get; set; }
+        public virtual ICollection<OdemeTip> OdemeTip { get; set; }
     }
 }

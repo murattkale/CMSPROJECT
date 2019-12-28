@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class KurumService : GenericRepo<Kurum>, IKurumService
     {
 
 
-        public KurumService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public KurumService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Kurum> InsertOrUpdate(Kurum model)

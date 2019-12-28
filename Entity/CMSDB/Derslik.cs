@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class OdemeTip : BaseModel
+    public partial class Derslik : BaseModel
     {
-        public OdemeTip()
+        public Derslik()
         {
-            Hesap = new HashSet<Hesap>();
+            Sinif = new HashSet<Sinif>();
         }
 
         public int Id { get; set; }
@@ -19,9 +19,7 @@ namespace Entity.MuhasebeContext
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
         public string Ad { get; set; }
-        public int? BankaId { get; set; }
 
-        public virtual Banka Banka { get; set; }
-        public virtual ICollection<Hesap> Hesap { get; set; }
+        public virtual ICollection<Sinif> Sinif { get; set; }
     }
 }

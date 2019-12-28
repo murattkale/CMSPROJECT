@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class HesapTip : BaseModel
+    public partial class SinifOgrenci : BaseModel
     {
-        public HesapTip()
-        {
-            Hesap = new HashSet<Hesap>();
-        }
-
         public int Id { get; set; }
         public int CreaUser { get; set; }
         public DateTime CreaDate { get; set; }
@@ -18,9 +13,10 @@ namespace Entity.MuhasebeContext
         public int? OrderNo { get; set; }
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
-        public string Ad { get; set; }
-        public int? GelirGiderTipi { get; set; }
+        public int SinifId { get; set; }
+        public int OgrenciId { get; set; }
 
-        public virtual ICollection<Hesap> Hesap { get; set; }
+        public virtual Users Ogrenci { get; set; }
+        public virtual Sinif Sinif { get; set; }
     }
 }

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public class ServiceConfigService : GenericRepo<ServiceConfig>, IServiceConfigService
 {
 
 
-    public ServiceConfigService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+    public ServiceConfigService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }
     public RModel<ServiceConfig> InsertOrUpdate(ServiceConfig model)

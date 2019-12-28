@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public class HesapService : GenericRepo<Hesap>, IHesapService
 {
 
 
-    public HesapService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+    public HesapService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }
     public RModel<Hesap> InsertOrUpdate(Hesap model)

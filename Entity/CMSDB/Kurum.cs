@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
     public partial class Kurum : BaseModel
     {
         public Kurum()
         {
             Brans = new HashSet<Brans>();
+            Kasa = new HashSet<Kasa>();
             Sezon = new HashSet<Sezon>();
             Sube = new HashSet<Sube>();
         }
@@ -40,7 +41,10 @@ namespace Entity.MuhasebeContext
         public string VergiNo { get; set; }
         public string VergiDairesi { get; set; }
 
+        public virtual Town Ilce { get; set; }
+        public virtual City Sehir { get; set; }
         public virtual ICollection<Brans> Brans { get; set; }
+        public virtual ICollection<Kasa> Kasa { get; set; }
         public virtual ICollection<Sezon> Sezon { get; set; }
         public virtual ICollection<Sube> Sube { get; set; }
     }

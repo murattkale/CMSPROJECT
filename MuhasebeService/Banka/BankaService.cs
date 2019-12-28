@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class BankaService : GenericRepo<Banka>, IBankaService
     {
 
 
-        public BankaService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public BankaService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Banka> InsertOrUpdate(Banka model)

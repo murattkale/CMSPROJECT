@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public class SinifOgrenciService : GenericRepo<SinifOgrenci>, ISinifOgrenciService
 {
 
 
-    public SinifOgrenciService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+    public SinifOgrenciService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }
     public RModel<SinifOgrenci> InsertOrUpdate(SinifOgrenci model)

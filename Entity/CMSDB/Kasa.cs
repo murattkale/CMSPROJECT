@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
     public partial class Kasa : BaseModel
     {
@@ -27,9 +27,13 @@ namespace Entity.MuhasebeContext
         public double? GelenTotal { get; set; }
         public double? CekilenTotal { get; set; }
         public double? Total { get; set; }
+        public int? KurumId { get; set; }
+        public int? SubeId { get; set; }
 
         public virtual Banka Banka { get; set; }
+        public virtual Kurum Kurum { get; set; }
         public virtual ParaBirimi ParaBirim { get; set; }
+        public virtual Sube Sube { get; set; }
         public virtual Kasa UstKasa { get; set; }
         public virtual ICollection<Hesap> HesapAliciKasa { get; set; }
         public virtual ICollection<Hesap> HesapIlgiliKasa { get; set; }

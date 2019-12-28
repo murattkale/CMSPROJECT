@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public class ServiceConfigAuthService : GenericRepo<ServiceConfigAuth>, IServiceConfigAuthService
 {
 
 
-    public ServiceConfigAuthService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+    public ServiceConfigAuthService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }
     public RModel<ServiceConfigAuth> InsertOrUpdate(ServiceConfigAuth model)

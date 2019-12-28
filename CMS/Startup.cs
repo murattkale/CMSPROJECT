@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,8 +63,8 @@ namespace CMS
 
 
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<MUHASEBEDBContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("MUHASEBEDBContext"), b => b.MigrationsAssembly("MUHASEBEDBContext")));
+            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext")));
 
             services.AddScoped(typeof(IBankaService), typeof(BankaService));
             services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));

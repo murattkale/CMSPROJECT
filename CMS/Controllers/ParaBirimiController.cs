@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using CMS.Models;
 using Services;
 using Entity;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 namespace CMS.Controllers
 {

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class BransService : GenericRepo<Brans>, IBransService
     {
 
 
-        public BransService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public BransService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Brans> InsertOrUpdate(Brans model)

@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class Sezon : BaseModel
+    public partial class ParaBirimi : BaseModel
     {
+        public ParaBirimi()
+        {
+            Kasa = new HashSet<Kasa>();
+        }
+
         public int Id { get; set; }
         public int CreaUser { get; set; }
         public DateTime CreaDate { get; set; }
@@ -14,8 +19,8 @@ namespace Entity.MuhasebeContext
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
         public string Ad { get; set; }
-        public int KurumId { get; set; }
+        public string Kod { get; set; }
 
-        public virtual Kurum Kurum { get; set; }
+        public virtual ICollection<Kasa> Kasa { get; set; }
     }
 }

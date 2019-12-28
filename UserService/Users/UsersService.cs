@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class UsersService : GenericRepo<Users>, IUsersService
     {
 
 
-        public UsersService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public UsersService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Users> InsertOrUpdate(Users model)

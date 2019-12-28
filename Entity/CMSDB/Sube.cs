@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
     public partial class Sube : BaseModel
     {
         public Sube()
         {
+            Kasa = new HashSet<Kasa>();
             Sinif = new HashSet<Sinif>();
         }
 
@@ -40,6 +41,7 @@ namespace Entity.MuhasebeContext
         public string VergiDairesi { get; set; }
 
         public virtual Kurum Kurum { get; set; }
+        public virtual ICollection<Kasa> Kasa { get; set; }
         public virtual ICollection<Sinif> Sinif { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
 public interface ISinifOgrenciService : IGenericRepo<SinifOgrenci>

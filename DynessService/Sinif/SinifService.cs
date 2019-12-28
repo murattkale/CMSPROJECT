@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class SinifService : GenericRepo<Sinif>, ISinifService
     {
 
 
-        public SinifService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public SinifService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Sinif> InsertOrUpdate(Sinif model)

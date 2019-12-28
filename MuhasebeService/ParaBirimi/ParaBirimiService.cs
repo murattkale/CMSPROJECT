@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class ParaBirimiService : GenericRepo<ParaBirimi>, IParaBirimiService
     {
 
 
-        public ParaBirimiService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public ParaBirimiService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<ParaBirimi> InsertOrUpdate(ParaBirimi model)

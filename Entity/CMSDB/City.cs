@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class Banka : BaseModel
+    public partial class City : BaseModel
     {
-        public Banka()
+        public City()
         {
-            Kasa = new HashSet<Kasa>();
-            OdemeTip = new HashSet<OdemeTip>();
+            Kurum = new HashSet<Kurum>();
+            Town = new HashSet<Town>();
         }
 
         public int Id { get; set; }
@@ -19,9 +19,9 @@ namespace Entity.MuhasebeContext
         public int? OrderNo { get; set; }
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
-        public string Ad { get; set; }
+        public string CityName { get; set; }
 
-        public virtual ICollection<Kasa> Kasa { get; set; }
-        public virtual ICollection<OdemeTip> OdemeTip { get; set; }
+        public virtual ICollection<Kurum> Kurum { get; set; }
+        public virtual ICollection<Town> Town { get; set; }
     }
 }

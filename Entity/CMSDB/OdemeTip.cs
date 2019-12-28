@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class Brans : BaseModel
+    public partial class OdemeTip : BaseModel
     {
+        public OdemeTip()
+        {
+            Hesap = new HashSet<Hesap>();
+        }
+
         public int Id { get; set; }
         public int CreaUser { get; set; }
         public DateTime CreaDate { get; set; }
@@ -14,8 +19,9 @@ namespace Entity.MuhasebeContext
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
         public string Ad { get; set; }
-        public int KurumId { get; set; }
+        public int? BankaId { get; set; }
 
-        public virtual Kurum Kurum { get; set; }
+        public virtual Banka Banka { get; set; }
+        public virtual ICollection<Hesap> Hesap { get; set; }
     }
 }

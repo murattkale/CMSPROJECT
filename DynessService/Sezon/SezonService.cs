@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class SezonService : GenericRepo<Sezon>, ISezonService
     {
 
 
-        public SezonService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public SezonService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Sezon> InsertOrUpdate(Sezon model)

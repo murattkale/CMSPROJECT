@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class ParaBirimi : BaseModel
+    public partial class Seans : BaseModel
     {
-        public ParaBirimi()
+        public Seans()
         {
-            Kasa = new HashSet<Kasa>();
+            Sinif = new HashSet<Sinif>();
         }
 
         public int Id { get; set; }
@@ -19,8 +19,7 @@ namespace Entity.MuhasebeContext
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
         public string Ad { get; set; }
-        public string Kod { get; set; }
 
-        public virtual ICollection<Kasa> Kasa { get; set; }
+        public virtual ICollection<Sinif> Sinif { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
     public partial class ServiceConfig : BaseModel
     {
@@ -13,8 +13,8 @@ namespace Entity.MuhasebeContext
         }
 
         public int Id { get; set; }
-        public int? CreaUser { get; set; }
-        public DateTime? CreaDate { get; set; }
+        public int CreaUser { get; set; }
+        public DateTime CreaDate { get; set; }
         public int? ModUser { get; set; }
         public DateTime? ModDate { get; set; }
         public int? OrderNo { get; set; }

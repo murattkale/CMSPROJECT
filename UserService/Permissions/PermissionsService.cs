@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class PermissionsService : GenericRepo<Permissions>, IPermissionsService
     {
 
 
-        public PermissionsService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public PermissionsService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Permissions> InsertOrUpdate(Permissions model)
@@ -21,7 +21,7 @@ using Entity.MuhasebeContext;
             res.ResultType.MessageList = new List<string>();
 
             //Duplicate Control
-            var modelControl = Where(o => o.Id != model.Id &&  o.Tc == model.Tc, false).Result.FirstOrDefault();
+            var modelControl = Where(o => o.Id != model.Id &&  o.Name == model.Name, false).Result.FirstOrDefault();
             if (modelControl != null)
             {
                 res.ResultType.RType = RType.Warning;

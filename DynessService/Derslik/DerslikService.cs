@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class DerslikService : GenericRepo<Derslik>, IDerslikService
     {
 
 
-        public DerslikService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public DerslikService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Derslik> InsertOrUpdate(Derslik model)

@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class RolesService : GenericRepo<Roles>, IRolesService
     {
 
 
-        public RolesService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public RolesService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Roles> InsertOrUpdate(Roles model)
@@ -21,7 +21,7 @@ using Entity.MuhasebeContext;
             res.ResultType.MessageList = new List<string>();
 
             //Duplicate Control
-            var modelControl = Where(o => o.Id != model.Id &&  o.Tc == model.Tc, false).Result.FirstOrDefault();
+            var modelControl = Where(o => o.Id != model.Id &&  o.Name == model.Name, false).Result.FirstOrDefault();
             if (modelControl != null)
             {
                 res.ResultType.RType = RType.Warning;

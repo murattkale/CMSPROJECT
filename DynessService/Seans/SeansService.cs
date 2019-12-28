@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class SeansService : GenericRepo<Seans>, ISeansService
     {
 
 
-        public SeansService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public SeansService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Seans> InsertOrUpdate(Seans model)

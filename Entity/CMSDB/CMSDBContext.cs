@@ -2,21 +2,22 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Entity.MuhasebeContext
+namespace Entity.CMSDB
 {
-    public partial class MUHASEBEDBContext : DbContext
+    public partial class CMSDBContext : DbContext
     {
-        public MUHASEBEDBContext()
+        public CMSDBContext()
         {
         }
 
-        public MUHASEBEDBContext(DbContextOptions<MUHASEBEDBContext> options)
+        public CMSDBContext(DbContextOptions<CMSDBContext> options)
             : base(options)
         {
         }
 
         public virtual DbSet<Banka> Banka { get; set; }
         public virtual DbSet<Brans> Brans { get; set; }
+        public virtual DbSet<City> City { get; set; }
         public virtual DbSet<Derslik> Derslik { get; set; }
         public virtual DbSet<Hesap> Hesap { get; set; }
         public virtual DbSet<HesapTip> HesapTip { get; set; }
@@ -34,6 +35,7 @@ namespace Entity.MuhasebeContext
         public virtual DbSet<Sinif> Sinif { get; set; }
         public virtual DbSet<SinifOgrenci> SinifOgrenci { get; set; }
         public virtual DbSet<Sube> Sube { get; set; }
+        public virtual DbSet<Town> Town { get; set; }
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
@@ -42,7 +44,7 @@ namespace Entity.MuhasebeContext
 //            if (!optionsBuilder.IsConfigured)
 //            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=.;Database=MUHASEBEDB;user id=sa;password=123_*1;MultipleActiveResultSets=True;");
+//                optionsBuilder.UseSqlServer("Server=.;Database=CMSDB;user id=sa;password=123_*1;MultipleActiveResultSets=True;");
 //            }
         }
 
@@ -75,6 +77,19 @@ namespace Entity.MuhasebeContext
                     .WithMany(p => p.Brans)
                     .HasForeignKey(d => d.KurumId)
                     .HasConstraintName("FK_Brans_Kurum");
+            });
+
+            modelBuilder.Entity<City>(entity =>
+            {
+                entity.Property(e => e.CityName).IsRequired();
+
+                entity.Property(e => e.CreaDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.ModDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Derslik>(entity =>
@@ -153,10 +168,20 @@ namespace Entity.MuhasebeContext
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Kasa_Banka");
 
+                entity.HasOne(d => d.Kurum)
+                    .WithMany(p => p.Kasa)
+                    .HasForeignKey(d => d.KurumId)
+                    .HasConstraintName("FK_Kasa_Kurum");
+
                 entity.HasOne(d => d.ParaBirim)
                     .WithMany(p => p.Kasa)
                     .HasForeignKey(d => d.ParaBirimId)
                     .HasConstraintName("FK_Kasa_ParaBirimi");
+
+                entity.HasOne(d => d.Sube)
+                    .WithMany(p => p.Kasa)
+                    .HasForeignKey(d => d.SubeId)
+                    .HasConstraintName("FK_Kasa_Sube");
 
                 entity.HasOne(d => d.UstKasa)
                     .WithMany(p => p.InverseUstKasa)
@@ -189,6 +214,18 @@ namespace Entity.MuhasebeContext
                 entity.Property(e => e.VergiDairesi).IsRequired();
 
                 entity.Property(e => e.VergiNo).IsRequired();
+
+                entity.HasOne(d => d.Ilce)
+                    .WithMany(p => p.Kurum)
+                    .HasForeignKey(d => d.IlceId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Kurum_Town");
+
+                entity.HasOne(d => d.Sehir)
+                    .WithMany(p => p.Kurum)
+                    .HasForeignKey(d => d.SehirId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Kurum_City");
             });
 
             modelBuilder.Entity<OdemeDetay>(entity =>
@@ -272,7 +309,9 @@ namespace Entity.MuhasebeContext
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.InverseParent)
@@ -310,11 +349,17 @@ namespace Entity.MuhasebeContext
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.ServiceName).HasMaxLength(50);
+                entity.Property(e => e.ServiceName)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.Url).HasMaxLength(500);
+                entity.Property(e => e.Url)
+                    .IsRequired()
+                    .HasMaxLength(500);
 
                 entity.Property(e => e.UrlTarget).HasMaxLength(50);
 
@@ -347,6 +392,7 @@ namespace Entity.MuhasebeContext
                 entity.HasOne(d => d.ServiceConfig)
                     .WithMany(p => p.ServiceConfigAuth)
                     .HasForeignKey(d => d.ServiceConfigId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServiceConfigAuth_ServiceConfig");
 
                 entity.HasOne(d => d.User)
@@ -411,6 +457,12 @@ namespace Entity.MuhasebeContext
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
+                entity.HasOne(d => d.Ogrenci)
+                    .WithMany(p => p.SinifOgrenci)
+                    .HasForeignKey(d => d.OgrenciId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SinifOgrenci_Users");
+
                 entity.HasOne(d => d.Sinif)
                     .WithMany(p => p.SinifOgrenci)
                     .HasForeignKey(d => d.SinifId)
@@ -450,6 +502,25 @@ namespace Entity.MuhasebeContext
                     .HasConstraintName("FK_Sube_Kurum");
             });
 
+            modelBuilder.Entity<Town>(entity =>
+            {
+                entity.Property(e => e.CreaDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.ModDate).HasColumnType("datetime");
+
+                entity.Property(e => e.TownName).IsRequired();
+
+                entity.HasOne(d => d.City)
+                    .WithMany(p => p.Town)
+                    .HasForeignKey(d => d.CityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Town__CityId__1F2E9E6D");
+            });
+
             modelBuilder.Entity<UserRoles>(entity =>
             {
                 entity.Property(e => e.CreaDate)
@@ -473,17 +544,23 @@ namespace Entity.MuhasebeContext
 
             modelBuilder.Entity<Users>(entity =>
             {
-                entity.Property(e => e.Adress).HasMaxLength(1000);
+                entity.Property(e => e.Adress1).HasMaxLength(1000);
+
+                entity.Property(e => e.Adress2).HasMaxLength(1000);
+
+                entity.Property(e => e.BirdhDay).HasColumnType("datetime");
 
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.Image).HasMaxLength(1000);
+
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
-                entity.Property(e => e.Mail)
-                    .IsRequired()
-                    .HasMaxLength(50);
+                entity.Property(e => e.Mail1).HasMaxLength(50);
+
+                entity.Property(e => e.Mail2).HasMaxLength(50);
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
@@ -495,7 +572,15 @@ namespace Entity.MuhasebeContext
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
+                entity.Property(e => e.Phone1).HasMaxLength(50);
+
+                entity.Property(e => e.Phone2).HasMaxLength(50);
+
+                entity.Property(e => e.Phone3).HasMaxLength(50);
+
+                entity.Property(e => e.SexType)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Surname)
                     .IsRequired()
@@ -504,6 +589,10 @@ namespace Entity.MuhasebeContext
                 entity.Property(e => e.Tc)
                     .IsRequired()
                     .HasMaxLength(11);
+
+                entity.Property(e => e.UserNo).HasMaxLength(50);
+
+                entity.Property(e => e.ZipCode).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

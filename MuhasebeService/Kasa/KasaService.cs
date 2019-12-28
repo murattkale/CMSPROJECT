@@ -3,13 +3,13 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 namespace Services
 {
     public class KasaService : GenericRepo<Kasa>, IKasaService
     {
-        public KasaService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public KasaService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Kasa> InsertOrUpdate(Kasa model)

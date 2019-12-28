@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.MuhasebeContext;
+using Entity.CMSDB;
 
 
     public class SubeService : GenericRepo<Sube>, ISubeService
     {
 
 
-        public SubeService(MUHASEBEDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public SubeService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Sube> InsertOrUpdate(Sube model)
