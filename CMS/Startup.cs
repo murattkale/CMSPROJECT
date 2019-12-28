@@ -43,13 +43,6 @@ namespace CMS
             ;
 
 
-            //unutulmayan hata json result baþ harf küçük > büyük
-            //services.AddMvc().AddJsonOptions(o =>
-            //{
-            //    o.JsonSerializerOptions.PropertyNamingPolicy = null;
-            //    o.JsonSerializerOptions.DictionaryKeyPolicy = null;
-            //});
-
 
             services.AddEntityFrameworkSqlServer().AddDbContext<EFContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("EFContext"), b => b.MigrationsAssembly("EFContext")));
@@ -75,6 +68,24 @@ namespace CMS
             services.AddScoped(typeof(IHesapService), typeof(HesapService));
             services.AddScoped(typeof(IOdemeDetayService), typeof(OdemeDetayService));
 
+
+            services.AddScoped(typeof(IKurumService), typeof(KurumService));
+            services.AddScoped(typeof(ISubeService), typeof(SubeService));
+            services.AddScoped(typeof(ISezonService), typeof(SezonService));
+            services.AddScoped(typeof(IBransService), typeof(BransService));
+            services.AddScoped(typeof(ISinifService), typeof(SinifService));
+            services.AddScoped(typeof(ISinifOgrenciService), typeof(SinifOgrenciService));
+
+            services.AddScoped(typeof(ICityService), typeof(CityService));
+            services.AddScoped(typeof(ITownService), typeof(TownService));
+
+            services.AddScoped(typeof(IUsersService), typeof(UsersService));
+            services.AddScoped(typeof(IUserRolesService), typeof(UserRolesService));
+            services.AddScoped(typeof(IRolesService), typeof(RolesService));
+            services.AddScoped(typeof(IPermissionsService), typeof(PermissionsService));
+
+            services.AddScoped(typeof(IServiceConfigService), typeof(ServiceConfigService));
+            services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));
 
 
 
