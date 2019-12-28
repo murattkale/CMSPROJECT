@@ -115,7 +115,7 @@ namespace CMS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Hesap}/{action=Index}/{id?}");
+                    pattern: "{controller=Kurum}/{action=Index}/{id?}");
             });
         }
     }

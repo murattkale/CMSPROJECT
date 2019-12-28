@@ -12,48 +12,48 @@ using Entity.CMSDB;
 
 namespace CMS.Controllers
 {
-    public class KurumController : Controller
+    public class CityController : Controller
     {
-        IKurumService _IKurumService;
-        public KurumController(IKurumService _IKurumService) { this._IKurumService = _IKurumService; }
+        ICityService _ICityService;
+        public CityController(ICityService _ICityService) { this._ICityService = _ICityService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Kurum> param, Kurum searchModel)
+        public JsonResult GetPaging(DTParameters<City> param, City searchModel)
         {
-            var result = _IKurumService.GetPaging(null, true, param, false, o => o.Sehir, o => o.Ilce);
+            var result = _ICityService.GetPaging(null, true, param, false);
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _IKurumService.Where().Result.Select(o => new { value = o.Id, text = o.Ad });
+            var result = _ICityService.Where().Result.Select(o => new { value = o.Id, text = o.CityName });
             return Json(result);
         }
 
 
-        public JsonResult InsertOrUpdate(Kurum postModel)
+        public JsonResult InsertOrUpdate(City postModel)
         {
-            var result = _IKurumService.InsertOrUpdate(postModel);
+            var result = _ICityService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Kurum Get(int id)
+        public City Get(int id)
         {
-            var result = _IKurumService.Find(id);
+            var result = _ICityService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IKurumService.Delete(id);
-            _IKurumService.SaveChanges();
+            var result = _ICityService.Delete(id);
+            _ICityService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Kurum";
+            ViewBag.pageTitle = "City";
             return View();
         }
 

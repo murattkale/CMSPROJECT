@@ -40,6 +40,9 @@ namespace Entity.CMSDB
         public string VergiNo { get; set; }
         public string VergiDairesi { get; set; }
 
+        public virtual Town Ilce { get; set; }
+        public virtual City Sehir { get; set; }
+
         public virtual Kurum Kurum { get; set; }
         public virtual ICollection<Kasa> Kasa { get; set; }
         public virtual ICollection<Sinif> Sinif { get; set; }

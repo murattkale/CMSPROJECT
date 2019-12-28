@@ -193,27 +193,11 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.Adres).IsRequired();
-
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
-
-                entity.Property(e => e.Logo).IsRequired();
-
-                entity.Property(e => e.Mail).IsRequired();
-
-                entity.Property(e => e.ModDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Telefon).IsRequired();
-
-                entity.Property(e => e.TicariUnvan).IsRequired();
-
-                entity.Property(e => e.VergiDairesi).IsRequired();
-
-                entity.Property(e => e.VergiNo).IsRequired();
 
                 entity.HasOne(d => d.Ilce)
                     .WithMany(p => p.Kurum)
@@ -474,32 +458,32 @@ namespace Entity.CMSDB
             {
                 entity.Property(e => e.Ad).IsRequired();
 
-                entity.Property(e => e.Adres).IsRequired();
-
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
-                entity.Property(e => e.Logo).IsRequired();
-
-                entity.Property(e => e.Mail).IsRequired();
-
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Telefon).IsRequired();
-
-                entity.Property(e => e.TicariUnvan).IsRequired();
-
-                entity.Property(e => e.VergiDairesi).IsRequired();
-
-                entity.Property(e => e.VergiNo).IsRequired();
 
                 entity.HasOne(d => d.Kurum)
                     .WithMany(p => p.Sube)
                     .HasForeignKey(d => d.KurumId)
                     .HasConstraintName("FK_Sube_Kurum");
+
+                entity.HasOne(d => d.Ilce)
+                  .WithMany(p => p.Sube)
+                  .HasForeignKey(d => d.IlceId)
+                  .OnDelete(DeleteBehavior.ClientSetNull)
+                  .HasConstraintName("FK_Sube_Town");
+
+                entity.HasOne(d => d.Sehir)
+                    .WithMany(p => p.Sube)
+                    .HasForeignKey(d => d.SehirId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Sube_City");
+
             });
 
             modelBuilder.Entity<Town>(entity =>

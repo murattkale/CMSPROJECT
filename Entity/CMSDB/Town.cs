@@ -8,6 +8,7 @@ namespace Entity.CMSDB
         public Town()
         {
             Kurum = new HashSet<Kurum>();
+            Sube = new HashSet<Sube>();
         }
 
         public int Id { get; set; }
@@ -23,5 +24,6 @@ namespace Entity.CMSDB
 
         public virtual City City { get; set; }
         public virtual ICollection<Kurum> Kurum { get; set; }
+        public virtual ICollection<Sube> Sube { get; set; }
     }
 }

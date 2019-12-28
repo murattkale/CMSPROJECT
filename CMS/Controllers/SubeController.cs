@@ -12,48 +12,48 @@ using Entity.CMSDB;
 
 namespace CMS.Controllers
 {
-    public class KurumController : Controller
+    public class SubeController : Controller
     {
-        IKurumService _IKurumService;
-        public KurumController(IKurumService _IKurumService) { this._IKurumService = _IKurumService; }
+        ISubeService _ISubeService;
+        public SubeController(ISubeService _ISubeService) { this._ISubeService = _ISubeService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Kurum> param, Kurum searchModel)
+        public JsonResult GetPaging(DTParameters<Sube> param, Sube searchModel)
         {
-            var result = _IKurumService.GetPaging(null, true, param, false, o => o.Sehir, o => o.Ilce);
+            var result = _ISubeService.GetPaging(null, true, param, false, o => o.Sehir, o => o.Ilce,o=>o.Kurum);
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _IKurumService.Where().Result.Select(o => new { value = o.Id, text = o.Ad });
+            var result = _ISubeService.Where().Result.Select(o => new { value = o.Id, text = o.Ad });
             return Json(result);
         }
 
 
-        public JsonResult InsertOrUpdate(Kurum postModel)
+        public JsonResult InsertOrUpdate(Sube postModel)
         {
-            var result = _IKurumService.InsertOrUpdate(postModel);
+            var result = _ISubeService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Kurum Get(int id)
+        public Sube Get(int id)
         {
-            var result = _IKurumService.Find(id);
+            var result = _ISubeService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IKurumService.Delete(id);
-            _IKurumService.SaveChanges();
+            var result = _ISubeService.Delete(id);
+            _ISubeService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Kurum";
+            ViewBag.pageTitle = "Sube";
             return View();
         }
 

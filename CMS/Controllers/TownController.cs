@@ -12,48 +12,48 @@ using Entity.CMSDB;
 
 namespace CMS.Controllers
 {
-    public class KurumController : Controller
+    public class TownController : Controller
     {
-        IKurumService _IKurumService;
-        public KurumController(IKurumService _IKurumService) { this._IKurumService = _IKurumService; }
+        ITownService _ITownService;
+        public TownController(ITownService _ITownService) { this._ITownService = _ITownService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Kurum> param, Kurum searchModel)
+        public JsonResult GetPaging(DTParameters<Town> param, Town searchModel)
         {
-            var result = _IKurumService.GetPaging(null, true, param, false, o => o.Sehir, o => o.Ilce);
+            var result = _ITownService.GetPaging(null, true, param, false);
             return Json(result);
         }
 
         [HttpPost]
-        public JsonResult GetSelect()
+        public JsonResult GetSelect(int id)
         {
-            var result = _IKurumService.Where().Result.Select(o => new { value = o.Id, text = o.Ad });
+            var result = _ITownService.Where(o=>o.CityId == id).Result.Select(o => new { value = o.Id, text = o.TownName });
             return Json(result);
         }
 
 
-        public JsonResult InsertOrUpdate(Kurum postModel)
+        public JsonResult InsertOrUpdate(Town postModel)
         {
-            var result = _IKurumService.InsertOrUpdate(postModel);
+            var result = _ITownService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Kurum Get(int id)
+        public Town Get(int id)
         {
-            var result = _IKurumService.Find(id);
+            var result = _ITownService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IKurumService.Delete(id);
-            _IKurumService.SaveChanges();
+            var result = _ITownService.Delete(id);
+            _ITownService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Kurum";
+            ViewBag.pageTitle = "Town";
             return View();
         }
 
