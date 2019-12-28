@@ -72,6 +72,8 @@ namespace CMS
             services.AddScoped(typeof(IKurumService), typeof(KurumService));
             services.AddScoped(typeof(ISubeService), typeof(SubeService));
             services.AddScoped(typeof(ISezonService), typeof(SezonService));
+            services.AddScoped(typeof(ISeansService), typeof(SeansService));
+            services.AddScoped(typeof(IDerslikService), typeof(DerslikService));
             services.AddScoped(typeof(IBransService), typeof(BransService));
             services.AddScoped(typeof(ISinifService), typeof(SinifService));
             services.AddScoped(typeof(ISinifOgrenciService), typeof(SinifOgrenciService));
