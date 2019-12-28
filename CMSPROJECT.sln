@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ilkteknem", "ilkteknem\ilkt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "siteProject", "siteProject\siteProject.csproj", "{DB087CC8-85FA-4E8D-8C9A-5529EA031DCA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MuhasebeService", "MuhasebeService\MuhasebeService.csproj", "{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MuhasebeService", "MuhasebeService\MuhasebeService.csproj", "{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynessService", "DynessService\DynessService.csproj", "{FD793EA8-DF23-4029-A645-7476CF97B118}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F37AFC8-7E15-4271-9D6D-C5CB5C66CE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD793EA8-DF23-4029-A645-7476CF97B118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD793EA8-DF23-4029-A645-7476CF97B118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD793EA8-DF23-4029-A645-7476CF97B118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD793EA8-DF23-4029-A645-7476CF97B118}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

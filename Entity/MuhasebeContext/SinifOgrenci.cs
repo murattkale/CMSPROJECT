@@ -3,13 +3,8 @@ using System.Collections.Generic;
 
 namespace Entity.MuhasebeContext
 {
-    public partial class OdemeTip : BaseModel
+    public partial class SinifOgrenci : BaseModel
     {
-        public OdemeTip()
-        {
-            Hesap = new HashSet<Hesap>();
-        }
-
         public int Id { get; set; }
         public int CreaUser { get; set; }
         public DateTime CreaDate { get; set; }
@@ -18,10 +13,9 @@ namespace Entity.MuhasebeContext
         public int? OrderNo { get; set; }
         public DateTime? IsDeleted { get; set; }
         public int? IsStatus { get; set; }
-        public string Ad { get; set; }
-        public int? BankaId { get; set; }
+        public int SinifId { get; set; }
+        public int OgrenciId { get; set; }
 
-        public virtual Banka Banka { get; set; }
-        public virtual ICollection<Hesap> Hesap { get; set; }
+        public virtual Sinif Sinif { get; set; }
     }
 }
