@@ -1,0 +1,119 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+
+<div class="login-wrapper">
+    <div class="accountbox">
+        <div class="accountbox__inner">
+            <h4>Daha fazla bilgi için formu doldurun</h4>
+            <div class="accountbox__login">
+                <form id="frmFormlar" name="frmFormlar">
+                    <div class="single-input">
+                        <input required type="text" placeholder="Ad" name="Ad" id="Ad">
+                    </div>
+                    <div class="single-input">
+                        <input required type="text" placeholder="Soyad" name="Soyad" id="Soyad">
+                    </div>
+                    <div class="single-input">
+                        <input required type="text" placeholder="Telefon" name="Telefon" id="Telefon">
+                    </div>
+                    <div class="single-input">
+                        <input type="email" placeholder="Mail" name="Mail" id="Mail">
+                    </div>
+                    <div class="single-input checkout-form">
+                        <select id="dp_Sehir_ok">
+                        </select>
+                    </div>
+                    <div class="single-input checkout-form">
+                        <select id="dp_Ilce_ok">
+                        </select>
+                    </div>
+                    <div class="single-input checkout-form">
+                        <select required id="SubeId" name="SubeId">
+                        </select>
+                    </div>
+                    <div class="single-input checkout-form">
+                        <textarea placeholder="Not" cols="100%" rows="5" name="Icerik" id="Icerik"></textarea>
+                    </div>
+
+                    <div class="single-input text-center">
+                        <input id="btnOK" type="submit" value="Gönder" class="sign__btn" />
+                        @*<button type="submit" class="sign__btn">Gönder</button>*@
+                    </div>
+                </form>
+            </div>
+            <span class="accountbox-close-button"><i class="zmdi zmdi-close"></i></span>
+        </div>
+        <h3>Numaranızı bırakın. Sizi arayalım...</h3>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    var Formlar_ListFunc;
+    $(function () {
+        Formlar_ListFunc = {
+            load: function () {
+
+                Formlar_ListFunc.getSehir();
+            },
+            getSehir: function () {
+                var div_id = "#dp_Sehir_ok";
+                $(div_id).addOptionAjax("/Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+            },
+            getIlce: function () {
+                var div_id = "#dp_Ilce_ok";
+                $(div_id).addOptionAjax("/Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { Formlar_ListFunc.getSubeler(); }, function () { Formlar_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
+            },
+
+            getSubeler: function () {
+
+                var postModel = {
+                    UlkeId: 1
+                    , SehirId: $('#dp_Sehir_ok').val()
+                    , IlceId: $('#dp_Ilce_ok').val()
+                };
+
+                $.ajx("/Base/getSubeler", postModel, function (dataResult) {
+                    $('#SubeId').addOption(dataResult, "value", "text", function () { }, function () { }, '', '', 'Seçiniz');
+
+                }, null);
+
+                $('#' + 'frmFormlar').submit(function (e) {
+                    $.LoadingOverlay("show");
+                    e.preventDefault();
+                    var postModel = $.fn.toForm("#" + 'frmFormlar');
+                    postModel.FormType = 1;
+
+
+
+                    $.ajx('Base/' + "/FormlarSave", { postModel: postModel }, function (resultMenus) {
+                        if (resultMenus.ResultType != 3) {
+                            $(".zmdi.zmdi-close").click();
+                            alert("Önkayıt işleminiz Alınmıştır.");
+                        }
+                        else {
+
+                            alert(resultMenus.MessageList[0]);
+                        }
+                        $.LoadingOverlay("hide");
+                    }, function () { location.reload(); });
+
+                });
+            },
+
+
+
+
+
+        }
+        Formlar_ListFunc.load();
+
+    });
+
+
+</script>
+

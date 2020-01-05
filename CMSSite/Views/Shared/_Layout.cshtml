@@ -1,48 +1,117 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html class="no-js" lang="zxx">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CMSSite</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="fen bilimleri, fen, okul, fen merkezi, özel okul, fen eğitimi, fen" />
+    <meta name="description" content="Fen Bilimleri Merkezi eğitim Kurumu" />
+    <meta name="author" content="http://fenbilimlerimerkezi.dyness.com.tr" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta property="fb:app_id" content="1037724072951294" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Fen Bilimleri Merkezi">
+    <meta property="og:title" content="İletişim | Fen Bilimleri Merkezi">
+    <meta property="og:description" content="Fen Bilimleri Merkezi eğitim Kurumu">
+    <meta property="og:url" content="http://fenbilimlerimerkezi.dyness.com.tr/iletisim">
+    <meta property="og:locale" content="tr_TR">
+    <meta property="og:image" content="http://fenbilimlerimerkezi.dyness.com.tr/content/img/logo.png" />
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="http://fenbilimlerimerkezi.dyness.com.tr/">
+    <meta name="twitter:title" content="İletişim | Fen Bilimleri Merkezi">
+    <meta name="twitter:url" content="http://fenbilimlerimerkezi.dyness.com.tr/iletisim">
+    <meta name="twitter:description" content="Fen Bilimleri Merkezi eğitim Kurumu">
+    <meta name="twitter:image" content="http://fenbilimlerimerkezi.dyness.com.tr/content/img/logo.png" />
+    <title>İletişim | Fen Bilimleri Merkezi</title>
+    <base href="/">
+
+    <!-- Favicons -->
+    <link href="Content/img/favicon.ico" rel="shortcut icon" />
+    <link href="Content/img/favicon.ico" rel="apple-touch-icon">
+    <!-- Google font (font-family: 'Lobster', Open+Sans;) -->
+    <link href="https://fonts.googleapis.com/css?family=Lobster+Two:400,400i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/plugins.css">
+    <link rel="stylesheet" href="style.css?v=@SessionRequest.StyleVersion">
+
+    <!-- Cusom css -->
+    <link rel="stylesheet" href="css/custom.css?v=@SessionRequest.StyleVersion">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Modernizer js -->
+    <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+
+    <script src="js/vendor/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.6/dist/loadingoverlay.min.js" type="text/javascript"></script>
+
+    <script>
+        var baseUrl = '/' + location.pathname.split('/')[1] + '/';
+    </script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CMSSite</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - CMSSite - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    <style>
+        A.applink:hover {
+            border: 2px dotted #DCE6F4;
+            padding: 2px;
+            background-color: #ffff00;
+            color: green;
+            text-decoration: none
+        }
+
+        A.applink {
+            border: 2px dotted #DCE6F4;
+            padding: 2px;
+            color: #2F5BFF;
+            background: transparent;
+            text-decoration: none
+        }
+
+        A.info {
+            color: #2F5BFF;
+            background: transparent;
+            text-decoration: none
+        }
+
+            A.info:hover {
+                color: green;
+                background: transparent;
+                text-decoration: underline
+            }
+    </style>
+
+
+    <!-- Main wrapper -->
+    <div class="wrapper" id="wrapper">
+
+        <partial name="~/Base/_Header.cshtml" />
+
+        @RenderBody()
+
+        <partial name="~/Base/getContent" model='new  { ContentType = ContentPageType.row4 }' />
+
+        <partial name="~/Base/_Footer.cshtml" />
+
+        <partial name="~/Base/OnKayitAnaSayfa.cshtml" />
+
+
+    </div><!-- //Main wrapper -->
+    <!-- JS Files -->
+
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/active.js"></script>
+
+    <script src="js/general.js?v=@SessionRequest.StyleVersion" type="text/javascript"></script>
+
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

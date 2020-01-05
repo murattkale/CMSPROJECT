@@ -1,0 +1,90 @@
+.beyazButon {
+    height: 21px !important;
+    line-height: 22px !important;
+    float: right !important;
+    margin-top: -54px !important;
+    margin-right: 89px !important;
+    font-size: 8px !important;
+    width: 33% !important;
+    text-align: center !important;
+}
+
+.turuncuButon {
+    height: 21px !important;
+    line-height: 22px !important;
+    float: right !important;
+    margin-top: -52px !important;
+    margin-right: 89px !important;
+    font-size: 8px !important;
+    background: #00caff !important;
+    width: 33% !important;
+    text-align: center !important;
+}
+
+.dcare__btn-white {
+    transform: perspective(1px) translateZ(0px);
+    transition-duration: 0.3s;
+    background: #00caff none repeat scroll 0 0;
+    box-shadow: 0 0 1px transparent;
+    transform: perspective(1px) translateZ(0px);
+    transition-duration: 0.5s;
+    border-radius: 5px;
+    color: #000 !important;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    height: 48px;
+    line-height: 45px;
+    overflow: hidden;
+    padding: 0 24px;
+    position: relative;
+    display: inline-block;
+    text-transform: capitalize;
+    z-index: 2;
+}
+
+    .dcare__btn-white::before {
+        background: #efeeee none repeat scroll 0 0;
+        border-radius: 25%;
+        bottom: 0;
+        content: "";
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: scale(2);
+        transform-origin: 50% 50% 0;
+        transition-duration: 0.5s;
+        transition-property: transform;
+        transition-timing-function: ease-out;
+        z-index: -1;
+        /*color: #000 !important;*/
+    }
+
+    .dcare__btn-white:hover::before, .dcare__btn:focus::before, .dcare__btn:active::before {
+        transform: scale(0);
+    }
+
+    .dcare__btn-white:hover {
+        color: #fff !important;
+        box-shadow: 0 20px 38px rgba(0, 0, 0, 0.16);
+        -webkit-transform: translateY(-3px);
+        -moz-transform: translateY(-3px);
+        -ms-transform: translateY(-3px);
+        -o-transform: translateY(-3px);
+        transform: translateY(-3px);
+    }
+
+.ovalButton {
+    width: 120px;
+    margin-right: 0;
+    background-color: #fe5629;
+    padding: 8px 15px;
+    border: none;
+    color: #ffffff;
+    /*text-transform: uppercase;*/
+    font-weight: 700;
+    margin-bottom: 0;
+    border-radius: 50px;
+}

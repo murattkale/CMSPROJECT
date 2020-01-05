@@ -1,0 +1,104 @@
+﻿@{
+    var kurum = (Kurum)ViewBag.kurum;
+    var sube = (Sube)ViewBag.sube;
+
+    var baslik = sube == null ? kurum.Ad : sube.Ad;
+    var adres = sube == null ? kurum.Adres : sube.Adres;
+    var telefon = sube == null ? kurum.Telefon : sube.Telefon;
+    var maps = sube == null ? kurum.Maps : sube.Maps;
+
+    var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
+    var Twitter = sube == null ? kurum.Twitter : sube.Twitter;
+    var Instagram = sube == null ? kurum.Instagram : sube.Instagram;
+    var Youtube = sube == null ? kurum.Youtube : sube.Youtube;
+    var Pinterest = sube == null ? kurum.Pinterest : sube.Pinterest;
+}
+
+
+
+<!-- Start Bradcaump area -->
+<div class="ht__bradcaump__area">
+    <div class="ht__bradcaump__container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Start Choose Us Area -->
+                    <section class="dcare__choose__us__area section-padding--lg bg--white">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-md-12">
+                                    <div class="section__title text-center">
+                                        <h2 class="title__line">İletişim</h2>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            <div class="col-lg-12 order-2 order-lg-1">
+                                <div class="sidebar__widgets sidebar--left">
+
+
+                                    <div class="ftr__address">
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-home"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p>
+                                                ADRES :@Html.Raw(adres)
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="ftr__address">
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p><a href="#">TELEFON </a></p>
+                                            <p><a href="#">@Html.Raw(telefon)</a></p>
+                                        </div>
+                                    </div>
+
+                                    @*@if (iletisim.Sube.FirstOrDefault(o => o.SubeId == SessionRequest.SubeId) != null)
+                                        {
+                                            <iframe src="@Html.Raw( iletisim.Sube.FirstOrDefault(o => o.SubeId == SessionRequest.SubeId).Harita)" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                                        }*@
+
+
+                                    <hr />
+
+                                    <partial name="~/Base/OnKayitSube.cshtml" />
+
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </section>
+                    <!-- End Choose Us Area -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Bradcaump area -->
+
+
+
+
+
+<style>
+    .slider--four.slider__fixed--height {
+        height: 304px !important;
+    }
+</style>
+
+
+

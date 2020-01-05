@@ -16,7 +16,7 @@ namespace Entity.CMSDB
         public bool? IsSideMenu { get; set; }
         public bool? IsHamburgerMenu { get; set; }
         public string Content { get; set; }
-        public bool? ContentShort { get; set; }
+        public string ContentShort { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }
         public string BannerText { get; set; }

@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 0;
+}
+
+@if (contents.Count > 0)
+{
+
+    <section class="dcare__testimonial__area section-padding--lg bg-image--23">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <div class="testimonial__slide--3 owl-carousel owl-theme">
+
+                        @foreach (var item in contents)
+                        {
+                            i++;
+                            if (i > 3) { i = 1; }
+
+                            <div class="testimonial--3">
+                                <div class="testimonial__thumb">
+                                    <img src="images/testimonial/clint/@Html.Raw(i + ".png")" alt="clint images">
+                                </div>
+                                <div class="testimonial__content">
+                                    <p>@item.Name</p>
+                                    <div class="tes__info">
+
+                                        <span>@Html.Raw(item.Content) </span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+

@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+    var kurum = (Kurum)ViewBag.kurum;
+    var sube = (Sube)ViewBag.sube;
+
+    var baslik = sube == null ? kurum.Ad : sube.Ad;
+    var adres = sube == null ? kurum.Adres : sube.Adres;
+    var telefon = sube == null ? kurum.Telefon : sube.Telefon;
+    var maps = sube == null ? kurum.Maps : sube.Maps;
+
+    var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
+    var Twitter = sube == null ?  kurum.Twitter : sube.Twitter;
+    var Instagram = sube == null ? kurum.Instagram : sube.Instagram;
+    var Youtube = sube == null ? kurum.Youtube : sube.Youtube;
+    var Pinterest = sube == null ? kurum.Pinterest : sube.Pinterest;
+
+}
+
+
+    <header id="header" class="jnr__header header--3 header__variation--4 clearfix">
+        <!-- Start Header Top Area -->
+        <div class="junior__header__top bg--white">
+            <div class="container">
+                <div class="row menu__separator">
+                    <div class="col-md-5 d-none d-lg-block col-lg-4 col-sm-12">
+                        <div class="jun__header__top__left">
+                            <div class="logo">
+                                <a href="@SessionRequest.baseUrl">
+                                    <img style="max-width:45%;" src="~/Content/img/logo.png" alt="logo images">
+                                </a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-sm-12 col-12">
+                        <div style="margin-left: 100px;" class="jun__header__top__right">
+
+
+                            <p>
+                                <div style="margin-bottom: 0px !important; margin-top: 0px !important;" class="footer__social__icon">
+                                    <ul class="dacre__social__link--2 d-flex justify-content-start">
+                                        <li class="facebook"><a href="@Facebook"><i class="fa fa-facebook"></i></a></li>
+                                        <li class="twitter"><a href="@Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li class="vimeo"><a href="@Instagram"><i class="fa fa-instagram"></i></a></li>
+                                        <li class="pinterest"><a href="@Youtube"><i class="fa fa-youtube"></i></a></li>
+                                        <li class="pinterest"><a href="@Pinterest"><i class="fa fa-pinterest-p"></i></a></li>
+                                    </ul>
+                                </div>
+                            </p>
+
+                            <p style="margin-left: 15px;">
+                                <a style="width: 161px;height:40px;line-height: 40px;margin-left: 20px; " class="dcare__btn max__height-btn hover--theme-white" href="http://cms.dyness.com.tr">Sistem Giriş</a>
+
+                            </p>
+
+                            <p style="margin-left: 15px;">
+                                <a style="width: 195px;height:40px;line-height: 40px;background:#0060af;" class="dcare__btn max__height-btn hover--theme-white login-trigger" href="#">Ön Kayıt Formu</a>
+                            </p>
+                            <p style="margin-left: 15px;">
+                                <a target="_blank" style="width:125px;height:40px;line-height: 40px;background: #0060af none repeat scroll 0 0;" class="dcare__btn max__height-btn hover--theme" href="http://bidolucv.com/">
+                                    <img style="margin-top: 6px;margin-left: -10px !important;margin-right: 18px;float:left;max-width: 50%;width:35px !important; height:25px !important;" src="~/images/ik.png" />
+                                    <span style="float:left;">İK</span>
+                                </a>
+                            </p>
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Header Top Area -->
+        <!-- Start Mainmenu Area -->
+        <div style="background-color: #0060af;/* background-image: url(images/bg/18.jpg); */background-repeat: no-repeat;background-size: cover;background-position: center center;" class="mainmenu__wrapper sticky__header">
+            <div class="container">
+                <div class="row d-none d-lg-flex">
+
+                    <partial name="~/Base/_Menu.cshtml" />
+
+                </div>
+                <!-- Mobile Menu -->
+                <div class="mobile-menu d-block d-lg-none">
+                    <div class="logo">
+                        <a href="@SessionRequest.baseUrl"><img src="~/Content/img/logo.png" alt="logo"></a>
+                    </div>
+
+
+                    @*<a class="dcare__btn-white max__height-btn hover--theme-white beyazButon" href="#">Sistem Giriş</a>
+                        <br />
+                        <a class="dcare__btn btn__org max__height-btn hover--theme turuncuButon login-trigger" href="#">Ön Kayıt Formu</a>*@
+
+                </div>
+                <!-- Mobile Menu -->
+            </div>
+        </div>
+        <!-- End Mainmenu Area -->
+    </header>
+
+    <style>
+        .meanmenu-reveal {
+            color: white !important;
+        }
+    </style>

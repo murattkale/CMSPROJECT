@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+    var contents = ((List<ContentPage>)ViewBag.contents);
+    var i = 0;
+}
+
+@if (contents.Count > 0)
+{
+
+    <!-- row1 start -->
+    <section style="background-color:#212325 !important;" class="dcare__service__area section-padding--lg ">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in contents)
+                {
+                    i++;
+                    if (i > 4) { i = 2; }
+
+                    var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
+                    var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
+                    var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
+
+                    <div class="col-lg-@Html.Raw(contents.Count==3 ? "4" : (contents.Count==4 ? "3" : "12")) col-md-6 col-sm-6 col-12 wow flipInX" data-wow-delay="0.3s">
+                        <div class="service--3">
+                            <div class="service__thumb">
+                                <img src="images/service/icon/@Html.Raw(i + ".png")" alt="service images">
+                            </div>
+                            <div class="service__inner">
+                                <h4><a target="@target" href="@link">@item.Name</a></h4>
+                                <p>@Html.Raw(item.Content.limit(250))</p>
+                                @if (!string.IsNullOrEmpty(item.ButtonText1))
+                                {
+                                    <div class="service__btn">
+                                        <a href="@item.ButtonText1Link">@item.ButtonText1.limit(50)</a>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+        </div>
+    </section>
+
+}
+<!-- row1 start -->

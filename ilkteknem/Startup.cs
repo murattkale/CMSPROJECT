@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
+using Entity.CMSDB;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Services;
+
 
 
 namespace ilkteknem
@@ -36,8 +37,8 @@ namespace ilkteknem
                 o.JsonSerializerOptions.DictionaryKeyPolicy = null;
             });
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<EFContext>(opt =>
-       opt.UseSqlServer(Configuration.GetConnectionString("EFContext"), b => b.MigrationsAssembly("EFContext")));
+            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(opt =>
+       opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext")));
 
 
 

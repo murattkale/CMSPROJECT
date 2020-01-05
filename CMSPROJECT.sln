@@ -5,12 +5,6 @@ VisualStudioVersion = 16.0.29418.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericRepository", "GenericRepository\GenericRepository.csproj", "{AD3CA08D-D39F-4299-AB72-F961DFA32E68}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{C2BF78DB-34BB-4167-B0A1-9FE739A6F74E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{CFF8FC38-B5B8-439B-B955-8257AD811231} = {CFF8FC38-B5B8-439B-B955-8257AD811231}
-		{DDC52CDF-AAB4-49F6-9CF3-61BB41BA716C} = {DDC52CDF-AAB4-49F6-9CF3-61BB41BA716C}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helpers", "Helpers\Helpers.csproj", "{CFF8FC38-B5B8-439B-B955-8257AD811231}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entity", "Entity\Entity.csproj", "{DDC52CDF-AAB4-49F6-9CF3-61BB41BA716C}"
@@ -27,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynessService", "DynessServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserService", "UserService\UserService.csproj", "{A552E14D-E5DE-4E12-8629-66219A040FF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSSite", "CMSSite\CMSSite.csproj", "{FA0DAED7-3765-4090-939A-E0C20B546314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMSSite", "CMSSite\CMSSite.csproj", "{FA0DAED7-3765-4090-939A-E0C20B546314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMSService", "CMSService\CMSService.csproj", "{969D2BE5-C944-48F7-B947-C58766AB396E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMSService", "CMSService\CMSService.csproj", "{969D2BE5-C944-48F7-B947-C58766AB396E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +35,6 @@ Global
 		{AD3CA08D-D39F-4299-AB72-F961DFA32E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD3CA08D-D39F-4299-AB72-F961DFA32E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD3CA08D-D39F-4299-AB72-F961DFA32E68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2BF78DB-34BB-4167-B0A1-9FE739A6F74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2BF78DB-34BB-4167-B0A1-9FE739A6F74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2BF78DB-34BB-4167-B0A1-9FE739A6F74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2BF78DB-34BB-4167-B0A1-9FE739A6F74E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFF8FC38-B5B8-439B-B955-8257AD811231}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CFF8FC38-B5B8-439B-B955-8257AD811231}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFF8FC38-B5B8-439B-B955-8257AD811231}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,0 +1,482 @@
+﻿
+@{
+    string pageTitle = "Şubeler".Trans();
+
+}
+
+<link rel="stylesheet" type="text/css" href="TurkeyMap/css/normalize.css">
+<link rel="stylesheet" type="text/css" href="TurkeyMap/css/jquery.qtip.min.css">
+
+
+<script type="text/javascript" src="TurkeyMap/js/raphael-min.js"></script>
+<script type="text/javascript" src="TurkeyMap/js/paths.js"></script>
+
+<script type="text/javascript" src="TurkeyMap/js/jquery.qtip.min.js"></script>
+
+<style>
+    #map {
+        width: 1000px;
+        height: 800px;
+        /*position: absolute;*/
+        margin: auto;
+        margin-top: -65px;
+    }
+
+        #map svg {
+            position: absolute;
+            left: 0px;
+        }
+
+    svg > a {
+        cursor: pointer;
+        display: block;
+    }
+
+    #sehir {
+        font-size: 30px;
+        text-align: center;
+        color: #666;
+        position: absolute !important;
+        /*margin-left: 500px !important;*/
+        margin: 0 auto;
+        margin-top: 0px !important;
+    }
+</style>
+
+
+<div class="container">
+    <div style="margin-top:15px;" class="row">
+
+        @*<div class="col-lg-3 col-12">
+            <div id="checkout-accordion">
+                <div class="single-accordion">
+                    <a style="" class="accordion-head" data-toggle="collapse" data-parent="#checkout-accordion" href="#" aria-expanded="true">
+                        <div class="bradcaump__innerr text-center">
+                            <h2 style="color:white !important;font-family:sans-serif !important;font-size: 25px; text-transform: capitalize;" class="bradcaump-title">Ülke</h2>
+                        </div>
+
+                    </a>
+                    <div id="subelerimiz_div" class="collapse show" style="">
+                        <div class="accordion-body billing-method fix">
+                            <div class="billing-form checkout-form">
+                                <div class="row">
+                                    <div class="col-12 mb--20">
+                                        <select id="dp_Ulke">
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>*@
+        <div class="col-lg-3 col-12">
+            <div id="checkout-accordion">
+                <div class="single-accordion">
+                    <a style="" class="accordion-head" data-toggle="collapse" data-parent="#checkout-accordion" href="#" aria-expanded="true">
+                        <div class="bradcaump__innerr text-center">
+                            <h2 style="color:white !important;font-family:sans-serif !important;font-size: 25px; text-transform: capitalize;" class="bradcaump-title">Şehir</h2>
+                        </div>
+
+                    </a>
+                    <div id="subelerimiz_div" class="collapse show" style="">
+
+                        <div class="accordion-body billing-method fix">
+
+                            <div class="billing-form checkout-form">
+                                <div class="row">
+                                    <div class="col-12 mb--20">
+                                        <select id="dp_Sehir">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div id="checkout-accordion">
+                <div class="single-accordion">
+                    <a style="" class="accordion-head" data-toggle="collapse" data-parent="#checkout-accordion" href="#" aria-expanded="true">
+                        <div class="bradcaump__innerr text-center">
+                            <h2 style="color:white !important;font-family:sans-serif !important;font-size: 25px; text-transform: capitalize;" class="bradcaump-title">İlçe</h2>
+                        </div>
+
+                    </a>
+                    <div id="subelerimiz_div" class="collapse show" style="">
+
+                        <div class="accordion-body billing-method fix">
+
+                            <div class="billing-form checkout-form">
+                                <div class="row">
+                                    <div class="col-12 mb--20">
+                                        <select id="dp_Ilce">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-12">
+            <div id="checkout-accordion">
+                <div class="single-accordion">
+                    <a style="" class="accordion-head" data-toggle="collapse" data-parent="#checkout-accordion" href="#" aria-expanded="true">
+                        <div class="bradcaump__innerr text-center">
+                            <h2 style="color:white !important;font-family:sans-serif !important;font-size: 25px; text-transform: capitalize;" class="bradcaump-title">Şube</h2>
+                        </div>
+
+                    </a>
+                    <div id="subelerimiz_div" class="collapse show" style="">
+
+                        <div class="accordion-body billing-method fix">
+
+                            <div class="billing-form checkout-form">
+                                <div class="row">
+                                    <div class="col-12 mb--20">
+                                        <select id="dp_Sube">
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="map"></div>
+        </div>
+
+        <div style="margin-top: -187px;" class="col-md-12 col-sm-12 ol-lg-12">
+            <div class="table-content table-responsive">
+                <table>
+                    <thead>
+                        <tr class="title-top">
+                            <th class="product-thumbnail">Logo</th>
+                            <th class="product-name">Şube Adı</th>
+                            <th class="product-price">Telefon</th>
+                            <th class="product-quantity">Yetkili Kişi</th>
+                            <th class="product-subtotal">Adres</th>
+                            <th class="product-remove">Şehir/İlçe</th>
+                            <th class="product-remove">Şube Sayfası</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="sube_div">
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    var Subeler_ListFunc;
+    $(function () {
+        Subeler_ListFunc = {
+            load: function () {
+
+                Subeler_ListFunc.getSehir();
+                //$("#map svg path").hover(
+                //    function () {
+                //        var id = $(this).attr("id");
+                //        $(".bradcaump-title").html(id.toUpperCase());
+                //    });
+            },
+            //getUlke: function () {
+            //    var div_id = "#dp_Ulke";
+            //    $(div_id).addOptionAjax("/Base/getUlke", "", "value", "text", function () { getSehir(); }, function () { Subeler_ListFunc.getSehir(); }, '1', '', '');
+            //},
+            getSehir: function () {
+                var div_id = "#dp_Sehir";
+                $(div_id).addOptionAjax("/Base/getSehir", { id: 1}, "value", "text", function () { Subeler_ListFunc.getIlce(); }, function () { Subeler_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+            },
+            getIlce: function () {
+                var div_id = "#dp_Ilce";
+                $(div_id).addOptionAjax("/Base/getIlce", { id: $("#dp_Sehir").val() }, "value", "text", function () { Subeler_ListFunc.getSubeler(); }, function () { Subeler_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
+            },
+
+            getSubeler: function (SehirId) {
+                $("#sube_div").html('');
+                $("#map").html('');
+                if (SehirId) {
+
+                }
+                else {
+                    SehirId = $('#dp_Sehir').val()
+                }
+                var postModel = {
+                    UlkeId: 0
+                    , SehirId: SehirId
+                    , IlceId: $('#dp_Ilce').val()
+                };
+                debugger;
+
+                $.ajx("/Base/getSubeler", postModel, function (dataResult) {
+
+                    $('#dp_Sube').addOption(dataResult, "value", "text", function () { Subeler_ListFunc.getMaps(dataResult); }, function () { Subeler_ListFunc.getMaps(dataResult); }, '', '', 'Şube Seçiniz');
+
+
+                    var str = "";
+
+                    $.each(dataResult, function (i, item) {
+                        str += '  <tr>     <td class="product-thumbnail"><a href="' + baseUrl + 'sube/' + item.value + '"><img src="' + 'Content/img/logo.png" alt="product img"></a></td>                   ';
+                        str += '              <td class="product-name">' + item.text + '</td>                                                                                    ';
+                        str += '              <td class="product-price">' + (item.Telefon == null ? "" : item.Telefon) + '</td>                                                                                   ';
+                        str += '              <td class="product-quantity">' + (item.Yetkili == null ? "" : item.Yetkili) + '</td>                                                                                ';
+                        str += '              <td class="product-subtotal">' + (item.Adres == null ? "" : item.Adres) + '</td>                                                                                ';
+                        str += '              <td class="product-subtotal">' + item.SehirAd + ' / ' + item.IlceAd + '</td>                                                                                ';
+                        str += '              <td class="product-remove">                                                                                       ';
+                        str += '                  <div style="padding: 5px;" class="cartbox__btn">                                                                                    ';
+                        str += '                      <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">       ';
+                        str += '                          <li><a target="_blank" href="' + baseUrl + 'sube/' + item.value + '">Şubeye Git</a></li>                                                                   ';
+                        str += '                      </ul>                                                                                                     ';
+                        str += '                  </div>                                                                                                        ';
+                        str += '                                                                                                                                ';
+                        str += '           </td>  </tr>';
+                    });
+
+
+
+                    $("#sube_div").html(str);
+
+                    if (dataResult.length < 1) {
+                        alert('Seçtiğiniz noktada şubemiz bulunmamaktadır.');
+                    }
+
+                }, null);
+            },
+
+
+            getMaps: function (dataResult) {
+
+
+                var iscountyselected = false;
+                var previouscountyselected = "blank";
+                var start = true;
+                var past = null;
+                var content_dir = "details";
+
+                var r = Raphael('map'),
+                    arr = new Array();
+
+                for (var county in paths) {
+
+
+                    var obj = r.path(paths[county].path);
+
+                    var ilce = "#666";
+                    var ilceMap = paths[county].county;
+
+                    if (ilceMap)
+                        for (var i = 0; i < dataResult.length; i++) {
+
+                            if (ilceMap == dataResult[i].SehirId) {
+                                ilce = "#15d4f5";
+                                break;
+                            }
+                        }
+
+                    if (ilce != "#666") {
+                        var attributes = {
+                            fill: ilce,
+                            stroke: '#fff',
+                            'stroke-width': .5,
+                            'stroke-linejoin': 'round',
+                        };
+                        obj.attr(attributes);
+                    }
+                    else {
+                        var attributes = {
+                            fill: '#666',
+                            stroke: '#fff',
+                            'stroke-width': .5,
+                            'stroke-linejoin': 'round',
+                        };
+                        obj.attr(attributes);
+                    }
+
+
+
+
+
+                    arr[obj.id] = county;
+
+
+
+                    if (arr[obj.id] !== 'blank') {
+                        obj.data('selected', 'notSelected');
+
+                        obj.node.id = arr[obj.id];
+
+                        obj.attr(attributes).attr({ title: paths[arr[obj.id]].name });
+
+
+                        obj.hover(function () {
+                            $('#coatOfArms').addClass(arr[this.id] + 'large sprite-largecrests');
+
+                            $('#countyInfo').text(paths[arr[this.id]].name);
+
+                            $('#searchResults').stop(true, true);
+
+
+                        }, function () {
+                            $('#coatOfArms').removeClass();
+                            if (paths[arr[this.id]].value === 'notSelected') {
+                                $('.' + paths[arr[this.id]].name)
+                                    .slideUp('slow', function () {
+                                        $(this).remove();
+                                    });
+                            }
+                        });
+                        $("svg a").qtip({
+
+                            content: {
+                                attr: 'title'
+                            },
+                            show: 'mouseover',
+                            hide: 'mouseout',
+                            position: {
+                                target: 'leave'
+                            },
+                            style: {
+                                classes: 'ui-tooltip-tipsy ui-tooltip-shadow',
+                                tip: false
+                            }
+                        });
+
+                        obj.click(function () {
+
+                            if (paths[arr[this.id]].value == 'notSelected') {
+                                this.animate({
+                                    fill: '#000'
+                                }, 200);
+
+                                paths[previouscountyselected].value = "notSelected";
+                                paths[arr[this.id]].value = "isSelected";
+
+                                previouscountyselected = paths[arr[this.id]].name;
+
+                                $('<div/>', {
+                                    title: arr[this.id],
+                                    'class': arr[this.id] + 'small sprite-smallcrests'
+                                }).appendTo('#selectedCounties').qtip(countyCrest);
+
+                                $("#countymenu").val(paths[arr[this.id]].county);
+
+
+
+                                if (!start && past != this) {
+                                    past.animate({ fill: '#666' }, 200);
+                                }
+                                past = this;
+                                start = false;
+
+                                $([document.documentElement, document.body]).animate({
+                                    scrollTop: $(".table-content.table-responsive").offset().top / 2
+                                }, 1000);
+
+                                //$("#dp_Sehir").val(paths[);
+
+                                Subeler_ListFunc.getSubeler(paths[arr[this.id]].county);
+
+
+
+                            }
+
+
+                            else if (paths[arr[this.id]].value == 'isSelected') {
+                                this.animate({
+                                    fill: '#15d4f5'
+                                }, 200);
+
+                                paths[arr[this.id]].value = "notSelected";
+
+                                $("." + previouscountyselected + 'small').remove();
+
+
+                            }
+
+                        });
+
+                        var countyCrest = {
+                            content: {
+                                attr: 'title'
+                            },
+                            position: {
+                                target: 'mouse'
+                            },
+                            style: {
+                                classes: 'ui-tooltip-tipsy ui-tooltip-shadow',
+                                tip: true
+                            }
+                        };
+
+                        function hoverin(e) {
+                            if (paths[arr[this.id]].value === 'notSelected')
+                                this.animate({
+                                    fill: '#15d4f5'
+                                }, 50);
+                        }
+
+                        function hoverout(e) {
+                            if (paths[arr[this.id]].value === 'notSelected')
+                                this.animate({
+                                    fill: '#666'
+                                }, 300);
+                        }
+
+                        obj.mouseout(hoverout);
+
+                        obj.mouseover(hoverin);
+
+                        $('#countyInfo').hide();
+
+                        $('#spinner').hide();
+
+                    }
+
+                }
+
+            },
+
+
+
+
+
+
+        }
+        Subeler_ListFunc.load();
+
+    });
+
+
+</script>
+

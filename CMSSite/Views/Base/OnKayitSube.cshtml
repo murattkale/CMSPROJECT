@@ -1,0 +1,101 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+<div style="margin-top:25px;">
+    <div class="single-accordion">
+        <a style="" class="accordion-head" data-toggle="collapse" data-parent="#checkout-accordion" href="#" aria-expanded="true">
+            <div class="bradcaump__innerr text-center">
+                <h2 style="color:white !important;font-family:'sans-serif' !important; text-transform: capitalize;" class="bradcaump-title">Daha fazla bilgi için formu doldurun</h2>
+            </div>
+
+        </a>
+        <div id="subelerimiz_div" class="collapse show" style="">
+
+            <div class="accordion-body billing-method fix">
+
+                <div class="billing-form checkout-form">
+                    <div class="row">
+                        <div class="col-12 mb--20">
+
+                            <form id="frmFormlar_sube" name="frmFormlar_sube">
+                                <div class="single-input">
+                                    <input style="margin-top:15px;" required type="text" placeholder="Ad" name="Ad" id="Soyad">
+                                </div>
+                                <div class="single-input">
+                                    <input style="margin-top:15px;" required type="text" placeholder="Soyad" name="Soyad" id="Soyad">
+                                </div>
+                                <div class="single-input">
+                                    <input style="margin-top:15px;" required type="text" placeholder="Telefon" name="Telefon" id="Telefon">
+                                </div>
+                                <div class="single-input">
+                                    <input style="margin-top:15px;" type="email" placeholder="Mail" name="Mail" id="Mail">
+                                </div>
+
+                                <input type="hidden" value="@SessionRequest.SubeId" id="SubeId" name="SubeId" />
+                              
+                                <div class="single-input">
+                                    <textarea placeholder="Not"  cols="100%" rows="5" name="Icerik" id="Icerik"></textarea>
+                                </div>
+                                <div class="single-input text-center">
+
+                                    <input style="margin-top:15px;" id="btnOK" type="submit" value="Gönder" class="ovalButton" />
+                                </div>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    var Formlar_ListFunc;
+    $(function () {
+        Formlar_ListFunc = {
+            load: function () {
+
+                $('#' + 'frmFormlar_sube').submit(function (e) {
+                    $.LoadingOverlay("show");
+                    e.preventDefault();
+                    var postModel = $.fn.toForm("#" + 'frmFormlar_sube');
+                    postModel.FormType = 2;
+
+
+
+
+                    $.ajx('Base/' + "/FormlarSave", { postModel: postModel }, function (resultMenus) {
+                        if (resultMenus.ResultType != 3) {
+                            $(".zmdi.zmdi-close").click();
+                            alert("Önkayıt işleminiz Alınmıştır.");
+                        }
+                        else {
+
+                            alert(resultMenus.MessageList[0]);
+                        }
+                        $.LoadingOverlay("hide");
+                    }, function () { location.reload(); });
+
+                });
+
+            },
+
+
+        }
+        Formlar_ListFunc.load();
+
+    });
+
+
+</script>
+

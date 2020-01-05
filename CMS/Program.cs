@@ -27,8 +27,7 @@ namespace CMS
                      .CaptureStartupErrors(true)
                      .UseSetting("detailedErrors", "true")
                     ;
-                })
-            ;
+                });
     }
 
 }

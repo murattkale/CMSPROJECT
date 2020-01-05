@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 0;
+}
+
+@if (contents.Count > 0)
+{
+
+    <div class="col-lg-3 col-md-6 col-sm-6 col-12 xs-mt-40">
+        <div class="footer__widget">
+            <h4>Son Haberler</h4>
+            <div class="footer__innner">
+                <div class="ftr__latest__post">
+                    <!-- Start Single -->
+
+                    @foreach (var item in contents)
+                    {
+                        i++;
+                        if (i > 6) { i = 1; }
+                        var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
+                        var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
+                        var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
+                        <div style="margin-bottom: 0px;" class="single__ftr__post d-flex">
+                            <div class="ftr__post__thumb">
+                                <a target="@target" href="@link">
+                                    <img src="images/blog/post-img/@Html.Raw(i + ".jpg")" alt="post images">
+                                </a>
+                            </div>
+                            <div class="ftr__post__details">
+                                <h6><a style="font-size:13px !important;" target="@target" href="@link">@item.Name</a></h6>
+                                <span><i class="fa fa-calendar"></i>@item.CreaDate.ToShortDateString()</span>
+                            </div>
+                        </div>
+                    }
+
+
+
+
+                    <!-- End Single -->
+                    <!-- Start Single -->
+                    <!-- End Single -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Single Widget -->
+
+}

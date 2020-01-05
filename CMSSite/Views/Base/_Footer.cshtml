@@ -1,0 +1,161 @@
+﻿@{
+    Layout = null;
+    var _IMenusService = new List<ContentPage>(ViewBag._IMenusService);
+
+    var kurum = (Kurum)ViewBag.kurum;
+    var sube = (Sube)ViewBag.sube;
+
+    var baslik = kurum != null ? kurum.Ad : sube.Ad;
+    var adres = kurum != null ? kurum.Adres : sube.Adres;
+    var telefon = kurum != null ? kurum.Telefon : sube.Telefon;
+    var maps = kurum != null ? kurum.Maps : sube.Maps;
+
+    var Facebook = kurum != null ? kurum.Facebook : sube.Facebook;
+    var Twitter = kurum != null ? kurum.Twitter : sube.Twitter;
+    var Instagram = kurum != null ? kurum.Instagram : sube.Instagram;
+    var Youtube = kurum != null ? kurum.Youtube : sube.Youtube;
+    var Pinterest = kurum != null ? kurum.Pinterest : sube.Pinterest;
+
+
+    object ShowTree(List<ContentPage> ms)
+    {
+        var i = 0;
+        foreach (var menu in ms)
+        {
+            i++;
+            if (i == 2 && menu.ParentId == null)
+            {
+                <li class="drop">
+                    <a href="@Html.Raw(SessionRequest.baseUrl + "subeler")">Şubelerimiz</a>
+                </li>
+            }
+
+
+            var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
+            var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
+            var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
+            <li style="@cursor" class="drop">
+                <a style="@cursor" target="@target" href="@link">@menu.Name</a>
+                @if (_IMenusService.Any(o => o.ParentId == menu.Id))
+                {
+                    <ul class="dropdown__menu">
+                        @ShowTree(_IMenusService.Where(o => o.ParentId == menu.Id).ToList())
+                    </ul>
+                }
+            </li>
+        }
+
+        return "";
+    }
+
+
+}
+<div class="subscribe__position">
+
+    <!-- End Subscribe Area -->
+    <!-- Start Footer Area -->
+    <footer id="footer" class="footer-area footer--2 space--vertical footer__variation--3">
+        <div class="footer__wrapper bg__cat--8 section-padding--lg">
+            <div class="container">
+                <div class="row">
+                    <!-- Start Single Widget -->
+                    <div class="col-lg-5 col-md-6 col-sm-6 col-12">
+                        <div class="footer__widget">
+                            <h4>İletişim</h4>
+                            <div class="ftr__address__inner">
+                                @*<div class="ftr__address">
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-home"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p>
+                                                ADRES : Eski Edirne Asfaltı No:187/D
+
+                                            </p>
+                                            <p> 34045 Bayrampaşa / İstanbul</p>
+                                        </div>
+                                    </div>*@
+                                @*<div class="ftr__address">
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p><a href="#">TELEFON / FAKS </a></p>
+                                            <p><a href="#">0212 537 97 97</a></p>
+                                        </div>
+                                    </div>*@
+                                @*<div class="ftr__address">
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p><a href="#">info@example.com</a></p>
+                                            <p><a href="#">info@example.com</a></p>
+                                        </div>
+                                    </div>*@
+                                <div class="footer__social__icon">
+                                    <ul class="dacre__social__link--2 d-flex justify-content-start">
+                                        <li class="facebook"><a href="@Facebook"><i class="fa fa-facebook"></i></a></li>
+                                        <li class="twitter"><a href="@Twitter"><i class="fa fa-twitter"></i></a></li>
+                                        <li class="vimeo"><a href="@Instagram"><i class="fa fa-instagram"></i></a></li>
+                                        <li class="pinterest"><a href="@Youtube"><i class="fa fa-youtube"></i></a></li>
+                                        <li class="pinterest"><a href="@Pinterest"><i class="fa fa-pinterest-p"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Widget -->
+                    <!-- Start Single Widget -->
+                    <!-- End Single Widget -->
+                    <!-- Start Single Wedget -->
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 md-mt-40 sm-mt-40">
+                        <div class="footer__widget">
+                            <h4>Kategoriler</h4>
+                            <div class="footer__innner">
+                                <div class="ftr__latest__post">
+                                    <ul class="ftr__catrgory">
+                                        <li class="drop">
+                                            <a href="@Html.Raw(SessionRequest.baseUrl + "anasayfa")">Ana Sayfa</a>
+                                        </li>
+
+                                        @ShowTree(_IMenusService.Where(o => o.ParentId == null).ToList())
+
+
+                                        <li class="drop">
+                                            <a href="@Html.Raw(SessionRequest.baseUrl + "iletisim")">İletişim</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Wedget -->
+                    <!-- Start Single Widget -->
+                    <!-- End Single Widget -->
+
+                    <partial name="~/Base/getContent" model='new  { ContentType = ContentPageType.haberler3 }' />
+
+                </div>
+            </div>
+        </div>
+        <!-- Start Copyright Area -->
+        <div class="copyright bg__cat--9">
+            <div class="container">
+                <div class="row align-items-center copyright__wrapper justify-content-center">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <div class="coppy__right__inner text-center">
+                            <p>
+                                @Html.Raw(SessionRequest.Copyright)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Copyright Area -->
+    </footer>
+    <!-- Start Footer Area -->
+</div>
+<!-- Cartbox -->
+<!-- //Cartbox -->

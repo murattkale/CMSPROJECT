@@ -5,8 +5,7 @@ using GenericRepository;
 using Entity;
 using Entity.CMSDB;
 
-namespace Services
-{
+
     public class KasaService : GenericRepo<Kasa>, IKasaService
     {
         public KasaService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
@@ -49,4 +48,4 @@ namespace Services
 
 
     }
-}
+

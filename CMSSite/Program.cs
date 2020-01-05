@@ -17,10 +17,17 @@ namespace CMSSite
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+          Host.CreateDefaultBuilder(args)
+
+              .ConfigureWebHostDefaults(webBuilder =>
+              {
+                  //webBuilder.UseUrls("http://localhost:1111");
+                  webBuilder.UseKestrel();
+                  webBuilder.UseStartup<Startup>()
+                   .CaptureStartupErrors(true)
+                   .UseSetting("detailedErrors", "true")
+                  ;
+              });
     }
+
 }

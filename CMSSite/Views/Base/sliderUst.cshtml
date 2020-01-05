@@ -1,0 +1,60 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 1;
+}
+
+@if (contents.Count > 0)
+{
+
+    <div class="slide__carosel owl-carousel owl-theme">
+        @foreach (var item in contents)
+        {
+            //i++;
+            //if (i > 6) { i = 1; }
+            var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
+            var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
+            var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
+
+            var image = "";
+
+            <div style="background-repeat: no-repeat;background-size: cover; background-position: center center;background-image: url('@Html.Raw(image)');" class="slider__area slider--four d-flex slider__fixed--height justify-content-start align-items-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="slider__activation">
+                                <!-- Start Single Slide -->
+                                <div class="slide">
+                                    <div class="slide__inner">
+
+                                        <h1 style="font-size: 41px;">@Html.Raw(item.Name) </h1>
+
+                                        @if (!string.IsNullOrEmpty(item.Content))
+                                        {
+                                            <p style="color: #000000 !important; font-size:28px !important;font-weight:bold !important;">@Html.Raw(item.Content)</p>
+                                        }
+
+                                        @if (!string.IsNullOrEmpty(item.ButtonText1))
+                                        {
+                                            <div class="slider__btn">
+                                                <a class="dcare__btn max__height-btn hover--theme-white" href="@item.ButtonText1Link">@Html.Raw(item.ButtonText1)</a>
+                                            </div>
+                                        }
+
+                                        <div class="slider__btn">
+                                            <a class="dcare__btn max__height-btn hover--theme-white" target="@target" href="@link">İncele</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Single Slide -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+
+}

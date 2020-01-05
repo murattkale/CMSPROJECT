@@ -1,0 +1,62 @@
+﻿@{
+    Layout = null;
+    var _IMenusService = new List<ContentPage>(ViewBag._IMenusService);
+
+
+
+    object ShowTree(List<ContentPage> ms)
+    {
+        var i = 0;
+        foreach (var menu in ms)
+        {
+            i++;
+            if (i == 2 && menu.ParentId == null)
+            {
+                <li class="drop">
+                    <a href="@Html.Raw(SessionRequest.baseUrl + "subeler")">Şubelerimiz</a>
+                </li>
+            }
+
+
+            var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
+            var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
+            var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
+            <li style="@cursor" class="drop">
+                <a style="@cursor" target="@target" href="@link">@menu.Name</a>
+                @if (_IMenusService.Any(o => o.ParentId == menu.Id))
+                {
+                    <ul class="dropdown__menu">
+                        @ShowTree(_IMenusService.Where(o => o.ParentId == menu.Id).ToList())
+                    </ul>
+                }
+            </li>
+        }
+
+        return "";
+    }
+
+}
+
+
+<div class="col-sm-4 col-md-2 col-lg-9 order-3 order-lg-2">
+    <div class="mainmenu__wrap">
+        <nav class="mainmenu__nav">
+
+            <ul class="mainmenu">
+
+                <li class="drop">
+                    <a href="@Html.Raw(SessionRequest.baseUrl + "anasayfa")">Ana Sayfa</a>
+                </li>
+
+                @ShowTree(_IMenusService.Where(o => o.ParentId == null).ToList())
+
+                <li class="drop">
+                    <a href="@Html.Raw(SessionRequest.baseUrl + "iletisim/" +(SessionRequest.SubeId >0?SessionRequest.SubeId.ToString() :"")   )">İletişim</a>
+                </li>
+
+
+            </ul>
+
+        </nav>
+    </div>
+</div>

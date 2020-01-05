@@ -1,0 +1,87 @@
+﻿@{
+    var _page = new ContentPage();
+
+    if (_page != null)
+    {
+
+    }
+    else
+    {
+        _page = ViewBag.page as ContentPage;
+    }
+
+}
+
+
+
+<!-- Start Bradcaump area -->
+<div class="ht__bradcaump__area">
+    <div class="ht__bradcaump__container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Start Choose Us Area -->
+                    <section class="dcare__choose__us__area section-padding--lg bg--white">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-md-12">
+                                    <div class="section__title text-center">
+                                        <h2 class="title__line">@Html.Raw(_page.Name)</h2>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+
+                            @if (!string.IsNullOrEmpty(_page.ButtonText1))
+                            {
+                                <a class="dcare__btn" href="@_page.ButtonText1Link">
+                                    @_page.ButtonText1
+                                </a>
+                            }
+                            <hr />
+
+                            @if (!string.IsNullOrEmpty(_page.ButtonText2))
+                            {
+                                <a class="dcare__btn" href="@_page.ButtonText2Link">
+                                    @_page.ButtonText2
+                                </a>
+                            }
+                            <hr />
+
+
+                            @if (!string.IsNullOrEmpty(_page.ContentShort))
+                            {
+                                <div class="row mt--20">
+                                    <p>@Html.Raw(_page.ContentShort)</p>
+
+                                </div>
+                            }
+
+                            <hr />
+
+
+                            @if (!string.IsNullOrEmpty(_page.Content))
+                            {
+                                <div class="row mt--20">
+                                    <p>@Html.Raw(_page.Content)</p>
+
+                                </div>
+                            }
+
+                            <hr />
+
+
+                            @if (SessionRequest.RawUrl.Contains("/franchise"))
+                            {
+                                <partial name="~/Base/OnKayitFranch.cshtml" />
+                            }
+                        </div>
+                    </section>
+                    <!-- End Choose Us Area -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Bradcaump area -->

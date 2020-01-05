@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 0;
+}
+
+@if (contents.Count > 0)
+{
+    <!-- Start Courses Area -->
+    <section class="dcare__courses__area section-padding--lg bg--white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title--2">
+                        <h2 class="title__line" data-shadow="Etkinlikler">Etkinlikler</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt--40">
+
+                @foreach (var item in contents)
+                {
+                    i++;
+                    if (i > 6) { i = 1; }
+                    var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
+                    var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
+                    var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
+                    <!-- Start Single Courses -->
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 wow fadeInUp" data-wow-delay="0.3s">
+                        <div class="courses">
+                            <div class="courses__thumb">
+                                <a target="@target" href="@link">
+                                    <img src="images/courses/@Html.Raw(i + ".jpg")" alt="courses images">
+                                </a>
+                            </div>
+                            <div class="courses__inner">
+                                <ul class="courses__meta d-flex">
+                                   
+                                    <li style="background-color:#0084b4 !important;" class="prize"> <a style="color:#fff !important;" target="@target" href="@link">İncele </a></li>
+                                    <li style="background-color:#00aced !important" class="prize">Paylaş</li>
+                                    <li style="background-color:#1dcaff !important" class="prize">Beğen</li>
+                                </ul>
+                                <div class="courses__wrap">
+                                    <div class="courses__date"><i class="fa fa-calendar"></i>@item.CreaDate.ToShortDateString()</div>
+                                    <div class="courses__content">
+                                        <h4><a target="@target" href="@link">@item.Name</a></h4>
+                                        <p>@Html.Raw(item.Content.limit(75))</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Courses -->
+
+
+                }
+            </div>
+        </div>
+    </section>
+    <!-- End Courses Area -->
+
+
+}

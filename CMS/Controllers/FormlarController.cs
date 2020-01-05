@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
-using Services;
+
 using Entity;
+using Entity.CMSDB;
 
 namespace CMS.Controllers
 {

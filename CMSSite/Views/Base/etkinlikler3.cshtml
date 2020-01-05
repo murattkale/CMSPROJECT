@@ -1,0 +1,28 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 0;
+}
+
+@if (contents.Count > 0)
+{
+    <div class="single__widget recent__post">
+        <h4>Etkinlikler</h4>
+        <ul>
+            @foreach (var item in contents)
+            {
+                i++;
+                <li>
+                    <a href="#"><img src="@Html.Raw("images/courses/" + i + ".jpg")" alt="post images"></a>
+                    <div class="post__content">
+                        <h6><a href="blog-details.html">@item.Name</a></h6>
+                        <span class="date"><i class="fa fa-calendar"></i>@item.CreaDate.ToShortDateString()</span>
+                    </div>
+                </li>
+            }
+
+
+        </ul>
+    </div>
+
+}

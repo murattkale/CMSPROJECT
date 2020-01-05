@@ -1,0 +1,104 @@
+﻿@{
+    var kurum = (Kurum)ViewBag.kurum;
+    var sube = (Sube)ViewBag.sube;
+
+    var baslik = sube == null ? kurum.Ad : sube.Ad;
+    var adres = sube == null ? kurum.Adres : sube.Adres;
+    var telefon = sube == null ? kurum.Telefon : sube.Telefon;
+    var maps = sube == null ? kurum.Maps : sube.Maps;
+
+    var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
+    var Twitter = sube == null ?  kurum.Twitter : sube.Twitter;
+    var Instagram = sube == null ? kurum.Instagram : sube.Instagram;
+    var Youtube = sube == null ? kurum.Youtube : sube.Youtube;
+    var Pinterest = sube == null ? kurum.Pinterest : sube.Pinterest;
+
+}
+
+
+<div class="container">
+    <div class="row">
+        <!-- Start Sidebar -->
+        <div class="col-lg-3 order-2 order-lg-1">
+            <div class="sidebar__widgets sidebar--left">
+
+                <partial name="~/Base/OnKayitSube" />
+
+                <partial name="~/Base/getContent" model='new  { ContentPageType = ContentPageType.etkinlikler3 }' />
+
+            </div>
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="col-lg-9 order-1 order-lg-2">
+            <br />
+
+            <partial name="~/Base/getContent" model='new  { ContentPageType = ContentPageType.sliderUst }' />
+
+
+            <div class="class__quality__desc with--leftsidebar">
+
+            </div>
+            <div class="class-details-inner">
+                <div class="courses__inner">
+                    <h2>@baslik</h2>
+                </div>
+                <br />
+                @*@Html.Raw(page.)*@
+                <hr />
+
+                <div class="col-lg-12 order-2 order-lg-1">
+                    <div class="sidebar__widgets sidebar--left">
+                        <br />
+
+                        <div class="ftr__address">
+                            <div class="ftr_icon">
+                                <i class="fa fa-home"></i>
+                            </div>
+                            <div class="ftr__contact">
+                                <p>
+                                    ADRES :@Html.Raw(adres)
+
+                                </p>
+                            </div>
+                        </div>
+                        <div class="ftr__address">
+                            <div class="ftr_icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="ftr__contact">
+                                <p><a href="#">TELEFON </a></p>
+                                <p><a href="#">@Html.Raw(telefon)</a></p>
+                            </div>
+                            <br />
+                        </div>
+                        <br />
+
+                        @if (!string.IsNullOrEmpty(maps))
+                        {
+                            @Html.Raw(maps)
+                            <style>
+                                iframe {
+                                    height: 400px !important;
+                                    width: 100% !important;
+                                }
+                            </style>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .slider--four.slider__fixed--height {
+        height: 304px !important;
+    }
+</style>
+
+
+
