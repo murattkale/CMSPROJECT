@@ -1,142 +1,4 @@
 ﻿
-
-function getContentType(id, selectid) {
-    var dataResult = getContentTypeList();
-
-    $(id).addOption(dataResult, "Id", "Name", function () { }, function () { }, selectid, '', 'Seçiniz');
-
-}
-
-function getCT(id) {
-
-    var dataResult = getContentTypeList();
-    var row = dataResult[id];
-    return row;
-}
-
-function getContentTypeList() {
-    var dataResult = [];
-    dataResult.push({ Id: 0, Name: "Normal Sayfa" });
-    dataResult.push({ Id: 1, Name: "ROW1" });
-    dataResult.push({ Id: 2, Name: "ROW2" });
-    dataResult.push({ Id: 3, Name: "ROW3" });
-    dataResult.push({ Id: 4, Name: "ROW4" });
-    dataResult.push({ Id: 5, Name: "ÜST SLİDER" });
-    dataResult.push({ Id: 6, Name: "ALT SLİDER" });
-    dataResult.push({ Id: 7, Name: "ETKİNLİKLER" });
-    dataResult.push({ Id: 8, Name: "HABERLER" });
-
-    return dataResult;
-}
-
-
-
-function getFT(id) {
-
-    var dataResult = getFormTypeList();
-    var row;
-    for (var i = 0; i < dataResult.length; i++) {
-        var rowItem = dataResult[i];
-        if (rowItem.Id == id) {
-            row = rowItem;
-            break;
-        }
-    }
-
-    return row;
-}
-
-function getFormTypeList() {
-    var dataResult = [];
-    dataResult.push({ Id: 1, Name: "Anasayfa" });
-    dataResult.push({ Id: 2, Name: "Şube" });
-    dataResult.push({ Id: 3, Name: "Franch" });
-    dataResult.push({ Id: 9, Name: "ilkteknem.com" });
-
-    return dataResult;
-}
-
-
-(function ($) {
-    $.fn.ceo = function (ayarlar) {
-        var ayar = $.extend({
-            'source': "#" + $(this)[0].name,
-            'target': "",
-        }, ayarlar);
-
-        $(ayar.source).on("keyup", function () {
-            str = $(this).val();
-            str = replaceSpecialChars(str);
-            str = str.toLowerCase();
-            str = str.replace(/\s\s+/g, ' ').replace(/[^a-z0-9\s]/gi, '').replace(/[^\w]/ig, "-");
-            function replaceSpecialChars(str) {
-                var specialChars = [["ş", "s"], ["ğ", "g"], ["ü", "u"], ["ı", "i"], ["_", "-"],
-                ["ö", "o"], ["Ş", "S"], ["Ğ", "G"], ["Ç", "C"], ["ç", "c"],
-                ["Ü", "U"], ["İ", "I"], ["Ö", "O"], ["ş", "s"]];
-                for (var i = 0; i < specialChars.length; i++) {
-                    str = str.replace(eval("/" + specialChars[i][0] + "/ig"), specialChars[i][1]);
-                }
-                return str;
-            }
-            $(ayar.target).val(str);
-        });
-    };
-
-})(jQuery);
-
-(function ($) {
-    $.fn.dup = function (ayarlar) {
-        var ayar = $.extend({
-            'source': "#" + $(this)[0].name,
-            'target': "",
-        }, ayarlar);
-
-        $(ayar.source).on("keyup", function () {
-            str = $(this).val();
-            $(ayar.target).val(str);
-        });
-    };
-
-})(jQuery);
-
-
-function alerts(message, button, call) {
-    var but = [];
-    if (button == "yesno") {
-        but = {
-            confirm: {
-                label: "Yes",
-                className: 'btn-success'
-            },
-            cancel: {
-                label: "No",
-                className: 'btn-danger'
-            }
-        };
-    }
-    else if (button == "ok") {
-        but = {
-            confirm: {
-                label: "OK",
-                className: 'btn-success'
-            }
-        };
-    }
-
-    if (call) {
-        bootbox.confirm({
-            message: message,
-            buttons: but,
-            callback: call,
-        });
-    }
-    else {
-        bootbox.alert(message);
-    }
-
-}
-
-
 (function ($) {
     "use strict";
 
@@ -224,7 +86,6 @@ function alerts(message, button, call) {
         var id = this;
         $(id).LoadingOverlay("show");
         $(id).html('');
-
         $.ajx(url, param, function (dataResult) {
             $(id).addOption(dataResult, value, text, dpChange, dpSuccess, selectValue, selectText, selectDefault, attrName, attrValue);
             $(id).LoadingOverlay("hide");
@@ -283,3 +144,110 @@ function alerts(message, button, call) {
 
 
 })(jQuery);
+
+
+function getFT(id) {
+
+    var dataResult = getFormTypeList();
+    var row;
+    for (var i = 0; i < dataResult.length; i++) {
+        var rowItem = dataResult[i];
+        if (rowItem.Id == id) {
+            row = rowItem;
+            break;
+        }
+    }
+
+    return row;
+}
+
+function getFormTypeList() {
+    var dataResult = [];
+    dataResult.push({ Id: 1, Name: "Anasayfa" });
+    dataResult.push({ Id: 2, Name: "Şube" });
+    dataResult.push({ Id: 3, Name: "Franch" });
+    dataResult.push({ Id: 9, Name: "ilkteknem.com" });
+
+    return dataResult;
+}
+
+
+(function ($) {
+    $.fn.ceo = function (ayarlar) {
+        var ayar = $.extend({
+            'source': '#' + $(this)[0].id,
+            'target': "",
+        }, ayarlar);
+
+        $(ayar.source).on("keyup", function () {
+            str = $(this).val();
+            str = replaceSpecialChars(str);
+            str = str.toLowerCase();
+            str = str.replace(/\s\s+/g, ' ').replace(/[^a-z0-9\s]/gi, '').replace(/[^\w]/ig, "-");
+            function replaceSpecialChars(str) {
+                var specialChars = [["ş", "s"], ["ğ", "g"], ["ü", "u"], ["ı", "i"], ["_", "-"],
+                ["ö", "o"], ["Ş", "S"], ["Ğ", "G"], ["Ç", "C"], ["ç", "c"],
+                ["Ü", "U"], ["İ", "I"], ["Ö", "O"], ["ş", "s"]];
+                for (var i = 0; i < specialChars.length; i++) {
+                    str = str.replace(eval("/" + specialChars[i][0] + "/ig"), specialChars[i][1]);
+                }
+                return str;
+            }
+            $(ayar.target).val(str);
+        });
+    };
+
+})(jQuery);
+
+(function ($) {
+    $.fn.dup = function (ayarlar) {
+        var ayar = $.extend({
+            'source': '#' + $(this)[0].id,
+            'target': "",
+        }, ayarlar);
+
+        $(ayar.source).on("keyup", function () {
+            str = $(this).val();
+            $(ayar.target).val(str);
+        });
+    };
+
+})(jQuery);
+
+
+function alerts(message, button, call) {
+    var but = [];
+    if (button == "yesno") {
+        but = {
+            confirm: {
+                label: "Yes",
+                className: 'btn-success'
+            },
+            cancel: {
+                label: "No",
+                className: 'btn-danger'
+            }
+        };
+    }
+    else if (button == "ok") {
+        but = {
+            confirm: {
+                label: "OK",
+                className: 'btn-success'
+            }
+        };
+    }
+
+    if (call) {
+        bootbox.confirm({
+            message: message,
+            buttons: but,
+            callback: call,
+        });
+    }
+    else {
+        bootbox.alert(message);
+    }
+
+}
+

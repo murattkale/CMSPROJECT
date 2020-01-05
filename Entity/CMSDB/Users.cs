@@ -7,12 +7,21 @@ namespace Entity.CMSDB
     {
         public Users()
         {
+            OgrenciSozlesmeGorusenPersonel = new HashSet<OgrenciSozlesme>();
+            OgrenciSozlesmeKurumaGetirenPersonel = new HashSet<OgrenciSozlesme>();
             ServiceConfigAuth = new HashSet<ServiceConfigAuth>();
-            Sinif = new HashSet<Sinif>();
             SinifOgrenci = new HashSet<SinifOgrenci>();
+            UserRoles = new HashSet<UserRoles>();
         }
 
-      
+       
+        
+        
+        
+       
+        
+       
+       
         public string Tc { get; set; }
         public string Pass { get; set; }
         public string Name { get; set; }
@@ -31,11 +40,13 @@ namespace Entity.CMSDB
         public int? CityId { get; set; }
         public int? TownId { get; set; }
         public string ZipCode { get; set; }
-        public string Image { get; set; }
+        public string ProfilImage { get; set; }
         public string Description { get; set; }
 
+        public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeGorusenPersonel { get; set; }
+        public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeKurumaGetirenPersonel { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
-        public virtual ICollection<Sinif> Sinif { get; set; }
         public virtual ICollection<SinifOgrenci> SinifOgrenci { get; set; }
+        public virtual ICollection<UserRoles> UserRoles { get; set; }
     }
 }

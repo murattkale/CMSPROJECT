@@ -11,7 +11,14 @@ namespace Entity.CMSDB
             Sube = new HashSet<Sube>();
         }
 
-       
+
+
+
+
+
+
+
+
         public int CityId { get; set; }
         public string TownName { get; set; }
 

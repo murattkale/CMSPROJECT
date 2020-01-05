@@ -3,12 +3,13 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
+using Entity.CMSDB;
 
 namespace Services
 {
     public class MenusService : GenericRepo<Menus>, IMenusService
     {
-        public MenusService(EFContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public MenusService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Menus> InsertOrUpdate(Menus model)

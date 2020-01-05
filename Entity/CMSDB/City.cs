@@ -12,6 +12,14 @@ namespace Entity.CMSDB
             Town = new HashSet<Town>();
         }
 
+       
+        
+        
+        
+       
+        
+       
+       
         public string CityName { get; set; }
 
         public virtual ICollection<Kurum> Kurum { get; set; }

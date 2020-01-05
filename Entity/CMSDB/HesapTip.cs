@@ -10,7 +10,14 @@ namespace Entity.CMSDB
             Hesap = new HashSet<Hesap>();
         }
 
-      
+       
+        
+        
+        
+       
+        
+       
+       
         public string Ad { get; set; }
         public int? GelirGiderTipi { get; set; }
 

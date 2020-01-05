@@ -11,6 +11,13 @@ namespace Entity.CMSDB
         }
 
        
+        
+        
+        
+       
+        
+       
+       
         public string Ad { get; set; }
         public string Kod { get; set; }
 

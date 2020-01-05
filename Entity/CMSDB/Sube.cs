@@ -7,10 +7,23 @@ namespace Entity.CMSDB
     {
         public Sube()
         {
+            ContentPage = new HashSet<ContentPage>();
+            Derslik = new HashSet<Derslik>();
+            Kasa = new HashSet<Kasa>();
+            OgrenciSozlesme = new HashSet<OgrenciSozlesme>();
+            Seans = new HashSet<Seans>();
             Sinif = new HashSet<Sinif>();
+            Sozlesme = new HashSet<Sozlesme>();
         }
 
        
+        
+        
+        
+       
+        
+       
+        public int? IsStatus { get; set; }
         public int KurumId { get; set; }
         public string Ad { get; set; }
         public int? SehirId { get; set; }
@@ -31,10 +44,17 @@ namespace Entity.CMSDB
         public string TicariUnvan { get; set; }
         public string VergiNo { get; set; }
         public string VergiDairesi { get; set; }
+        public int? SozlesmeTaksitLimit { get; set; }
 
         public virtual Town Ilce { get; set; }
         public virtual Kurum Kurum { get; set; }
         public virtual City Sehir { get; set; }
+        public virtual ICollection<ContentPage> ContentPage { get; set; }
+        public virtual ICollection<Derslik> Derslik { get; set; }
+        public virtual ICollection<Kasa> Kasa { get; set; }
+        public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
+        public virtual ICollection<Seans> Seans { get; set; }
         public virtual ICollection<Sinif> Sinif { get; set; }
+        public virtual ICollection<Sozlesme> Sozlesme { get; set; }
     }
 }

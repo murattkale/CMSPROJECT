@@ -5,7 +5,14 @@ namespace Entity.CMSDB
 {
     public partial class SinifOgrenci : BaseModel
     {
+       
         
+        
+        
+       
+        
+       
+       
         public int SinifId { get; set; }
         public int OgrenciId { get; set; }
 

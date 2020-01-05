@@ -6,6 +6,13 @@ namespace Entity.CMSDB
     public partial class ServiceConfigAuth : BaseModel
     {
        
+        
+        
+        
+       
+        
+       
+       
         public int ServiceConfigId { get; set; }
         public int? UserId { get; set; }
         public int? RoleId { get; set; }

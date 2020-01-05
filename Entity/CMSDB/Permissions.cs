@@ -11,6 +11,13 @@ namespace Entity.CMSDB
         }
 
        
+        
+        
+        
+       
+        
+       
+       
         public int RoleId { get; set; }
         public string Name { get; set; }
 

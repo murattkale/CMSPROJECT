@@ -8,9 +8,17 @@ namespace Entity.CMSDB
         public ServiceConfig()
         {
             InverseParent = new HashSet<ServiceConfig>();
+            Roles = new HashSet<Roles>();
             ServiceConfigAuth = new HashSet<ServiceConfigAuth>();
         }
 
+       
+        
+        
+        
+       
+        
+       
        
         public int? ParentId { get; set; }
         public string Name { get; set; }
@@ -21,6 +29,7 @@ namespace Entity.CMSDB
 
         public virtual ServiceConfig Parent { get; set; }
         public virtual ICollection<ServiceConfig> InverseParent { get; set; }
+        public virtual ICollection<Roles> Roles { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
     }
 }

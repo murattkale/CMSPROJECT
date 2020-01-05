@@ -43,21 +43,11 @@ namespace CMS
             ;
 
 
-
-            services.AddEntityFrameworkSqlServer().AddDbContext<EFContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("EFContext"), b => b.MigrationsAssembly("EFContext")));
+            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(opt =>
+            opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext")));
 
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
-
-            services.AddScoped(typeof(IMenusService), typeof(MenusService));
-            services.AddScoped(typeof(IContentService), typeof(ContentService));
-            services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
-
-
-
-            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(opt =>
-            opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext")));
 
             services.AddScoped(typeof(IBankaService), typeof(BankaService));
             services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
@@ -89,6 +79,7 @@ namespace CMS
             services.AddScoped(typeof(IServiceConfigService), typeof(ServiceConfigService));
             services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));
 
+            services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
 
 
         }
@@ -117,7 +108,7 @@ namespace CMS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Kurum}/{action=Index}/{id?}");
+                    pattern: "{controller=ContentPage}/{action=Index}/{id?}");
             });
         }
     }

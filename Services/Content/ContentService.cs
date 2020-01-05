@@ -3,12 +3,13 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
+using Entity.CMSDB;
 
 namespace Services
 {
     public class ContentService : GenericRepo<Content>, IContentService
     {
-        public ContentService(EFContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public ContentService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Content> InsertOrUpdate(Content model)

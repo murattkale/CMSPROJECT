@@ -11,6 +11,13 @@ namespace Entity.CMSDB
         }
 
        
+        
+        
+        
+       
+        
+       
+       
         public string Ad { get; set; }
         public int? BankaId { get; set; }
 

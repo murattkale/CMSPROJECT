@@ -11,8 +11,17 @@ namespace Entity.CMSDB
         }
 
        
+        
+        
+        
+       
+        
+       
+       
         public string Ad { get; set; }
+        public int SubeId { get; set; }
 
+        public virtual Sube Sube { get; set; }
         public virtual ICollection<Sinif> Sinif { get; set; }
     }
 }

@@ -10,11 +10,18 @@ namespace Entity.CMSDB
             SinifOgrenci = new HashSet<SinifOgrenci>();
         }
 
-      
+       
+        
+        
+        
+       
+        
+       
+       
         public string Ad { get; set; }
         public int SubeId { get; set; }
-        public string Tur { get; set; }
-        public string Seviye { get; set; }
+        public int? Tur { get; set; }
+        public int? Seviye { get; set; }
         public int? SeansId { get; set; }
         public int? DerslikId { get; set; }
         public int? SorumluKisiId { get; set; }
@@ -25,7 +32,6 @@ namespace Entity.CMSDB
 
         public virtual Derslik Derslik { get; set; }
         public virtual Seans Seans { get; set; }
-        public virtual Users SorumluKisi { get; set; }
         public virtual Sube Sube { get; set; }
         public virtual ICollection<SinifOgrenci> SinifOgrenci { get; set; }
     }

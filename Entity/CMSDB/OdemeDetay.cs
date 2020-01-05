@@ -5,7 +5,14 @@ namespace Entity.CMSDB
 {
     public partial class OdemeDetay : BaseModel
     {
-      
+       
+        
+        
+        
+       
+        
+       
+       
         public int HesapId { get; set; }
         public string BankaSubesi { get; set; }
         public string BankaHesapNo { get; set; }

@@ -878,6 +878,7 @@ public static class Helpers
         return list;
     }
 
+
     public static string ExGetEnumDescription(this string Text, Enum value)
     {
         if (value == null)

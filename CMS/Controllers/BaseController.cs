@@ -13,13 +13,11 @@ namespace CMS.Controllers
 {
     public class BaseController : Controller
     {
-        //IBankaService _IBankaService;
-        //public BaseController(IBankaService _IBankaService) { this._IBankaService = _IBankaService; }
-
+    
 
         public IActionResult Index()
         {
-            //var dd = _IBankaService.Where().Result.ToList();
+     
             return View();
         }
 
@@ -28,6 +26,6 @@ namespace CMS.Controllers
             return View();
         }
 
-
+   
     }
 }

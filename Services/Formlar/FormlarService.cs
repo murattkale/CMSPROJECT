@@ -3,12 +3,13 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
+using Entity.CMSDB;
 
 namespace Services
 {
     public class FormlarService : GenericRepo<Formlar>, IFormlarService
     {
-        public FormlarService(EFContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public FormlarService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
         public RModel<Formlar> InsertOrUpdate(Formlar model)

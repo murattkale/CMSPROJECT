@@ -11,6 +11,13 @@ namespace Entity.CMSDB
         }
 
        
+        
+        
+        
+       
+        
+       
+       
         public int HesapTipId { get; set; }
         public int IlgiliKasaId { get; set; }
         public int? AliciKasaId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Entity;
+using Entity.CMSDB;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,10 @@ namespace GenericRepository
 {
     public class GenericRepo<T> : IGenericRepo<T> where T : class, IBaseModel
     {
-        protected DbContext _context;
+        protected CMSDBContext _context;
         protected IBaseSession sessionInfo;
 
-        public GenericRepo(DbContext _context, IBaseSession sessionInfo)
+        public GenericRepo(CMSDBContext _context, IBaseSession sessionInfo)
         {
             this.sessionInfo = sessionInfo;
             this._context = _context;
@@ -237,4 +238,6 @@ namespace GenericRepository
             GC.SuppressFinalize(this);
         }
     }
+
+
 }

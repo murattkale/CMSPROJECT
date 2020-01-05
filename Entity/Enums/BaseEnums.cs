@@ -22,6 +22,36 @@ public enum LoginErrorType
     User = 4,
 }
 
+public enum ContentPageType
+{
+    //[Description("KATEGORİ")]
+    //Kategori = 1,
+    [Description("SAYFA")]
+    Sayfa = 2,
+    [Description("1.KISIM")]
+    row1 = 3,
+    [Description("2.KISIM")]
+    row2 = 4,
+    [Description("3.KISIM")]
+    row3 = 5,
+    [Description("4.KISIM")]
+    row4 = 6,
+    [Description("ÜST SLİDER")]
+    sliderUst = 7,
+    [Description("ALT SLİDER")]
+    sliderAlt = 8,
+    [Description("ETKİNLİK")]
+    etkinlikler = 9,
+    [Description("HABER")]
+    haberler = 10,
+    [Description("3'LÜ HABER")]
+    haberler3 = 11,
+    [Description("3'LÜ ETKİNLİK")]
+    etkinlikler3 = 12,
+
+}
+
+
 public enum FormType
 {
     [Description("Anasayfa")]
@@ -42,6 +72,29 @@ public enum GelirGiderType
     Gelir = 1,
     [Description("Gider")]
     Gider = 2,
+}
+
+
+public enum YakinlikDerecesi
+{
+    [Description("Anne")]
+    Anne = 1,
+    [Description("Baba")]
+    Baba = 2,
+    [Description("Teyze")]
+    Teyze = 3,
+    [Description("Hala")]
+    Hala = 4,
+    [Description("Amca")]
+    Amca = 5,
+    [Description("Dayı")]
+    Dayi = 6,
+    [Description("Dede")]
+    Dede = 7,
+    [Description("BüyükAnne")]
+    BüyükAnne = 8,
+    [Description("Diğer")]
+    Diger = 9,
 }
 
 

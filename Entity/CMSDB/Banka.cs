@@ -12,6 +12,13 @@ namespace Entity.CMSDB
         }
 
        
+        
+        
+        
+       
+        
+       
+       
         public string Ad { get; set; }
 
         public virtual ICollection<Kasa> Kasa { get; set; }
