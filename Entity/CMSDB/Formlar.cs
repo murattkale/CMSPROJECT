@@ -11,7 +11,6 @@ namespace Entity.CMSDB
         public string Mail { get; set; }
         public string Telefon { get; set; }
         public int? SubeId { get; set; }
-        public int? UlkeId { get; set; }
         public int? SehirId { get; set; }
         public int? IlceId { get; set; }
         public string Icerik { get; set; }

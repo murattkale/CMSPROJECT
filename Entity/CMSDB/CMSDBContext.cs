@@ -56,14 +56,15 @@ namespace Entity.CMSDB
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<VeliDetay> VeliDetay { get; set; }
         public virtual DbSet<Yayin> Yayin { get; set; }
+        public virtual DbSet<Formlar> Formlar { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;");
-            }
+//            if (!optionsBuilder.IsConfigured)
+//            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//                optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;");
+//            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

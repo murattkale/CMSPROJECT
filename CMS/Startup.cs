@@ -80,6 +80,7 @@ namespace CMS
             services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));
 
             services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
+            services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
 
 
         }
