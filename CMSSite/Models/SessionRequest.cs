@@ -22,41 +22,45 @@ public static class SessionRequest
     public static string logo = "/content/img/logo.png";
 
 
-    public static int KurumId
-    {
-        get
-        {
-            //return AppHttpContext.Current.Request.GetString("_User").Cast<Kullanici>() as Kullanici;
-            return AppHttpContext.Current.Request.Path.Value.Split('/')[1].Replace("/", "").ToInt();
-        }
-    }
+    public static int KurumId { get; set; }
+    public static int SubeId { get; set; }
+    //public static int KurumId
+    //{
+    //    get
+    //    {
+    //        //return AppHttpContext.Current.Request.GetString("_User").Cast<Kullanici>() as Kullanici;
+    //        return AppHttpContext.Current.Request.Path.Value.Split('/')[1].Replace("/", "").ToInt();
+    //    }
+    //}
 
 
-    public static int SubeId
-    {
-        get
-        {
-            return AppHttpContext.Current.Request.Path.Value.Contains("/sube/")
-                || AppHttpContext.Current.Request.Path.Value.Contains("/iletisim/") ?
-                AppHttpContext.Current.Request.Path.Value.Split('/').LastOrDefault().Replace("/", "").ToInt() : 0;
-        }
-    }
+    //public static int SubeId
+    //{
+    //    get
+    //    {
+    //        return AppHttpContext.Current.Request.Path.Value.Contains("/sube/")
+    //            || AppHttpContext.Current.Request.Path.Value.Contains("/iletisim/") ?
+    //            AppHttpContext.Current.Request.Path.Value.Split('/').LastOrDefault().Replace("/", "").ToInt() : 0;
+    //    }
+    //}
 
-    public static string baseUrl
-    {
-        get
-        {
-            return "/" + AppHttpContext.Current.Request.Path.Value.Split('/')[1].Replace("/", "") + "/";
-        }
-    }
+    public static string baseUrl { get; set; }
+    //public static string baseUrl
+    //{
+    //    get
+    //    {
+    //        return "/" + AppHttpContext.Current.Request.Path.Value.Split('/')[1].Replace("/", "") + "/";
+    //    }
+    //}
 
-    public static string RawUrl
-    {
-        get
-        {
-            return AppHttpContext.Current.Request.Path.Value;
-        }
-    }
+    //public static string RawUrl
+    public static string RawUrl { get; set; }
+    //{
+    //    get
+    //    {
+    //        return AppHttpContext.Current.Request.Path.Value;
+    //    }
+    //}
 
 
     //#region SessionRequestInfo
@@ -84,40 +88,6 @@ public static class SessionRequest
     public static string Trans(this string keyword)
     {
         return keyword;
-    }
-
-}
-
-public static class AppHttpContext
-{
-    static IServiceProvider services = null;
-
-    /// <summary>
-    /// Provides static access to the framework's services provider
-    /// </summary>
-    public static IServiceProvider Services
-    {
-        get { return services; }
-        set
-        {
-            if (services != null)
-            {
-                throw new Exception("Can't set once a value has already been set.");
-            }
-            services = value;
-        }
-    }
-
-    /// <summary>
-    /// Provides static access to the current HttpContext
-    /// </summary>
-    public static HttpContext Current
-    {
-        get
-        {
-            IHttpContextAccessor httpContextAccessor = services.GetService(typeof(IHttpContextAccessor)) as IHttpContextAccessor;
-            return httpContextAccessor?.HttpContext;
-        }
     }
 
 }

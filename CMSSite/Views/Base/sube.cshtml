@@ -1,6 +1,7 @@
 ﻿@{
-    var kurum = (Kurum)ViewBag.kurum;
-    var sube = (Sube)ViewBag.sube;
+   var kurum = HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
+    var sube = HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
+
 
     var baslik = sube == null ? kurum.Ad : sube.Ad;
     var adres = sube == null ? kurum.Adres : sube.Adres;
@@ -22,9 +23,11 @@
         <div class="col-lg-3 order-2 order-lg-1">
             <div class="sidebar__widgets sidebar--left">
 
-                <partial name="~/Base/OnKayitSube" />
+                @Html.Partial("~/Views/Base/OnKayitSube.cshtml")
 
-                <partial name="~/Base/getContent" model='new  { ContentPageType = ContentPageType.etkinlikler3 }' />
+                @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.etkinlikler3 })
+
+
 
             </div>
         </div>
@@ -33,7 +36,8 @@
         <div class="col-lg-9 order-1 order-lg-2">
             <br />
 
-            <partial name="~/Base/getContent" model='new  { ContentPageType = ContentPageType.sliderUst }' />
+            @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.sliderUst })
+
 
 
             <div class="class__quality__desc with--leftsidebar">

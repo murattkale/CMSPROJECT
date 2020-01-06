@@ -90,16 +90,17 @@
     <!-- Main wrapper -->
     <div class="wrapper" id="wrapper">
 
-        <partial name="~/Base/_Header.cshtml" />
+
+        @Html.Partial("~/Views/Base/_Header.cshtml")
 
         @RenderBody()
 
-        <partial name="~/Base/getContent" model='new  { ContentType = ContentPageType.row4 }' />
+        @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.row4 })
 
-        <partial name="~/Base/_Footer.cshtml" />
 
-        <partial name="~/Base/OnKayitAnaSayfa.cshtml" />
+        @Html.Partial("~/Views/Base/_Footer.cshtml")
 
+        @Html.Partial("~/Views/Base/OnKayitAnaSayfa.cshtml")
 
     </div><!-- //Main wrapper -->
     <!-- JS Files -->

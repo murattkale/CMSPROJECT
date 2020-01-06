@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMSSite.Models;
 using Entity;
 using Entity.CMSDB;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +30,11 @@ namespace CMSSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
 
             services
                 .AddMvc(option => option.EnableEndpointRouting = false)
@@ -72,6 +78,9 @@ namespace CMSSite
             services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
 
+            services.AddSingleton(typeof(IHttpContextAccessor), typeof(HttpContextAccessor));
+
+
 
         }
 
@@ -93,36 +102,62 @@ namespace CMSSite
 
             app.UseRouting();
 
+            app.UseSession();
+
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            string baseURL = "{site}/";
+
+
+            app.UseMvc(routes =>
             {
-                string baseURL = "{site}/";
 
-                endpoints.MapControllerRoute(
-                   name: "Ajax",
-                   pattern: baseURL + "Base/{action}/{id?}");
+                routes.MapRoute(
+                "subeler",
+                baseURL + "subeler",
+                defaults: new { site = "", controller = "Base", action = "subeler", link = "", }
+               );
 
-                endpoints.MapControllerRoute(
-                     name: "sube",
-                     pattern: baseURL + "sube/{id?}");
+                routes.MapRoute(
+                 "sube",
+                 baseURL + "sube/{id}",
+                 defaults: new { site = "", controller = "Base", action = "sube", link = "", id = @"\d10" }
+                );
 
-                endpoints.MapControllerRoute(
-                      name: "subeler",
-                      pattern: baseURL + "subeler");
+                routes.MapRoute(
+                "iletisim",
+                baseURL + "iletisim/{id?}",
+                defaults: new { site = "", controller = "Base", action = "iletisim", link = "", id = @"\d10" }
+               );
 
-                endpoints.MapControllerRoute(
-                    name: "iletisim",
-                    pattern: baseURL + "iletisim/{id?}");
+                routes.MapRoute(
+                  "Ajax",
+                  baseURL + "Base/{action}/{id?}",
+                  defaults: new { site = "", controller = "Base", action = "", link = "", id = "" }
+                 );
 
-                endpoints.MapControllerRoute(
-                  name: "Content",
-                  pattern: baseURL + "{*link}");
 
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: baseURL + "{controller=Base}/{action=Index}/{id?}");
+                // routes.MapRoute(
+                //    name: "Content",
+                //    template: baseURL + "{*link}",
+                //    constraints: new { site = new DynamicRouting() },
+                //    defaults: new { controller = "Base", action = "Content", link = "^(?!/).+" }
+                //);
+
+
+                routes.MapRoute(
+                   name: "Content",
+                   template: baseURL + "{*link}",
+                   constraints: new { site = new DynamicRouting() },
+                   defaults: new { site = "", controller = "Base", action = "Content", link = "" }
+               );
+
+
+                routes.MapRoute(name: "default", template: baseURL + "{controller=Base}/{action=Index}/{Id?}");
             });
+
+
+
         }
     }
 }

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using CMSSite.Models;
+using Entity.CMSDB;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,18 +14,25 @@ namespace CMS.Controllers
 
     public class BaseController : Controller
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private ISession _session => _httpContextAccessor.HttpContext.Session;
+
         IContentPageService _IContentPageService;
         IKurumService _IKurumService;
         ISubeService _ISubeService;
         ICityService _ICityService;
         ITownService _ITownService;
-        //IFormlarService _IFormlarService;
+        IFormlarService _IFormlarService;
+
         public BaseController(
             IContentPageService _IContentPageService,
              IKurumService _IKurumService,
         ISubeService _ISubeService,
         ICityService _ICityService,
-        ITownService _ITownService
+        ITownService _ITownService,
+        IFormlarService _IFormlarService,
+        IHttpContextAccessor httpContextAccessor
+
             )
         {
             this._IContentPageService = _IContentPageService;
@@ -30,167 +40,41 @@ namespace CMS.Controllers
             this._ISubeService = _ISubeService;
             this._ICityService = _ICityService;
             this._ITownService = _ITownService;
+            this._IFormlarService = _IFormlarService;
+
+            _httpContextAccessor = httpContextAccessor;
 
         }
 
 
 
-        public ActionResult getContent(ContentPageType ContentPageType)
+        public IActionResult Index()
         {
-            var list = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.ContentPageType == (int)ContentPageType)
-                .Result.OrderByDescending(o => o.CreaDate).AsQueryable();
+
+         
+            if (SessionRequest.KurumId > 0)
+            {
+                var kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
+                _httpContextAccessor.HttpContext.Session.Set("kurum", kurum);
+            }
 
             if (SessionRequest.SubeId > 0)
             {
-                list = list.Where(o => o.Id == SessionRequest.SubeId);
+                var kurum = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
+                _httpContextAccessor. HttpContext.Session.Set("sube", kurum);
             }
 
-            switch (ContentPageType)
-            {
-                case ContentPageType.row1:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("row1");
-                    }
-                case ContentPageType.row2:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("row2");
-                    }
-                case ContentPageType.row3:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("row3");
-                    }
-                case ContentPageType.row4:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("row4");
-                    }
-                case ContentPageType.sliderUst:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("sliderUst");
-                    }
-                case ContentPageType.sliderAlt:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("sliderAlt");
-                    }
-                case ContentPageType.etkinlikler:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("etkinlikler");
-                    }
-                case ContentPageType.etkinlikler3:
-                    {
-                        list = _IContentPageService.Where(o => o.ContentPageType == (int)ContentPageType.etkinlikler).Result.OrderByDescending(o => o.CreaDate);
-                        if (SessionRequest.SubeId > 0)
-                        {
-                            list = list.Where(o => o.Id == SessionRequest.SubeId);
-                        }
-                        ViewBag.contents = list.Take(3).ToList();
-                        return View("etkinlikler3");
-                    }
-                case ContentPageType.haberler:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("haberler");
-                    }
-                case ContentPageType.haberler3:
-                    {
-                        list = _IContentPageService.Where(o => o.ContentPageType == (int)ContentPageType.haberler).Result.OrderByDescending(o => o.CreaDate);
-                        if (SessionRequest.SubeId > 0)
-                        {
-                            list = list.Where(o => o.Id == SessionRequest.SubeId);
-                        }
-                        ViewBag.contents = list.Take(3).ToList();
-                        return View("haberler3");
-                    }
-            }
-            return View();
-        }
-        public ActionResult Index()
-        {
-            ViewBag.kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
-            if (SessionRequest.SubeId > 0)
-            {
-                ViewBag.sube = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-            }
+            var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result.ToList();
+            _httpContextAccessor.HttpContext.Session.Set("header", header);
+            var footer = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result.ToList();
+            _httpContextAccessor.HttpContext.Session.Set("footer", footer);
 
             return View();
         }
 
-        public ActionResult _Header()
+        public IActionResult Content()
         {
-            ViewBag.kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
-            if (SessionRequest.SubeId > 0)
-            {
-                ViewBag.sube = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-            }
-
-            return View();
-        }
-
-        public ActionResult _Footer()
-        {
-            ViewBag.kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
-            if (SessionRequest.SubeId > 0)
-            {
-                ViewBag.sube = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-            }
-
-            var result1 = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result.ToList();
-            ViewBag._IMenusService = result1;
-
-            return View();
-        }
-
-        public ActionResult _Menu()
-        {
-            var result1 = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result.ToList();
-            ViewBag._IMenusService = result1;
-            return View();
-        }
-
-        public ActionResult Formlar()
-        {
-            return View();
-        }
-        public ActionResult iletisim()
-        {
-            ViewBag.kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
-            if (SessionRequest.SubeId > 0)
-            {
-                ViewBag.sube = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-            }
-            return View();
-        }
-
-        //public JsonResult FormlarSave(Formlar postModel)
-        //{
-        //    var result = _IFormlarService.InsertOrUpdate(postModel);
-        //    return Json(result);
-        //}
-
-        public ActionResult OnKayitAnaSayfa()
-        {
-            return View();
-        }
-
-        public ActionResult OnKayitSube()
-        {
-            return View();
-        }
-
-        public ActionResult OnKayitFranch()
-        {
-            return View();
-        }
-
-        public ActionResult Content()
-        {
-            var link = HttpContext.Request.Path.Value.Split('/').LastOrDefault();
+            var link = HttpContext.Items["cmspage"].ToString();
             if (!string.IsNullOrEmpty(link))
             {
                 var menu = _IContentPageService.Where(o => o.Link == link).Result.FirstOrDefault();
@@ -218,73 +102,113 @@ namespace CMS.Controllers
 
         }
 
-        public ActionResult row1()
-        {
-            return View();
-        }
-        public ActionResult row2()
-        {
-            return View();
-        }
-        public ActionResult row3()
-        {
-            return View();
-        }
-        public ActionResult row4()
-        {
-            return View();
-        }
-        public ActionResult sliderUst()
-        {
-            return View();
-        }
-        public ActionResult sliderAlt()
+
+
+        public IActionResult _Header()
         {
             return View();
         }
 
-        public ActionResult etkinlikler()
+        public IActionResult _Footer()
         {
             return View();
         }
 
-        public ActionResult haberler()
+        public IActionResult _Menu()
         {
             return View();
         }
 
-        public ActionResult haberler3()
+        public IActionResult Formlar()
+        {
+            return View();
+        }
+        public IActionResult iletisim()
         {
             return View();
         }
 
-        public ActionResult etkinlikler3()
+        public JsonResult FormlarSave(Formlar postModel)
+        {
+            var result = _IFormlarService.InsertOrUpdate(postModel);
+            return Json(result);
+        }
+
+        public IActionResult OnKayitAnaSayfa()
+        {
+            return View();
+        }
+
+        public IActionResult OnKayitSube()
+        {
+            return View();
+        }
+
+        public IActionResult OnKayitFranch()
+        {
+            return View();
+        }
+
+      
+        public IActionResult row1()
+        {
+            return View();
+        }
+        public IActionResult row2()
+        {
+            return View();
+        }
+        public IActionResult row3()
+        {
+            return View();
+        }
+        public IActionResult row4()
+        {
+            return View();
+        }
+        public IActionResult sliderUst()
+        {
+            return View();
+        }
+        public IActionResult sliderAlt()
+        {
+            return View();
+        }
+
+        public IActionResult etkinlikler()
+        {
+            return View();
+        }
+
+        public IActionResult haberler()
+        {
+            return View();
+        }
+
+        public IActionResult haberler3()
+        {
+            return View();
+        }
+
+        public IActionResult etkinlikler3()
         {
             return View();
         }
 
 
-
-
-        public ActionResult Error()
+        public IActionResult Error()
         {
             return View();
         }
 
 
-        public ActionResult subeler()
+        public IActionResult subeler()
         {
             return View();
         }
 
-        public ActionResult sube()
+        public IActionResult sube()
         {
-            ViewBag.kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
-            if (SessionRequest.SubeId > 0)
-            {
-                ViewBag.sube = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-            }
-
             return View();
         }
 
@@ -332,13 +256,6 @@ namespace CMS.Controllers
 
             return Json(result2);
         }
-
-
-        //public JsonResult getUlke()
-        //{
-        //    var result = _IUlkeService.Where(null).Result.Select(o => new { text = o.UlkeAd, value = o.UlkeId }).ToList();
-        //    return Json(result);
-        //}
 
         public JsonResult getSehir(int id)
         {

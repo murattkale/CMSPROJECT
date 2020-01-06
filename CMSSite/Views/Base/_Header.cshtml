@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
+
     Layout = null;
-    var kurum = (Kurum)ViewBag.kurum;
-    var sube = (Sube)ViewBag.sube;
+    var kurum =  HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
+    var sube =  HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
 
     var baslik = sube == null ? kurum.Ad : sube.Ad;
     var adres = sube == null ? kurum.Adres : sube.Adres;
@@ -78,7 +80,8 @@
             <div class="container">
                 <div class="row d-none d-lg-flex">
 
-                    <partial name="~/Base/_Menu.cshtml" />
+                    @Html.Partial("~/Views/Base/_Menu.cshtml")
+
 
                 </div>
                 <!-- Mobile Menu -->

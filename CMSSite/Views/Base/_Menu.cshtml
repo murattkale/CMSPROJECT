@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    var _IMenusService = new List<ContentPage>(ViewBag._IMenusService);
+    var _IMenusService =  HttpContextAccessor.HttpContext.Session.Get<List<ContentPage>>("header");
 
 
 
@@ -10,12 +10,10 @@
         foreach (var menu in ms)
         {
             i++;
-            if (i == 2 && menu.ParentId == null)
-            {
-                <li class="drop">
-                    <a href="@Html.Raw(SessionRequest.baseUrl + "subeler")">Şubelerimiz</a>
-                </li>
-            }
+            //if (i == 2 && menu.ParentId == null)
+            //{
+
+            //}
 
 
             var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
@@ -45,8 +43,13 @@
             <ul class="mainmenu">
 
                 <li class="drop">
-                    <a href="@Html.Raw(SessionRequest.baseUrl + "anasayfa")">Ana Sayfa</a>
+                    <a href="@Html.Raw(SessionRequest.baseUrl + "")">Ana Sayfa</a>
                 </li>
+
+                <li class="drop">
+                    <a href="@Html.Raw(SessionRequest.baseUrl + "subeler")">Şubelerimiz</a>
+                </li>
+
 
                 @ShowTree(_IMenusService.Where(o => o.ParentId == null).ToList())
 

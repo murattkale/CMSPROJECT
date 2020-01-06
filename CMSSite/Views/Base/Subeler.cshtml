@@ -212,15 +212,15 @@
             },
             //getUlke: function () {
             //    var div_id = "#dp_Ulke";
-            //    $(div_id).addOptionAjax("/Base/getUlke", "", "value", "text", function () { getSehir(); }, function () { Subeler_ListFunc.getSehir(); }, '1', '', '');
+            //    $(div_id).addOptionAjax("Base/getUlke", "", "value", "text", function () { getSehir(); }, function () { Subeler_ListFunc.getSehir(); }, '1', '', '');
             //},
             getSehir: function () {
                 var div_id = "#dp_Sehir";
-                $(div_id).addOptionAjax("/Base/getSehir", { id: 1}, "value", "text", function () { Subeler_ListFunc.getIlce(); }, function () { Subeler_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+                $(div_id).addOptionAjax("Base/getSehir", { id: 1}, "value", "text", function () { Subeler_ListFunc.getIlce(); }, function () { Subeler_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
             },
             getIlce: function () {
                 var div_id = "#dp_Ilce";
-                $(div_id).addOptionAjax("/Base/getIlce", { id: $("#dp_Sehir").val() }, "value", "text", function () { Subeler_ListFunc.getSubeler(); }, function () { Subeler_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
+                $(div_id).addOptionAjax("Base/getIlce", { id: $("#dp_Sehir").val() }, "value", "text", function () { Subeler_ListFunc.getSubeler(); }, function () { Subeler_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
             },
 
             getSubeler: function (SehirId) {
@@ -239,7 +239,7 @@
                 };
                 debugger;
 
-                $.ajx("/Base/getSubeler", postModel, function (dataResult) {
+                $.ajx("Base/getSubeler", postModel, function (dataResult) {
 
                     $('#dp_Sube').addOption(dataResult, "value", "text", function () { Subeler_ListFunc.getMaps(dataResult); }, function () { Subeler_ListFunc.getMaps(dataResult); }, '', '', 'Şube Seçiniz');
 
