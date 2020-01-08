@@ -18,9 +18,11 @@
                             i++;
                             if (i > 3) { i = 1; }
 
+                             var image = SessionRequest.ImageUrl + item.DefaultImage;
+
                             <div class="testimonial--3">
                                 <div class="testimonial__thumb">
-                                    <img src="images/testimonial/clint/@Html.Raw(i + ".png")" alt="clint images">
+                                    <img src="@image" alt="clint images">
                                 </div>
                                 <div class="testimonial__content">
                                     <p>@item.Name</p>

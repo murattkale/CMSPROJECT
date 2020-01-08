@@ -13,8 +13,7 @@
             <div class="row">
                 @foreach (var item in contents)
                 {
-                    i++;
-                    if (i > 4) { i = 2; }
+                     var image = SessionRequest.ImageUrl + item.DefaultImage;
 
                     var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
@@ -23,7 +22,7 @@
                     <div class="col-lg-@Html.Raw(contents.Count==3 ? "4" : (contents.Count==4 ? "3" : "12")) col-md-6 col-sm-6 col-12 wow flipInX" data-wow-delay="0.3s">
                         <div class="service--3">
                             <div class="service__thumb">
-                                <img src="images/service/icon/@Html.Raw(i + ".png")" alt="service images">
+                                <img src="@image" alt="">
                             </div>
                             <div class="service__inner">
                                 <h4><a target="@target" href="@link">@item.Name</a></h4>

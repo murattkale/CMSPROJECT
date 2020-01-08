@@ -21,8 +21,8 @@
                 <!-- Start Single Event -->
                 @foreach (var item in contents)
                 {
-                    i++;
-                    if (i > 6) { i = 1; }
+                     var image = SessionRequest.ImageUrl + item.DefaultImage;
+
                        var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
                     var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
@@ -31,7 +31,7 @@
                         <div class="dcare__event">
                             <div class="event__thumb">
                                 <a target="@target" href="@link">
-                                    <img src="images/event/mid-img-2/@Html.Raw(i + ".jpg")" alt="event images">
+                                    <img src="@image" alt="event images">
                                 </a>
                             </div>
                             <div class="event__content">

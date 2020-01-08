@@ -16,15 +16,15 @@
 
                     @foreach (var item in contents)
                     {
-                        i++;
-                        if (i > 6) { i = 1; }
+                        var image = SessionRequest.ImageUrl + item.DefaultImage;
+
                         var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                         var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
                         var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
                         <div style="margin-bottom: 0px;" class="single__ftr__post d-flex">
                             <div class="ftr__post__thumb">
                                 <a target="@target" href="@link">
-                                    <img src="images/blog/post-img/@Html.Raw(i + ".jpg")" alt="post images">
+                                    <img src="@image" alt="post images">
                                 </a>
                             </div>
                             <div class="ftr__post__details">

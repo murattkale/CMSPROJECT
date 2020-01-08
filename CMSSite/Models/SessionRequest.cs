@@ -16,7 +16,7 @@ public static class SessionRequest
     public static string StartAction = "Index";
     public static string StyleVersion = DateTime.Now.ToString().Replace("-", "").Replace(":", "").Replace(".", "").Replace(" ", "");
     public static string Copyright = $"{DateTime.Now.Year} © Tasarım&Yazılım (Design&Software)  <a target='_blank' href='https://www.muratkale.com.tr'>www.muratkale.com.tr </a>";
-    public static string ImageUrl = "http://cms.dyness.com.tr/upload";
+    public static string ImageUrl = "http://cms.dyness.com.tr/uploads/";
 
     public static string defaultImage = "/images/default.png";
     public static string logo = "/content/img/logo.png";

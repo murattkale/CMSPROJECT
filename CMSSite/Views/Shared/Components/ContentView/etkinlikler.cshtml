@@ -20,8 +20,7 @@
 
                 @foreach (var item in contents)
                 {
-                    i++;
-                    if (i > 6) { i = 1; }
+                    var image = SessionRequest.ImageUrl + item.DefaultImage;
                     var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
                     var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
@@ -30,7 +29,7 @@
                         <div class="courses">
                             <div class="courses__thumb">
                                 <a target="@target" href="@link">
-                                    <img src="images/courses/@Html.Raw(i + ".jpg")" alt="courses images">
+                                    <img src="@image" alt="">
                                 </a>
                             </div>
                             <div class="courses__inner">

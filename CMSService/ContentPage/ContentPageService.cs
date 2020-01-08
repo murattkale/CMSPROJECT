@@ -21,7 +21,7 @@ using Entity.CMSDB;
             res.ResultType.MessageList = new List<string>();
 
             //Duplicate Control
-            var modelControl = Where(o => o.Id != model.Id &&  o.Name == model.Name, false).Result.FirstOrDefault();
+            var modelControl = Where(o => o.Id != model.Id &&  o.Link == model.Link, false).Result.FirstOrDefault();
             if (modelControl != null)
             {
                 res.ResultType.RType = RType.Warning;

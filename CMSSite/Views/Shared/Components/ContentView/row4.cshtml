@@ -16,7 +16,7 @@
 
                         @foreach (var item in contents)
                         {
-                            i++;
+                            var image = SessionRequest.ImageUrl + item.DefaultImage;
                             var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                             var link = (item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.baseUrl + item.Link);
                             var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
@@ -24,11 +24,11 @@
                             <a target="@target" href="@link">
                                 <div class="kidz__zone">
                                     <div class="kidz__thumb">
-                                        <img style="max-width: 55% !important;" src="images/funfact/fact-2/@Html.Raw(i+".png")" alt="@item.Name">
+                                        <img style="max-width: 55% !important;" src="@image" alt="@item.Name">
                                     </div>
                                     <div class="kidz__details">
                                         <h6>@item.Name <span></span></h6>
-                                        <p>@Html.Raw(item.Content.limit(75))</p>
+                                        <p>@Html.Raw(item.ContentShort)</p>
                                     </div>
                                 </div>
                             </a>

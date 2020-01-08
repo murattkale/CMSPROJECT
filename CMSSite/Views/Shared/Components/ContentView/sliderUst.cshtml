@@ -10,13 +10,13 @@
     <div class="slide__carosel owl-carousel owl-theme">
         @foreach (var item in contents)
         {
-            //i++;
-            //if (i > 6) { i = 1; }
+            var image = SessionRequest.ImageUrl + item.DefaultImage;
+
+
             var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
             var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
             var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
 
-            var image = "";
 
             <div style="background-repeat: no-repeat;background-size: cover; background-position: center center;background-image: url('@Html.Raw(image)');" class="slider__area slider--four d-flex slider__fixed--height justify-content-start align-items-center">
                 <div class="container">

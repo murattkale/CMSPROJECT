@@ -11,9 +11,9 @@
         <ul>
             @foreach (var item in contents)
             {
-                i++;
+               var image = SessionRequest.ImageUrl + item.DefaultImage;
                 <li>
-                    <a href="#"><img src="@Html.Raw("images/courses/" + i + ".jpg")" alt="post images"></a>
+                    <a href="#"><img src="@image" alt=""></a>
                     <div class="post__content">
                         <h6><a href="blog-details.html">@item.Name</a></h6>
                         <span class="date"><i class="fa fa-calendar"></i>@item.CreaDate.ToShortDateString()</span>
