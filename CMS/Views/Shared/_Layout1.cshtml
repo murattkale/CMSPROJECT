@@ -113,34 +113,7 @@
 
     <script src="~/content/js/general.js?v=@SessionRequest.version"></script>
 
-    <script type="text/javascript" src="@SessionRequest.layoutUrl/assets/ckfinder/ckfinder.js"></script>
-    <script type="text/javascript">
 
-        function BrowseServerImage(name) {
-            var finder = new CKFinder();
-            finder.basePath = 'ckfinder/';
-            finder.selectActionFunction = function SetFileField(fileUrl) {
-                document.getElementById(name).value = fileUrl;
-            };
-            finder.popup();
-        }
-        function SetFileField(fileUrl) {
-
-            document.getElementById('ImagePath').value = fileUrl;
-        }
-        function BrowseServerFile() {
-            var finder = new CKFinder();
-            finder.basePath = 'ckfinder/';
-            finder.selectActionFunction = SetFileField2;
-            finder.popup();
-        }
-        function SetFileField2(fileUrl) {
-            document.getElementById('FilePath').value = fileUrl;
-        }
-
-    </script>
-
-    <script src="@SessionRequest.layoutUrl/assets/ckeditor/ckeditor.js"></script>
 
     <script type="text/javascript">
 
@@ -172,6 +145,13 @@
 
     </script>
 
+    <script src="@SessionRequest.layoutUrl/assets/ckeditor/ckeditor.js"></script>
+
+
+    <link href="~/content/css/aspnetcorefileuploading.css" rel="stylesheet" />
+    <link href="~/content/css/iframe.css" rel="stylesheet" />
+
+
 
     <style>
         @@media (min-width: 1429px) {
@@ -183,6 +163,8 @@
                 width: 100% !important;
             }
     </style>
+
+
 
 
 </head>

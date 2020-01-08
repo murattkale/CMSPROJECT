@@ -129,6 +129,7 @@
             returnArray[$(this).attr('name')] = $(this).val().trim();
         });
 
+
         $(id + ' textarea').each(function () {
             returnArray[$(this).attr('name')] = CKEDITOR.instances[$(this).attr('name')].getData();
         });
@@ -250,4 +251,54 @@ function alerts(message, button, call) {
     }
 
 }
+
+
+
+function fileUpload(id) {
+
+
+    $(id).change(function () {
+        try {
+            $.LoadingOverlay("show");
+
+            if (window.FormData !== undefined) {
+                var fileUpload = $('#' + this.id).get(0);
+                var files = fileUpload.files;
+                var fileData = new FormData();
+
+
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append('files', files[i]);
+                }
+
+                $.ajax({
+                    url: '/uploader',
+                    type: "POST",
+                    contentType: false, // Not to set any content header  
+                    processData: false, // Not to process data  
+                    data: fileData,
+                    success: function (result) {
+                        $.LoadingOverlay("hide");
+                        if ($(fileUpload).attr('for'))
+                            $('#' + $(fileUpload).attr('for')).val(result[0]);
+                    },
+                    error: function (err) {
+                        $.LoadingOverlay("hide");
+                        console.log(err.statusText);
+                    }
+                });
+            } else {
+                $.LoadingOverlay("hide");
+                alert("Lütfen dosya seçiniz");
+            }
+
+        } catch (e) {
+            console.log(e);
+            $.LoadingOverlay("hide");
+        }
+
+    });
+
+}
+
 

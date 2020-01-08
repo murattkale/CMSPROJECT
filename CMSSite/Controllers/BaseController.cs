@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CMSSite.Models;
 using Entity.CMSDB;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace CMS.Controllers
 {
 
     public class BaseController : Controller
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private ISession _session => _httpContextAccessor.HttpContext.Session;
+        IHttpContextAccessor _httpContextAccessor;
+        IHostingEnvironment _IHostingEnvironment;
+
 
         IContentPageService _IContentPageService;
         IKurumService _IKurumService;
@@ -24,6 +26,7 @@ namespace CMS.Controllers
         ITownService _ITownService;
         IFormlarService _IFormlarService;
 
+
         public BaseController(
             IContentPageService _IContentPageService,
              IKurumService _IKurumService,
@@ -31,7 +34,8 @@ namespace CMS.Controllers
         ICityService _ICityService,
         ITownService _ITownService,
         IFormlarService _IFormlarService,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        IHostingEnvironment _IHostingEnvironment
 
             )
         {
@@ -42,8 +46,40 @@ namespace CMS.Controllers
             this._ITownService = _ITownService;
             this._IFormlarService = _IFormlarService;
 
-            _httpContextAccessor = httpContextAccessor;
+            this._httpContextAccessor = httpContextAccessor;
+            this._IHostingEnvironment = _IHostingEnvironment;
 
+        }
+
+
+        //[Route("FileUpload")]
+        [HttpPost]
+        public JsonResult FileUpload()
+        {
+
+            return Json("");
+        }
+
+
+
+        //[Route("FileUpload")]
+        [HttpPost]
+        public JsonResult FileUpload_(dynamic upload, dynamic ckCsrfToken)
+        {
+            var fileName = Guid.NewGuid().ToString() + upload.FileName;
+            var path = Path.Combine(Directory.GetCurrentDirectory(), _IHostingEnvironment.WebRootPath, "uploads", fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            upload.CopyToAsync(stream);
+            return new JsonResult(new { path = "/uploads/" + fileName });
+        }
+
+        [Route("FileBrowse")]
+        [HttpGet]
+        public IActionResult FileBrowse()
+        {
+            var dir = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), _IHostingEnvironment.WebRootPath, "uploads"));
+            ViewBag.fileInfos = dir.GetFiles();
+            return View("FileBrowse");
         }
 
 
@@ -51,7 +87,7 @@ namespace CMS.Controllers
         public IActionResult Index()
         {
 
-         
+
             if (SessionRequest.KurumId > 0)
             {
                 var kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
@@ -61,7 +97,7 @@ namespace CMS.Controllers
             if (SessionRequest.SubeId > 0)
             {
                 var kurum = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-                _httpContextAccessor. HttpContext.Session.Set("sube", kurum);
+                _httpContextAccessor.HttpContext.Session.Set("sube", kurum);
             }
 
             var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result.ToList();
@@ -149,7 +185,7 @@ namespace CMS.Controllers
             return View();
         }
 
-      
+
         public IActionResult row1()
         {
             return View();
