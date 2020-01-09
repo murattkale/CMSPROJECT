@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CMS.Models;
 using Entity;
 using Entity.CMSDB;
 using GenericRepository;
@@ -30,6 +31,9 @@ namespace CMS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
+
 
             services
                 .AddMvc(option => option.EnableEndpointRouting = false)
@@ -105,11 +109,24 @@ namespace CMS
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            string baseURL = "{site}/";
+
+
+            app.UseMvc(routes =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=ContentPage}/{action=Index}/{id?}");
+
+
+
+                // routes.MapRoute(
+                //    name: "Content",
+                //    template: baseURL + "{*link}",
+                //    constraints: new { site = new DynamicRouting() },
+                //    defaults: new { site = "", link = "" }
+                //);
+
+
+                routes.MapRoute(name: "default", template: baseURL + "{controller=Base}/{action=Index}/{Id?}");
+
             });
         }
     }

@@ -32,7 +32,6 @@ namespace CMSSite
         {
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
 
@@ -135,14 +134,6 @@ namespace CMSSite
                   baseURL + "Base/{action}/{id?}",
                   defaults: new { site = "", controller = "Base", action = "", link = "", id = "" }
                  );
-
-
-                // routes.MapRoute(
-                //    name: "Content",
-                //    template: baseURL + "{*link}",
-                //    constraints: new { site = new DynamicRouting() },
-                //    defaults: new { controller = "Base", action = "Content", link = "^(?!/).+" }
-                //);
 
 
                 routes.MapRoute(

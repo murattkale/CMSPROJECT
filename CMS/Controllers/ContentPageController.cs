@@ -18,8 +18,6 @@ namespace CMS.Controllers
         public ContentPageController(IContentPageService _IContentPageService)
         {
             this._IContentPageService = _IContentPageService;
-
-            getContentPageType();
         }
 
         [HttpPost]

@@ -17,7 +17,12 @@ namespace CMS.Controllers
 
         public IActionResult Index()
         {
-     
+            if (HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).FirstOrDefault().ToInt() > 0)
+            {
+                SessionRequest.KurumId = HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).FirstOrDefault().ToInt();
+                SessionRequest.baseUrl = "/" + SessionRequest.KurumId + "/";
+                SessionRequest.RawUrl = SessionRequest.baseUrl;
+            }
             return View();
         }
 
