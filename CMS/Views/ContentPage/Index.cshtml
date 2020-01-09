@@ -106,7 +106,7 @@
 
                                 return_data.push({
                                     'Name': row.Name,
-                                    'ContentPageType': getContentPageTypeRow(row.ContentPageType).text,
+                                    'ContentPageType': row.ContentPageType > 0 ? getContentPageTypeRow(row.ContentPageType).text : "",
                                     'Link': row.Link,
                                     'ContentShort': row.ContentShort,
                                     'IsHeaderMenu': row.IsHeaderMenu == true ? 'aktif' : 'pasif',

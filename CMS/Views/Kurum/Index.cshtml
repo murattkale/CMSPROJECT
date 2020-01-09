@@ -67,6 +67,7 @@
             GetPaging: function () {
 
                 var columns = [];
+                columns.push({ "data": "Id", text: "Kurum Kodu" });
                 columns.push({ "data": "Ad", text: "Kurum Adı" });
                 columns.push({ "data": "SehirAd", text: "Şehir" });
                 columns.push({ "data": "IlceAd", text: "İlçe" });
@@ -92,7 +93,7 @@
                         "datatype": "json",
                         "data": function (searchModel) {
                             $(dt_Kurum).LoadingOverlay("show");
-                            searchModel.pagingSearchParam = 'Name,Link';
+                            searchModel.pagingSearchParam = 'Ad';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -106,6 +107,7 @@
 
 
                                 return_data.push({
+                                    'Id': row.Id,
                                     'Ad': row.Ad,
                                     'SehirAd': row.Sehir == null ? "" : row.Sehir.CityName,
                                     'IlceAd': row.Ilce == null ? "" : row.Ilce.TownName,

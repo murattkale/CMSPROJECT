@@ -26,7 +26,9 @@
     var ContentPage_ControlNameUrl = "@ContentPage_ControlNameUrl";
     var ContentPage_idUrl = "@ContentPage_idUrl";
     var ContentPage_idUrl_select ="@ContentPage_idUrl_select";
-    var ContentPageType ="@edit.ContentPageType";
+    var ContentPageType = "@edit.ContentPageType";
+
+    var ContentPageKurumId = "@edit.KurumId";
 
 </script>
 
@@ -73,9 +75,16 @@
                     <input type="hidden" id="Id" name="Id" value="@edit.Id" />
                     <input type="hidden" id="IsDeleted" name="IsDeleted" value="@edit.IsDeleted" />
                     <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
-                    <input type="hidden" id="KurumId" name="KurumId" value="1" />
+                    @*<input type="hidden" id="KurumId" name="KurumId" value="1" />*@
                     <input type="hidden" id="SubeId" name="SubeId" value="@edit.SubeId" />
 
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Kurum</label>
+                        <div class="col-md-10">
+                            <select required class="form-control" id="dp_KurumId" name="dp_KurumId"></select>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2" for="Name">@Html.Raw("Ad".Trans())</label>
@@ -90,6 +99,8 @@
                             <select class="form-control" id="dp_ParentId" name="dp_ParentId"></select>
                         </div>
                     </div>
+
+
 
                     <div class="form-group">
                         <label class="control-label col-md-2">Tip</label>
@@ -170,7 +181,7 @@
                             <input for="DefaultImage" id="file_DefaultImage" type="file" value="@edit.DefaultImage">
                         </div>
                         <div class="col-md-9">
-                            <input disabled="disabled" type="text" class="form-control"  name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
+                            <input disabled="disabled" type="text" class="form-control" name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
                         </div>
 
                     </div>
@@ -184,45 +195,45 @@
                     </div>
 
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label class="control-label col-md-2" for="BannerText">@Html.Raw("BannerImage".Trans())</label>
                         <div class="col-md-10">
                             <input id="BannerImage" name="BannerImage" placeholder="@Html.Raw("BannerImage".Trans())" value="@edit.BannerImage" class="form-control" type="text">
                         </div>
-                    </div>
+                    </div>*@
 
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label class="control-label col-md-2" for="BannerText">@Html.Raw("BannerText".Trans())</label>
                         <div class="col-md-10">
                             <input id="BannerText" name="BannerText" placeholder="@Html.Raw("BannerText".Trans())" value="@edit.BannerText" class="form-control" type="text">
                         </div>
-                    </div>
+                    </div>*@
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="ButtonText1">@Html.Raw("ButtonText1".Trans())</label>
+                        <label class="control-label col-md-2" for="ButtonText1">@Html.Raw("Buton yazısı 1".Trans())</label>
                         <div class="col-md-10">
-                            <input id="ButtonText1" name="ButtonText1" placeholder="@Html.Raw("ButtonText1".Trans())" value="@edit.ButtonText1" class="form-control" type="text">
+                            <input id="ButtonText1" name="ButtonText1" placeholder="@Html.Raw("Buton yazısı 1".Trans())" value="@edit.ButtonText1" class="form-control" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="ButtonText1Link">@Html.Raw("ButtonText1Link".Trans())</label>
+                        <label class="control-label col-md-2" for="ButtonText1Link">@Html.Raw("Buton yazısı Linki 1".Trans())</label>
                         <div class="col-md-10">
-                            <input id="ButtonText1Link" name="ButtonText1Link" placeholder="@Html.Raw("ButtonText1Link".Trans())" value="@edit.ButtonText1Link" class="form-control" type="text">
+                            <input id="ButtonText1Link" name="ButtonText1Link" placeholder="@Html.Raw("Buton yazısı Linki 1".Trans())" value="@edit.ButtonText1Link" class="form-control" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="ButtonText2">@Html.Raw("ButtonText2".Trans())</label>
+                        <label class="control-label col-md-2" for="ButtonText2">@Html.Raw("Buton yazısı 2".Trans())</label>
                         <div class="col-md-10">
-                            <input id="ButtonText2" name="ButtonText2" placeholder="@Html.Raw("ButtonText2".Trans())" value="@edit.ButtonText2" class="form-control" type="text">
+                            <input id="ButtonText2" name="ButtonText2" placeholder="@Html.Raw("Buton yazısı 2".Trans())" value="@edit.ButtonText2" class="form-control" type="text">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="ButtonText2Link">@Html.Raw("ButtonText2Link".Trans())</label>
+                        <label class="control-label col-md-2" for="ButtonText2Link">@Html.Raw("Buton yazısı Linki 2".Trans())</label>
                         <div class="col-md-10">
-                            <input id="ButtonText2Link" name="ButtonText2Link" placeholder="@Html.Raw("ButtonText2Link".Trans())" value="@edit.ButtonText2Link" class="form-control" type="text">
+                            <input id="ButtonText2Link" name="ButtonText2Link" placeholder="@Html.Raw("Buton yazısı Linki 2".Trans())" value="@edit.ButtonText2Link" class="form-control" type="text">
                         </div>
                     </div>
 
@@ -251,8 +262,10 @@
     var customComment = "";
     $(function () {
         ContentPage_EditFunc = {
+            GetKurum: function () {
+                $('#dp_KurumId').addOptionAjax('/Kurum' + "/GetSelect", "", "value", "text", function () { }, function () { }, ContentPageKurumId, '', 'Seçiniz');
+            },
             GetParent: function () {
-
                 $('#dp_ParentId').addOptionAjax(ContentPage_ControlNameUrl + "/GetParent", "", "value", "text", function () { }, function () { }, ContentPage_idUrl_select, '', 'Seçiniz');
             },
             load: function () {
@@ -279,6 +292,7 @@
                 getContentPageType('#dp_ContentPageType', ContentPageType);
 
 
+                ContentPage_EditFunc.GetKurum();
                 ContentPage_EditFunc.GetParent();
 
                 $('#' + ContentPage_FormName).submit(function (e) {

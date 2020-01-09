@@ -50,7 +50,7 @@
 
         if (selectDefault) {
             var optionsAll = $("<option></option>")
-                .attr("value", 0)
+                .attr("value", '')
                 .text(selectDefault);
             $(id).append(optionsAll);
         }
