@@ -17,7 +17,7 @@ public static class SessionRequest
     public static string copyright = $"{DateTime.Now.Year} © Yazılım&Tasarım (Software&Design)  <a target='_blank' href='#'> by Murat Kale</a>";
     public static string layoutID = "1";
     //public static string layoutUrl = $"http://content.zonagency.com/demo{layoutID}";
-    public static string layoutUrl = $"http://site.dyness.com.tr";
+    public static string layoutUrl = $"http://cms.dyness.com.tr";
     public static string logo = "~/img/logo.png";
     public static string defaultImage = "~/img/default.png";
 
