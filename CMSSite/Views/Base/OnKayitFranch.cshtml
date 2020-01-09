@@ -99,11 +99,12 @@
 
             getSehir: function () {
                 var div_id = "#dp_Sehir_ok";
-                $(div_id).addOptionAjax("/Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+                debugger;
+                $(div_id).addOptionAjax("Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
             },
             getIlce: function () {
                 var div_id = "#dp_Ilce_ok";
-                $(div_id).addOptionAjax("/Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { }, function () { }, '', '', 'İlçe Seçiniz');
+                $(div_id).addOptionAjax("Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { }, function () { }, '', '', 'İlçe Seçiniz');
             },
 
 

@@ -1,4 +1,21 @@
-﻿<!doctype html>
+﻿@{
+    var kurum = HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
+    var sube = HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
+
+    var baslik = sube == null ? kurum.Ad : sube.Ad;
+    var adres = sube == null ? kurum.Adres : sube.Adres;
+    var telefon = sube == null ? kurum.Telefon : sube.Telefon;
+    var maps = sube == null ? kurum.Maps : sube.Maps;
+    var anal = sube == null ? kurum.GoogleAnalytic : sube.GoogleAnalytic;
+
+    var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
+    var Twitter = sube == null ? kurum.Twitter : sube.Twitter;
+    var Instagram = sube == null ? kurum.Instagram : sube.Instagram;
+    var Youtube = sube == null ? kurum.Youtube : sube.Youtube;
+    var Pinterest = sube == null ? kurum.Pinterest : sube.Pinterest;
+}
+
+<!doctype html>
 <html class="no-js" lang="zxx">
 <head>
     <meta charset="utf-8">
@@ -53,6 +70,10 @@
     <script>
         var baseUrl = '/' + location.pathname.split('/')[1] + '/';
     </script>
+
+
+    @Html.Raw(anal)
+
 </head>
 <body>
 

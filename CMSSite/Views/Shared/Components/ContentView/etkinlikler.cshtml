@@ -43,7 +43,7 @@
                                     <div class="courses__date"><i class="fa fa-calendar"></i>@item.CreaDate.ToShortDateString()</div>
                                     <div class="courses__content">
                                         <h4><a target="@target" href="@link">@item.Name</a></h4>
-                                        <p>@Html.Raw(item.Content.limit(75))</p>
+                                        <p>@Html.Raw(item.ContentShort)</p>
 
                                     </div>
                                 </div>

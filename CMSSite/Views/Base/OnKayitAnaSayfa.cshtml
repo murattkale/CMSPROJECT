@@ -62,11 +62,11 @@
             },
             getSehir: function () {
                 var div_id = "#dp_Sehir_ok";
-                $(div_id).addOptionAjax("/Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+                $(div_id).addOptionAjax("Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
             },
             getIlce: function () {
                 var div_id = "#dp_Ilce_ok";
-                $(div_id).addOptionAjax("/Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { Formlar_ListFunc.getSubeler(); }, function () { Formlar_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
+                $(div_id).addOptionAjax("Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { Formlar_ListFunc.getSubeler(); }, function () { Formlar_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
             },
 
             getSubeler: function () {
@@ -77,7 +77,7 @@
                     , IlceId: $('#dp_Ilce_ok').val()
                 };
 
-                $.ajx("/Base/getSubeler", postModel, function (dataResult) {
+                $.ajx("Base/getSubeler", postModel, function (dataResult) {
                     $('#SubeId').addOption(dataResult, "value", "text", function () { }, function () { }, '', '', 'Seçiniz');
 
                 }, null);
@@ -90,7 +90,7 @@
 
 
 
-                    $.ajx('Base/' + "/FormlarSave", { postModel: postModel }, function (resultMenus) {
+                    $.ajx("Base/FormlarSave", { postModel: postModel }, function (resultMenus) {
                         if (resultMenus.ResultType != 3) {
                             $(".zmdi.zmdi-close").click();
                             alert("Önkayıt işleminiz Alınmıştır.");

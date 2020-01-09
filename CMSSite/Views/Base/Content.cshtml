@@ -3,11 +3,11 @@
 
     if (_page != null)
     {
-
+         _page = ViewBag.page as ContentPage;
     }
     else
     {
-        _page = ViewBag.page as ContentPage;
+       
     }
 
 }
@@ -72,7 +72,7 @@
                             <hr />
 
 
-                            @if (SessionRequest.RawUrl.Contains("/franchise"))
+                            @if (_page.Link.Contains("franchise"))
                             {
                                 @Html.Partial("~/Views/Base/OnKayitFranch.cshtml")
                             }
