@@ -181,7 +181,7 @@
                             <input for="DefaultImage" id="file_DefaultImage" type="file" value="@edit.DefaultImage">
                         </div>
                         <div class="col-md-9">
-                            <input disabled="disabled" type="text" class="form-control" name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
+                            <input type="text" class="form-control" name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
                         </div>
 
                     </div>
@@ -196,18 +196,18 @@
 
 
                     @*<div class="form-group">
-                        <label class="control-label col-md-2" for="BannerText">@Html.Raw("BannerImage".Trans())</label>
-                        <div class="col-md-10">
-                            <input id="BannerImage" name="BannerImage" placeholder="@Html.Raw("BannerImage".Trans())" value="@edit.BannerImage" class="form-control" type="text">
-                        </div>
-                    </div>*@
+                            <label class="control-label col-md-2" for="BannerText">@Html.Raw("BannerImage".Trans())</label>
+                            <div class="col-md-10">
+                                <input id="BannerImage" name="BannerImage" placeholder="@Html.Raw("BannerImage".Trans())" value="@edit.BannerImage" class="form-control" type="text">
+                            </div>
+                        </div>*@
 
                     @*<div class="form-group">
-                        <label class="control-label col-md-2" for="BannerText">@Html.Raw("BannerText".Trans())</label>
-                        <div class="col-md-10">
-                            <input id="BannerText" name="BannerText" placeholder="@Html.Raw("BannerText".Trans())" value="@edit.BannerText" class="form-control" type="text">
-                        </div>
-                    </div>*@
+                            <label class="control-label col-md-2" for="BannerText">@Html.Raw("BannerText".Trans())</label>
+                            <div class="col-md-10">
+                                <input id="BannerText" name="BannerText" placeholder="@Html.Raw("BannerText".Trans())" value="@edit.BannerText" class="form-control" type="text">
+                            </div>
+                        </div>*@
 
                     <div class="form-group">
                         <label class="control-label col-md-2" for="ButtonText1">@Html.Raw("Buton yazısı 1".Trans())</label>
@@ -289,8 +289,7 @@
                 $('#Name').ceo({ target: '#MetaKeywords' });
                 $('#Name').dup({ target: '#MetaDescription' });
 
-                getContentPageType('#dp_ContentPageType', ContentPageType);
-
+                getEnumList(ContentPageTypeAll, '#dp_ContentPageType', ContentPageType)
 
                 ContentPage_EditFunc.GetKurum();
                 ContentPage_EditFunc.GetParent();

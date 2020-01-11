@@ -71,7 +71,7 @@
                 columns.push({ "data": "ContentPageType", text: "Tip" });
                 columns.push({ "data": "Link", text: "Link" });
                 columns.push({ "data": "ContentShort", text: "Kısa İçerik" });
-                columns.push({ "data": "IsHeaderMenu", text: "ÜSt Menü" });
+                columns.push({ "data": "IsHeaderMenu", text: "Üst Menü" });
                 columns.push({ "data": "IsFooterMenu", text: "Alt Menü" });
                 columns.push({ "data": "IsSideMenu", text: "Yan Menü" });
                 columns.push({ "data": "IsHamburgerMenu", text: "Hamburger Menü" });
@@ -106,7 +106,7 @@
 
                                 return_data.push({
                                     'Name': row.Name,
-                                    'ContentPageType': row.ContentPageType > 0 ? getContentPageTypeRow(row.ContentPageType).text : "",
+                                    'ContentPageType': row.ContentPageType > 0 ? getEnumRow(ContentPageTypeAll,row.ContentPageType).text : "",
                                     'Link': row.Link,
                                     'ContentShort': row.ContentShort,
                                     'IsHeaderMenu': row.IsHeaderMenu == true ? 'aktif' : 'pasif',

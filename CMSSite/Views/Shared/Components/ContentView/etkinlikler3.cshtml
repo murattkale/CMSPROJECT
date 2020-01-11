@@ -11,7 +11,7 @@
         <ul>
             @foreach (var item in contents)
             {
-               var image = SessionRequest.ImageUrl + item.DefaultImage;
+                var image = item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
                 <li>
                     <a href="#"><img src="@image" alt=""></a>
                     <div class="post__content">

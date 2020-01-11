@@ -18,7 +18,7 @@
                             i++;
                             if (i > 3) { i = 1; }
 
-                             var image = SessionRequest.ImageUrl + item.DefaultImage;
+                              var image = item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
 
                             <div class="testimonial--3">
                                 <div class="testimonial__thumb">

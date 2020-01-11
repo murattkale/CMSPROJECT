@@ -1,4 +1,105 @@
-﻿
+﻿if (window.addEventListener) {
+    window.addEventListener('load', general_Load, false);
+}
+else {
+    window.attachEvent('onload', general_Load);
+}
+
+function general_Load() {
+    window.onbeforeunload = setClick;
+}
+var postArray = [];
+function setClick() {
+    for (var i = 0; i < postArray.length; i++) {
+        postArray[i].abort();
+    }
+    // cl();
+}
+
+
+var toStr = function (e) {
+    return e == undefined || e == "undefined" || e == null || e == "null" ? "" : e.toString();
+};
+
+var toInt = function (e) {
+    return e == undefined || e == "undefined" || e == null || e == "null" ? null : parseInt(e);
+};
+
+
+
+var toDouble = function (e) {
+    return e == undefined || e == "undefined" || e == null || e == "null" ? null : parseFloat(e);
+};
+
+var isBool = function (variable) {
+    if (typeof (variable) === "boolean") {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+var toBool = function (value) {
+    return value == true ? "True" : "False";
+}
+
+var isNumeric = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+jQuery('.isnumeric').keyup(function () {
+    this.value = this.value.replace(/[^0-9\.]/g, '');
+});
+
+
+function getObjects(obj, key, val) {
+    var objects = [];
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getObjects(obj[i], key, val));
+        } else
+            if (i == key && obj[i] == val || i == key && val == '') { //
+                objects.push(obj);
+            } else if (obj[i] == val && key == '') {
+                if (objects.lastIndexOf(obj) == -1) {
+                    objects.push(obj);
+                }
+            }
+    }
+    return objects;
+}
+
+
+
+
+
+function getEnumList(dataResult, id, selectid, selectText) {
+    $(id).addOption(dataResult, "value", "text", null, null, selectid, '', selectText);
+}
+
+function getEnumRow(dataResult, value) {
+    if (value < 1) {
+        row = { value: "", text: "" };
+        return row;
+    }
+
+
+    var row;
+    for (var i = 0; i < dataResult.length; i++) {
+        var rowItem = dataResult[i];
+        if (parseInt(rowItem.value) == parseInt(value)) {
+            row = rowItem;
+            break;
+        }
+    }
+    return row;
+}
+
+
+
+
 (function ($) {
     "use strict";
 

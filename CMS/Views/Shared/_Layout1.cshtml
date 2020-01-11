@@ -124,24 +124,9 @@
             }, function () { });
         }
 
-        function getContentPageType(id, selectid) {
-            $(id).addOption(ContentPageTypeAll, "value", "text", null, null, selectid, '', 'Tip Seçiniz');
-        }
-
         getContentPageTypeAll();
 
-        function getContentPageTypeRow(value) {
-            var dataResult = ContentPageTypeAll;
-            var row;
-            for (var i = 0; i < dataResult.length; i++) {
-                var rowItem = dataResult[i];
-                if (rowItem.value == value) {
-                    row = rowItem;
-                    break;
-                }
-            }
-            return row;
-        }
+
 
     </script>
     <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>

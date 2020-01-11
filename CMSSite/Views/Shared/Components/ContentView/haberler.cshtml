@@ -21,9 +21,9 @@
                 <!-- Start Single Event -->
                 @foreach (var item in contents)
                 {
-                     var image = SessionRequest.ImageUrl + item.DefaultImage;
+                    var image = item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
 
-                       var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
+                    var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
                     var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
 
@@ -54,7 +54,7 @@
 
                                 </div>
                                 <ul class="event__btn">
-                                    <li > <a  target="@target" href="@link">İncele </a></li>
+                                    <li> <a target="@target" href="@link">İncele </a></li>
                                     <li><a href="javascript:;">Haberi Paylaş</a></li>
                                 </ul>
                             </div>
