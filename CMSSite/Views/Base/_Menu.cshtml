@@ -10,11 +10,6 @@
         foreach (var menu in ms)
         {
             i++;
-            //if (i == 2 && menu.ParentId == null)
-            //{
-
-            //}
-
 
             var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
             var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
@@ -33,7 +28,7 @@
         return "";
     }
 
-}
+} 
 
 
 <div class="col-sm-4 col-md-2 col-lg-9 order-3 order-lg-2">

@@ -29,6 +29,7 @@
     var ContentPageType = "@edit.ContentPageType";
 
     var ContentPageKurumId = "@edit.KurumId";
+    var ContentPageSubeId = "@edit.SubeId";
 
 </script>
 
@@ -83,6 +84,13 @@
                         <label class="control-label col-md-2">Kurum</label>
                         <div class="col-md-10">
                             <select required class="form-control" id="dp_KurumId" name="dp_KurumId"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Şube</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="dp_SubeId" name="dp_SubeId"></select>
                         </div>
                     </div>
 
@@ -183,7 +191,6 @@
                         <div class="col-md-9">
                             <input type="text" class="form-control" name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
                         </div>
-
                     </div>
 
 
@@ -263,7 +270,10 @@
     $(function () {
         ContentPage_EditFunc = {
             GetKurum: function () {
-                $('#dp_KurumId').addOptionAjax('/Kurum' + "/GetSelect", "", "value", "text", function () { }, function () { }, ContentPageKurumId, '', 'Seçiniz');
+                $('#dp_KurumId').addOptionAjax('/Kurum' + "/GetSelect", "", "value", "text", function () { ContentPage_EditFunc.GetSube(); }, function () { ContentPage_EditFunc.GetSube(); }, ContentPageKurumId, '', 'Seçiniz');
+            },
+            GetSube: function () {
+                $('#dp_SubeId').addOptionAjax('/Sube' + "/Getlist", { id: ($('#dp_KurumId').val()=="" ? 0 : $('#dp_KurumId').val()) }, "value", "text", function () { }, function () { }, ContentPageSubeId, '', 'Seçiniz');
             },
             GetParent: function () {
                 $('#dp_ParentId').addOptionAjax(ContentPage_ControlNameUrl + "/GetParent", "", "value", "text", function () { }, function () { }, ContentPage_idUrl_select, '', 'Seçiniz');

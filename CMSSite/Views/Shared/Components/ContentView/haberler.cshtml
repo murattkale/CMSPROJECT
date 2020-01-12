@@ -21,7 +21,7 @@
                 <!-- Start Single Event -->
                 @foreach (var item in contents)
                 {
-                    var image = item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
+                    var image = item.DefaultImage != null && item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
 
                     var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
@@ -36,23 +36,31 @@
                             </div>
                             <div class="event__content">
                                 <div class="event__pub">
-                                    <div class="event__date">
-                                        <span class="date">@item.CreaDate.Day</span><span>.</span>
-                                    </div>
+
                                     <ul class="event__time">
                                         <li>
-                                            <i class="fa fa-clock-o">
-                                                @Html.Raw(item.CreaDate.Month + "-" + item.CreaDate.Year)
+                                            <i style="float:right;" class="fa fa-home">
+                                                @item.Name
                                             </i>
                                         </li>
 
                                     </ul>
-                                </div>
-                                <div class="event__inner">
-                                    <p><a target="@target" href="@link">@Html.Raw(item.Name.limit(75))</a></p>
-                                    @*<p><a href="#">@Html.Raw(item.ContentText1.limit(75))</a></p>*@
+
+                                    <ul class="event__time">
+                                        <li>
+                                            <i style="float:right;" class="fa fa-clock-o">
+                                                @Html.Raw(item.CreaDate.Day + "-" + item.CreaDate.Month + "-" + item.CreaDate.Year)
+                                            </i>
+                                        </li>
+
+                                    </ul>
 
                                 </div>
+
+                                <div class="event__inner">
+                                    <h4><a target="@target" href="@link">@Html.Raw(item.ContentShort.limit(75))</a></h4>
+                                </div>
+
                                 <ul class="event__btn">
                                     <li> <a target="@target" href="@link">İncele </a></li>
                                     <li><a href="javascript:;">Haberi Paylaş</a></li>

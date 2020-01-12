@@ -20,7 +20,7 @@
 
                 @foreach (var item in contents)
                 {
-                     var image = item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
+                    var image = item.DefaultImage != null && item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
                     var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
                     var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
@@ -34,17 +34,25 @@
                             </div>
                             <div class="courses__inner">
                                 <ul class="courses__meta d-flex">
-                                   
+
                                     <li style="background-color:#0084b4 !important;" class="prize"> <a style="color:#fff !important;" target="@target" href="@link">İncele </a></li>
                                     <li style="background-color:#00aced !important" class="prize">Paylaş</li>
                                     <li style="background-color:#1dcaff !important" class="prize">Beğen</li>
                                 </ul>
                                 <div class="courses__wrap">
-                                    <div class="courses__date"><i class="fa fa-calendar"></i>@item.CreaDate.ToShortDateString()</div>
-                                    <div class="courses__content">
-                                        <h4><a target="@target" href="@link">@item.Name</a></h4>
-                                        <p>@Html.Raw(item.ContentShort)</p>
+                                    <div class="courses__date">
+                                        <h4>
+                                            <a style="float:left;" target="@target" href="@link">@item.Name</a>
 
+                                        </h4>
+                                        <i style="float:right;" class="fa fa-calendar">@item.CreaDate.ToShortDateString()</i>
+                                    </div>
+                                    <br />
+                                    <div class="courses__content">
+                                        <h4>
+                                            <p>@Html.Raw(item.ContentShort)</p>
+
+                                        </h4>
                                     </div>
                                 </div>
                             </div>

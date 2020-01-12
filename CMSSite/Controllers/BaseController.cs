@@ -49,44 +49,7 @@ namespace CMS.Controllers
             this._httpContextAccessor = httpContextAccessor;
             this._IHostingEnvironment = _IHostingEnvironment;
 
-        }
-
-
-        //[Route("FileUpload")]
-        [HttpPost]
-        public JsonResult FileUpload()
-        {
-
-            return Json("");
-        }
-
-
-
-        //[Route("FileUpload")]
-        [HttpPost]
-        public JsonResult FileUpload_(dynamic upload, dynamic ckCsrfToken)
-        {
-            var fileName = Guid.NewGuid().ToString() + upload.FileName;
-            var path = Path.Combine(Directory.GetCurrentDirectory(), _IHostingEnvironment.WebRootPath, "uploads", fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            upload.CopyToAsync(stream);
-            return new JsonResult(new { path = "/uploads/" + fileName });
-        }
-
-        [Route("FileBrowse")]
-        [HttpGet]
-        public IActionResult FileBrowse()
-        {
-            var dir = new DirectoryInfo(Path.Combine(Directory.GetCurrentDirectory(), _IHostingEnvironment.WebRootPath, "uploads"));
-            ViewBag.fileInfos = dir.GetFiles();
-            return View("FileBrowse");
-        }
-
-
-
-        public IActionResult Index()
-        {
-
+            var paths = _httpContextAccessor.HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).ToList();
 
             if (SessionRequest.KurumId > 0)
             {
@@ -94,8 +57,9 @@ namespace CMS.Controllers
                 _httpContextAccessor.HttpContext.Session.Set("kurum", kurum);
             }
 
-            if (SessionRequest.SubeId > 0)
+            if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))))
             {
+                SessionRequest.SubeId = paths.LastOrDefault().ToInt();
                 var kurum = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
                 _httpContextAccessor.HttpContext.Session.Set("sube", kurum);
             }
@@ -104,6 +68,11 @@ namespace CMS.Controllers
             _httpContextAccessor.HttpContext.Session.Set("header", header);
             var footer = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result.ToList();
             _httpContextAccessor.HttpContext.Session.Set("footer", footer);
+        }
+
+        public IActionResult Index()
+        {
+
 
             return View();
         }

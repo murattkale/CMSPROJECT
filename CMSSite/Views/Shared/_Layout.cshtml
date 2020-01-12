@@ -1,4 +1,7 @@
 ﻿@{
+
+
+
     var kurum = HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
     var sube = HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
 
@@ -7,6 +10,10 @@
     var telefon = sube == null ? kurum.Telefon : sube.Telefon;
     var maps = sube == null ? kurum.Maps : sube.Maps;
     var anal = sube == null ? kurum.GoogleAnalytic : sube.GoogleAnalytic;
+    var Logo = kurum.Logo;
+    var imageLogo = Logo != null && Logo.Contains("http") ? Logo : SessionRequest.ImageUrl + Logo;
+
+    var titleAd = sube == null ? kurum.Ad : sube.Ad;
 
     var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
     var Twitter = sube == null ? kurum.Twitter : sube.Twitter;
@@ -20,31 +27,31 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="fen bilimleri, fen, okul, fen merkezi, özel okul, fen eğitimi, fen" />
-    <meta name="description" content="Fen Bilimleri Merkezi eğitim Kurumu" />
-    <meta name="author" content="http://fenbilimlerimerkezi.dyness.com.tr" />
+    <meta name="keywords" content="@titleAd" />
+    <meta name="description" content="@titleAd" />
+    <meta name="author" content="@titleAd" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="fb:app_id" content="1037724072951294" />
+    <meta property="fb:app_id" content="" />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Fen Bilimleri Merkezi">
-    <meta property="og:title" content="İletişim | Fen Bilimleri Merkezi">
-    <meta property="og:description" content="Fen Bilimleri Merkezi eğitim Kurumu">
-    <meta property="og:url" content="http://fenbilimlerimerkezi.dyness.com.tr/iletisim">
+    <meta property="og:site_name" content="@titleAd">
+    <meta property="og:title" content="@titleAd">
+    <meta property="og:description" content="@titleAd">
+    <meta property="og:url" content="@imageLogo">
     <meta property="og:locale" content="tr_TR">
-    <meta property="og:image" content="http://fenbilimlerimerkezi.dyness.com.tr/content/img/logo.png" />
+    <meta property="og:image" content="@imageLogo" />
 
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="http://fenbilimlerimerkezi.dyness.com.tr/">
-    <meta name="twitter:title" content="İletişim | Fen Bilimleri Merkezi">
-    <meta name="twitter:url" content="http://fenbilimlerimerkezi.dyness.com.tr/iletisim">
-    <meta name="twitter:description" content="Fen Bilimleri Merkezi eğitim Kurumu">
-    <meta name="twitter:image" content="http://fenbilimlerimerkezi.dyness.com.tr/content/img/logo.png" />
-    <title>İletişim | Fen Bilimleri Merkezi</title>
+    @*<meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="http://fenbilimlerimerkezi.dyness.com.tr/">
+        <meta name="twitter:title" content="İletişim | Fen Bilimleri Merkezi">
+        <meta name="twitter:url" content="http://fenbilimlerimerkezi.dyness.com.tr/iletisim">
+        <meta name="twitter:description" content="Fen Bilimleri Merkezi eğitim Kurumu">
+        <meta name="twitter:image" content="imageLogo" />*@
+    <title>@titleAd</title>
     <base href="/">
 
     <!-- Favicons -->
-    <link href="Content/img/favicon.ico" rel="shortcut icon" />
-    <link href="Content/img/favicon.ico" rel="apple-touch-icon">
+    <link href="@imageLogo" rel="shortcut icon" />
+    <link href="@imageLogo" rel="apple-touch-icon">
     <!-- Google font (font-family: 'Lobster', Open+Sans;) -->
     <link href="https://fonts.googleapis.com/css?family=Lobster+Two:400,400i,700,700i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
@@ -133,6 +140,19 @@
 
     <script src="js/general.js?v=@SessionRequest.StyleVersion" type="text/javascript"></script>
 
+    @{
+        var telefon_link = "tel://" + telefon;
+        var telefon_wp = "https://api.whatsapp.com/send?phone=9" + telefon + "text=";
+
+    }
+
+    <a href="@telefon_link">
+        <span style="right: 110px; bottom:0;position:fixed;margin:40px;font-size:43px;"><i aria-hidden="true" class="fa fa-phone fa-4"></i></span>
+    </a>
+
+    <a target="_blank" href="@telefon_wp">
+        <img style="width:45px;height:45px;right: 50px; bottom:0;position:fixed;margin:40px;" src="~/images/whatsapp.png" />
+    </a>
 
     @RenderSection("scripts", required: false)
 </body>

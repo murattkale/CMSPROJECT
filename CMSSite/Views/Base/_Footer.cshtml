@@ -1,9 +1,9 @@
 ﻿@{
     Layout = null;
-  var _IMenusService =  HttpContextAccessor.HttpContext.Session.Get<List<ContentPage>>("footer");
+    var _IMenusService = HttpContextAccessor.HttpContext.Session.Get<List<ContentPage>>("footer");
 
-    var kurum =  HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
-    var sube =  HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
+    var kurum = HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
+    var sube = HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
 
 
     var baslik = kurum != null ? kurum.Ad : sube.Ad;
@@ -65,35 +65,35 @@
                             <h4>İletişim</h4>
                             <div class="ftr__address__inner">
                                 @*<div class="ftr__address">
-                        <div class="ftr_icon">
-                            <i class="fa fa-home"></i>
-                        </div>
-                        <div class="ftr__contact">
-                            <p>
-                                ADRES : Eski Edirne Asfaltı No:187/D
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-home"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p>
+                                                ADRES : Eski Edirne Asfaltı No:187/D
 
-                            </p>
-                            <p> 34045 Bayrampaşa / İstanbul</p>
-                        </div>
-                    </div>*@
+                                            </p>
+                                            <p> 34045 Bayrampaşa / İstanbul</p>
+                                        </div>
+                                    </div>*@
                                 @*<div class="ftr__address">
-                        <div class="ftr_icon">
-                            <i class="fa fa-phone"></i>
-                        </div>
-                        <div class="ftr__contact">
-                            <p><a href="#">TELEFON / FAKS </a></p>
-                            <p><a href="#">0212 537 97 97</a></p>
-                        </div>
-                    </div>*@
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p><a href="#">TELEFON / FAKS </a></p>
+                                            <p><a href="#">0212 537 97 97</a></p>
+                                        </div>
+                                    </div>*@
                                 @*<div class="ftr__address">
-                        <div class="ftr_icon">
-                            <i class="fa fa-envelope"></i>
-                        </div>
-                        <div class="ftr__contact">
-                            <p><a href="#">info@example.com</a></p>
-                            <p><a href="#">info@example.com</a></p>
-                        </div>
-                    </div>*@
+                                        <div class="ftr_icon">
+                                            <i class="fa fa-envelope"></i>
+                                        </div>
+                                        <div class="ftr__contact">
+                                            <p><a href="#">info@example.com</a></p>
+                                            <p><a href="#">info@example.com</a></p>
+                                        </div>
+                                    </div>*@
                                 <div class="footer__social__icon">
                                     <ul class="dacre__social__link--2 d-flex justify-content-start">
                                         <li class="facebook"><a target="_blank" href="@Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -110,7 +110,7 @@
                     <!-- Start Single Widget -->
                     <!-- End Single Widget -->
                     <!-- Start Single Wedget -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 md-mt-40 sm-mt-40">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 md-mt-40 sm-mt-40">
                         <div class="footer__widget">
                             <h4>Kategoriler</h4>
                             <div class="footer__innner">

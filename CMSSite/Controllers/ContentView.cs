@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -11,6 +12,10 @@ namespace CMS.Components
 
     public class ContentView : ViewComponent
     {
+
+        IHttpContextAccessor _httpContextAccessor;
+
+
         IContentPageService _IContentPageService;
         IKurumService _IKurumService;
         ISubeService _ISubeService;
@@ -18,10 +23,12 @@ namespace CMS.Components
         ITownService _ITownService;
         public ContentView(
             IContentPageService _IContentPageService,
+
              IKurumService _IKurumService,
         ISubeService _ISubeService,
         ICityService _ICityService,
-        ITownService _ITownService
+        ITownService _ITownService,
+        IHttpContextAccessor httpContextAccessor
             )
         {
             this._IContentPageService = _IContentPageService;
@@ -30,6 +37,8 @@ namespace CMS.Components
             this._ICityService = _ICityService;
             this._ITownService = _ITownService;
 
+            this._httpContextAccessor = httpContextAccessor;
+
 
         }
 
@@ -37,13 +46,22 @@ namespace CMS.Components
 
         public IViewComponentResult Invoke(ContentPageType ContentPageType)
         {
-            var list = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.ContentPageType == (int)ContentPageType)
+            var list = _IContentPageService.Where(o => o.ContentPageType == (int)ContentPageType)
                 .Result.OrderByDescending(o => o.CreaDate).AsQueryable();
 
-            if (SessionRequest.SubeId > 0)
+            var paths = _httpContextAccessor.HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).ToList();
+
+            if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))) && SessionRequest.SubeId > 0)
             {
-                list = list.Where(o => o.Id == SessionRequest.SubeId);
+                SessionRequest.SubeId = paths.LastOrDefault().ToInt();
+                list = list.Where(o => o.SubeId == SessionRequest.SubeId);
             }
+            else
+            {
+                list = list.Where(o => o.KurumId == SessionRequest.KurumId);
+
+            }
+
 
             switch (ContentPageType)
             {
@@ -110,7 +128,7 @@ namespace CMS.Components
             }
             return View();
         }
-     
+
 
 
     }

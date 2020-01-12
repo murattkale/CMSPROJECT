@@ -1,15 +1,18 @@
 ﻿@{
-   var kurum = HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
+    var kurum = HttpContextAccessor.HttpContext.Session.Get<Kurum>("kurum");
     var sube = HttpContextAccessor.HttpContext.Session.Get<Sube>("sube");
 
 
     var baslik = sube == null ? kurum.Ad : sube.Ad;
     var adres = sube == null ? kurum.Adres : sube.Adres;
     var telefon = sube == null ? kurum.Telefon : sube.Telefon;
+
+    var telefon_link = "tel://" + telefon;
+
     var maps = sube == null ? kurum.Maps : sube.Maps;
 
     var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
-    var Twitter = sube == null ?  kurum.Twitter : sube.Twitter;
+    var Twitter = sube == null ? kurum.Twitter : sube.Twitter;
     var Instagram = sube == null ? kurum.Instagram : sube.Instagram;
     var Youtube = sube == null ? kurum.Youtube : sube.Youtube;
     var Pinterest = sube == null ? kurum.Pinterest : sube.Pinterest;
@@ -21,12 +24,9 @@
     <div class="row">
         <!-- Start Sidebar -->
         <div class="col-lg-3 order-2 order-lg-1">
-            <div class="sidebar__widgets sidebar--left">
+            <div style="position: fixed;width: 19%;" class="sidebar__widgets sidebar--left">
 
                 @Html.Partial("~/Views/Base/OnKayitSube.cshtml")
-
-                @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.etkinlikler3 })
-
 
 
             </div>
@@ -45,10 +45,26 @@
             </div>
             <div class="class-details-inner">
                 <div class="courses__inner">
-                    <h2>@baslik</h2>
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <h3>
+
+                            @baslik
+                            </h3>
+                        </div>
+                        <div class="pull-right">
+                            <a href="@telefon_link">
+                                <span style="font-size:30px;color: #32a52c;text-align:center;">
+                                    <i aria-hidden="true" class="fa fa-phone fa-4"></i>
+                                    Şubeyi Ücretsiz Ara
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
-                <br />
-                @*@Html.Raw(page.)*@
+
+
                 <hr />
 
                 <div class="col-lg-12 order-2 order-lg-1">
@@ -90,6 +106,12 @@
                         }
 
                     </div>
+
+                    @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.etkinlikler })
+
+                    @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.haberler })
+
+
                 </div>
 
             </div>

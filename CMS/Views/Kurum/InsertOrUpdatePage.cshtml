@@ -208,7 +208,14 @@
                         </div>
                     </div>
 
-
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <input for="Logo" id="file_Logo" type="file" value="@edit.Logo">
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" name="Logo" id="Logo" value="@edit.Logo">
+                        </div>
+                    </div>
 
 
 
@@ -244,6 +251,7 @@
             load: function () {
                 Kurum_EditFunc.getSehir();
 
+                 fileUpload('#file_Logo');
 
                 $('#' + Kurum_FormName).submit(function (e) {
                     e.preventDefault();
