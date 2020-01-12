@@ -27,7 +27,7 @@
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);
                     var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
 
-                    <div class="col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="col-lg-@Html.Raw(SessionRequest.SubeId>0 ?"6":"4") col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="dcare__event">
                             <div class="event__thumb">
                                 <a target="@target" href="@link">

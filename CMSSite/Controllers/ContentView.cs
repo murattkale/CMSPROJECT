@@ -46,22 +46,26 @@ namespace CMS.Components
 
         public IViewComponentResult Invoke(ContentPageType ContentPageType)
         {
-            var list = _IContentPageService.Where(o => o.ContentPageType == (int)ContentPageType)
-                .Result.OrderByDescending(o => o.CreaDate).AsQueryable();
+            var listAll = _IContentPageService.Where().Result.OrderByDescending(o => o.CreaDate).AsQueryable();
+
+              
 
             var paths = _httpContextAccessor.HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).ToList();
 
             if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))) && SessionRequest.SubeId > 0)
             {
                 SessionRequest.SubeId = paths.LastOrDefault().ToInt();
-                list = list.Where(o => o.SubeId == SessionRequest.SubeId);
+                listAll = listAll.Where(o => o.SubeId == SessionRequest.SubeId);
             }
             else
             {
                 SessionRequest.SubeId = 0;
-                list = list.Where(o => o.KurumId == SessionRequest.KurumId);
+                listAll = listAll.Where(o => o.KurumId == SessionRequest.KurumId);
 
             }
+
+            var list = listAll.Where(o => o.ContentPageType == (int)ContentPageType);
+
 
 
             switch (ContentPageType)
@@ -98,31 +102,23 @@ namespace CMS.Components
                     }
                 case ContentPageType.etkinlikler:
                     {
-                        ViewBag.contents = list.ToList();
+                        listAll = listAll.Where(o => o.ContentPageType == (int)ContentPageType.etkinlikler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate);
+                        ViewBag.contents = listAll.ToList();
                         return View("etkinlikler");
                     }
                 case ContentPageType.etkinlikler3:
                     {
-                        list = _IContentPageService.Where(o => o.ContentPageType == (int)ContentPageType.etkinlikler).Result.OrderByDescending(o => o.CreaDate);
-                        if (SessionRequest.SubeId > 0)
-                        {
-                            list = list.Where(o => o.Id == SessionRequest.SubeId);
-                        }
                         ViewBag.contents = list.Take(3).ToList();
                         return View("etkinlikler3");
                     }
                 case ContentPageType.haberler:
                     {
-                        ViewBag.contents = list.ToList();
+                        listAll = listAll.Where(o => o.ContentPageType == (int)ContentPageType.haberler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate);
+                        ViewBag.contents = listAll.ToList();
                         return View("haberler");
                     }
                 case ContentPageType.haberler3:
                     {
-                        list = _IContentPageService.Where(o => o.ContentPageType == (int)ContentPageType.haberler).Result.OrderByDescending(o => o.CreaDate);
-                        if (SessionRequest.SubeId > 0)
-                        {
-                            list = list.Where(o => o.Id == SessionRequest.SubeId);
-                        }
                         ViewBag.contents = list.Take(3).ToList();
                         return View("haberler3");
                     }
