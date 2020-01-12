@@ -63,6 +63,10 @@ namespace CMS.Controllers
                 var kurum = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
                 _httpContextAccessor.HttpContext.Session.Set("sube", kurum);
             }
+            else
+            {
+                SessionRequest.SubeId = 0;
+            }
 
             var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result.ToList();
             _httpContextAccessor.HttpContext.Session.Set("header", header);

@@ -58,6 +58,7 @@ namespace CMS.Components
             }
             else
             {
+                SessionRequest.SubeId = 0;
                 list = list.Where(o => o.KurumId == SessionRequest.KurumId);
 
             }

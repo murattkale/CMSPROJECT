@@ -25,6 +25,10 @@ namespace CMSSite.Models
                 {
                     SessionRequest.SubeId = paths.LastOrDefault().ToInt();
                 }
+                else
+                {
+                    SessionRequest.SubeId = 0;
+                }
 
                 if (values["link"] != null && values["link"] != "")
                 {
