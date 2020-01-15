@@ -11,11 +11,17 @@
 
     var maps = sube == null ? kurum.Maps : sube.Maps;
 
-    var Facebook = sube == null ? kurum.Facebook : sube.Facebook;
-    var Twitter = sube == null ? kurum.Twitter : sube.Twitter;
-    var Instagram = sube == null ? kurum.Instagram : sube.Instagram;
-    var Youtube = sube == null ? kurum.Youtube : sube.Youtube;
-    var Pinterest = sube == null ? kurum.Pinterest : sube.Pinterest;
+    var Facebook = kurum.Facebook;
+    var Twitter = kurum.Twitter;
+    var Instagram = kurum.Instagram;
+    var Youtube = kurum.Youtube;
+    var Pinterest = kurum.Pinterest;
+
+    var sube_Facebook = sube.Facebook;
+    var sube_Twitter = sube.Twitter;
+    var sube_Instagram = sube.Instagram;
+    var sube_Youtube = sube.Youtube;
+    var sube_Pinterest = sube.Pinterest;
 
 }
 
@@ -24,7 +30,7 @@
     <div class="row">
         <!-- Start Sidebar -->
         <div class="col-lg-3 order-2 order-lg-1">
-            <div style="position: fixed;width: 19%;" class="sidebar__widgets sidebar--left">
+            <div style="position: fixed;width: 15%;" class="sidebar__widgets sidebar--left">
 
                 @Html.Partial("~/Views/Base/OnKayitSube.cshtml")
 
@@ -34,9 +40,6 @@
         <!-- End Sidebar -->
 
         <div class="col-lg-9 order-1 order-lg-2">
-            <br />
-
-            @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.sliderUst })
 
 
 
@@ -49,23 +52,38 @@
                         <div class="col-lg-7">
                             <h3>
 
-                            @baslik
+                                @baslik
+
+
                             </h3>
+
                         </div>
                         <div class="pull-right">
+
                             <a href="@telefon_link">
                                 <span style="font-size:30px;color: #32a52c;text-align:center;">
                                     <i aria-hidden="true" class="fa fa-phone fa-4"></i>
                                     Şubeyi Ücretsiz Ara
                                 </span>
                             </a>
+
+                        </div>
+                        <div style="margin-bottom: 0px !important; margin-top: 0px !important;" class="footer__social__icon">
+                            <ul class="dacre__social__link--2 d-flex justify-content-start">
+                                <li class="facebook"><a target="_blank" href="@sube_Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li class="twitter"><a target="_blank" href="@sube_Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li class="pinterest"><a target="_blank" href="@sube_Instagram"><i class="fa fa-instagram"></i></a></li>
+                                <li class="pinterest"><a target="_blank" href="@sube_Youtube"><i class="fa fa-youtube"></i></a></li>
+                                <li class="pinterest"><a target="_blank" href="@sube_Pinterest"><i class="fa fa-pinterest-p"></i></a></li>
+                            </ul>
                         </div>
                     </div>
 
                 </div>
-
-
                 <hr />
+
+
+
 
                 <div class="col-lg-12 order-2 order-lg-1">
                     <div class="sidebar__widgets sidebar--left">
@@ -74,25 +92,26 @@
                         <div class="ftr__address">
                             <div class="ftr_icon">
                                 <i class="fa fa-home"></i>
+                                <span style="color:black;"> ADRES :@Html.Raw(adres)</span>
                             </div>
-                            <div class="ftr__contact">
-                                <p>
-                                    ADRES :@Html.Raw(adres)
 
-                                </p>
-                            </div>
                         </div>
                         <div class="ftr__address">
                             <div class="ftr_icon">
                                 <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="ftr__contact">
-                                <p><a href="#">TELEFON </a></p>
-                                <p><a href="#">@Html.Raw(telefon)</a></p>
+                                <span style="color:black;">   TELEFON :  <a href="tel:@telefon">@Html.Raw(telefon)</a></span>
                             </div>
                             <br />
                         </div>
+
+                        <div>
+
+                        </div>
                         <br />
+
+                        @await Component.InvokeAsync("ContentView", new { ContentPageType = ContentPageType.galeri })
+
+                        <hr />
 
                         @if (!string.IsNullOrEmpty(maps))
                         {

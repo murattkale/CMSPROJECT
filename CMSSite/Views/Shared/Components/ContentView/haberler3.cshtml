@@ -21,7 +21,8 @@
                 <!-- Start Single Event -->
                 @foreach (var item in contents)
                 {
-                    var image = item.DefaultImage != null && item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
+                   var documents = item.Documents.FirstOrDefault();
+                    var image = documents.Link != null && documents.Link.Contains("http") ? documents.Link : SessionRequest.ImageUrl + documents.Link;
 
                     var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(item.Link) ? "javascript:void();" : SessionRequest.baseUrl + item.Link);

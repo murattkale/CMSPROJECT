@@ -1,10 +1,9 @@
 ﻿@{
     Layout = null;
-    var contents = (List<ContentPage>)ViewBag.contents;
-    var i = 0;
+    var contents = ((List<ContentPage>)ViewBag.contents).FirstOrDefault();
 }
 
-@if (contents.Count > 0)
+@if (contents != null && contents.Documents.Count > 0)
 {
 
     <section class="dcare__testimonial__area section-padding--lg bg-image--23">
@@ -13,12 +12,10 @@
                 <div class="col-md-12 col-sm-12 col-lg-12">
                     <div class="testimonial__slide--3 owl-carousel owl-theme">
 
-                        @foreach (var item in contents)
+                        @foreach (var item in  contents.Documents)
                         {
-                            i++;
-                            if (i > 3) { i = 1; }
 
-                              var image  = item.DefaultImage != null && item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
+                            var image = item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.ImageUrl + item.Link;
 
                             <div class="testimonial--3">
                                 <div class="testimonial__thumb">
@@ -28,7 +25,7 @@
                                     <p>@item.Name</p>
                                     <div class="tes__info">
 
-                                        <span>@Html.Raw(item.Content) </span>
+                                        <span>@Html.Raw(contents.Content) </span>
                                     </div>
                                 </div>
                             </div>

@@ -16,7 +16,8 @@
 
                         @foreach (var item in contents)
                         {
-                            var image  = item.DefaultImage != null && item.DefaultImage.Contains("http") ? item.DefaultImage : SessionRequest.ImageUrl + item.DefaultImage;
+                            var documents = item.Documents.FirstOrDefault();
+                            var image = documents.Link != null && documents.Link.Contains("http") ? documents.Link : SessionRequest.ImageUrl + documents.Link;
                             var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
                             var link = (item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.baseUrl + item.Link);
                             var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";

@@ -51,27 +51,31 @@ namespace CMS.Controllers
 
             var paths = _httpContextAccessor.HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).ToList();
 
-            if (SessionRequest.KurumId > 0)
-            {
-                var kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
-                _httpContextAccessor.HttpContext.Session.Set("kurum", kurum);
-            }
+
+            var kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
+            _httpContextAccessor.HttpContext.Session.Set("kurum", kurum);
+
+            var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result;
+            var footer = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result;
+
 
             if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))))
             {
                 SessionRequest.SubeId = paths.LastOrDefault().ToInt();
-                var kurum = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
-                _httpContextAccessor.HttpContext.Session.Set("sube", kurum);
+                var sube = _ISubeService.Where(o => o.Id == SessionRequest.SubeId).Result.FirstOrDefault();
+                _httpContextAccessor.HttpContext.Session.Set("sube", sube);
+
+                //header = header.Where(o => o.SubeId == SessionRequest.SubeId);
+                //footer = footer.Where(o => o.SubeId == SessionRequest.SubeId);
             }
             else
             {
                 SessionRequest.SubeId = 0;
             }
 
-            var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result.ToList();
-            _httpContextAccessor.HttpContext.Session.Set("header", header);
-            var footer = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result.ToList();
-            _httpContextAccessor.HttpContext.Session.Set("footer", footer);
+
+            _httpContextAccessor.HttpContext.Session.Set("header", header.ToList());
+            _httpContextAccessor.HttpContext.Session.Set("footer", footer.ToList());
         }
 
         public IActionResult Index()

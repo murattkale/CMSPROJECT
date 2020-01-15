@@ -46,11 +46,11 @@ namespace CMS.Components
 
         public IViewComponentResult Invoke(ContentPageType ContentPageType)
         {
-            var listAll = _IContentPageService.Where().Result.OrderByDescending(o => o.CreaDate).AsQueryable();
-
-              
+            var listAll = _IContentPageService.Where(null, true, false, o => o.Documents).Result.OrderByDescending(o => o.CreaDate).AsQueryable();
 
             var paths = _httpContextAccessor.HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).ToList();
+
+            listAll = listAll.Where(o => o.KurumId == SessionRequest.KurumId);
 
             if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))) && SessionRequest.SubeId > 0)
             {
@@ -60,68 +60,63 @@ namespace CMS.Components
             else
             {
                 SessionRequest.SubeId = 0;
-                listAll = listAll.Where(o => o.KurumId == SessionRequest.KurumId);
-
             }
 
             var list = listAll.Where(o => o.ContentPageType == (int)ContentPageType);
 
-
+            var lastList = list.ToList();
+            lastList.ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
+            ViewBag.contents = lastList.ToList();
 
             switch (ContentPageType)
             {
                 case ContentPageType.row1:
                     {
-                        ViewBag.contents = list.ToList();
                         return View("row1");
                     }
                 case ContentPageType.row2:
                     {
-                        ViewBag.contents = list.ToList();
                         return View("row2");
-                    }
-                case ContentPageType.row3:
-                    {
-                        ViewBag.contents = list.ToList();
-                        return View("row3");
                     }
                 case ContentPageType.row4:
                     {
-                        ViewBag.contents = list.ToList();
                         return View("row4");
                     }
                 case ContentPageType.sliderUst:
                     {
-                        ViewBag.contents = list.ToList();
                         return View("sliderUst");
                     }
                 case ContentPageType.sliderAlt:
                     {
-                        ViewBag.contents = list.ToList();
                         return View("sliderAlt");
-                    }
-                case ContentPageType.etkinlikler:
-                    {
-                        listAll = listAll.Where(o => o.ContentPageType == (int)ContentPageType.etkinlikler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate);
-                        ViewBag.contents = listAll.ToList();
-                        return View("etkinlikler");
                     }
                 case ContentPageType.etkinlikler3:
                     {
-                        ViewBag.contents = list.Take(3).ToList();
                         return View("etkinlikler3");
-                    }
-                case ContentPageType.haberler:
-                    {
-                        listAll = listAll.Where(o => o.ContentPageType == (int)ContentPageType.haberler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate);
-                        ViewBag.contents = listAll.ToList();
-                        return View("haberler");
                     }
                 case ContentPageType.haberler3:
                     {
-                        ViewBag.contents = list.Take(3).ToList();
                         return View("haberler3");
                     }
+                case ContentPageType.galeri:
+                    {
+                        return View("galeri");
+                    }
+                case ContentPageType.haberler:
+                    {
+                        var lastListSon = listAll.Where(o => o.ContentPageType == (int)ContentPageType.haberler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate).ToList();
+                        lastListSon.ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
+                        ViewBag.contents = lastListSon.ToList();
+                        return View("haberler");
+                    }
+                case ContentPageType.etkinlikler:
+                    {
+                        var lastListSon = listAll.Where(o => o.ContentPageType == (int)ContentPageType.etkinlikler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate).ToList();
+                        lastListSon.ToList().ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
+                        ViewBag.contents = lastListSon.ToList();
+                        return View("etkinlikler");
+                    }
+
             }
             return View();
         }

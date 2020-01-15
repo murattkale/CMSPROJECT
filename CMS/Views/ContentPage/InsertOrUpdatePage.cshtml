@@ -322,11 +322,16 @@
 
                     var maxFiles = 1;
 
-                    if (postModel.ContentPageType == ContentPageTypeEnum.sliderUst || postModel.ContentPageType == ContentPageTypeEnum.sliderAlt) {
+                    if (postModel.ContentPageType == ContentPageTypeEnum.sliderUst || postModel.ContentPageType == ContentPageTypeEnum.sliderAlt
+                        || postModel.ContentPageType == ContentPageTypeEnum.haberler
+                        || postModel.ContentPageType == ContentPageTypeEnum.haberler3
+                        || postModel.ContentPageType == ContentPageTypeEnum.etkinlikler
+                        || postModel.ContentPageType == ContentPageTypeEnum.etkinlikler3
+                    ) {
                         maxFiles = 10;
                     }
                     else if (postModel.ContentPageType == ContentPageTypeEnum.galeri) {
-                        maxFiles = 3;
+                        maxFiles = 4;
                     }
                     else {
                         maxFiles = 1;
