@@ -36,9 +36,9 @@ public enum ContentPageType
     row3 = 5,
     [Description("4.KISIM")]
     row4 = 6,
-    [Description("ÜST SLİDER")]
+    [Description("ÜST SLİDER (Max 10 Görsel)")]
     sliderUst = 7,
-    [Description("ALT SLİDER")]
+    [Description("ALT SLİDER (Max 10 Görsel)")]
     sliderAlt = 8,
     [Description("ETKİNLİK")]
     etkinlikler = 9,
@@ -48,7 +48,8 @@ public enum ContentPageType
     haberler3 = 11,
     [Description("3'LÜ ETKİNLİK")]
     etkinlikler3 = 12,
-
+    [Description("GALERİ (Max 3 Görsel)")]
+    galeri = 13,
 }
 
 

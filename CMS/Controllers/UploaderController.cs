@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Entity.CMSDB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,8 @@ namespace CMS
 {
     public class UploaderController : Controller
     {
-        private IHostingEnvironment hostingEnvironment;
+        IHostingEnvironment hostingEnvironment;
+        //I hostingEnvironment;
 
         public UploaderController(IHostingEnvironment hostingEnvironment)
         {
@@ -21,13 +23,13 @@ namespace CMS
         }
 
         [HttpPost]
-        public JsonResult Index(IList<IFormFile> files)
+        public JsonResult Index(IList<IFormFile> files, Documents postmodel)
         {
+
             var list = new List<string>();
             foreach (IFormFile source in files)
             {
                 string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
-
                 //filename = this.EnsureCorrectFilename(filename);
                 filename = SessionRequest.version + "_" + Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
                 list.Add(filename);

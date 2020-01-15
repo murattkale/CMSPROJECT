@@ -185,13 +185,31 @@
 
 
                     <div class="form-group row">
-                        <div class="col-md-3">
-                            <input for="DefaultImage" id="file_DefaultImage" type="file" value="@edit.DefaultImage">
+                        <div class="col-md-12">
+                            <input multiple for="DefaultImage" id="file_DefaultImage" type="file" value="@edit.DefaultImage">
                         </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
-                        </div>
+                        @*<div class="col-md-9">
+                                <input type="text" class="form-control" name="DefaultImage" id="DefaultImage" value="@edit.DefaultImage">
+                            </div>*@
                     </div>
+
+                    @if (edit.Documents.Any())
+                    {
+                        <div style="border: solid 1px #ccc;border-radius:3px;margin:5px;overflow-y:scroll;" class="form-group row">
+                            <div class="col-md-12">
+                                @foreach (var image in edit.Documents)
+                                {
+                                    var link = "uploads/" + image.Link;
+                                    <div dataid="@image.Id" style="border: solid 1px #ccc;border-radius:3px;float:left;margin:5px;">
+                                        <img src="@link" dataid="@image.Id" name="@image.Name" alt="@image.Alt" title="@image.Title" width="100" height="100" />
+                                        <a href="javascript:;" dataid="@image.Id" class="deleteImage"><i style="margin:5px !important; " class="far fa-trash-alt"></i></a>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    }
+
 
 
                     <div class="form-group">
@@ -262,8 +280,6 @@
 
 
 
-
-
 <script type="text/javascript">
     var ContentPage_EditFunc;
     var customComment = "";
@@ -273,26 +289,18 @@
                 $('#dp_KurumId').addOptionAjax('/Kurum' + "/GetSelect", "", "value", "text", function () { ContentPage_EditFunc.GetSube(); }, function () { ContentPage_EditFunc.GetSube(); }, ContentPageKurumId, '', 'Seçiniz');
             },
             GetSube: function () {
-                $('#dp_SubeId').addOptionAjax('/Sube' + "/Getlist", { id: ($('#dp_KurumId').val()=="" ? 0 : $('#dp_KurumId').val()) }, "value", "text", function () { }, function () { }, ContentPageSubeId, '', 'Seçiniz');
+                $('#dp_SubeId').addOptionAjax('/Sube' + "/Getlist", { id: ($('#dp_KurumId').val() == "" ? 0 : $('#dp_KurumId').val()) }, "value", "text", function () { }, function () { }, ContentPageSubeId, '', 'Seçiniz');
             },
             GetParent: function () {
                 $('#dp_ParentId').addOptionAjax(ContentPage_ControlNameUrl + "/GetParent", "", "value", "text", function () { }, function () { }, ContentPage_idUrl_select, '', 'Seçiniz');
             },
             load: function () {
 
-                fileUpload('#file_DefaultImage');
-
                 $('#' + ContentPage_FormName + ' textarea').each(function () {
                     if (CKEDITOR.instances[$(this).attr('name')])
                         CKEDITOR.instances[$(this).attr('name')].destroy();
 
-                    CKEDITOR.replace($(this).attr('name'), {
-                        //filebrowserImageUploadUrl: '/Base/FileUpload'
-                    });
-
-
-
-
+                    CKEDITOR.replace($(this).attr('name'), {});
                 });
 
                 $('#Name').ceo({ target: '#Link' });
@@ -306,10 +314,52 @@
 
                 $('#' + ContentPage_FormName).submit(function (e) {
                     e.preventDefault();
+
                     var postModel = $.fn.toForm("#" + ContentPage_FormName);
+
+                    var fileUpload = $('#' + 'file_DefaultImage').get(0);
+                    var files = fileUpload.files;
+
+                    var maxFiles = 1;
+
+                    if (postModel.ContentPageType == ContentPageTypeEnum.sliderUst || postModel.ContentPageType == ContentPageTypeEnum.sliderAlt) {
+                        maxFiles = 10;
+                    }
+                    else if (postModel.ContentPageType == ContentPageTypeEnum.galeri) {
+                        maxFiles = 3;
+                    }
+                    else {
+                        maxFiles = 1;
+                    }
+
+
+
+                    if (files.length > maxFiles) {
+                        alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');
+                        return;
+                    }
+
+                    var totalImage = ($('.deleteImage[dataid]').length + files.length);
+                    if (totalImage > maxFiles) {
+                        alert($('.deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsek ekleyiniz.');
+                        return;
+                    }
+
+                    if (maxFiles > 1 && totalImage < 1) {
+                        alert('Lütfen görsel ekleyiniz.');
+                        return;
+                    }
+
+                    var fileData = new FormData();
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('files', files[i]);
+                    }
+
+                    fileData.append('postmodel', JSON.stringify(postModel));
+
                     $.LoadingOverlay("show");
 
-                    $.ajx(ContentPage_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajxUpload(ContentPage_ControlNameUrl + "/InsertOrUpdate", fileData, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
                             ContentPage_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
@@ -321,6 +371,24 @@
                     }, function () { location.reload(); });
 
                 });
+
+                $(".deleteImage").click(function () {
+                    var id = $(this).attr("dataid");
+                    alerts("Resimi silmek istediğinize emin misiniz ? ", "yesno", function (result) {
+                        if (result == true) {
+                            $.LoadingOverlay("show");
+                            $.ajx(ContentPage_ControlNameUrl + '/DeleteImage', { id: id }, function (resultID) {
+                                $('div[dataid="' + resultID + '"]').remove();
+                                $.LoadingOverlay("hide");
+                            });
+                        }
+                    });
+
+
+                });
+
+
+
             },
 
 

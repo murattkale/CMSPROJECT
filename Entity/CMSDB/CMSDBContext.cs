@@ -57,6 +57,7 @@ namespace Entity.CMSDB
         public virtual DbSet<VeliDetay> VeliDetay { get; set; }
         public virtual DbSet<Yayin> Yayin { get; set; }
         public virtual DbSet<Formlar> Formlar { get; set; }
+        public virtual DbSet<Documents> Documents { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -69,6 +70,25 @@ namespace Entity.CMSDB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Documents>(entity =>
+            {
+                entity.Property(e => e.dataid).IsRequired();
+
+                entity.Property(e => e.CreaDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.ModDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.ContentPage)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.dataid)
+                    .HasConstraintName("FK_Documents_Documents");
+            });
+
+
             modelBuilder.Entity<Banka>(entity =>
             {
                 entity.Property(e => e.CreaDate)

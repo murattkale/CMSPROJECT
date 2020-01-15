@@ -5,7 +5,10 @@ namespace Entity.CMSDB
 {
     public partial class ContentPage : BaseModel
     {
-       
+        public ContentPage()
+        {
+            Documents = new HashSet<Documents>();
+        }
         public int? KurumId { get; set; }
         public int? SubeId { get; set; }
         public int? ParentId { get; set; }
@@ -30,5 +33,7 @@ namespace Entity.CMSDB
 
         public virtual Kurum Kurum { get; set; }
         public virtual Sube Sube { get; set; }
+
+        public virtual ICollection<Documents> Documents { get; set; }
     }
 }

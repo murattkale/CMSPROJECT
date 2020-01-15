@@ -17,6 +17,23 @@ function setClick() {
 }
 
 
+
+var ContentPageTypeEnum = {
+    Sayfa: 2,
+    row1: 3,
+    row2: 4,
+    row3: 5,
+    row4: 6,
+    sliderUst: 7,
+    sliderAlt: 8,
+    etkinlikler: 9,
+    haberler: 10,
+    haberler3: 11,
+    etkinlikler3: 12,
+    galeri: 13,
+};
+
+
 var toStr = function (e) {
     return e == undefined || e == "undefined" || e == null || e == "null" ? "" : e.toString();
 };
@@ -240,7 +257,32 @@ function getEnumRow(dataResult, value) {
         });
 
         return returnArray;
-    }
+    };
+
+
+    $.ajxUpload = function (url, data, successMethod, error) {
+        //if (typeof data != "string" && data != null) {
+        //    data = JSON.stringify(data);
+        //}
+
+        var slash = url.substr(0, 1) == "/" ? "" : "/";
+
+        $.ajax({
+            url: slash + baseUrl + url,
+            type: "POST",
+            contentType: false, // Not to set any content header  
+            processData: false, // Not to process data  
+            data: data,
+            success: successMethod,
+            error: function (error) {
+                if (error) {
+                    error = $.fn.errorSend(e, exception);
+                    console.log(error);
+                }
+            }
+        });
+
+    };
 
 
 
