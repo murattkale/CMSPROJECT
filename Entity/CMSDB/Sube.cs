@@ -23,7 +23,6 @@ namespace Entity.CMSDB
        
         
        
-        public int? IsStatus { get; set; }
         public int KurumId { get; set; }
         public string Ad { get; set; }
         public int? SehirId { get; set; }

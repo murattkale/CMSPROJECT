@@ -19,9 +19,100 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+using System.Linq.Dynamic.Core;
 
 public static class Helpers
 {
+
+
+    public static string getProp(this object model, string[] nonProp, string[] orderby)
+    {
+        string str = "";
+        Type t = model.GetType();
+        var props = t.GetProperties().ToList();
+
+        var baseType = new BaseModel().GetType().GetProperties().ToList();
+        baseType.ForEach(oo =>
+        {
+            props = props.AsQueryable().Where(d => d.Name != oo.Name).ToList();
+        });
+
+        if (nonProp.Count() > 0)
+            nonProp.ToList().ForEach(o =>
+            {
+                props = props.AsQueryable().Where(d => d.Name != o).ToList();
+            });
+
+        if (orderby.Count() > 0)
+            orderby.ToList().ForEach(o =>
+            {
+                if (!string.IsNullOrEmpty(o))
+                    props = props.AsQueryable().OrderBy(o + " ASC").ToList();
+            });
+
+
+
+        foreach (var prp in props)
+        {
+            switch (prp.PropertyType.Name)
+            {
+                case "String":
+                    {
+                        str += "<div class='form-group row'>                                                                                                            ";
+                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + prp.Name + "</label>                           ";
+                        str += "<div class='col-md-10'>                                                                                      ";
+                        str +=
+                            "<input  " +
+                            "id='" + prp.Name + "' " +
+                            "name='" + prp.Name + "' " +
+                            "placeholder='" + prp.Name + "' " +
+                            "value='" + prp.GetPropValue(prp.Name) + "' " +
+                            "class='form-control' " +
+                            "type='text'>  ";
+                        str += "</div>                                                                                                       ";
+                        str += "</div>                                                                                                                            ";
+                        break;
+                    }
+                case "Nullable`1":
+                    {
+                        str += "<div class='form-group row'>                                                                                                            ";
+                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + prp.Name + "</label>                           ";
+                        str += "<div class='col-md-10'>";
+                        str +=
+                            "<select " +
+                            "id='dp_" + prp.Name + "' " +
+                            "name='dp_" + prp.Name + "' " +
+                            "class='form-control'>" +
+                            "</select>";
+                        str += "</div>";
+                        str += "</div>";
+                        break;
+                    }
+                case "DateTime":
+                    {
+                        str += "<div class='form-group row'>                                                                                                            ";
+                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + prp.Name + "</label>                           ";
+                        str += "<div class='col-md-10 input-group date'>";
+                        str +=
+                           "<input  " +
+                           "id='" + prp.Name + "' " +
+                           "name='" + prp.Name + "' " +
+                           "value='" + prp.GetPropValue(prp.Name) + "' " +
+                           "class='form-control' " +
+                           "type='text'>  ";
+                        str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
+                        str += "</div>";
+                        str += "</div>";
+                        str += "<script> $('#dp_" + prp.Name + "').datepicker({todayBtn:'linked',clearBtn:!0,todayHighlight:!0})</script>";
+                        break;
+                    }
+            }
+
+        }
+
+        return str;
+    }
+
 
 
     private static Dictionary<Type, PropertyInfo[]> _TypesWithWriteableProperties = new Dictionary<Type, PropertyInfo[]>();
@@ -1066,6 +1157,8 @@ public static class Helpers
         }
         return propNames.ToArray();
     }
+
+
 
     public static string GetMyTable<T>(this IEnumerable<T> list, params Expression<Func<T, object>>[] fxns)
     {

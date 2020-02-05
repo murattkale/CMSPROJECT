@@ -126,7 +126,7 @@ namespace CMS
                 //);
 
 
-                routes.MapRoute(name: "default", template:  "{controller=ContentPage}/{action=Index}/{Id?}");
+                routes.MapRoute(name: "default", template:  "{controller=Users}/{action=Index}/{Id?}");
 
             });
         }
