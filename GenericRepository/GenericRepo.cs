@@ -1,5 +1,5 @@
 ﻿using Entity;
-using Entity.CMSDB;
+using Entity.CMSDB; using Entity.ContextModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.CMSDB;
+using Entity.CMSDB; using Entity.ContextModel;
 
 
-    public class BransService : GenericRepo<Brans>, IBransService
+public class BransService : GenericRepo<Brans>, IBransService
     {
 
 

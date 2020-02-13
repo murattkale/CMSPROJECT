@@ -9,16 +9,9 @@ namespace Entity.CMSDB
         {
             HesapAliciKasa = new HashSet<Hesap>();
             HesapIlgiliKasa = new HashSet<Hesap>();
-            InverseUstKasa = new HashSet<Kasa>();
+            UstKasaList = new HashSet<Kasa>();
         }
 
-       
-        
-        
-        
-       
-        
-       
        
         public string Ad { get; set; }
         public int ParaBirimId { get; set; }
@@ -37,6 +30,6 @@ namespace Entity.CMSDB
         public virtual Kasa UstKasa { get; set; }
         public virtual ICollection<Hesap> HesapAliciKasa { get; set; }
         public virtual ICollection<Hesap> HesapIlgiliKasa { get; set; }
-        public virtual ICollection<Kasa> InverseUstKasa { get; set; }
+        public virtual ICollection<Kasa> UstKasaList { get; set; }
     }
 }

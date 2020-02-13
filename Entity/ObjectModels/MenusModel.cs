@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
+[NotMapped]
 public class MenusModel : BaseModel
 {
     public int? MenuType { get; set; }

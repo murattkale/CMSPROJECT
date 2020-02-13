@@ -1,8 +1,10 @@
 ﻿using System;
+using Entity.CMSDB;
+using Entity.ContextModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Entity.CMSDB
+namespace Entity.ContextModel
 {
     public partial class CMSDBContext : DbContext
     {
@@ -13,6 +15,7 @@ namespace Entity.CMSDB
         public CMSDBContext(DbContextOptions<CMSDBContext> options)
             : base(options)
         {
+
         }
 
         public virtual DbSet<Banka> Banka { get; set; }
@@ -61,15 +64,18 @@ namespace Entity.CMSDB
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;");
-//            }
+            if (!optionsBuilder.IsConfigured)
+            {
+                //optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer("Server=.;Database=u9073914_cms;user id=sa;password=123_*1;MultipleActiveResultSets=True;",
+                    x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema")
+                    );
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Documents>(entity =>
             {
                 entity.Property(e => e.dataid).IsRequired();
@@ -315,7 +321,7 @@ namespace Entity.CMSDB
                     .HasConstraintName("FK_Kasa_Sube");
 
                 entity.HasOne(d => d.UstKasa)
-                    .WithMany(p => p.InverseUstKasa)
+                    .WithMany(p => p.UstKasaList)
                     .HasForeignKey(d => d.UstKasaId)
                     .HasConstraintName("FK_Kasa_Kasa");
             });

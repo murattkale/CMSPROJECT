@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.CMSDB;
+using Entity.CMSDB; using Entity.ContextModel;
 
 
     public class SezonService : GenericRepo<Sezon>, ISezonService
