@@ -111,7 +111,23 @@
 
     <script>
         var baseUrl = '';
+
+          $.fn.datepicker.dates['tr'] = {
+            days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+            daysShort: ["Pz", "Pt", "Sa", "Ça", "Pe", "Cu", "Ct"],
+            daysMin: ["Pz", "Pt", "Sa", "Ça", "Pe", "Cu", "Ct"],
+            months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+                "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz",
+                "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+            monthsShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz",
+                "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"],
+            today: "Bugün",
+            clear: "Temizle"
+        };
+
     </script>
+
 
 
     <script src="~/content/js/general.js?v=@SessionRequest.version"></script>

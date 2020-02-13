@@ -73,6 +73,7 @@ public static class Helpers
                         str += "</div>                                                                                                                            ";
                         break;
                     }
+                case "Long":
                 case "Nullable`1":
                     {
                         str += "<div class='form-group row'>                                                                                                            ";
@@ -95,15 +96,15 @@ public static class Helpers
                         str += "<div class='col-md-10 input-group date'>";
                         str +=
                            "<input  " +
-                           "id='" + prp.Name + "' " +
-                           "name='" + prp.Name + "' " +
+                           "id='dt_" + prp.Name + "' " +
+                           "name='dt_" + prp.Name + "' " +
                            "value='" + prp.GetPropValue(prp.Name) + "' " +
                            "class='form-control' " +
                            "type='text'>  ";
                         str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<script> $('#dp_" + prp.Name + "').datepicker({todayBtn:'linked',clearBtn:!0,todayHighlight:!0})</script>";
+                        str += "<script> $('#dt_" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0})</script>";
                         break;
                     }
             }
