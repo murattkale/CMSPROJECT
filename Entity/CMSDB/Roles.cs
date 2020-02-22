@@ -7,7 +7,7 @@ namespace Entity.CMSDB
     {
         public Roles()
         {
-            InverseParent = new HashSet<Roles>();
+            ParentRoles = new HashSet<Roles>();
             Permissions = new HashSet<Permissions>();
             ServiceConfigAuth = new HashSet<ServiceConfigAuth>();
             UserRoles = new HashSet<UserRoles>();
@@ -21,13 +21,13 @@ namespace Entity.CMSDB
         
        
        
-        public int? ParentId { get; set; }
+        public int? RoleId { get; set; }
         public string Name { get; set; }
-        public int? StartPageId { get; set; }
+        public int? ServiceConfigId { get; set; }
 
-        public virtual Roles Parent { get; set; }
-        public virtual ServiceConfig StartPage { get; set; }
-        public virtual ICollection<Roles> InverseParent { get; set; }
+        public virtual Roles Role { get; set; }
+        public virtual ServiceConfig ServiceConfig { get; set; }
+        public virtual ICollection<Roles> ParentRoles { get; set; }
         public virtual ICollection<Permissions> Permissions { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
         public virtual ICollection<UserRoles> UserRoles { get; set; }

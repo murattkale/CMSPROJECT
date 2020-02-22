@@ -87,6 +87,23 @@ public static class Helpers
                             "</select>";
                         str += "</div>";
                         str += "</div>";
+                        var relation = props.FirstOrDefault(o => o.Name == prp.Name.Replace("Id", ""));
+                        if (relation != null)
+                        {
+                            str += "<script>$(function () { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () {  }, function () {  }, '" + prp.GetPropValue(prp.Name) + "' , '' , 'Seçiniz');  }); </script>";
+                        }
+                        else
+                        {
+                            str +=
+                           "<input  " +
+                           "id='" + prp.Name + "' " +
+                           "name='" + prp.Name + "' " +
+                           "placeholder='" + prp.Name + "' " +
+                           "value='" + prp.GetPropValue(prp.Name) + "' " +
+                           "class='form-control' " +
+                           "type='text'>  ";
+                        }
+
                         break;
                     }
                 case "DateTime":
@@ -104,7 +121,7 @@ public static class Helpers
                         str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<script> $('#dt_" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0})</script>";
+                        str += "<script>$(function () { $('#dt_" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
                         break;
                     }
             }

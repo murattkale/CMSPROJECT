@@ -36,7 +36,6 @@ namespace Entity.CMSDB
         public DateTime BirdhDay { get; set; }
         public string UserNo { get; set; }
         public string SexType { get; set; }
-        public int? CountryId { get; set; }
         public int? CityId { get; set; }
         public int? TownId { get; set; }
         public string ZipCode { get; set; }

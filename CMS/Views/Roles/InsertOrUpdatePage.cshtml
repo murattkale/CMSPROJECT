@@ -1,29 +1,29 @@
 ﻿@using Entity.CMSDB
 @{
     Layout = null;
-    string pageTitle = "Users";
-    string Users_ControlNameUrl = "Users";
-    string FormName = "frm_" + Users_ControlNameUrl + "_";
-    int Users_idUrl = Context.Request.Query["id"].ToInt();
-    var Users_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = Users_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string pageTitle = "Roles";
+    string Roles_ControlNameUrl = "Roles";
+    string FormName = "frm_" + Roles_ControlNameUrl + "_";
+    int Roles_idUrl = Context.Request.Query["id"].ToInt();
+    var Roles_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = Roles_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as Users;
+    var edit = ViewBag.edit as Roles;
     if (edit == null)
     {
-        edit = new Users();
+        edit = new Roles();
     }
     else
     {
-        //Users_idUrl_select = edit.KurumId.ToStr();
+        //Roles_idUrl_select = edit.KurumId.ToStr();
     }
 
 }
 
 <script type="text/javascript">
-        var Users_FormName = "@Html.Raw(FormName)";
-        var Users_ControlNameUrl = "@Users_ControlNameUrl";
-    var Users_idUrl = @Users_idUrl;
+        var Roles_FormName = "@Html.Raw(FormName)";
+        var Roles_ControlNameUrl = "@Roles_ControlNameUrl";
+    var Roles_idUrl = @Roles_idUrl;
 
     var edit = @Html.Raw(Json.Serialize(edit));
 
@@ -93,29 +93,26 @@
 
 
 <script type="text/javascript">
-    var Users_EditFunc;
+    var Roles_EditFunc;
     var customComment = "";
 
     $(function () {
-        Users_EditFunc = {
-            getSehir: function () {
-                $('#dp_CityId').addOptionAjax("/City/GetSelect", null, "value", "text", function () { Users_EditFunc.getIlce() }, function () { Users_EditFunc.getIlce() }, edit.SehirId, '', 'Seçiniz');
-            },
-            getIlce: function () {
-                $('#dp_TownId').addOptionAjax("/Town/GetSelect", { id: $('#dp_CityId').val() }, "value", "text", function () { }, function () { }, edit.IlceId, '', 'Seçiniz');
-            },
+        Roles_EditFunc = {
+            //getParents: function () {
+            //    $('#dp_ParentId').addOptionAjax("/Roles/GetSelect", null, "value", "text", function () {  }, function () {  }, edit.ParentId, '', 'Seçiniz');
+            //},
             load: function () {
-                Users_EditFunc.getSehir(); 
+                //Roles_EditFunc.getParents();
 
-                $('#' + Users_FormName).submit(function (e) {
+                $('#' + Roles_FormName).submit(function (e) {
                     e.preventDefault();
-                    var postModel = $.fn.toForm("#" + Users_FormName);
+                    var postModel = $.fn.toForm("#" + Roles_FormName);
 
                     $.LoadingOverlay("show");
 
-                    $.ajx(Users_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajx(Roles_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
-                            Users_ListFunc.GetPaging();
+                            Roles_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
                         }
                         else {
@@ -130,7 +127,7 @@
 
 
         };
-        Users_EditFunc.load();
+        Roles_EditFunc.load();
     });
 
 

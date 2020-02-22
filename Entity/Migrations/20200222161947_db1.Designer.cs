@@ -4,14 +4,16 @@ using Entity.ContextModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Entity.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    partial class CMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200222161947_db1")]
+    partial class db1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1536,17 +1538,17 @@ namespace Entity.Migrations
                     b.Property<int?>("OrderNo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int?>("fk_RolesId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ServiceConfigId")
+                    b.Property<int?>("fk_ServiceConfigId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("fk_RolesId");
 
-                    b.HasIndex("ServiceConfigId");
+                    b.HasIndex("fk_ServiceConfigId");
 
                     b.ToTable("Roles");
                 });
@@ -2714,14 +2716,14 @@ namespace Entity.Migrations
 
             modelBuilder.Entity("Entity.CMSDB.Roles", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Roles", "Role")
+                    b.HasOne("Entity.CMSDB.Roles", "fk_Roles")
                         .WithMany("ParentRoles")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("fk_RolesId")
                         .HasConstraintName("FK_Roles_Roles");
 
-                    b.HasOne("Entity.CMSDB.ServiceConfig", "ServiceConfig")
+                    b.HasOne("Entity.CMSDB.ServiceConfig", "fk_ServiceConfig")
                         .WithMany("Roles")
-                        .HasForeignKey("ServiceConfigId")
+                        .HasForeignKey("fk_ServiceConfigId")
                         .HasConstraintName("FK_Roles_ServiceConfig");
                 });
 

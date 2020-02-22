@@ -52,6 +52,7 @@ namespace CMSSite
 
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
+            services.AddSingleton(typeof(IHttpContextAccessor), typeof(HttpContextAccessor));
 
 
             services.AddScoped(typeof(IKurumService), typeof(KurumService));
@@ -77,7 +78,7 @@ namespace CMSSite
             services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
 
-            services.AddSingleton(typeof(IHttpContextAccessor), typeof(HttpContextAccessor));
+           
 
 
 

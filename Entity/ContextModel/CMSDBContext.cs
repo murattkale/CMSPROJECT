@@ -637,14 +637,14 @@ namespace Entity.ContextModel
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.Parent)
-                    .WithMany(p => p.InverseParent)
-                    .HasForeignKey(d => d.ParentId)
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.ParentRoles)
+                    .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_Roles_Roles");
 
-                entity.HasOne(d => d.StartPage)
+                entity.HasOne(d => d.ServiceConfig)
                     .WithMany(p => p.Roles)
-                    .HasForeignKey(d => d.StartPageId)
+                    .HasForeignKey(d => d.ServiceConfigId)
                     .HasConstraintName("FK_Roles_ServiceConfig");
             });
 
