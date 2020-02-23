@@ -32,9 +32,15 @@ public static class Helpers
         var props = t.GetProperties().ToList();
 
         var baseType = new BaseModel().GetType().GetProperties().ToList();
-        baseType.ForEach(oo =>
+        baseType.ForEach(prp =>
         {
-            props = props.AsQueryable().Where(d => d.Name != oo.Name).ToList();
+            str +=
+                          "<input  " +
+                          "id='" + prp.Name + "' " +
+                          "name='" + prp.Name + "' " +
+                          "value='" + prp.GetPropValue(prp.Name) + "' " +
+                          "type='hidden'>  ";
+            //props = props.AsQueryable().Where(d => d.Name != oo.Name).ToList();
         });
 
         if (nonProp.Count() > 0)
@@ -47,7 +53,7 @@ public static class Helpers
             orderby.ToList().ForEach(o =>
             {
                 if (!string.IsNullOrEmpty(o))
-                    props = props.AsQueryable().OrderBy(o + " ASC").ToList();
+                    props = props.AsQueryable().OrderByDescending(oo=>oo.Name == o).ToList();
             });
 
 
@@ -90,7 +96,18 @@ public static class Helpers
                         var relation = props.FirstOrDefault(o => o.Name == prp.Name.Replace("Id", ""));
                         if (relation != null)
                         {
-                            str += "<script>$(function () { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () {  }, function () {  }, '" + prp.GetPropValue(prp.Name) + "' , '' , 'Seçiniz');  }); </script>";
+                            if (prp.Name == "CityId")
+                            {
+                                str += "<script>$(function () { function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + prp.GetPropValue(prp.Name) + "', '', 'Şehir Seçiniz'); } getCity(); });</script>";
+                            }
+                            if (prp.Name == "TownId")
+                            {
+                                str += "<script>$(function () { function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'İlçe Seçiniz'); } getTown(); });</script>";
+                            }
+                            else
+                            {
+                                str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                            }
                         }
                         else
                         {

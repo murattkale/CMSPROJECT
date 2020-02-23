@@ -42,6 +42,9 @@ namespace Entity.CMSDB
         public string ProfilImage { get; set; }
         public string Description { get; set; }
 
+        public City City { get; set; }
+        public Town Town { get; set; }
+
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeGorusenPersonel { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeKurumaGetirenPersonel { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }

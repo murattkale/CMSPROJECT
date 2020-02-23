@@ -27,7 +27,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _ICityService.Where().Result.Select(o => new { value = o.Id, text = o.CityName });
+            var result = _ICityService.Where().Result.Select(o => new { value = o.Id, text = o.CityName }).ToList();
             return Json(result);
         }
 
