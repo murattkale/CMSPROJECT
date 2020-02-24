@@ -20,10 +20,28 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Linq.Dynamic.Core;
+using System.ComponentModel.DataAnnotations;
 
 public static class Helpers
 {
 
+    public static Dictionary<string, object> GetPropertyAttributes(PropertyInfo property)
+    {
+        Dictionary<string, object> attribs = new Dictionary<string, object>();
+        // look for attributes that takes one constructor argument
+        foreach (CustomAttributeData attribData in property.GetCustomAttributesData())
+        {
+
+            if (attribData.ConstructorArguments.Count == 1)
+            {
+                string typeName = attribData.Constructor.DeclaringType.Name;
+                if (typeName.EndsWith("Attribute")) typeName = typeName.Substring(0, typeName.Length - 9);
+                attribs[typeName] = attribData.ConstructorArguments[0].Value;
+            }
+
+        }
+        return attribs;
+    }
 
     public static string getProp(this object model, string[] nonProp, string[] orderby)
     {
@@ -34,13 +52,26 @@ public static class Helpers
         var baseType = new BaseModel().GetType().GetProperties().ToList();
         baseType.ForEach(prp =>
         {
-            str +=
-                          "<input  " +
-                          "id='" + prp.Name + "' " +
-                          "name='" + prp.Name + "' " +
-                          "value='" + prp.GetPropValue(prp.Name) + "' " +
-                          "type='hidden'>  ";
-            //props = props.AsQueryable().Where(d => d.Name != oo.Name).ToList();
+
+            if (prp.PropertyType.Name == "DateTime")
+            {
+                str +=
+                              "<input  " +
+                              "id='" + prp.Name + "' " +
+                              "name='" + prp.Name + "' " +
+                              "value='" + prp.GetPropValue(prp.Name) + "' " +
+                              "type='hidden'>  ";
+            }
+            else
+            {
+                str +=
+                              "<input  " +
+                              "id='" + prp.Name + "' " +
+                              "name='" + prp.Name + "' " +
+                              "value='" + prp.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
+                              "type='hidden'>  ";
+            }
+            props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
         });
 
         if (nonProp.Count() > 0)
@@ -53,19 +84,30 @@ public static class Helpers
             orderby.ToList().ForEach(o =>
             {
                 if (!string.IsNullOrEmpty(o))
-                    props = props.AsQueryable().OrderByDescending(oo=>oo.Name == o).ToList();
+                    props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
             });
 
 
 
         foreach (var prp in props)
         {
+            var dName = GetPropertyAttributes(prp);
+            var DisplayName = "";
+            if (dName.Count > 0 && !string.IsNullOrEmpty(dName.Values.FirstOrDefault().ToString()))
+            {
+                DisplayName = dName.Values.FirstOrDefault().ToString();
+            }
+            else
+            {
+                DisplayName = prp.Name;
+            }
+
             switch (prp.PropertyType.Name)
             {
                 case "String":
                     {
                         str += "<div class='form-group row'>                                                                                                            ";
-                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + prp.Name + "</label>                           ";
+                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                         str += "<div class='col-md-10'>                                                                                      ";
                         str +=
                             "<input  " +
@@ -83,7 +125,7 @@ public static class Helpers
                 case "Nullable`1":
                     {
                         str += "<div class='form-group row'>                                                                                                            ";
-                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + prp.Name + "</label>                           ";
+                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                         str += "<div class='col-md-10'>";
                         str +=
                             "<select " +
@@ -98,16 +140,16 @@ public static class Helpers
                         {
                             if (prp.Name == "CityId")
                             {
-                                str += "<script>$(function () { function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + prp.GetPropValue(prp.Name) + "', '', 'Şehir Seçiniz'); } getCity(); });</script>";
+                                str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + prp.GetPropValue(prp.Name) + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
                             }
                             if (prp.Name == "TownId")
                             {
-                                str += "<script>$(function () { function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'İlçe Seçiniz'); } getTown(); });</script>";
+                                str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
                             }
-                            else
-                            {
-                                str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
-                            }
+                            //else
+                            //{
+                            //    str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                            //}
                         }
                         else
                         {
@@ -126,13 +168,13 @@ public static class Helpers
                 case "DateTime":
                     {
                         str += "<div class='form-group row'>                                                                                                            ";
-                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + prp.Name + "</label>                           ";
+                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                         str += "<div class='col-md-10 input-group date'>";
                         str +=
                            "<input  " +
                            "id='dt_" + prp.Name + "' " +
                            "name='dt_" + prp.Name + "' " +
-                           "value='" + prp.GetPropValue(prp.Name) + "' " +
+                           "value='" + prp.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
                            "class='form-control' " +
                            "type='text'>  ";
                         str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";

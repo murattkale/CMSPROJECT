@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entity.CMSDB
 {
@@ -16,15 +18,17 @@ namespace Entity.CMSDB
 
        
         
-        
-        
-       
-        
-       
-       
+        [Required]
+        [DisplayName("TC NO")]
         public string Tc { get; set; }
+        [Required]
+        [DisplayName("Şifre")]
         public string Pass { get; set; }
+        [Required]
+        [DisplayName("Ad")]
         public string Name { get; set; }
+        [Required]
+        [DisplayName("Soyad")]
         public string Surname { get; set; }
         public string Mail1 { get; set; }
         public string Mail2 { get; set; }
@@ -33,10 +37,14 @@ namespace Entity.CMSDB
         public string Phone3 { get; set; }
         public string Adress1 { get; set; }
         public string Adress2 { get; set; }
+        [Required]
+        [DisplayName("Doğum Tarihi")]
         public DateTime BirdhDay { get; set; }
         public string UserNo { get; set; }
         public string SexType { get; set; }
+        [DisplayName("Şehir")]
         public int? CityId { get; set; }
+        [DisplayName("İlçe")]
         public int? TownId { get; set; }
         public string ZipCode { get; set; }
         public string ProfilImage { get; set; }

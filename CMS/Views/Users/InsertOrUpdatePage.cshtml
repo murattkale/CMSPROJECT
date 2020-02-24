@@ -23,8 +23,8 @@
 <script type="text/javascript">
     var Users_FormName = "@Html.Raw(FormName)";
     var Users_ControlNameUrl = "@Users_ControlNameUrl";
-    var Users_idUrl = @Users_idUrl;
-    var Users_idUrl_select = @Users_idUrl_select;
+    var Users_idUrl = "@Users_idUrl";
+    var Users_idUrl_select = "@Users_idUrl_select";
     var Users_edit = @Html.Raw(Json.Serialize(edit));
 </script>
 
@@ -67,7 +67,7 @@
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
 
-                    @Html.Raw(edit.getProp(new string[] { }, new string[] { "CityId", "TownId" }))
+                    @Html.Raw(edit.getProp(new string[] { }, new string[] { "TownId", "CityId" }))
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
