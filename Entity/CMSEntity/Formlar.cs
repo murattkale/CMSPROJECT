@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class Formlar : BaseModel
     {

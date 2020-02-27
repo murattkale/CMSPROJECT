@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CMS.Models;
 using Entity;
-using Entity.CMSDB; using Entity.ContextModel;
+using Entity.CMSDB;
+using Entity.ContextModel;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -116,19 +117,7 @@ namespace CMS
 
             app.UseMvc(routes =>
             {
-
-
-
-                // routes.MapRoute(
-                //    name: "Content",
-                //    template: baseURL + "{*link}",
-                //    constraints: new { site = new DynamicRouting() },
-                //    defaults: new { site = "", link = "" }
-                //);
-
-
-                routes.MapRoute(name: "default", template:  "{controller=Users}/{action=Index}/{Id?}");
-
+                routes.MapRoute(name: "default", template: "{controller=Base}/{action=Index}/{Id?}");
             });
         }
     }

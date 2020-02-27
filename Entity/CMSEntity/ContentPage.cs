@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Entity.CMSDB;
+using System;
 using System.Collections.Generic;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class ContentPage : BaseModel
     {

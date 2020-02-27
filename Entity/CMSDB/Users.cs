@@ -18,8 +18,9 @@ namespace Entity.CMSDB
 
        
         
-        [Required]
-        [DisplayName("TC NO")]
+        [Required()]
+        [DisplayName("TC No")]
+        [MaxLength(11)]
         public string Tc { get; set; }
         [Required]
         [DisplayName("Şifre")]
@@ -30,24 +31,35 @@ namespace Entity.CMSDB
         [Required]
         [DisplayName("Soyad")]
         public string Surname { get; set; }
+        [DisplayName("Mail 1")]
         public string Mail1 { get; set; }
+        [DisplayName("Mail 2")]
         public string Mail2 { get; set; }
+        [DisplayName("Telefon 1")]
         public string Phone1 { get; set; }
+        [DisplayName("Telefon 2")]
         public string Phone2 { get; set; }
+        [DisplayName("Telefon 3")]
         public string Phone3 { get; set; }
+        [DisplayName("Adres 1")]
         public string Adress1 { get; set; }
+        [DisplayName("Adres 2")]
         public string Adress2 { get; set; }
-        [Required]
         [DisplayName("Doğum Tarihi")]
         public DateTime BirdhDay { get; set; }
+        [DisplayName("Kullanıcı No")]
         public string UserNo { get; set; }
+        [DisplayName("Cinsiyet")]
         public string SexType { get; set; }
         [DisplayName("Şehir")]
         public int? CityId { get; set; }
         [DisplayName("İlçe")]
         public int? TownId { get; set; }
+        [DisplayName("Posta Kodu")]
         public string ZipCode { get; set; }
+        [DisplayName("Profil Resmi")]
         public string ProfilImage { get; set; }
+        [DisplayName("Açıklama")]
         public string Description { get; set; }
 
         public City City { get; set; }

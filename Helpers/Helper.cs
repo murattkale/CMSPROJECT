@@ -28,14 +28,19 @@ public static class Helpers
     public static Dictionary<string, object> GetPropertyAttributes(PropertyInfo property)
     {
         Dictionary<string, object> attribs = new Dictionary<string, object>();
-        // look for attributes that takes one constructor argument
         foreach (CustomAttributeData attribData in property.GetCustomAttributesData())
         {
 
-            if (attribData.ConstructorArguments.Count == 1)
+            string typeName = attribData.Constructor.DeclaringType.Name;
+            if (typeName.EndsWith("Attribute"))
+                typeName = typeName.Substring(0, typeName.Length - 9);
+
+            if (typeName == "Required")
             {
-                string typeName = attribData.Constructor.DeclaringType.Name;
-                if (typeName.EndsWith("Attribute")) typeName = typeName.Substring(0, typeName.Length - 9);
+                attribs[typeName] = typeName.ToLower();
+            }
+            else
+            {
                 attribs[typeName] = attribData.ConstructorArguments[0].Value;
             }
 
@@ -43,6 +48,39 @@ public static class Helpers
         return attribs;
     }
 
+    public static void SetValueCustom(this object container, string propertyName, object value)
+    {
+        container.GetType().GetProperty(propertyName).SetValue(container, value, null);
+    }
+
+    public static object GetPropValue(this object obj, string fieldName)
+    { //<-- fieldName = "Details.Name"
+        object value = null;
+        string[] nameParts = fieldName.Split('.');
+        foreach (String part in nameParts)
+        {
+            if (obj == null) { return ""; }
+
+            Type type = obj.GetType();
+            PropertyInfo info = type.GetProperty(part);
+            if (info == null) { return ""; }
+
+            if (info.PropertyType.Name.ToLower().Contains("collection"))
+            {
+                var list = (System.Collections.IList)info.GetValue(obj, null);
+                foreach (var item in list) //<-- this list should be the "Details" property
+                {
+                    value += "," + item;
+                }
+            }
+            else
+            {
+                value = info.GetValue(obj, null);
+            }
+
+        }
+        return value;
+    }
     public static string getProp(this object model, string[] nonProp, string[] orderby)
     {
         string str = "";
@@ -53,13 +91,13 @@ public static class Helpers
         baseType.ForEach(prp =>
         {
 
-            if (prp.PropertyType.Name == "DateTime")
+            if (prp.PropertyType.Name != "DateTime")
             {
                 str +=
                               "<input  " +
                               "id='" + prp.Name + "' " +
                               "name='" + prp.Name + "' " +
-                              "value='" + prp.GetPropValue(prp.Name) + "' " +
+                              "value='" + model.GetPropValue(prp.Name) + "' " +
                               "type='hidden'>  ";
             }
             else
@@ -68,7 +106,7 @@ public static class Helpers
                               "<input  " +
                               "id='" + prp.Name + "' " +
                               "name='" + prp.Name + "' " +
-                              "value='" + prp.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
+                              "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
                               "type='hidden'>  ";
             }
             props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
@@ -87,20 +125,33 @@ public static class Helpers
                     props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
             });
 
-
+        //props = props.Where(o =>
+        //o.PropertyType.Name == "String"
+        //|| o.PropertyType.Name == "Nullable`1"
+        //|| o.PropertyType.Name == "Long"
+        //|| o.PropertyType.Name == "DateTime"
+        //).ToList();
 
         foreach (var prp in props)
         {
+            object value = null;
+            if (prp.PropertyType.Name == "String" || prp.PropertyType.Name == "Nullable`1" || prp.PropertyType.Name == "Long" || prp.PropertyType.Name == "DateTime")
+            {
+                value = model.GetPropValue(prp.Name);
+            }
+
+
             var dName = GetPropertyAttributes(prp);
             var DisplayName = "";
-            if (dName.Count > 0 && !string.IsNullOrEmpty(dName.Values.FirstOrDefault().ToString()))
-            {
-                DisplayName = dName.Values.FirstOrDefault().ToString();
-            }
+            if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
+                DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
             else
-            {
                 DisplayName = prp.Name;
-            }
+
+            var Required = "";
+            if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
+                Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
+
 
             switch (prp.PropertyType.Name)
             {
@@ -110,11 +161,11 @@ public static class Helpers
                         str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                         str += "<div class='col-md-10'>                                                                                      ";
                         str +=
-                            "<input  " +
+                            "<input " + Required + "  " +
                             "id='" + prp.Name + "' " +
                             "name='" + prp.Name + "' " +
                             "placeholder='" + prp.Name + "' " +
-                            "value='" + prp.GetPropValue(prp.Name) + "' " +
+                            "value='" + value + "' " +
                             "class='form-control' " +
                             "type='text'>  ";
                         str += "</div>                                                                                                       ";
@@ -128,7 +179,7 @@ public static class Helpers
                         str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                         str += "<div class='col-md-10'>";
                         str +=
-                            "<select " +
+                            "<select " + Required + " " +
                             "id='dp_" + prp.Name + "' " +
                             "name='dp_" + prp.Name + "' " +
                             "class='form-control'>" +
@@ -140,11 +191,11 @@ public static class Helpers
                         {
                             if (prp.Name == "CityId")
                             {
-                                str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + prp.GetPropValue(prp.Name) + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
+                                str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
                             }
                             if (prp.Name == "TownId")
                             {
-                                str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
+                                str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
                             }
                             //else
                             //{
@@ -154,11 +205,11 @@ public static class Helpers
                         else
                         {
                             str +=
-                           "<input  " +
+                           "<input  " + Required + "  " +
                            "id='" + prp.Name + "' " +
                            "name='" + prp.Name + "' " +
                            "placeholder='" + prp.Name + "' " +
-                           "value='" + prp.GetPropValue(prp.Name) + "' " +
+                           "value='" + value + "' " +
                            "class='form-control' " +
                            "type='text'>  ";
                         }
@@ -171,16 +222,16 @@ public static class Helpers
                         str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                         str += "<div class='col-md-10 input-group date'>";
                         str +=
-                           "<input  " +
-                           "id='dt_" + prp.Name + "' " +
-                           "name='dt_" + prp.Name + "' " +
-                           "value='" + prp.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
+                           "<input " + Required + "  " +
+                           "id='" + prp.Name + "' " +
+                           "name='" + prp.Name + "' " +
+                           "value='" + value?.ToDateTime().Value + "' " +
                            "class='form-control' " +
-                           "type='text'>  ";
+                           "type='datetime'>  ";
                         str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
                         str += "</div>";
                         str += "</div>";
-                        str += "<script>$(function () { $('#dt_" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
+                        //str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
                         break;
                     }
             }
@@ -1394,25 +1445,23 @@ public static class Helpers
         return enumValList;
     }
 
-    public static void SetValueCustom(this object container, string propertyName, object value)
-    {
-        container.GetType().GetProperty(propertyName).SetValue(container, value, null);
-    }
+   
 
-    public static Object GetPropValue(this Object obj, String name)
-    {
-        foreach (String part in name.Split('.'))
-        {
-            if (obj == null) { return null; }
 
-            Type type = obj.GetType();
-            PropertyInfo info = type.GetProperty(part);
-            if (info == null) { return null; }
+    //public static Object GetPropValue(this Object obj, String name)
+    //{
+    //    foreach (String part in name.Split('.'))
+    //    {
+    //        if (obj == null) { return null; }
 
-            obj = info.GetValue(obj, null);
-        }
-        return obj;
-    }
+    //        Type type = obj.GetType();
+    //        PropertyInfo info = type.GetProperty(part);
+    //        if (info == null) { return null; }
+
+    //        obj = info.GetValue(obj, null);
+    //    }
+    //    return obj;
+    //}
 
 
 
