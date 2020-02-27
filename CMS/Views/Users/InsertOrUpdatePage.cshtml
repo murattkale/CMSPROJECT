@@ -67,7 +67,7 @@
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
 
-                    @Html.Raw(edit.getProp(new string[] { }, new string[] { "TownId", "CityId" }))
+                    @Html.Raw(edit.DynemicInputHelper(new string[] { }, new string[] { "TownId", "CityId" }))
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">

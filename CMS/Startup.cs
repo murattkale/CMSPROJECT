@@ -112,7 +112,6 @@ namespace CMS
 
             app.UseAuthorization();
 
-            string baseURL = "{site}/";
 
 
             app.UseMvc(routes =>

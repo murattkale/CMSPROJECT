@@ -1,6 +1,7 @@
 ﻿using Entity.CMSDB;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Entity
 {
@@ -13,13 +14,22 @@ namespace Entity
         public int? KurumId { get; set; }
         public int? SubeId { get; set; }
         public int? ParentId { get; set; }
+
+        [DisplayName("Başlık")]
         public string Name { get; set; }
+        [DisplayName("Tip")]
         public int ContentPageType { get; set; }
+        [DisplayName("Üst Menü")]
         public bool? IsHeaderMenu { get; set; }
+        [DisplayName("Alt Menü")]
         public bool? IsFooterMenu { get; set; }
+        [DisplayName("Yan Menü")]
         public bool? IsSideMenu { get; set; }
+        [DisplayName("Hamburger Menü")]
         public bool? IsHamburgerMenu { get; set; }
+        [DisplayName("İçerik")]
         public string Content { get; set; }
+        [DisplayName("Kısa İçerik")]
         public string ContentShort { get; set; }
         public string MetaKeywords { get; set; }
         public string MetaDescription { get; set; }

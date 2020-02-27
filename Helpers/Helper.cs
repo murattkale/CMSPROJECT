@@ -81,161 +81,243 @@ public static class Helpers
         }
         return value;
     }
-    public static string getProp(this object model, string[] nonProp, string[] orderby)
+    public static string DynemicInputHelper(this object model, string[] nonProp, string[] orderby)
     {
         string str = "";
-        Type t = model.GetType();
-        var props = t.GetProperties().ToList();
-
-        var baseType = new BaseModel().GetType().GetProperties().ToList();
-        baseType.ForEach(prp =>
+        try
         {
 
-            if (prp.PropertyType.Name != "DateTime")
-            {
-                str +=
-                              "<input  " +
-                              "id='" + prp.Name + "' " +
-                              "name='" + prp.Name + "' " +
-                              "value='" + model.GetPropValue(prp.Name) + "' " +
-                              "type='hidden'>  ";
-            }
-            else
-            {
-                str +=
-                              "<input  " +
-                              "id='" + prp.Name + "' " +
-                              "name='" + prp.Name + "' " +
-                              "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
-                              "type='hidden'>  ";
-            }
-            props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
-        });
+            Type t = model.GetType();
+            var props = t.GetProperties().ToList();
 
-        if (nonProp.Count() > 0)
-            nonProp.ToList().ForEach(o =>
+            var baseType = new BaseModel().GetType().GetProperties().ToList();
+            baseType.ForEach(prp =>
             {
-                props = props.AsQueryable().Where(d => d.Name != o).ToList();
+
+                if (prp.PropertyType.Name != "DateTime")
+                {
+                    str +=
+                                  "<input  " +
+                                  "id='" + prp.Name + "' " +
+                                  "name='" + prp.Name + "' " +
+                                  "value='" + model.GetPropValue(prp.Name) + "' " +
+                                  "type='hidden'>  ";
+                }
+                else
+                {
+                    str +=
+                                  "<input  " +
+                                  "id='" + prp.Name + "' " +
+                                  "name='" + prp.Name + "' " +
+                                  "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
+                                  "type='hidden'>  ";
+                }
+                props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
             });
 
-        if (orderby.Count() > 0)
-            orderby.ToList().ForEach(o =>
+            if (nonProp.Count() > 0)
+                nonProp.ToList().ForEach(o =>
+                {
+                    props = props.AsQueryable().Where(d => d.Name != o).ToList();
+                });
+
+            if (orderby.Count() > 0)
+                orderby.ToList().ForEach(o =>
+                {
+                    if (!string.IsNullOrEmpty(o))
+                        props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
+                });
+
+            foreach (var prp in props)
             {
-                if (!string.IsNullOrEmpty(o))
-                    props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
-            });
+                try
+                {
 
-        //props = props.Where(o =>
-        //o.PropertyType.Name == "String"
-        //|| o.PropertyType.Name == "Nullable`1"
-        //|| o.PropertyType.Name == "Long"
-        //|| o.PropertyType.Name == "DateTime"
-        //).ToList();
 
-        foreach (var prp in props)
+                    object value = null;
+
+                    switch (Type.GetTypeCode(prp.PropertyType))
+                    {
+                        case TypeCode.Boolean:
+                        case TypeCode.Char:
+                        case TypeCode.SByte:
+                        case TypeCode.Byte:
+                        case TypeCode.Int16:
+                        case TypeCode.UInt16:
+                        case TypeCode.Int32:
+                        case TypeCode.UInt32:
+                        case TypeCode.Int64:
+                        case TypeCode.UInt64:
+                        case TypeCode.Single:
+                        case TypeCode.Double:
+                        case TypeCode.Decimal:
+                        case TypeCode.DateTime:
+                        case TypeCode.String:
+                        case TypeCode.Object:
+                            {
+                                if (prp.PropertyType.Name == "ICollection`1")
+                                {
+                                    break;
+                                }
+                                value = model.GetPropValue(prp.Name);
+                                break;
+                            }
+                    }
+
+                    var dName = GetPropertyAttributes(prp);
+                    var DisplayName = "";
+                    if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
+                        DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
+                    else
+                        DisplayName = prp.Name;
+
+                    var Required = "";
+                    if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
+                        Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
+
+                    switch (Type.GetTypeCode(prp.PropertyType))
+                    {
+                        case TypeCode.Empty:
+                            break;
+
+                        case TypeCode.DBNull:
+                            break;
+                        case TypeCode.Char:
+                            break;
+                        case TypeCode.SByte:
+                        case TypeCode.Byte:
+                            break;
+                        case TypeCode.Single:
+                        case TypeCode.Double:
+                        case TypeCode.Decimal:
+                            {
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10'>                                                                                      ";
+                                str +=
+                                    "<input " + Required + "  " +
+                                    "id='" + prp.Name + "' " +
+                                    "name='" + prp.Name + "' " +
+                                    "placeholder='" + prp.Name + "' " +
+                                    "value='" + value + "' " +
+                                    "class='form-control' " +
+                                    "type='text'>  ";
+                                str += "</div>                                                                                                       ";
+                                str += "</div>                                                                                                                            ";
+                                break;
+                            }
+                        case TypeCode.Boolean:
+                            {
+                                var boolCount = 12 / props.Count(o => Type.GetTypeCode(prp.PropertyType) == TypeCode.Boolean);
+                                str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
+                                str += "     <div class='custom-control custom-checkbox'>                                                                                                                     ";
+                                str += "         <input " + (value.ToBoolean() == true ? "'checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
+                                str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
+                                str += "     </div>                                                                                                                                                           ";
+                                str += " </div>                                                                                                                                                               ";
+                                break;
+                            }
+                        case TypeCode.Int16:
+                        case TypeCode.UInt16:
+                        case TypeCode.UInt32:
+                        case TypeCode.Int64:
+                        case TypeCode.UInt64:
+                        case TypeCode.Object:
+                        case TypeCode.Int32:
+                            {
+                                if (prp.PropertyType.Name== "ICollection`1")
+                                {
+                                    break;
+                                }
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10'>";
+                                str +=
+                                    "<select " + Required + " " +
+                                    "id='dp_" + prp.Name + "' " +
+                                    "name='dp_" + prp.Name + "' " +
+                                    "class='form-control'>" +
+                                    "</select>";
+                                str += "</div>";
+                                str += "</div>";
+                                var relation = props.FirstOrDefault(o => prp.Name.Substring(prp.Name.Length - 2, 2) == "Id" && o.Name == prp.Name.Replace("Id", ""));
+                                if (relation != null)
+                                {
+                                    if (prp.Name == "CityId")
+                                    {
+                                        str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
+                                    }
+                                    else if (prp.Name == "TownId")
+                                    {
+                                        str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
+                                    }
+                                    //else
+                                    //{
+                                    //    str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                                    //}
+                                }
+                                else
+                                {
+                                    str +=
+                                   "<input  " + Required + "  " +
+                                   "id='" + prp.Name + "' " +
+                                   "name='" + prp.Name + "' " +
+                                   "placeholder='" + prp.Name + "' " +
+                                   "value='" + value + "' " +
+                                   "class='form-control' " +
+                                   "type='number'>  ";
+                                }
+
+                                break;
+                            }
+                        case TypeCode.DateTime:
+                            {
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10 input-group date'>";
+                                str +=
+                                   "<input " + Required + "  " +
+                                   "id='" + prp.Name + "' " +
+                                   "name='" + prp.Name + "' " +
+                                   "value='" + value?.ToDateTime().Value + "' " +
+                                   "class='form-control' " +
+                                   "type='datetime'>  ";
+                                str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
+                                str += "</div>";
+                                str += "</div>";
+                                //str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
+                                break;
+                            }
+                        case TypeCode.String:
+                            {
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10'>                                                                                      ";
+                                str +=
+                                    "<input " + Required + "  " +
+                                    "id='" + prp.Name + "' " +
+                                    "name='" + prp.Name + "' " +
+                                    "placeholder='" + prp.Name + "' " +
+                                    "value='" + value + "' " +
+                                    "class='form-control' " +
+                                    "type='text'>  ";
+                                str += "</div>                                                                                                       ";
+                                str += "</div>                                                                                                                            ";
+                                break;
+                            }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    str += ex.Message + "\n <br/>" + ex.InnerException;
+                }
+            }
+
+        }
+        catch (Exception ex)
         {
-            object value = null;
-            if (prp.PropertyType.Name == "String" || prp.PropertyType.Name == "Nullable`1" || prp.PropertyType.Name == "Long" || prp.PropertyType.Name == "DateTime")
-            {
-                value = model.GetPropValue(prp.Name);
-            }
-
-
-            var dName = GetPropertyAttributes(prp);
-            var DisplayName = "";
-            if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
-                DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
-            else
-                DisplayName = prp.Name;
-
-            var Required = "";
-            if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
-                Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
-
-
-            switch (prp.PropertyType.Name)
-            {
-                case "String":
-                    {
-                        str += "<div class='form-group row'>                                                                                                            ";
-                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                        str += "<div class='col-md-10'>                                                                                      ";
-                        str +=
-                            "<input " + Required + "  " +
-                            "id='" + prp.Name + "' " +
-                            "name='" + prp.Name + "' " +
-                            "placeholder='" + prp.Name + "' " +
-                            "value='" + value + "' " +
-                            "class='form-control' " +
-                            "type='text'>  ";
-                        str += "</div>                                                                                                       ";
-                        str += "</div>                                                                                                                            ";
-                        break;
-                    }
-                case "Long":
-                case "Nullable`1":
-                    {
-                        str += "<div class='form-group row'>                                                                                                            ";
-                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                        str += "<div class='col-md-10'>";
-                        str +=
-                            "<select " + Required + " " +
-                            "id='dp_" + prp.Name + "' " +
-                            "name='dp_" + prp.Name + "' " +
-                            "class='form-control'>" +
-                            "</select>";
-                        str += "</div>";
-                        str += "</div>";
-                        var relation = props.FirstOrDefault(o => o.Name == prp.Name.Replace("Id", ""));
-                        if (relation != null)
-                        {
-                            if (prp.Name == "CityId")
-                            {
-                                str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
-                            }
-                            if (prp.Name == "TownId")
-                            {
-                                str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
-                            }
-                            //else
-                            //{
-                            //    str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
-                            //}
-                        }
-                        else
-                        {
-                            str +=
-                           "<input  " + Required + "  " +
-                           "id='" + prp.Name + "' " +
-                           "name='" + prp.Name + "' " +
-                           "placeholder='" + prp.Name + "' " +
-                           "value='" + value + "' " +
-                           "class='form-control' " +
-                           "type='text'>  ";
-                        }
-
-                        break;
-                    }
-                case "DateTime":
-                    {
-                        str += "<div class='form-group row'>                                                                                                            ";
-                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                        str += "<div class='col-md-10 input-group date'>";
-                        str +=
-                           "<input " + Required + "  " +
-                           "id='" + prp.Name + "' " +
-                           "name='" + prp.Name + "' " +
-                           "value='" + value?.ToDateTime().Value + "' " +
-                           "class='form-control' " +
-                           "type='datetime'>  ";
-                        str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
-                        str += "</div>";
-                        str += "</div>";
-                        //str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
-                        break;
-                    }
-            }
-
+            str = ex.Message + "\n <br/>" + ex.InnerException;
         }
 
         return str;
@@ -1445,7 +1527,7 @@ public static class Helpers
         return enumValList;
     }
 
-   
+
 
 
     //public static Object GetPropValue(this Object obj, String name)

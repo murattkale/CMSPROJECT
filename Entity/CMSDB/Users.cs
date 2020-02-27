@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity.CMSDB
 {
@@ -60,6 +61,8 @@ namespace Entity.CMSDB
         [DisplayName("Profil Resmi")]
         public string ProfilImage { get; set; }
         [DisplayName("Açıklama")]
+
+        //[Column(TypeName = "Text")]
         public string Description { get; set; }
 
         public City City { get; set; }
