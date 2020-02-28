@@ -37,11 +37,11 @@
                                 </div>
 
                                 <div style="margin-top:15px;" class="single-input checkout-form">
-                                    <select id="dp_Sehir_ok">
+                                    <select id="dp_City_ok">
                                     </select>
                                 </div>
                                 <div style="margin-top:15px;" class="single-input checkout-form">
-                                    <select id="dp_Ilce_ok">
+                                    <select id="dp_Town_ok">
                                     </select>
                                 </div>
                                 <div style="margin-top:15px;" class="single-input checkout-form">
@@ -73,7 +73,7 @@
         Formlar_ListFunc = {
             load: function () {
 
-                Formlar_ListFunc.getSehir();
+                Formlar_ListFunc.getCity();
 
                 $('#' + 'frmFormlar_franch').submit(function (e) {
                     $.LoadingOverlay("show");
@@ -97,14 +97,14 @@
 
             },
 
-            getSehir: function () {
-                var div_id = "#dp_Sehir_ok";
+            getCity: function () {
+                var div_id = "#dp_City_ok";
                 debugger;
-                $(div_id).addOptionAjax("Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+                $(div_id).addOptionAjax("Base/getCity", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getTown(); }, function () { Formlar_ListFunc.getTown(); }, '', '', 'Şehir Seçiniz');
             },
-            getIlce: function () {
-                var div_id = "#dp_Ilce_ok";
-                $(div_id).addOptionAjax("Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { }, function () { }, '', '', 'İlçe Seçiniz');
+            getTown: function () {
+                var div_id = "#dp_Town_ok";
+                $(div_id).addOptionAjax("Base/getTown", { id: $("#dp_City_ok").val() }, "value", "text", function () { }, function () { }, '', '', 'İlçe Seçiniz');
             },
 
 

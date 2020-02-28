@@ -20,7 +20,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Sube> param, Sube searchModel)
         {
-            var result = _ISubeService.GetPaging(null, true, param, false, o => o.Sehir, o => o.Ilce, o => o.Kurum);
+            var result = _ISubeService.GetPaging(null, true, param, false, o => o.City, o => o.Town, o => o.Kurum);
             return Json(result);
         }
 

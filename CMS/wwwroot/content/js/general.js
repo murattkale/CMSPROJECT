@@ -249,6 +249,7 @@ function getEnumRow(dataResult, value) {
 
 
         $(id + ' textarea').each(function () {
+
             returnArray[$(this).attr('name')] = CKEDITOR.instances[$(this).attr('name')].getData();
         });
 

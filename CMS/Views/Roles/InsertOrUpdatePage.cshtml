@@ -69,11 +69,8 @@
         <div class="kt-portlet__body">
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
-                    <input type="hidden" id="Id" name="Id" value="@edit.Id" />
-                    <input type="hidden" id="IsDeleted" name="IsDeleted" value="@edit.IsDeleted" />
-                    <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
 
-                    @Html.Raw(edit.DynemicInputHelper(new string[] { }, new string[] { "" }))
+                    @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">

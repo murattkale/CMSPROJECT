@@ -241,29 +241,29 @@ namespace CMS.Controllers
             return Json(result);
         }
 
-        public JsonResult getSubeler(int UlkeId, int SehirId, int IlceId)
+        public JsonResult getSubeler(int UlkeId, int CityId, int TownId)
         {
             var result = _ISubeService.Where(o => o.KurumId == SessionRequest.KurumId).Result.ToList();
 
             //if (UlkeId > 0)
             //    result = result.Where(o => o.UlkeId == UlkeId);
 
-            if (SehirId > 0)
-                result = result.Where(o => o.SehirId == SehirId).ToList();
+            if (CityId > 0)
+                result = result.Where(o => o.CityId == CityId).ToList();
 
-            if (IlceId > 0)
-                result = result.Where(o => o.IlceId == IlceId).ToList();
+            if (TownId > 0)
+                result = result.Where(o => o.TownId == TownId).ToList();
 
             var result2 = result.Select(o => new
             {
                 text = o.Ad,
                 value = o.Id,
-                SehirId = o.SehirId,
+                CityId = o.CityId,
                 Yetkili = "",
                 Adres = o.Adres,
                 Telefon = o.Telefon,
-                SehirAd = "",
-                IlceAd = "",
+                CityAd = "",
+                TownAd = "",
                 KurumLogo = o.Logo
 
             }).ToList();
@@ -271,13 +271,13 @@ namespace CMS.Controllers
             return Json(result2);
         }
 
-        public JsonResult getSehir(int id)
+        public JsonResult getCity(int id)
         {
             var result = _ICityService.Where(null).Result.Select(o => new { text = o.CityName, value = o.Id }).ToList();
             return Json(result);
         }
 
-        public JsonResult getIlce(int id)
+        public JsonResult getTown(int id)
         {
             var result = _ITownService.Where(o => o.CityId == id).Result.Select(o => new { text = o.TownName, value = o.Id }).ToList();
             return Json(result);

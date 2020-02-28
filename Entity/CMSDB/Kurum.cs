@@ -23,8 +23,8 @@ namespace Entity.CMSDB
        
        
         public string Ad { get; set; }
-        public int SehirId { get; set; }
-        public int IlceId { get; set; }
+        public int CityId { get; set; }
+        public int TownId { get; set; }
         public string Adres { get; set; }
         public string Telefon { get; set; }
         public string Cep { get; set; }
@@ -42,8 +42,8 @@ namespace Entity.CMSDB
         public string VergiNo { get; set; }
         public string VergiDairesi { get; set; }
 
-        public virtual Town Ilce { get; set; }
-        public virtual City Sehir { get; set; }
+        public virtual Town Town { get; set; }
+        public virtual City City { get; set; }
         public virtual ICollection<Brans> Brans { get; set; }
         public virtual ICollection<ContentPage> ContentPage { get; set; }
         public virtual ICollection<Kasa> Kasa { get; set; }

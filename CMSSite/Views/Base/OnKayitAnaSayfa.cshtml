@@ -24,11 +24,11 @@
                         <input type="email" placeholder="Mail" name="Mail" id="Mail">
                     </div>
                     <div class="single-input checkout-form">
-                        <select id="dp_Sehir_ok">
+                        <select id="dp_City_ok">
                         </select>
                     </div>
                     <div class="single-input checkout-form">
-                        <select id="dp_Ilce_ok">
+                        <select id="dp_Town_ok">
                         </select>
                     </div>
                     <div class="single-input checkout-form">
@@ -58,23 +58,23 @@
         Formlar_ListFunc = {
             load: function () {
 
-                Formlar_ListFunc.getSehir();
+                Formlar_ListFunc.getCity();
             },
-            getSehir: function () {
-                var div_id = "#dp_Sehir_ok";
-                $(div_id).addOptionAjax("Base/getSehir", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getIlce(); }, function () { Formlar_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+            getCity: function () {
+                var div_id = "#dp_City_ok";
+                $(div_id).addOptionAjax("Base/getCity", { id: 1 }, "value", "text", function () { Formlar_ListFunc.getTown(); }, function () { Formlar_ListFunc.getTown(); }, '', '', 'Şehir Seçiniz');
             },
-            getIlce: function () {
-                var div_id = "#dp_Ilce_ok";
-                $(div_id).addOptionAjax("Base/getIlce", { id: $("#dp_Sehir_ok").val() }, "value", "text", function () { Formlar_ListFunc.getSubeler(); }, function () { Formlar_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
+            getTown: function () {
+                var div_id = "#dp_Town_ok";
+                $(div_id).addOptionAjax("Base/getTown", { id: $("#dp_City_ok").val() }, "value", "text", function () { Formlar_ListFunc.getSubeler(); }, function () { Formlar_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
             },
 
             getSubeler: function () {
 
                 var postModel = {
                     UlkeId: 1
-                    , SehirId: $('#dp_Sehir_ok').val()
-                    , IlceId: $('#dp_Ilce_ok').val()
+                    , CityId: $('#dp_City_ok').val()
+                    , TownId: $('#dp_Town_ok').val()
                 };
 
                 $.ajx("Base/getSubeler", postModel, function (dataResult) {

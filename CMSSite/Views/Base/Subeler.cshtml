@@ -90,7 +90,7 @@
                             <div class="billing-form checkout-form">
                                 <div class="row">
                                     <div class="col-12 mb--20">
-                                        <select id="dp_Sehir">
+                                        <select id="dp_City">
                                         </select>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                             <div class="billing-form checkout-form">
                                 <div class="row">
                                     <div class="col-12 mb--20">
-                                        <select id="dp_Ilce">
+                                        <select id="dp_Town">
                                         </select>
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@
         Subeler_ListFunc = {
             load: function () {
 
-                Subeler_ListFunc.getSehir();
+                Subeler_ListFunc.getCity();
                 //$("#map svg path").hover(
                 //    function () {
                 //        var id = $(this).attr("id");
@@ -212,30 +212,30 @@
             },
             //getUlke: function () {
             //    var div_id = "#dp_Ulke";
-            //    $(div_id).addOptionAjax("Base/getUlke", "", "value", "text", function () { getSehir(); }, function () { Subeler_ListFunc.getSehir(); }, '1', '', '');
+            //    $(div_id).addOptionAjax("Base/getUlke", "", "value", "text", function () { getCity(); }, function () { Subeler_ListFunc.getCity(); }, '1', '', '');
             //},
-            getSehir: function () {
-                var div_id = "#dp_Sehir";
-                $(div_id).addOptionAjax("Base/getSehir", { id: 1}, "value", "text", function () { Subeler_ListFunc.getIlce(); }, function () { Subeler_ListFunc.getIlce(); }, '', '', 'Şehir Seçiniz');
+            getCity: function () {
+                var div_id = "#dp_City";
+                $(div_id).addOptionAjax("Base/getCity", { id: 1}, "value", "text", function () { Subeler_ListFunc.getTown(); }, function () { Subeler_ListFunc.getTown(); }, '', '', 'Şehir Seçiniz');
             },
-            getIlce: function () {
-                var div_id = "#dp_Ilce";
-                $(div_id).addOptionAjax("Base/getIlce", { id: $("#dp_Sehir").val() }, "value", "text", function () { Subeler_ListFunc.getSubeler(); }, function () { Subeler_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
+            getTown: function () {
+                var div_id = "#dp_Town";
+                $(div_id).addOptionAjax("Base/getTown", { id: $("#dp_City").val() }, "value", "text", function () { Subeler_ListFunc.getSubeler(); }, function () { Subeler_ListFunc.getSubeler(); }, '', '', 'İlçe Seçiniz');
             },
 
-            getSubeler: function (SehirId) {
+            getSubeler: function (CityId) {
                 $("#sube_div").html('');
                 $("#map").html('');
-                if (SehirId) {
+                if (CityId) {
 
                 }
                 else {
-                    SehirId = $('#dp_Sehir').val()
+                    CityId = $('#dp_City').val()
                 }
                 var postModel = {
                     UlkeId: 0
-                    , SehirId: SehirId
-                    , IlceId: $('#dp_Ilce').val()
+                    , CityId: CityId
+                    , TownId: $('#dp_Town').val()
                 };
                 debugger;
 
@@ -252,7 +252,7 @@
                         str += '              <td class="product-price">' + (item.Telefon == null ? "" : item.Telefon) + '</td>                                                                                   ';
                         str += '              <td class="product-quantity">' + (item.Yetkili == null ? "" : item.Yetkili) + '</td>                                                                                ';
                         str += '              <td class="product-subtotal">' + (item.Adres == null ? "" : item.Adres) + '</td>                                                                                ';
-                        str += '              <td class="product-subtotal">' + item.SehirAd + ' / ' + item.IlceAd + '</td>                                                                                ';
+                        str += '              <td class="product-subtotal">' + item.CityAd + ' / ' + item.TownAd + '</td>                                                                                ';
                         str += '              <td class="product-remove">                                                                                       ';
                         str += '                  <div style="padding: 5px;" class="cartbox__btn">                                                                                    ';
                         str += '                      <ul class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">       ';
@@ -298,7 +298,7 @@
                     if (ilceMap)
                         for (var i = 0; i < dataResult.length; i++) {
 
-                            if (ilceMap == dataResult[i].SehirId) {
+                            if (ilceMap == dataResult[i].CityId) {
                                 ilce = "#15d4f5";
                                 break;
                             }
@@ -403,7 +403,7 @@
                                     scrollTop: $(".table-content.table-responsive").offset().top / 2
                                 }, 1000);
 
-                                //$("#dp_Sehir").val(paths[);
+                                //$("#dp_City").val(paths[);
 
                                 Subeler_ListFunc.getSubeler(paths[arr[this.id]].county);
 

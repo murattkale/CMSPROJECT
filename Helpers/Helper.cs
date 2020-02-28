@@ -81,7 +81,7 @@ public static class Helpers
         }
         return value;
     }
-    public static string DynemicInputHelper(this object model, string[] nonProp, string[] orderby)
+    public static string DynamicInputHelper(this object model, string[] nonProp, string[] orderby)
     {
         string str = "";
         try
@@ -132,8 +132,6 @@ public static class Helpers
             {
                 try
                 {
-
-
                     object value = null;
 
                     switch (Type.GetTypeCode(prp.PropertyType))
@@ -155,7 +153,8 @@ public static class Helpers
                         case TypeCode.String:
                         case TypeCode.Object:
                             {
-                                if (prp.PropertyType.Name == "ICollection`1")
+
+                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
                                 {
                                     break;
                                 }
@@ -225,24 +224,26 @@ public static class Helpers
                         case TypeCode.Object:
                         case TypeCode.Int32:
                             {
-                                if (prp.PropertyType.Name== "ICollection`1")
+                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
                                 {
                                     break;
                                 }
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10'>";
-                                str +=
-                                    "<select " + Required + " " +
-                                    "id='dp_" + prp.Name + "' " +
-                                    "name='dp_" + prp.Name + "' " +
-                                    "class='form-control'>" +
-                                    "</select>";
-                                str += "</div>";
-                                str += "</div>";
+
                                 var relation = props.FirstOrDefault(o => prp.Name.Substring(prp.Name.Length - 2, 2) == "Id" && o.Name == prp.Name.Replace("Id", ""));
                                 if (relation != null)
                                 {
+                                    str += "<div class='form-group row'>                                                                                                            ";
+                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                    str += "<div class='col-md-10'>";
+                                    str +=
+                                        "<select " + Required + " " +
+                                        "id='dp_" + prp.Name + "' " +
+                                        "name='dp_" + prp.Name + "' " +
+                                        "class='form-control'>" +
+                                        "</select>";
+                                    str += "</div>";
+                                    str += "</div>";
+
                                     if (prp.Name == "CityId")
                                     {
                                         str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
@@ -251,13 +252,16 @@ public static class Helpers
                                     {
                                         str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
                                     }
-                                    //else
-                                    //{
-                                    //    str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { }, function () { }, '" + prp.GetPropValue(prp.Name) + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
-                                    //}
+                                    else
+                                    {
+                                        str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', " + value + ", 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                                    }
                                 }
                                 else
                                 {
+                                    str += "<div class='form-group row'>                                                                                                            ";
+                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                    str += "<div class='col-md-10'>";
                                     str +=
                                    "<input  " + Required + "  " +
                                    "id='" + prp.Name + "' " +
@@ -266,6 +270,8 @@ public static class Helpers
                                    "value='" + value + "' " +
                                    "class='form-control' " +
                                    "type='number'>  ";
+                                    str += "</div>";
+                                    str += "</div>";
                                 }
 
                                 break;
@@ -277,9 +283,11 @@ public static class Helpers
                                 str += "<div class='col-md-10 input-group date'>";
                                 str +=
                                    "<input " + Required + "  " +
+                                   "placeholder='" + DisplayName + " Seçiniz'" +
+                                   "autocomplete='off'" +
                                    "id='" + prp.Name + "' " +
                                    "name='" + prp.Name + "' " +
-                                   "value='" + value?.ToDateTime().Value + "' " +
+                                   "value='" + (value.ToDateTime().Value.Year < 1900 ? "" : value?.ToDateTime().Value.ToShortDateString()) + "' " +
                                    "class='form-control' " +
                                    "type='datetime'>  ";
                                 str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
@@ -300,7 +308,7 @@ public static class Helpers
                                     "placeholder='" + prp.Name + "' " +
                                     "value='" + value + "' " +
                                     "class='form-control' " +
-                                    "type='text'>  ";
+                                    "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
                                 str += "</div>                                                                                                       ";
                                 str += "</div>                                                                                                                            ";
                                 break;
@@ -310,7 +318,7 @@ public static class Helpers
                 }
                 catch (Exception ex)
                 {
-                    str += ex.Message + "\n <br/>" + ex.InnerException;
+                    str += prp.Name + " : " + ex.Message + "\n <br/>" + ex.InnerException;
                 }
             }
 

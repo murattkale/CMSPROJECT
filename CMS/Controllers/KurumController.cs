@@ -21,7 +21,7 @@ namespace CMS.Controllers
         public JsonResult GetPaging(DTParameters<Kurum> param, Kurum searchModel)
         {
         
-            var result = _IKurumService.GetPaging(null, true, param, false, o => o.Sehir, o => o.Ilce);
+            var result = _IKurumService.GetPaging(null, true, param, false, o => o.City, o => o.Town);
             return Json(result);
         }
 

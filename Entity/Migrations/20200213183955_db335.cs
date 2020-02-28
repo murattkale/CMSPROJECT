@@ -85,8 +85,8 @@ namespace Entity.Migrations
                     Mail = table.Column<string>(nullable: true),
                     Telefon = table.Column<string>(nullable: true),
                     SubeId = table.Column<int>(nullable: true),
-                    SehirId = table.Column<int>(nullable: true),
-                    IlceId = table.Column<int>(nullable: true),
+                    CityId = table.Column<int>(nullable: true),
+                    TownId = table.Column<int>(nullable: true),
                     Icerik = table.Column<string>(nullable: true),
                     FormType = table.Column<int>(nullable: true)
                 },
@@ -528,8 +528,8 @@ namespace Entity.Migrations
                     IsDeleted = table.Column<DateTime>(type: "datetime", nullable: true),
                     IsStatus = table.Column<int>(nullable: true),
                     Ad = table.Column<string>(nullable: false),
-                    SehirId = table.Column<int>(nullable: false),
-                    IlceId = table.Column<int>(nullable: false),
+                    CityId = table.Column<int>(nullable: false),
+                    TownId = table.Column<int>(nullable: false),
                     Adres = table.Column<string>(nullable: true),
                     Telefon = table.Column<string>(nullable: true),
                     Cep = table.Column<string>(nullable: true),
@@ -552,13 +552,13 @@ namespace Entity.Migrations
                     table.PrimaryKey("PK_Kurum", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Kurum_Town",
-                        column: x => x.IlceId,
+                        column: x => x.TownId,
                         principalTable: "Town",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Kurum_City",
-                        column: x => x.SehirId,
+                        column: x => x.CityId,
                         principalTable: "City",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -693,8 +693,8 @@ namespace Entity.Migrations
                     IsStatus = table.Column<int>(nullable: true),
                     KurumId = table.Column<int>(nullable: false),
                     Ad = table.Column<string>(nullable: false),
-                    SehirId = table.Column<int>(nullable: true),
-                    IlceId = table.Column<int>(nullable: true),
+                    CityId = table.Column<int>(nullable: true),
+                    TownId = table.Column<int>(nullable: true),
                     Adres = table.Column<string>(nullable: true),
                     Telefon = table.Column<string>(nullable: true),
                     Cep = table.Column<string>(nullable: true),
@@ -718,7 +718,7 @@ namespace Entity.Migrations
                     table.PrimaryKey("PK_Sube", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Sube_Town",
-                        column: x => x.IlceId,
+                        column: x => x.TownId,
                         principalTable: "Town",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -730,7 +730,7 @@ namespace Entity.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Sube_City",
-                        column: x => x.SehirId,
+                        column: x => x.CityId,
                         principalTable: "City",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -1524,14 +1524,14 @@ namespace Entity.Migrations
                 column: "KiyafetTurId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kurum_IlceId",
+                name: "IX_Kurum_TownId",
                 table: "Kurum",
-                column: "IlceId");
+                column: "TownId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kurum_SehirId",
+                name: "IX_Kurum_CityId",
                 table: "Kurum",
-                column: "SehirId");
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OdemeDetay_HesapId",
@@ -1699,9 +1699,9 @@ namespace Entity.Migrations
                 column: "SubeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sube_IlceId",
+                name: "IX_Sube_TownId",
                 table: "Sube",
-                column: "IlceId");
+                column: "TownId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sube_KurumId",
@@ -1709,9 +1709,9 @@ namespace Entity.Migrations
                 column: "KurumId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sube_SehirId",
+                name: "IX_Sube_CityId",
                 table: "Sube",
-                column: "SehirId");
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Town_CityId",

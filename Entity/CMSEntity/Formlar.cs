@@ -11,8 +11,8 @@ namespace Entity
         public string Mail { get; set; }
         public string Telefon { get; set; }
         public int? SubeId { get; set; }
-        public int? SehirId { get; set; }
-        public int? IlceId { get; set; }
+        public int? CityId { get; set; }
+        public int? TownId { get; set; }
         public string Icerik { get; set; }
 
         public int? FormType { get; set; }

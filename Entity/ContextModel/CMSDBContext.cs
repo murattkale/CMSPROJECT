@@ -370,15 +370,15 @@ namespace Entity.ContextModel
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Ilce)
+                entity.HasOne(d => d.Town)
                     .WithMany(p => p.Kurum)
-                    .HasForeignKey(d => d.IlceId)
+                    .HasForeignKey(d => d.TownId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Kurum_Town");
 
-                entity.HasOne(d => d.Sehir)
+                entity.HasOne(d => d.City)
                     .WithMany(p => p.Kurum)
-                    .HasForeignKey(d => d.SehirId)
+                    .HasForeignKey(d => d.CityId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Kurum_City");
             });
@@ -863,9 +863,9 @@ namespace Entity.ContextModel
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Ilce)
+                entity.HasOne(d => d.Town)
                     .WithMany(p => p.Sube)
-                    .HasForeignKey(d => d.IlceId)
+                    .HasForeignKey(d => d.TownId)
                     .HasConstraintName("FK_Sube_Town");
 
                 entity.HasOne(d => d.Kurum)
@@ -873,9 +873,9 @@ namespace Entity.ContextModel
                     .HasForeignKey(d => d.KurumId)
                     .HasConstraintName("FK_Sube_Kurum");
 
-                entity.HasOne(d => d.Sehir)
+                entity.HasOne(d => d.City)
                     .WithMany(p => p.Sube)
-                    .HasForeignKey(d => d.SehirId)
+                    .HasForeignKey(d => d.CityId)
                     .HasConstraintName("FK_Sube_City");
             });
 

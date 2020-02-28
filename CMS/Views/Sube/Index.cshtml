@@ -69,8 +69,8 @@
                 var columns = [];
                 columns.push({ "data": "KurumAd", text: "Kurum Adı" });
                 columns.push({ "data": "Ad", text: "Sube Adı" });
-                columns.push({ "data": "SehirAd", text: "Şehir" });
-                columns.push({ "data": "IlceAd", text: "İlçe" });
+                columns.push({ "data": "CityAd", text: "Şehir" });
+                columns.push({ "data": "TownAd", text: "İlçe" });
                 columns.push({ "data": "Adres", text: "Adres" });
                 columns.push({ "data": "Telefon", text: "Telefon" });
                 columns.push({ "data": "Cep", text: "Cep" });
@@ -109,8 +109,8 @@
                                 return_data.push({
                                     'KurumAd': row.Kurum.Ad,
                                     'Ad': row.Ad,
-                                    'SehirAd': row.Sehir == null ? "" : row.Sehir.CityName,
-                                    'IlceAd': row.Ilce == null ? "" : row.Ilce.TownName,
+                                    'CityAd': row.City == null ? "" : row.City.CityName,
+                                    'TownAd': row.Town == null ? "" : row.Town.TownName,
                                     'Adres': row.Adres,
                                     'Telefon': row.Telefon,
                                     'Cep': row.Cep,

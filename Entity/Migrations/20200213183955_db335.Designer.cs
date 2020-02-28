@@ -508,7 +508,7 @@ namespace Entity.Migrations
                     b.Property<string>("Icerik")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IlceId")
+                    b.Property<int?>("TownId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("IsDeleted")
@@ -529,7 +529,7 @@ namespace Entity.Migrations
                     b.Property<int?>("OrderNo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SehirId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Soyad")
@@ -845,7 +845,7 @@ namespace Entity.Migrations
                     b.Property<string>("GoogleAnalytic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IlceId")
+                    b.Property<int>("TownId")
                         .HasColumnType("int");
 
                     b.Property<string>("Instagram")
@@ -881,7 +881,7 @@ namespace Entity.Migrations
                     b.Property<string>("Pinterest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SehirId")
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Telefon")
@@ -904,9 +904,9 @@ namespace Entity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IlceId");
+                    b.HasIndex("TownId");
 
-                    b.HasIndex("SehirId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Kurum");
                 });
@@ -2064,7 +2064,7 @@ namespace Entity.Migrations
                     b.Property<string>("GoogleAnalytic")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IlceId")
+                    b.Property<int?>("TownId")
                         .HasColumnType("int");
 
                     b.Property<string>("Instagram")
@@ -2103,7 +2103,7 @@ namespace Entity.Migrations
                     b.Property<string>("Pinterest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SehirId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SozlesmeTaksitLimit")
@@ -2129,11 +2129,11 @@ namespace Entity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IlceId");
+                    b.HasIndex("TownId");
 
                     b.HasIndex("KurumId");
 
-                    b.HasIndex("SehirId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Sube");
                 });
@@ -2577,15 +2577,15 @@ namespace Entity.Migrations
 
             modelBuilder.Entity("Entity.CMSDB.Kurum", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Town", "Ilce")
+                    b.HasOne("Entity.CMSDB.Town", "Town")
                         .WithMany("Kurum")
-                        .HasForeignKey("IlceId")
+                        .HasForeignKey("TownId")
                         .HasConstraintName("FK_Kurum_Town")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.City", "Sehir")
+                    b.HasOne("Entity.CMSDB.City", "City")
                         .WithMany("Kurum")
-                        .HasForeignKey("SehirId")
+                        .HasForeignKey("CityId")
                         .HasConstraintName("FK_Kurum_City")
                         .IsRequired();
                 });
@@ -2827,9 +2827,9 @@ namespace Entity.Migrations
 
             modelBuilder.Entity("Entity.CMSDB.Sube", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Town", "Ilce")
+                    b.HasOne("Entity.CMSDB.Town", "Town")
                         .WithMany("Sube")
-                        .HasForeignKey("IlceId")
+                        .HasForeignKey("TownId")
                         .HasConstraintName("FK_Sube_Town");
 
                     b.HasOne("Entity.CMSDB.Kurum", "Kurum")
@@ -2839,9 +2839,9 @@ namespace Entity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.City", "Sehir")
+                    b.HasOne("Entity.CMSDB.City", "City")
                         .WithMany("Sube")
-                        .HasForeignKey("SehirId")
+                        .HasForeignKey("CityId")
                         .HasConstraintName("FK_Sube_City");
                 });
 
