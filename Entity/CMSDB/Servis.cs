@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class Servis : BaseModel
     {
@@ -18,10 +18,10 @@ namespace Entity.CMSDB
         
        
        
-        public int SubeId { get; set; }
+        [Required()] public int SubeId { get; set; }
         public string Plaka { get; set; }
         public string Guzergah { get; set; }
-        public int Kapasite { get; set; }
+        [Required()] public int Kapasite { get; set; }
 
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }

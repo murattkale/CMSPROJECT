@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,17 +14,17 @@ public class DTResult<T>
     /// The draw counter that this object is a response to - from the draw parameter sent as part of the data request.
     /// Note that it is strongly recommended for security reasons that you cast this parameter to an integer, rather than simply echoing back to the client what it sent in the draw parameter, in order to prevent Cross Site Scripting (XSS) attacks.
     /// </summary>
-    public int draw { get; set; }
+    [Required()] public int draw { get; set; }
 
     /// <summary>
     /// Total records, before filtering (i.e. the total number of records in the database)
     /// </summary>
-    public int recordsTotal { get; set; }
+    [Required()] public int recordsTotal { get; set; }
 
     /// <summary>
     /// Total records, after filtering (i.e. the total number of records after filtering has been applied - not just the number of records being returned for this page of data).
     /// </summary>
-    public int recordsFiltered { get; set; }
+    [Required()] public int recordsFiltered { get; set; }
 
     /// <summary>
     /// The data to be displayed in the table.
@@ -80,7 +80,7 @@ public class DTParameters<T>
     /// This is used by DataTables to ensure that the Ajax returns from server-side processing requests are drawn in sequence by DataTables (Ajax requests are asynchronous and thus can return out of sequence).
     /// This is used as part of the draw return parameter (see below).
     /// </summary>
-    public int Draw { get; set; }
+    [Required()] public int Draw { get; set; }
 
     /// <summary>
     /// An array defining all columns in the table.
@@ -96,14 +96,14 @@ public class DTParameters<T>
     /// Paging first record indicator.
     /// This is the start point in the current data set (0 index based - i.e. 0 is the first record).
     /// </summary>
-    public int Start { get; set; }
+    [Required()] public int Start { get; set; }
 
     /// <summary>
     /// Number of records that the table can display in the current draw.
     /// It is expected that the number of records returned will be equal to this number, unless the server has fewer records to return.
     /// Note that this can be -1 to indicate that all records should be returned (although that negates any benefits of server-side processing!)
     /// </summary>
-    public int Length { get; set; }
+    [Required()] public int Length { get; set; }
 
     /// <summary>
     /// Global search value. To be applied to all columns which have searchable as true.
@@ -168,7 +168,7 @@ public class DTOrder
     /// Column to which ordering should be applied.
     /// This is an index reference to the columns array of information that is also submitted to the server.
     /// </summary>
-    public int Column { get; set; }
+    [Required()] public int Column { get; set; }
 
     /// <summary>
     /// Ordering direction for this column.

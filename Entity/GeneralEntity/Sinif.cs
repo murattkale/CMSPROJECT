@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class Sinif : BaseModel
     {
@@ -19,16 +19,16 @@ namespace Entity.CMSDB
        
        
         public string Ad { get; set; }
-        public int SubeId { get; set; }
+        [Required()] public int SubeId { get; set; }
         public int? Tur { get; set; }
         public int? Seviye { get; set; }
         public int? SeansId { get; set; }
         public int? DerslikId { get; set; }
         public int? SorumluKisiId { get; set; }
-        public int ToplamDersSaati { get; set; }
-        public int Kapasite { get; set; }
-        public double KayitUcreti { get; set; }
-        public int EgitimSuresi { get; set; }
+        [Required()] public int ToplamDersSaati { get; set; }
+        [Required()] public int Kapasite { get; set; }
+        [Required()]  public double  KayitUcreti { get; set; }
+        [Required()] public int EgitimSuresi { get; set; }
 
         public virtual Derslik Derslik { get; set; }
         public virtual Seans Seans { get; set; }

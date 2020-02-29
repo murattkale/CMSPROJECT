@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
-using Entity.CMSDB; using Entity.ContextModel;
+using Entity; using Entity.ContextModel;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class VeliDetay : BaseModel
     {
@@ -18,8 +18,8 @@ namespace Entity.CMSDB
         
        
        
-        public int OgrenciDetayId { get; set; }
-        public int YakinlikDerecesiId { get; set; }
+        [Required()] public int OgrenciDetayId { get; set; }
+        [Required()] public int YakinlikDerecesiId { get; set; }
         public bool? Iletisim { get; set; }
 
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }

@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
 using Entity;
-using Entity.CMSDB; using Entity.ContextModel;
+using Entity; using Entity.ContextModel;
 
 public class FormlarService : GenericRepo<Formlar>, IFormlarService
 {

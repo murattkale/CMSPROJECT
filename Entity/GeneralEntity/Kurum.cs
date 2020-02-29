@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
-    public partial class Sube : BaseModel
+    public partial class Kurum : BaseModel
     {
-        public Sube()
+        public Kurum()
         {
+            Brans = new HashSet<Brans>();
             ContentPage = new HashSet<ContentPage>();
-            Derslik = new HashSet<Derslik>();
             Kasa = new HashSet<Kasa>();
-            OgrenciSozlesme = new HashSet<OgrenciSozlesme>();
-            Seans = new HashSet<Seans>();
-            Sinif = new HashSet<Sinif>();
-            Sozlesme = new HashSet<Sozlesme>();
+            Sezon = new HashSet<Sezon>();
+            Sube = new HashSet<Sube>();
         }
 
        
@@ -24,13 +21,10 @@ namespace Entity.CMSDB
        
         
        
-        public int KurumId { get; set; }
+       
         public string Ad { get; set; }
-
-        [DisplayName("Şehir")]
-        public int? CityId { get; set; }
-        [DisplayName("İlçe")]
-        public int? TownId { get; set; }
+        [Required()] public int CityId { get; set; }
+        [Required()] public int TownId { get; set; }
         public string Adres { get; set; }
         public string Telefon { get; set; }
         public string Cep { get; set; }
@@ -47,17 +41,13 @@ namespace Entity.CMSDB
         public string TicariUnvan { get; set; }
         public string VergiNo { get; set; }
         public string VergiDairesi { get; set; }
-        public int? SozlesmeTaksitLimit { get; set; }
 
         public virtual Town Town { get; set; }
-        public virtual Kurum Kurum { get; set; }
         public virtual City City { get; set; }
+        public virtual ICollection<Brans> Brans { get; set; }
         public virtual ICollection<ContentPage> ContentPage { get; set; }
-        public virtual ICollection<Derslik> Derslik { get; set; }
         public virtual ICollection<Kasa> Kasa { get; set; }
-        public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
-        public virtual ICollection<Seans> Seans { get; set; }
-        public virtual ICollection<Sinif> Sinif { get; set; }
-        public virtual ICollection<Sozlesme> Sozlesme { get; set; }
+        public virtual ICollection<Sezon> Sezon { get; set; }
+        public virtual ICollection<Sube> Sube { get; set; }
     }
 }

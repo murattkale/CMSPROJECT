@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class DersBrans : BaseModel
     {
@@ -13,8 +13,8 @@ namespace Entity.CMSDB
         
        
        
-        public int BransId { get; set; }
-        public int DersId { get; set; }
+        [Required()] public int BransId { get; set; }
+        [Required()] public int DersId { get; set; }
 
         public virtual Brans Brans { get; set; }
         public virtual Ders Ders { get; set; }

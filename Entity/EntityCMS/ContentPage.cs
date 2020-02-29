@@ -1,6 +1,6 @@
-﻿using Entity.CMSDB;
+﻿using Entity;
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 namespace Entity
@@ -11,14 +11,18 @@ namespace Entity
         {
             Documents = new HashSet<Documents>();
         }
+
+        [DisplayName("Kurum")]
         public int? KurumId { get; set; }
+        [DisplayName("Sube")]
         public int? SubeId { get; set; }
+        [DisplayName("Üst Kategori")]
         public int? ParentId { get; set; }
 
         [DisplayName("Başlık")]
         public string Name { get; set; }
         [DisplayName("Tip")]
-        public int ContentPageType { get; set; }
+        [Required()] public int ContentPageType { get; set; }
         [DisplayName("Üst Menü")]
         public bool? IsHeaderMenu { get; set; }
         [DisplayName("Alt Menü")]

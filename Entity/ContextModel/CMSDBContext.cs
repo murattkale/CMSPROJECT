@@ -1,5 +1,5 @@
 ﻿using System;
-using Entity.CMSDB;
+using Entity;
 using Entity.ContextModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;

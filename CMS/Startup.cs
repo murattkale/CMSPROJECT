@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CMS.Models;
 using Entity;
-using Entity.CMSDB;
+using Entity;
 using Entity.ContextModel;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;

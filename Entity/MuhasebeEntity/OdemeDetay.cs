@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class OdemeDetay : BaseModel
     {
@@ -13,7 +13,7 @@ namespace Entity.CMSDB
         
        
        
-        public int HesapId { get; set; }
+        [Required()] public int HesapId { get; set; }
         public string BankaSubesi { get; set; }
         public string BankaHesapNo { get; set; }
         public string Borclu { get; set; }

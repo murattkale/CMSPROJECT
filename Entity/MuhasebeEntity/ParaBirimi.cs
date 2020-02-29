@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
-    public partial class Banka : BaseModel
+    public partial class ParaBirimi : BaseModel
     {
-        public Banka()
+        public ParaBirimi()
         {
             Kasa = new HashSet<Kasa>();
-            OdemeTip = new HashSet<OdemeTip>();
         }
 
        
@@ -20,8 +19,8 @@ namespace Entity.CMSDB
        
        
         public string Ad { get; set; }
+        public string Kod { get; set; }
 
         public virtual ICollection<Kasa> Kasa { get; set; }
-        public virtual ICollection<OdemeTip> OdemeTip { get; set; }
     }
 }

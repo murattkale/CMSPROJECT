@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace Entity
@@ -26,7 +26,7 @@ namespace Entity
 
         public string data_class { get; set; }
 
-        public int dataid { get; set; }
+        [Required()] public int dataid { get; set; }
 
         public ContentPage ContentPage { get; set; }
 

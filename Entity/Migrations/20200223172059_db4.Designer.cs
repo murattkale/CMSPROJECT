@@ -21,7 +21,7 @@ namespace Entity.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Entity.CMSDB.Banka", b =>
+            modelBuilder.Entity("Entity.Banka", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,7 +59,7 @@ namespace Entity.Migrations
                     b.ToTable("Banka");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Brans", b =>
+            modelBuilder.Entity("Entity.Brans", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +103,7 @@ namespace Entity.Migrations
                     b.ToTable("Brans");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.City", b =>
+            modelBuilder.Entity("Entity.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -142,7 +142,7 @@ namespace Entity.Migrations
                     b.ToTable("City");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ContentPage", b =>
+            modelBuilder.Entity("Entity.ContentPage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -253,7 +253,7 @@ namespace Entity.Migrations
                     b.ToTable("ContentPage");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Ders", b =>
+            modelBuilder.Entity("Entity.Ders", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -297,7 +297,7 @@ namespace Entity.Migrations
                     b.ToTable("Ders");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.DersBrans", b =>
+            modelBuilder.Entity("Entity.DersBrans", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -342,7 +342,7 @@ namespace Entity.Migrations
                     b.ToTable("DersBrans");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.DersGrup", b =>
+            modelBuilder.Entity("Entity.DersGrup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -381,7 +381,7 @@ namespace Entity.Migrations
                     b.ToTable("DersGrup");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Derslik", b =>
+            modelBuilder.Entity("Entity.Derslik", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -425,7 +425,7 @@ namespace Entity.Migrations
                     b.ToTable("Derslik");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Documents", b =>
+            modelBuilder.Entity("Entity.Documents", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -486,7 +486,7 @@ namespace Entity.Migrations
                     b.ToTable("Documents");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Formlar", b =>
+            modelBuilder.Entity("Entity.Formlar", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -546,7 +546,7 @@ namespace Entity.Migrations
                     b.ToTable("Formlar");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Hesap", b =>
+            modelBuilder.Entity("Entity.Hesap", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -612,7 +612,7 @@ namespace Entity.Migrations
                     b.ToTable("Hesap");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.HesapTip", b =>
+            modelBuilder.Entity("Entity.HesapTip", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -653,7 +653,7 @@ namespace Entity.Migrations
                     b.ToTable("HesapTip");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Kasa", b =>
+            modelBuilder.Entity("Entity.Kasa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -725,7 +725,7 @@ namespace Entity.Migrations
                     b.ToTable("Kasa");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Kiyafet", b =>
+            modelBuilder.Entity("Entity.Kiyafet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -775,7 +775,7 @@ namespace Entity.Migrations
                     b.ToTable("Kiyafet");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.KiyafetTur", b =>
+            modelBuilder.Entity("Entity.KiyafetTur", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -814,7 +814,7 @@ namespace Entity.Migrations
                     b.ToTable("KiyafetTur");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Kurum", b =>
+            modelBuilder.Entity("Entity.Kurum", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -911,7 +911,7 @@ namespace Entity.Migrations
                     b.ToTable("Kurum");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.NeredenDuydunuz", b =>
+            modelBuilder.Entity("Entity.NeredenDuydunuz", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -950,7 +950,7 @@ namespace Entity.Migrations
                     b.ToTable("NeredenDuydunuz");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OdemeDetay", b =>
+            modelBuilder.Entity("Entity.OdemeDetay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1023,7 +1023,7 @@ namespace Entity.Migrations
                     b.ToTable("OdemeDetay");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OdemeTip", b =>
+            modelBuilder.Entity("Entity.OdemeTip", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1066,7 +1066,7 @@ namespace Entity.Migrations
                     b.ToTable("OdemeTip");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciDetay", b =>
+            modelBuilder.Entity("Entity.OgrenciDetay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1120,7 +1120,7 @@ namespace Entity.Migrations
                     b.ToTable("OgrenciDetay");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesme", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1237,7 +1237,7 @@ namespace Entity.Migrations
                     b.ToTable("OgrenciSozlesme");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesmeKiyafet", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesmeKiyafet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1282,7 +1282,7 @@ namespace Entity.Migrations
                     b.ToTable("OgrenciSozlesmeKiyafet");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesmeOdemeTablosu", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesmeOdemeTablosu", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1328,7 +1328,7 @@ namespace Entity.Migrations
                     b.ToTable("OgrenciSozlesmeOdemeTablosu");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesmeYayin", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesmeYayin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1373,7 +1373,7 @@ namespace Entity.Migrations
                     b.ToTable("OgrenciSozlesmeYayin");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Okullar", b =>
+            modelBuilder.Entity("Entity.Okullar", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1415,7 +1415,7 @@ namespace Entity.Migrations
                     b.ToTable("Okullar");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ParaBirimi", b =>
+            modelBuilder.Entity("Entity.ParaBirimi", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1458,7 +1458,7 @@ namespace Entity.Migrations
                     b.ToTable("ParaBirimi");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Permissions", b =>
+            modelBuilder.Entity("Entity.Permissions", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1503,7 +1503,7 @@ namespace Entity.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Roles", b =>
+            modelBuilder.Entity("Entity.Roles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1553,7 +1553,7 @@ namespace Entity.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Seans", b =>
+            modelBuilder.Entity("Entity.Seans", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1597,7 +1597,7 @@ namespace Entity.Migrations
                     b.ToTable("Seans");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ServiceConfig", b =>
+            modelBuilder.Entity("Entity.ServiceConfig", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1660,7 +1660,7 @@ namespace Entity.Migrations
                     b.ToTable("ServiceConfig");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ServiceConfigAuth", b =>
+            modelBuilder.Entity("Entity.ServiceConfigAuth", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1730,7 +1730,7 @@ namespace Entity.Migrations
                     b.ToTable("ServiceConfigAuth");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Servis", b =>
+            modelBuilder.Entity("Entity.Servis", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1779,7 +1779,7 @@ namespace Entity.Migrations
                     b.ToTable("Servis");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sezon", b =>
+            modelBuilder.Entity("Entity.Sezon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1823,7 +1823,7 @@ namespace Entity.Migrations
                     b.ToTable("Sezon");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sinif", b =>
+            modelBuilder.Entity("Entity.Sinif", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1898,7 +1898,7 @@ namespace Entity.Migrations
                     b.ToTable("Sinif");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.SinifOgrenci", b =>
+            modelBuilder.Entity("Entity.SinifOgrenci", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1943,7 +1943,7 @@ namespace Entity.Migrations
                     b.ToTable("SinifOgrenci");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sozlesme", b =>
+            modelBuilder.Entity("Entity.Sozlesme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1991,7 +1991,7 @@ namespace Entity.Migrations
                     b.ToTable("Sozlesme");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.SozlesmeTur", b =>
+            modelBuilder.Entity("Entity.SozlesmeTur", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2033,7 +2033,7 @@ namespace Entity.Migrations
                     b.ToTable("SozlesmeTur");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sube", b =>
+            modelBuilder.Entity("Entity.Sube", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2138,7 +2138,7 @@ namespace Entity.Migrations
                     b.ToTable("Sube");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Town", b =>
+            modelBuilder.Entity("Entity.Town", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2182,7 +2182,7 @@ namespace Entity.Migrations
                     b.ToTable("Town");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.UserRoles", b =>
+            modelBuilder.Entity("Entity.UserRoles", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2227,7 +2227,7 @@ namespace Entity.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Users", b =>
+            modelBuilder.Entity("Entity.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2343,7 +2343,7 @@ namespace Entity.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.VeliDetay", b =>
+            modelBuilder.Entity("Entity.VeliDetay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2387,7 +2387,7 @@ namespace Entity.Migrations
                     b.ToTable("VeliDetay");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Yayin", b =>
+            modelBuilder.Entity("Entity.Yayin", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2442,9 +2442,9 @@ namespace Entity.Migrations
                     b.ToTable("Yayin");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Brans", b =>
+            modelBuilder.Entity("Entity.Brans", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Kurum", "Kurum")
+                    b.HasOne("Entity.Kurum", "Kurum")
                         .WithMany("Brans")
                         .HasForeignKey("KurumId")
                         .HasConstraintName("FK_Brans_Kurum")
@@ -2452,55 +2452,55 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ContentPage", b =>
+            modelBuilder.Entity("Entity.ContentPage", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Kurum", "Kurum")
+                    b.HasOne("Entity.Kurum", "Kurum")
                         .WithMany("ContentPage")
                         .HasForeignKey("KurumId")
                         .HasConstraintName("FK_ContentPage_Kurum");
 
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("ContentPage")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_ContentPage_Sube");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Ders", b =>
+            modelBuilder.Entity("Entity.Ders", b =>
                 {
-                    b.HasOne("Entity.CMSDB.DersGrup", "DersGrup")
+                    b.HasOne("Entity.DersGrup", "DersGrup")
                         .WithMany("Ders")
                         .HasForeignKey("DersGrupId")
                         .HasConstraintName("FK_Ders_DersGrup")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.DersBrans", b =>
+            modelBuilder.Entity("Entity.DersBrans", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Brans", "Brans")
+                    b.HasOne("Entity.Brans", "Brans")
                         .WithMany("DersBrans")
                         .HasForeignKey("BransId")
                         .HasConstraintName("FK_DersBrans_Brans")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Ders", "Ders")
+                    b.HasOne("Entity.Ders", "Ders")
                         .WithMany("DersBrans")
                         .HasForeignKey("DersId")
                         .HasConstraintName("FK_DersBrans_Ders")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Derslik", b =>
+            modelBuilder.Entity("Entity.Derslik", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("Derslik")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_Derslik_Sube")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Documents", b =>
+            modelBuilder.Entity("Entity.Documents", b =>
                 {
-                    b.HasOne("Entity.CMSDB.ContentPage", "ContentPage")
+                    b.HasOne("Entity.ContentPage", "ContentPage")
                         .WithMany("Documents")
                         .HasForeignKey("dataid")
                         .HasConstraintName("FK_Documents_Documents")
@@ -2508,27 +2508,27 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Hesap", b =>
+            modelBuilder.Entity("Entity.Hesap", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Kasa", "AliciKasa")
+                    b.HasOne("Entity.Kasa", "AliciKasa")
                         .WithMany("HesapAliciKasa")
                         .HasForeignKey("AliciKasaId")
                         .HasConstraintName("FK_Hesap_Kasa1");
 
-                    b.HasOne("Entity.CMSDB.HesapTip", "HesapTip")
+                    b.HasOne("Entity.HesapTip", "HesapTip")
                         .WithMany("Hesap")
                         .HasForeignKey("HesapTipId")
                         .HasConstraintName("FK_Hesap_HesapTip")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Kasa", "IlgiliKasa")
+                    b.HasOne("Entity.Kasa", "IlgiliKasa")
                         .WithMany("HesapIlgiliKasa")
                         .HasForeignKey("IlgiliKasaId")
                         .HasConstraintName("FK_Hesap_Kasa")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.OdemeTip", "OdemeTip")
+                    b.HasOne("Entity.OdemeTip", "OdemeTip")
                         .WithMany("Hesap")
                         .HasForeignKey("OdemeTipId")
                         .HasConstraintName("FK_Hesap_OdemeTip")
@@ -2536,64 +2536,64 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Kasa", b =>
+            modelBuilder.Entity("Entity.Kasa", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Banka", "Banka")
+                    b.HasOne("Entity.Banka", "Banka")
                         .WithMany("Kasa")
                         .HasForeignKey("BankaId")
                         .HasConstraintName("FK_Kasa_Banka")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Entity.CMSDB.Kurum", "Kurum")
+                    b.HasOne("Entity.Kurum", "Kurum")
                         .WithMany("Kasa")
                         .HasForeignKey("KurumId")
                         .HasConstraintName("FK_Kasa_Kurum");
 
-                    b.HasOne("Entity.CMSDB.ParaBirimi", "ParaBirim")
+                    b.HasOne("Entity.ParaBirimi", "ParaBirim")
                         .WithMany("Kasa")
                         .HasForeignKey("ParaBirimId")
                         .HasConstraintName("FK_Kasa_ParaBirimi")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("Kasa")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_Kasa_Sube");
 
-                    b.HasOne("Entity.CMSDB.Kasa", "UstKasa")
+                    b.HasOne("Entity.Kasa", "UstKasa")
                         .WithMany("UstKasaList")
                         .HasForeignKey("UstKasaId")
                         .HasConstraintName("FK_Kasa_Kasa");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Kiyafet", b =>
+            modelBuilder.Entity("Entity.Kiyafet", b =>
                 {
-                    b.HasOne("Entity.CMSDB.KiyafetTur", "KiyafetTur")
+                    b.HasOne("Entity.KiyafetTur", "KiyafetTur")
                         .WithMany("Kiyafet")
                         .HasForeignKey("KiyafetTurId")
                         .HasConstraintName("FK_Kiyafet_KiyafetTur")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Kurum", b =>
+            modelBuilder.Entity("Entity.Kurum", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Town", "Town")
+                    b.HasOne("Entity.Town", "Town")
                         .WithMany("Kurum")
                         .HasForeignKey("TownId")
                         .HasConstraintName("FK_Kurum_Town")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.City", "City")
+                    b.HasOne("Entity.City", "City")
                         .WithMany("Kurum")
                         .HasForeignKey("CityId")
                         .HasConstraintName("FK_Kurum_City")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OdemeDetay", b =>
+            modelBuilder.Entity("Entity.OdemeDetay", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Hesap", "Hesap")
+                    b.HasOne("Entity.Hesap", "Hesap")
                         .WithMany("OdemeDetay")
                         .HasForeignKey("HesapId")
                         .HasConstraintName("FK_OdemeDetay_Hesap")
@@ -2601,180 +2601,180 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OdemeTip", b =>
+            modelBuilder.Entity("Entity.OdemeTip", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Banka", "Banka")
+                    b.HasOne("Entity.Banka", "Banka")
                         .WithMany("OdemeTip")
                         .HasForeignKey("BankaId")
                         .HasConstraintName("FK_OdemeTip_Banka")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciDetay", b =>
+            modelBuilder.Entity("Entity.OgrenciDetay", b =>
                 {
-                    b.HasOne("Entity.CMSDB.NeredenDuydunuz", "NeredenDuydunuz")
+                    b.HasOne("Entity.NeredenDuydunuz", "NeredenDuydunuz")
                         .WithMany("OgrenciDetay")
                         .HasForeignKey("NeredenDuydunuzId")
                         .HasConstraintName("FK_OgrenciDetay_NeredenDuydunuz");
 
-                    b.HasOne("Entity.CMSDB.Okullar", "Okullar")
+                    b.HasOne("Entity.Okullar", "Okullar")
                         .WithMany("OgrenciDetay")
                         .HasForeignKey("OkullarId")
                         .HasConstraintName("FK_OgrenciDetay_Okullar");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesme", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesme", b =>
                 {
-                    b.HasOne("Entity.CMSDB.VeliDetay", "Finansor")
+                    b.HasOne("Entity.VeliDetay", "Finansor")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("FinansorId")
                         .HasConstraintName("FK_OgrenciSozlesme_VeliDetay")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Users", "GorusenPersonel")
+                    b.HasOne("Entity.Users", "GorusenPersonel")
                         .WithMany("OgrenciSozlesmeGorusenPersonel")
                         .HasForeignKey("GorusenPersonelId")
                         .HasConstraintName("FK_OgrenciSozlesme_Users");
 
-                    b.HasOne("Entity.CMSDB.Users", "KurumaGetirenPersonel")
+                    b.HasOne("Entity.Users", "KurumaGetirenPersonel")
                         .WithMany("OgrenciSozlesmeKurumaGetirenPersonel")
                         .HasForeignKey("KurumaGetirenPersonelId")
                         .HasConstraintName("FK_OgrenciSozlesme_Users1");
 
-                    b.HasOne("Entity.CMSDB.OgrenciDetay", "OgrenciDetay")
+                    b.HasOne("Entity.OgrenciDetay", "OgrenciDetay")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("OgrenciDetayId")
                         .HasConstraintName("FK_OgrenciSozlesme_OgrenciDetay")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Servis", "Servis")
+                    b.HasOne("Entity.Servis", "Servis")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("ServisId")
                         .HasConstraintName("FK_OgrenciSozlesme_Servis");
 
-                    b.HasOne("Entity.CMSDB.Sezon", "Sezon")
+                    b.HasOne("Entity.Sezon", "Sezon")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("SezonId")
                         .HasConstraintName("FK_OgrenciSozlesme_Sezon")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.SozlesmeTur", "SozlesmeTuru")
+                    b.HasOne("Entity.SozlesmeTur", "SozlesmeTuru")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("SozlesmeTuruId")
                         .HasConstraintName("FK_OgrenciSozlesme_SozlesmeTur")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_OgrenciSozlesme_Sube");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesmeKiyafet", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesmeKiyafet", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Kiyafet", "Kiyafet")
+                    b.HasOne("Entity.Kiyafet", "Kiyafet")
                         .WithMany("OgrenciSozlesmeKiyafet")
                         .HasForeignKey("KiyafetId")
                         .HasConstraintName("FK_OgrenciSozlesmeKiyafet_Kiyafet")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.OgrenciSozlesme", "OgrenciSozlesme")
+                    b.HasOne("Entity.OgrenciSozlesme", "OgrenciSozlesme")
                         .WithMany("OgrenciSozlesmeKiyafet")
                         .HasForeignKey("OgrenciSozlesmeId")
                         .HasConstraintName("FK_OgrenciSozlesmeKiyafet_OgrenciSozlesme")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesmeOdemeTablosu", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesmeOdemeTablosu", b =>
                 {
-                    b.HasOne("Entity.CMSDB.OgrenciSozlesme", "OgrenciSozlesme")
+                    b.HasOne("Entity.OgrenciSozlesme", "OgrenciSozlesme")
                         .WithMany("OgrenciSozlesmeOdemeTablosu")
                         .HasForeignKey("OgrenciSozlesmeId")
                         .HasConstraintName("FK_OgrenciSozlesmeOdemeTablosu_OgrenciSozlesme")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.OgrenciSozlesmeYayin", b =>
+            modelBuilder.Entity("Entity.OgrenciSozlesmeYayin", b =>
                 {
-                    b.HasOne("Entity.CMSDB.OgrenciSozlesme", "OgrenciSozlesme")
+                    b.HasOne("Entity.OgrenciSozlesme", "OgrenciSozlesme")
                         .WithMany("OgrenciSozlesmeYayin")
                         .HasForeignKey("OgrenciSozlesmeId")
                         .HasConstraintName("FK_OgrenciSozlesmeYayin_OgrenciSozlesme")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Yayin", "Yayin")
+                    b.HasOne("Entity.Yayin", "Yayin")
                         .WithMany("OgrenciSozlesmeYayin")
                         .HasForeignKey("YayinId")
                         .HasConstraintName("FK_OgrenciSozlesmeYayin_Yayin")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Permissions", b =>
+            modelBuilder.Entity("Entity.Permissions", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Roles", "Role")
+                    b.HasOne("Entity.Roles", "Role")
                         .WithMany("Permissions")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_Permissions_Roles")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Roles", b =>
+            modelBuilder.Entity("Entity.Roles", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Roles", "Role")
+                    b.HasOne("Entity.Roles", "Role")
                         .WithMany("ParentRoles")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_Roles_Roles");
 
-                    b.HasOne("Entity.CMSDB.ServiceConfig", "ServiceConfig")
+                    b.HasOne("Entity.ServiceConfig", "ServiceConfig")
                         .WithMany("Roles")
                         .HasForeignKey("ServiceConfigId")
                         .HasConstraintName("FK_Roles_ServiceConfig");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Seans", b =>
+            modelBuilder.Entity("Entity.Seans", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("Seans")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_Seans_Sube")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ServiceConfig", b =>
+            modelBuilder.Entity("Entity.ServiceConfig", b =>
                 {
-                    b.HasOne("Entity.CMSDB.ServiceConfig", "Parent")
+                    b.HasOne("Entity.ServiceConfig", "Parent")
                         .WithMany("InverseParent")
                         .HasForeignKey("ParentId")
                         .HasConstraintName("FK_ServiceConfig_ServiceConfig");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.ServiceConfigAuth", b =>
+            modelBuilder.Entity("Entity.ServiceConfigAuth", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Permissions", "Permission")
+                    b.HasOne("Entity.Permissions", "Permission")
                         .WithMany("ServiceConfigAuth")
                         .HasForeignKey("PermissionId")
                         .HasConstraintName("FK_ServiceConfigAuth_Permissions");
 
-                    b.HasOne("Entity.CMSDB.Roles", "Role")
+                    b.HasOne("Entity.Roles", "Role")
                         .WithMany("ServiceConfigAuth")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_ServiceConfigAuth_Roles");
 
-                    b.HasOne("Entity.CMSDB.ServiceConfig", "ServiceConfig")
+                    b.HasOne("Entity.ServiceConfig", "ServiceConfig")
                         .WithMany("ServiceConfigAuth")
                         .HasForeignKey("ServiceConfigId")
                         .HasConstraintName("FK_ServiceConfigAuth_ServiceConfig")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Users", "User")
+                    b.HasOne("Entity.Users", "User")
                         .WithMany("ServiceConfigAuth")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_ServiceConfigAuth_Users");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sezon", b =>
+            modelBuilder.Entity("Entity.Sezon", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Kurum", "Kurum")
+                    b.HasOne("Entity.Kurum", "Kurum")
                         .WithMany("Sezon")
                         .HasForeignKey("KurumId")
                         .HasConstraintName("FK_Sezon_Kurum")
@@ -2782,19 +2782,19 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sinif", b =>
+            modelBuilder.Entity("Entity.Sinif", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Derslik", "Derslik")
+                    b.HasOne("Entity.Derslik", "Derslik")
                         .WithMany("Sinif")
                         .HasForeignKey("DerslikId")
                         .HasConstraintName("FK_Sinif_Derslik");
 
-                    b.HasOne("Entity.CMSDB.Seans", "Seans")
+                    b.HasOne("Entity.Seans", "Seans")
                         .WithMany("Sinif")
                         .HasForeignKey("SeansId")
                         .HasConstraintName("FK_Sinif_Seans");
 
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("Sinif")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_Sinif_Sube")
@@ -2802,91 +2802,91 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.SinifOgrenci", b =>
+            modelBuilder.Entity("Entity.SinifOgrenci", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Users", "Ogrenci")
+                    b.HasOne("Entity.Users", "Ogrenci")
                         .WithMany("SinifOgrenci")
                         .HasForeignKey("OgrenciId")
                         .HasConstraintName("FK_SinifOgrenci_Users")
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.Sinif", "Sinif")
+                    b.HasOne("Entity.Sinif", "Sinif")
                         .WithMany("SinifOgrenci")
                         .HasForeignKey("SinifId")
                         .HasConstraintName("FK_SinifOgrenci_Sinif")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sozlesme", b =>
+            modelBuilder.Entity("Entity.Sozlesme", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Sube", "Sube")
+                    b.HasOne("Entity.Sube", "Sube")
                         .WithMany("Sozlesme")
                         .HasForeignKey("SubeId")
                         .HasConstraintName("FK_Sozlesme_Sube")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Sube", b =>
+            modelBuilder.Entity("Entity.Sube", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Town", "Town")
+                    b.HasOne("Entity.Town", "Town")
                         .WithMany("Sube")
                         .HasForeignKey("TownId")
                         .HasConstraintName("FK_Sube_Town");
 
-                    b.HasOne("Entity.CMSDB.Kurum", "Kurum")
+                    b.HasOne("Entity.Kurum", "Kurum")
                         .WithMany("Sube")
                         .HasForeignKey("KurumId")
                         .HasConstraintName("FK_Sube_Kurum")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.CMSDB.City", "City")
+                    b.HasOne("Entity.City", "City")
                         .WithMany("Sube")
                         .HasForeignKey("CityId")
                         .HasConstraintName("FK_Sube_City");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Town", b =>
+            modelBuilder.Entity("Entity.Town", b =>
                 {
-                    b.HasOne("Entity.CMSDB.City", "City")
+                    b.HasOne("Entity.City", "City")
                         .WithMany("Town")
                         .HasForeignKey("CityId")
                         .HasConstraintName("FK__Town__CityId__1F2E9E6D")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.UserRoles", b =>
+            modelBuilder.Entity("Entity.UserRoles", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Roles", "Role")
+                    b.HasOne("Entity.Roles", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_UserRoles_Roles");
 
-                    b.HasOne("Entity.CMSDB.Users", "User")
+                    b.HasOne("Entity.Users", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_UserRoles_Users");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Users", b =>
+            modelBuilder.Entity("Entity.Users", b =>
                 {
-                    b.HasOne("Entity.CMSDB.City", "City")
+                    b.HasOne("Entity.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId");
 
-                    b.HasOne("Entity.CMSDB.Town", "Town")
+                    b.HasOne("Entity.Town", "Town")
                         .WithMany()
                         .HasForeignKey("TownId");
                 });
 
-            modelBuilder.Entity("Entity.CMSDB.Yayin", b =>
+            modelBuilder.Entity("Entity.Yayin", b =>
                 {
-                    b.HasOne("Entity.CMSDB.Brans", "Brans")
+                    b.HasOne("Entity.Brans", "Brans")
                         .WithMany("Yayin")
                         .HasForeignKey("BransId")
                         .HasConstraintName("FK_Yayin_Brans");
 
-                    b.HasOne("Entity.CMSDB.Ders", "Ders")
+                    b.HasOne("Entity.Ders", "Ders")
                         .WithMany("Yayin")
                         .HasForeignKey("DersId")
                         .HasConstraintName("FK_Yayin_Ders")

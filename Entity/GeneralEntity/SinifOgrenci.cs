@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class SinifOgrenci : BaseModel
     {
@@ -13,8 +13,8 @@ namespace Entity.CMSDB
         
        
        
-        public int SinifId { get; set; }
-        public int OgrenciId { get; set; }
+        [Required()] public int SinifId { get; set; }
+        [Required()] public int OgrenciId { get; set; }
 
         public virtual Users Ogrenci { get; set; }
         public virtual Sinif Sinif { get; set; }

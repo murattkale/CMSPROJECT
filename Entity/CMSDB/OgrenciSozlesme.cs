@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class OgrenciSozlesme : BaseModel
     {
@@ -20,15 +20,15 @@ namespace Entity.CMSDB
         
        
        
-        public int OgrenciDetayId { get; set; }
-        public int SozlesmeTuruId { get; set; }
+        [Required()] public int OgrenciDetayId { get; set; }
+        [Required()] public int SozlesmeTuruId { get; set; }
         public string ReferansAdSoyad { get; set; }
         public int? SubeId { get; set; }
         public int? GorusenPersonelId { get; set; }
         public int? KurumaGetirenPersonelId { get; set; }
-        public int SezonId { get; set; }
+        [Required()] public int SezonId { get; set; }
         public int? ServisId { get; set; }
-        public int FinansorId { get; set; }
+        [Required()] public int FinansorId { get; set; }
         public string FaturaAd { get; set; }
         public string FaturaSoyad { get; set; }
         public string VergiNo { get; set; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
-using Entity.CMSDB; using Entity.ContextModel;
+using Entity; using Entity.ContextModel;
 
 
 public interface IPermissionsService : IGenericRepo<Permissions>

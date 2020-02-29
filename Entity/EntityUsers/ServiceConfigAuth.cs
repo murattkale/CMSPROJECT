@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class ServiceConfigAuth : BaseModel
     {
@@ -13,7 +13,7 @@ namespace Entity.CMSDB
         
        
        
-        public int ServiceConfigId { get; set; }
+        [Required()] public int ServiceConfigId { get; set; }
         public int? UserId { get; set; }
         public int? RoleId { get; set; }
         public int? PermissionId { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class Hesap : BaseModel
     {
@@ -13,11 +13,11 @@ namespace Entity.CMSDB
        
         
        
-        public int HesapTipId { get; set; }
-        public int IlgiliKasaId { get; set; }
+        [Required()] public int HesapTipId { get; set; }
+        [Required()] public int IlgiliKasaId { get; set; }
         public int? AliciKasaId { get; set; }
-        public int OdemeTipId { get; set; }
-        public double Tutar { get; set; }
+        [Required()] public int OdemeTipId { get; set; }
+        [Required()]  public double  Tutar { get; set; }
         public string Aciklama { get; set; }
         public bool OnayTip { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class OgrenciSozlesmeYayin : BaseModel
     {
@@ -13,8 +13,8 @@ namespace Entity.CMSDB
         
        
        
-        public int OgrenciSozlesmeId { get; set; }
-        public int YayinId { get; set; }
+        [Required()] public int OgrenciSozlesmeId { get; set; }
+        [Required()] public int YayinId { get; set; }
 
         public virtual OgrenciSozlesme OgrenciSozlesme { get; set; }
         public virtual Yayin Yayin { get; set; }

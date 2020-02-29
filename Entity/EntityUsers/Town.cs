@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class Town : BaseModel
     {
@@ -19,7 +19,7 @@ namespace Entity.CMSDB
 
 
 
-        public int CityId { get; set; }
+        [Required()] public int CityId { get; set; }
         public string TownName { get; set; }
 
         public virtual City City { get; set; }

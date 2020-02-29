@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity.CMSDB
+namespace Entity
 {
     public partial class Kiyafet : BaseModel
     {
@@ -19,9 +19,9 @@ namespace Entity.CMSDB
        
        
         public string Ad { get; set; }
-        public int KiyafetTurId { get; set; }
-        public int Beden { get; set; }
-        public int Stok { get; set; }
+        [Required()] public int KiyafetTurId { get; set; }
+        [Required()] public int Beden { get; set; }
+        [Required()] public int Stok { get; set; }
 
         public virtual KiyafetTur KiyafetTur { get; set; }
         public virtual ICollection<OgrenciSozlesmeKiyafet> OgrenciSozlesmeKiyafet { get; set; }
