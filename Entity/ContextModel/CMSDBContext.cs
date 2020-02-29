@@ -41,6 +41,7 @@ namespace Entity.ContextModel
         public virtual DbSet<OgrenciSozlesmeOdemeTablosu> OgrenciSozlesmeOdemeTablosu { get; set; }
         public virtual DbSet<OgrenciSozlesmeYayin> OgrenciSozlesmeYayin { get; set; }
         public virtual DbSet<Okullar> Okullar { get; set; }
+        public virtual DbSet<OkulTip> OkulTip { get; set; }
         public virtual DbSet<ParaBirimi> ParaBirimi { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
@@ -393,7 +394,7 @@ namespace Entity.ContextModel
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Name).IsRequired();
+                entity.Property(e => e.Ad).IsRequired();
             });
 
             modelBuilder.Entity<OdemeDetay>(entity =>
@@ -585,6 +586,29 @@ namespace Entity.ContextModel
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.OkulTip)
+                 .WithMany(p => p.Okullar)
+                 .HasForeignKey(d => d.OkulTipId)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("FK_Okullar_OkulTip");
+
+            });
+
+            modelBuilder.Entity<OkulTip>(entity =>
+            {
+                entity.Property(e => e.Ad).IsRequired();
+
+                entity.Property(e => e.CreaDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.IsDeleted).HasColumnType("datetime");
+
+                entity.Property(e => e.ModDate).HasColumnType("datetime");
+
+              
+
             });
 
             modelBuilder.Entity<ParaBirimi>(entity =>

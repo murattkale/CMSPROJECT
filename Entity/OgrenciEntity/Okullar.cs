@@ -3,9 +3,9 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
 namespace Entity
 {
-    public partial class NeredenDuydunuz : BaseModel
+    public partial class Okullar : BaseModel
     {
-        public NeredenDuydunuz()
+        public Okullar()
         {
             OgrenciDetay = new HashSet<OgrenciDetay>();
         }
@@ -18,8 +18,10 @@ namespace Entity
         
        
        
-        public string Name { get; set; }
+        public string Ad { get; set; }
+        [Required()] public int OkulTipId { get; set; }
 
         public virtual ICollection<OgrenciDetay> OgrenciDetay { get; set; }
+        public virtual OkulTip OkulTip { get; set; }
     }
 }

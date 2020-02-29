@@ -3,11 +3,11 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
 namespace Entity
 {
-    public partial class Okullar : BaseModel
+    public partial class OkulTip : BaseModel
     {
-        public Okullar()
+        public OkulTip()
         {
-            OgrenciDetay = new HashSet<OgrenciDetay>();
+            Okullar = new HashSet<Okullar>();
         }
 
        
@@ -21,6 +21,6 @@ namespace Entity
         public string Ad { get; set; }
         [Required()] public int OkulTipId { get; set; }
 
-        public virtual ICollection<OgrenciDetay> OgrenciDetay { get; set; }
+        public virtual ICollection<Okullar> Okullar { get; set; }
     }
 }
