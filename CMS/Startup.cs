@@ -9,6 +9,7 @@ using Entity.ContextModel;
 using GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +55,11 @@ namespace CMS
 
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
+
 
             services.AddScoped(typeof(IBankaService), typeof(BankaService));
             services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
@@ -107,11 +113,13 @@ namespace CMS
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
+            app.UseCookiePolicy();
+            app.UseSession();
             app.UseAuthorization();
+            app.UseAuthenticationMiddleware();
 
+            SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
 
             app.UseMvc(routes =>
