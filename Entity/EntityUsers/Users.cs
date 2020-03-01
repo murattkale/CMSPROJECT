@@ -14,7 +14,7 @@ namespace Entity
             OgrenciSozlesmeKurumaGetirenPersonel = new HashSet<OgrenciSozlesme>();
             ServiceConfigAuth = new HashSet<ServiceConfigAuth>();
             SinifOgrenci = new HashSet<SinifOgrenci>();
-            UserRoles = new HashSet<UserRoles>();
+            UserRoles = new HashSet<UserRole>();
         }
 
        
@@ -72,6 +72,6 @@ namespace Entity
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeKurumaGetirenPersonel { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
         public virtual ICollection<SinifOgrenci> SinifOgrenci { get; set; }
-        public virtual ICollection<UserRoles> UserRoles { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }

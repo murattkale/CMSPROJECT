@@ -1,0 +1,127 @@
+﻿
+@{
+    Layout = null;
+    string pageTitle = "DersGrup";
+    string DersGrup_ControlNameUrl = "DersGrup";
+    string FormName = "frm_" + DersGrup_ControlNameUrl + "_";
+    int DersGrup_idUrl = Context.Request.Query["id"].ToInt();
+    var DersGrup_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = DersGrup_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+
+    var edit = ViewBag.edit as DersGrup;
+    if (edit == null)
+    {
+        edit = new DersGrup();
+    }
+    else
+    {
+        //DersGrup_idUrl_select = edit.KasaTipId.ToStr();
+    }
+
+}
+
+<script type="text/javascript">
+        var DersGrup_FormName = "@Html.Raw(FormName)";
+        var DersGrup_ControlNameUrl = "@DersGrup_ControlNameUrl";
+    var DersGrup_idUrl = @DersGrup_idUrl;
+
+</script>
+
+
+
+<style>
+    .modal-dialog {
+        width: 75% !important;
+    }
+</style>
+
+
+
+<!-- begin:: DersGrup -->
+<div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+
+            <div class="kt-portlet__head-label">
+
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    @Html.Raw(title)
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+            <form name="@FormName" id="@FormName">
+                <div class="form-horizontal">
+
+
+                    @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-9 col-md-9">
+                            <input id="btnOK" type="submit" value="@title" class="btn btn-brand btn-elevate btn-icon-sm" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end:: DersGrup -->
+
+
+
+
+
+<script type="text/javascript">
+    var DersGrup_EditFunc;
+    $(function () {
+        DersGrup_EditFunc = {
+            load: function () {
+
+                $('#' + DersGrup_FormName).submit(function (e) {
+                    e.preventDefault();
+                    var postModel = $.fn.toForm("#" + DersGrup_FormName);
+                    $.LoadingOverlay("show");
+
+                    $.ajx(DersGrup_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                        if (resultData.ResultType.RType != 3) {
+                            DersGrup_ListFunc.GetPaging();
+                            $("#ajaxSub button[data-dismiss='modal']").click();
+                        }
+                        else {
+                            alerts(resultData.ResultType.MessageList[0]);
+                        }
+                        $.LoadingOverlay("hide");
+                    }, function () { location.reload(); });
+
+                });
+            },
+
+
+
+        };
+        DersGrup_EditFunc.load();
+    });
+
+
+</script>
+
+
+

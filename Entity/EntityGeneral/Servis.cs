@@ -23,6 +23,7 @@ namespace Entity
         public string Guzergah { get; set; }
         [Required()] public int Kapasite { get; set; }
 
+        public virtual Sube Sube { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }
 }

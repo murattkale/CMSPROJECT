@@ -7,53 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
 
-using Entity;
 using Entity; using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
-    public class PermissionsController : Controller
+    public class PermissionController : Controller
     {
-        IPermissionsService _IPermissionsService;
-        public PermissionsController(IPermissionsService _IPermissionsService) { this._IPermissionsService = _IPermissionsService; }
+        IPermissionService _IPermissionService;
+        public PermissionController(IPermissionService _IPermissionService) { this._IPermissionService = _IPermissionService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Permissions> param, Permissions searchModel)
+        public JsonResult GetPaging(DTParameters<Permission> param, Permission searchModel)
         {
-            var result = _IPermissionsService.GetPaging(null, true, param, false);
+            var result = _IPermissionService.GetPaging(null, true, param, false,o=>o.Role);
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _IPermissionsService.Where().Result.Select(o => new { value = o.Id, text = o.Name });
+            var result = _IPermissionService.Where().Result.Select(o => new { value = o.Id, text = o.Name });
             return Json(result);
         }
 
 
-        public JsonResult InsertOrUpdate(Permissions postModel)
+        public JsonResult InsertOrUpdate(Permission postModel)
         {
-            var result = _IPermissionsService.InsertOrUpdate(postModel);
+            var result = _IPermissionService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Permissions Get(int id)
+        public Permission Get(int id)
         {
-            var result = _IPermissionsService.Find(id);
+            var result = _IPermissionService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IPermissionsService.Delete(id);
-            _IPermissionsService.SaveChanges();
+            var result = _IPermissionService.Delete(id);
+            _IPermissionService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Permissions";
+            ViewBag.pageTitle = "Permission";
             return View();
         }
 

@@ -43,8 +43,8 @@ namespace Entity.ContextModel
         public virtual DbSet<Okul> Okullar { get; set; }
         public virtual DbSet<OkulTip> OkulTip { get; set; }
         public virtual DbSet<ParaBirimi> ParaBirimi { get; set; }
-        public virtual DbSet<Permissions> Permissions { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Seans> Seans { get; set; }
         public virtual DbSet<ServiceConfig> ServiceConfig { get; set; }
         public virtual DbSet<ServiceConfigAuth> ServiceConfigAuth { get; set; }
@@ -56,7 +56,7 @@ namespace Entity.ContextModel
         public virtual DbSet<SozlesmeTur> SozlesmeTur { get; set; }
         public virtual DbSet<Sube> Sube { get; set; }
         public virtual DbSet<Town> Town { get; set; }
-        public virtual DbSet<UserRoles> UserRoles { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<VeliDetay> VeliDetay { get; set; }
         public virtual DbSet<Yayin> Yayin { get; set; }
@@ -68,7 +68,7 @@ namespace Entity.ContextModel
             if (!optionsBuilder.IsConfigured)
             {
                 //optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;");
-                optionsBuilder.UseSqlServer("Server=.;Database=u9073914_cms;user id=sa;password=123_*1;MultipleActiveResultSets=True;",
+                optionsBuilder.UseSqlServer("Server=.;Database=cmsdb;user id=sa;password=123_*1;MultipleActiveResultSets=True;",
                     x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema")
                     );
             }
@@ -627,7 +627,7 @@ namespace Entity.ContextModel
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<Permissions>(entity =>
+            modelBuilder.Entity<Permission>(entity =>
             {
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")
@@ -648,7 +648,7 @@ namespace Entity.ContextModel
                     .HasConstraintName("FK_Permissions_Roles");
             });
 
-            modelBuilder.Entity<Roles>(entity =>
+            modelBuilder.Entity<Role>(entity =>
             {
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")
@@ -662,13 +662,13 @@ namespace Entity.ContextModel
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.Role)
+                entity.HasOne(d => d.RoleParent)
                     .WithMany(p => p.ParentRoles)
-                    .HasForeignKey(d => d.RoleId)
+                    .HasForeignKey(d => d.RoleParentId)
                     .HasConstraintName("FK_Roles_Roles");
 
                 entity.HasOne(d => d.ServiceConfig)
-                    .WithMany(p => p.Roles)
+                    .WithMany(p => p.Role)
                     .HasForeignKey(d => d.ServiceConfigId)
                     .HasConstraintName("FK_Roles_ServiceConfig");
             });
@@ -750,9 +750,9 @@ namespace Entity.ContextModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ServiceConfigAuth_ServiceConfig");
 
-                entity.HasOne(d => d.User)
+                entity.HasOne(d => d.Users)
                     .WithMany(p => p.ServiceConfigAuth)
-                    .HasForeignKey(d => d.UserId)
+                    .HasForeignKey(d => d.UsersId)
                     .HasConstraintName("FK_ServiceConfigAuth_Users");
             });
 
@@ -923,7 +923,7 @@ namespace Entity.ContextModel
                     .HasConstraintName("FK__Town__CityId__1F2E9E6D");
             });
 
-            modelBuilder.Entity<UserRoles>(entity =>
+            modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.Property(e => e.CreaDate)
                     .HasColumnType("datetime")

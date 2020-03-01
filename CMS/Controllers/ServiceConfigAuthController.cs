@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using CMS.Models;
 
 using Entity;
-using Entity; using Entity.ContextModel;
+using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
@@ -20,7 +20,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ServiceConfigAuth> param, ServiceConfigAuth searchModel)
         {
-            var result = _IServiceConfigAuthService.GetPaging(null, true, param, false);
+            var result = _IServiceConfigAuthService.GetPaging(null, true, param, false, o => o.Role, o => o.ServiceConfig, o => o.Permission, o => o.Users);
             return Json(result);
         }
 

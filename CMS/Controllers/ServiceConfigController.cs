@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
 
-using Entity;
 using Entity; using Entity.ContextModel;
 
 namespace CMS.Controllers
@@ -20,7 +19,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ServiceConfig> param, ServiceConfig searchModel)
         {
-            var result = _IServiceConfigService.GetPaging(null, true, param, false);
+            var result = _IServiceConfigService.GetPaging(null, true, param, false,o=>o.Parent);
             return Json(result);
         }
 

@@ -8,15 +8,10 @@ namespace Entity
         public ServiceConfig()
         {
             InverseParent = new HashSet<ServiceConfig>();
-            Roles = new HashSet<Roles>();
+            Role = new HashSet<Role>();
             ServiceConfigAuth = new HashSet<ServiceConfigAuth>();
         }
 
-       
-        
-        
-        
-       
         
        
        
@@ -29,7 +24,7 @@ namespace Entity
 
         public virtual ServiceConfig Parent { get; set; }
         public virtual ICollection<ServiceConfig> InverseParent { get; set; }
-        public virtual ICollection<Roles> Roles { get; set; }
+        public virtual ICollection<Role> Role { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
     }
 }

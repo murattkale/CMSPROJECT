@@ -19,7 +19,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Ders> param, Ders searchModel)
         {
-            var result = _IDersService.GetPaging(null, true, param, false);
+            var result = _IDersService.GetPaging(null, true, param, false,o=>o.DersGrup);
             return Json(result);
         }
 

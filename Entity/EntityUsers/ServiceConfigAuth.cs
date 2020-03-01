@@ -14,7 +14,7 @@ namespace Entity
        
        
         [Required()] public int ServiceConfigId { get; set; }
-        public int? UserId { get; set; }
+        public int? UsersId { get; set; }
         public int? RoleId { get; set; }
         public int? PermissionId { get; set; }
         public bool? IsCreate { get; set; }
@@ -23,9 +23,9 @@ namespace Entity
         public bool? IsDelete { get; set; }
         public bool? IsList { get; set; }
 
-        public virtual Permissions Permission { get; set; }
-        public virtual Roles Role { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
         public virtual ServiceConfig ServiceConfig { get; set; }
-        public virtual Users User { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

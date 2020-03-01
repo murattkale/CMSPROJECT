@@ -74,9 +74,9 @@ namespace CMS
             services.AddScoped(typeof(ITownService), typeof(TownService));
 
             services.AddScoped(typeof(IUsersService), typeof(UsersService));
-            services.AddScoped(typeof(IUserRolesService), typeof(UserRolesService));
-            services.AddScoped(typeof(IRolesService), typeof(RolesService));
-            services.AddScoped(typeof(IPermissionsService), typeof(PermissionsService));
+            services.AddScoped(typeof(IUserRoleService), typeof(UserRoleService));
+            services.AddScoped(typeof(IRoleService), typeof(RoleService));
+            services.AddScoped(typeof(IPermissionService), typeof(PermissionService));
 
             services.AddScoped(typeof(IServiceConfigService), typeof(ServiceConfigService));
             services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));

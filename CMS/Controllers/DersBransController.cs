@@ -6,53 +6,51 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
-
-using Entity; using Entity.ContextModel;
+using Entity;
 
 namespace CMS.Controllers
 {
     public class DersBransController : Controller
     {
         IDersBransService _IDersBransService;
-        public DersBransController(IDersBransService _IDersBransService) { this._IDersBransService = _IDersBransService; }
+        IDersService _IDersService;
+        public DersBransController(IDersBransService _IDersBransService, IDersService _IDersService)
+        { this._IDersBransService = _IDersBransService; this._IDersService = _IDersService; }
 
-        [HttpPost]
-        public JsonResult GetPaging(DTParameters<DersBrans> param, DersBrans searchModel)
+
+        public IActionResult setData(int id1, int id2, string type)
         {
-            var result = _IDersBransService.GetPaging(null, true, param, false);
-            return Json(result);
-        }
-
-     
-
-        public JsonResult InsertOrUpdate(DersBrans postModel)
-        {
-            var result = _IDersBransService.InsertOrUpdate(postModel);
-            return Json(result);
-        }
-
-        public DersBrans Get(int id)
-        {
-            var result = _IDersBransService.Find(id);
-            return (result);
-        }
-
-        public JsonResult Delete(int id)
-        {
-            var result = _IDersBransService.Delete(id);
+            if (type == "add")
+            {
+                _IDersBransService.Add(new DersBrans() { BransId = id1, DersId = id2 });
+            }
+            else
+            {
+                var dp = _IDersBransService.Where(o => o.BransId == id1 && o.DersId == id2).Result.ToList();
+                _IDersBransService.DeleteBulk(dp);
+            }
             _IDersBransService.SaveChanges();
-            return Json(result);
+
+            return Json("ok");
         }
+
+        public IActionResult getData(int id1)
+        {
+            var dp = _IDersBransService.Where(o => o.BransId == id1).Result.ToList();
+            var departman = _IDersService.Where().Result.ToList().Select(o =>
+               new
+               {
+                   value = o.Id,
+                   text = o.Ad,
+                   selected = dp.Any(oo => oo.DersId == o.Id)
+               }).ToList();
+            return Json(departman);
+        }
+
 
         public IActionResult Index()
         {
             ViewBag.pageTitle = "DersBrans";
-            return View();
-        }
-
-        public IActionResult InsertOrUpdatePage()
-        {
-            ViewBag.edit = Get(Request.Query["id"].ToInt());
             return View();
         }
 

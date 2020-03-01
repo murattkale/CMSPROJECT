@@ -19,7 +19,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Okul> param, Okul searchModel)
         {
-            var result = _IOkulService.GetPaging(null, true, param, false);
+            var result = _IOkulService.GetPaging(null, true, param, false,o=>o.OkulTip);
             return Json(result);
         }
 

@@ -1581,7 +1581,7 @@ namespace Entity.Migrations
                     b.ToTable("ParaBirimi");
                 });
 
-            modelBuilder.Entity("Entity.Permissions", b =>
+            modelBuilder.Entity("Entity.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1629,7 +1629,7 @@ namespace Entity.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("Entity.Roles", b =>
+            modelBuilder.Entity("Entity.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1667,7 +1667,7 @@ namespace Entity.Migrations
                     b.Property<int?>("OrderNo")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int?>("RoleParentId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ServiceConfigId")
@@ -1675,11 +1675,11 @@ namespace Entity.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("RoleParentId");
 
                     b.HasIndex("ServiceConfigId");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Role");
                 });
 
             modelBuilder.Entity("Entity.Seans", b =>
@@ -1852,7 +1852,7 @@ namespace Entity.Migrations
                     b.Property<int>("ServiceConfigId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("UsersId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -1863,7 +1863,7 @@ namespace Entity.Migrations
 
                     b.HasIndex("ServiceConfigId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("ServiceConfigAuth");
                 });
@@ -1916,6 +1916,8 @@ namespace Entity.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SubeId");
 
                     b.ToTable("Servis");
                 });
@@ -2344,7 +2346,7 @@ namespace Entity.Migrations
                     b.ToTable("Town");
                 });
 
-            modelBuilder.Entity("Entity.UserRoles", b =>
+            modelBuilder.Entity("Entity.UserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2894,24 +2896,24 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Permissions", b =>
+            modelBuilder.Entity("Entity.Permission", b =>
                 {
-                    b.HasOne("Entity.Roles", "Role")
+                    b.HasOne("Entity.Role", "Role")
                         .WithMany("Permissions")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_Permissions_Roles")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Roles", b =>
+            modelBuilder.Entity("Entity.Role", b =>
                 {
-                    b.HasOne("Entity.Roles", "Role")
+                    b.HasOne("Entity.Role", "RoleParent")
                         .WithMany("ParentRoles")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RoleParentId")
                         .HasConstraintName("FK_Roles_Roles");
 
                     b.HasOne("Entity.ServiceConfig", "ServiceConfig")
-                        .WithMany("Roles")
+                        .WithMany("Role")
                         .HasForeignKey("ServiceConfigId")
                         .HasConstraintName("FK_Roles_ServiceConfig");
                 });
@@ -2935,12 +2937,12 @@ namespace Entity.Migrations
 
             modelBuilder.Entity("Entity.ServiceConfigAuth", b =>
                 {
-                    b.HasOne("Entity.Permissions", "Permission")
+                    b.HasOne("Entity.Permission", "Permission")
                         .WithMany("ServiceConfigAuth")
                         .HasForeignKey("PermissionId")
                         .HasConstraintName("FK_ServiceConfigAuth_Permissions");
 
-                    b.HasOne("Entity.Roles", "Role")
+                    b.HasOne("Entity.Role", "Role")
                         .WithMany("ServiceConfigAuth")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_ServiceConfigAuth_Roles");
@@ -2951,10 +2953,19 @@ namespace Entity.Migrations
                         .HasConstraintName("FK_ServiceConfigAuth_ServiceConfig")
                         .IsRequired();
 
-                    b.HasOne("Entity.Users", "User")
+                    b.HasOne("Entity.Users", "Users")
                         .WithMany("ServiceConfigAuth")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UsersId")
                         .HasConstraintName("FK_ServiceConfigAuth_Users");
+                });
+
+            modelBuilder.Entity("Entity.Servis", b =>
+                {
+                    b.HasOne("Entity.Sube", "Sube")
+                        .WithMany()
+                        .HasForeignKey("SubeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.Sezon", b =>
@@ -3040,9 +3051,9 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.UserRoles", b =>
+            modelBuilder.Entity("Entity.UserRole", b =>
                 {
-                    b.HasOne("Entity.Roles", "Role")
+                    b.HasOne("Entity.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .HasConstraintName("FK_UserRoles_Roles");

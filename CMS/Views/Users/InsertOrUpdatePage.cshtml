@@ -1,4 +1,4 @@
-﻿@using Entity
+﻿
 @{
     Layout = null;
     string pageTitle = "Users";
@@ -68,6 +68,8 @@
                 <div class="form-horizontal">
 
                     @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "TownId", "CityId" }))
+
+                    <partial name="../UserRole/Index" />
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
