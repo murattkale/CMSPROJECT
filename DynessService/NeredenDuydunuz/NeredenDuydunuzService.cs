@@ -7,16 +7,16 @@ using System;
  using Entity.ContextModel;
 
 
-public class BransService : GenericRepo<Brans>, IBransService
+public class NeredenDuydunuzService : GenericRepo<NeredenDuydunuz>, INeredenDuydunuzService
     {
 
 
-        public BransService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public NeredenDuydunuzService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
-        public RModel<Brans> InsertOrUpdate(Brans model)
+        public RModel<NeredenDuydunuz> InsertOrUpdate(NeredenDuydunuz model)
         {
-            RModel<Brans> res = new RModel<Brans>();
+            RModel<NeredenDuydunuz> res = new RModel<NeredenDuydunuz>();
             res.ResultType = new ResultType();
             res.ResultType.MessageList = new List<string>();
 

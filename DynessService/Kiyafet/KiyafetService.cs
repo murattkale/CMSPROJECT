@@ -4,19 +4,18 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
- using Entity.ContextModel;
+using Entity.ContextModel;
 
-
-public class BransService : GenericRepo<Brans>, IBransService
+public class KiyafetService : GenericRepo<Kiyafet>, IKiyafetService
     {
 
 
-        public BransService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public KiyafetService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
-        public RModel<Brans> InsertOrUpdate(Brans model)
+        public RModel<Kiyafet> InsertOrUpdate(Kiyafet model)
         {
-            RModel<Brans> res = new RModel<Brans>();
+            RModel<Kiyafet> res = new RModel<Kiyafet>();
             res.ResultType = new ResultType();
             res.ResultType.MessageList = new List<string>();
 

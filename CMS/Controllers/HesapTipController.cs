@@ -27,7 +27,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _IHesapTipService.Where().Result.Select(o => new { value = o.Id, text = o.Ad + " (" + ((GelirGiderType)o.GelirGiderTipi).ExGetDescription() + ")" });
+            var result = _IHesapTipService.Where().Result.Select(o => new { value = o.Id, text = o.Ad + " (" + ((GelirGiderTipi)o.GelirGiderTipi).ExGetDescription() + ")" });
             return Json(result);
         }
 

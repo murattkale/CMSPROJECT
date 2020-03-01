@@ -19,9 +19,10 @@ namespace Entity
        
        
         [Required()] public int OgrenciDetayId { get; set; }
-        [Required()] public int YakinlikDerecesiId { get; set; }
+        [Required()] public YakinlikDerecesi YakinlikDerecesiId { get; set; }
         public bool? Iletisim { get; set; }
 
+        public virtual OgrenciDetay OgrenciDetay { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }
 }

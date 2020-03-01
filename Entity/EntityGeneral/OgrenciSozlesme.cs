@@ -21,7 +21,7 @@ namespace Entity
        
        
         [Required()] public int OgrenciDetayId { get; set; }
-        [Required()] public int SozlesmeTuruId { get; set; }
+        [Required()] public int SozlesmeTurId { get; set; }
         public string ReferansAdSoyad { get; set; }
         public int? SubeId { get; set; }
         public int? GorusenPersonelId { get; set; }
@@ -49,7 +49,7 @@ namespace Entity
         public virtual OgrenciDetay OgrenciDetay { get; set; }
         public virtual Servis Servis { get; set; }
         public virtual Sezon Sezon { get; set; }
-        public virtual SozlesmeTur SozlesmeTuru { get; set; }
+        public virtual SozlesmeTur SozlesmeTur { get; set; }
         public virtual Sube Sube { get; set; }
         public virtual ICollection<OgrenciSozlesmeKiyafet> OgrenciSozlesmeKiyafet { get; set; }
         public virtual ICollection<OgrenciSozlesmeOdemeTablosu> OgrenciSozlesmeOdemeTablosu { get; set; }

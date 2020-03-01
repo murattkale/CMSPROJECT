@@ -1190,7 +1190,7 @@ namespace Entity.Migrations
                     b.Property<int>("SezonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SozlesmeTuruId")
+                    b.Property<int>("SozlesmeTurId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SubeId")
@@ -1228,7 +1228,7 @@ namespace Entity.Migrations
 
                     b.HasIndex("SezonId");
 
-                    b.HasIndex("SozlesmeTuruId");
+                    b.HasIndex("SozlesmeTurId");
 
                     b.HasIndex("SubeId");
 
@@ -1371,49 +1371,7 @@ namespace Entity.Migrations
                     b.ToTable("OgrenciSozlesmeYayin");
                 });
 
-            modelBuilder.Entity("Entity.OkulTip", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreaDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
-
-                    b.Property<int>("CreaUser")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("IsDeleted")
-                        .HasColumnType("datetime");
-
-                    b.Property<int?>("IsStatus")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("ModDate")
-                        .HasColumnType("datetime");
-
-                    b.Property<int?>("ModUser")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OkulTipId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OrderNo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("OkulTip");
-                });
-
-            modelBuilder.Entity("Entity.Okullar", b =>
+            modelBuilder.Entity("Entity.Okul", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1455,6 +1413,48 @@ namespace Entity.Migrations
                     b.HasIndex("OkulTipId");
 
                     b.ToTable("Okullar");
+                });
+
+            modelBuilder.Entity("Entity.OkulTip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Ad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreaDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime")
+                        .HasDefaultValueSql("(getdate())");
+
+                    b.Property<int>("CreaUser")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("IsDeleted")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("IsStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int?>("ModUser")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OkulTipId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderNo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OkulTip");
                 });
 
             modelBuilder.Entity("Entity.ParaBirimi", b =>
@@ -2426,6 +2426,8 @@ namespace Entity.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OgrenciDetayId");
+
                     b.ToTable("VeliDetay");
                 });
 
@@ -2659,7 +2661,7 @@ namespace Entity.Migrations
                         .HasForeignKey("NeredenDuydunuzId")
                         .HasConstraintName("FK_OgrenciDetay_NeredenDuydunuz");
 
-                    b.HasOne("Entity.Okullar", "Okullar")
+                    b.HasOne("Entity.Okul", "Okullar")
                         .WithMany("OgrenciDetay")
                         .HasForeignKey("OkullarId")
                         .HasConstraintName("FK_OgrenciDetay_Okullar");
@@ -2700,9 +2702,9 @@ namespace Entity.Migrations
                         .HasConstraintName("FK_OgrenciSozlesme_Sezon")
                         .IsRequired();
 
-                    b.HasOne("Entity.SozlesmeTur", "SozlesmeTuru")
+                    b.HasOne("Entity.SozlesmeTur", "SozlesmeTur")
                         .WithMany("OgrenciSozlesme")
-                        .HasForeignKey("SozlesmeTuruId")
+                        .HasForeignKey("SozlesmeTurId")
                         .HasConstraintName("FK_OgrenciSozlesme_SozlesmeTur")
                         .IsRequired();
 
@@ -2751,7 +2753,7 @@ namespace Entity.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entity.Okullar", b =>
+            modelBuilder.Entity("Entity.Okul", b =>
                 {
                     b.HasOne("Entity.OkulTip", "OkulTip")
                         .WithMany("Okullar")
@@ -2928,6 +2930,16 @@ namespace Entity.Migrations
                     b.HasOne("Entity.Town", "Town")
                         .WithMany()
                         .HasForeignKey("TownId");
+                });
+
+            modelBuilder.Entity("Entity.VeliDetay", b =>
+                {
+                    b.HasOne("Entity.OgrenciDetay", "OgrenciDetay")
+                        .WithMany("VeliDetay")
+                        .HasForeignKey("OgrenciDetayId")
+                        .HasConstraintName("FK_VeliDetay_OgrenciDetay")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.Yayin", b =>

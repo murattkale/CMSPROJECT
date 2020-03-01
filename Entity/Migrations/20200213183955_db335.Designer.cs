@@ -2657,7 +2657,7 @@ namespace Entity.Migrations
                         .HasConstraintName("FK_OgrenciSozlesme_Sezon")
                         .IsRequired();
 
-                    b.HasOne("Entity.SozlesmeTur", "SozlesmeTuru")
+                    b.HasOne("Entity.SozlesmeTur", "SozlesmeTur")
                         .WithMany("OgrenciSozlesme")
                         .HasForeignKey("SozlesmeTuruId")
                         .HasConstraintName("FK_OgrenciSozlesme_SozlesmeTur")

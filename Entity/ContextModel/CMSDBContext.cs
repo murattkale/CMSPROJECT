@@ -40,7 +40,7 @@ namespace Entity.ContextModel
         public virtual DbSet<OgrenciSozlesmeKiyafet> OgrenciSozlesmeKiyafet { get; set; }
         public virtual DbSet<OgrenciSozlesmeOdemeTablosu> OgrenciSozlesmeOdemeTablosu { get; set; }
         public virtual DbSet<OgrenciSozlesmeYayin> OgrenciSozlesmeYayin { get; set; }
-        public virtual DbSet<Okullar> Okullar { get; set; }
+        public virtual DbSet<Okul> Okullar { get; set; }
         public virtual DbSet<OkulTip> OkulTip { get; set; }
         public virtual DbSet<ParaBirimi> ParaBirimi { get; set; }
         public virtual DbSet<Permissions> Permissions { get; set; }
@@ -451,6 +451,7 @@ namespace Entity.ContextModel
                     .WithMany(p => p.OgrenciDetay)
                     .HasForeignKey(d => d.OkullarId)
                     .HasConstraintName("FK_OgrenciDetay_Okullar");
+
             });
 
             modelBuilder.Entity<OgrenciSozlesme>(entity =>
@@ -498,9 +499,9 @@ namespace Entity.ContextModel
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OgrenciSozlesme_Sezon");
 
-                entity.HasOne(d => d.SozlesmeTuru)
+                entity.HasOne(d => d.SozlesmeTur)
                     .WithMany(p => p.OgrenciSozlesme)
-                    .HasForeignKey(d => d.SozlesmeTuruId)
+                    .HasForeignKey(d => d.SozlesmeTurId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OgrenciSozlesme_SozlesmeTur");
 
@@ -575,7 +576,7 @@ namespace Entity.ContextModel
                     .HasConstraintName("FK_OgrenciSozlesmeYayin_Yayin");
             });
 
-            modelBuilder.Entity<Okullar>(entity =>
+            modelBuilder.Entity<Okul>(entity =>
             {
                 entity.Property(e => e.Ad).IsRequired();
 
@@ -1005,6 +1006,11 @@ namespace Entity.ContextModel
                 entity.Property(e => e.IsDeleted).HasColumnType("datetime");
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.OgrenciDetay)
+                  .WithMany(p => p.VeliDetay)
+                  .HasForeignKey(d => d.OgrenciDetayId)
+                  .HasConstraintName("FK_VeliDetay_OgrenciDetay");
             });
 
             modelBuilder.Entity<Yayin>(entity =>

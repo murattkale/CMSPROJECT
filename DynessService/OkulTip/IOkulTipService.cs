@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
- using Entity.ContextModel;
 
 
-public interface IBransService : IGenericRepo<Brans>
+public interface IOkulTipService : IGenericRepo<OkulTip>
 {
-    RModel<Brans> InsertOrUpdate(Brans model);
+    RModel<OkulTip> InsertOrUpdate(OkulTip model);
 
 }
 

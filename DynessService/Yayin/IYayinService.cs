@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
- using Entity.ContextModel;
 
 
-public interface IBransService : IGenericRepo<Brans>
+public interface IYayinService : IGenericRepo<Yayin>
 {
-    RModel<Brans> InsertOrUpdate(Brans model);
+    RModel<Yayin> InsertOrUpdate(Yayin model);
 
 }
 

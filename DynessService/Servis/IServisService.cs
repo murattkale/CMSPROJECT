@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
- using Entity.ContextModel;
 
 
-public interface IBransService : IGenericRepo<Brans>
+public interface IServisService : IGenericRepo<Servis>
 {
-    RModel<Brans> InsertOrUpdate(Brans model);
+    RModel<Servis> InsertOrUpdate(Servis model);
 
 }
 

@@ -4,19 +4,18 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
- using Entity.ContextModel;
+using Entity.ContextModel;
 
-
-public class BransService : GenericRepo<Brans>, IBransService
+public class OkulService : GenericRepo<Okul>, IOkulService
     {
 
 
-        public BransService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public OkulService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
-        public RModel<Brans> InsertOrUpdate(Brans model)
+        public RModel<Okul> InsertOrUpdate(Okul model)
         {
-            RModel<Brans> res = new RModel<Brans>();
+            RModel<Okul> res = new RModel<Okul>();
             res.ResultType = new ResultType();
             res.ResultType.MessageList = new List<string>();
 

@@ -4,19 +4,18 @@ using System.Collections.Generic;
 using GenericRepository;
 using Entity;
 using System;
- using Entity.ContextModel;
+using Entity.ContextModel;
 
-
-public class BransService : GenericRepo<Brans>, IBransService
+public class DersGrupService : GenericRepo<DersGrup>, IDersGrupService
     {
 
 
-        public BransService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
+        public DersGrupService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }
-        public RModel<Brans> InsertOrUpdate(Brans model)
+        public RModel<DersGrup> InsertOrUpdate(DersGrup model)
         {
-            RModel<Brans> res = new RModel<Brans>();
+            RModel<DersGrup> res = new RModel<DersGrup>();
             res.ResultType = new ResultType();
             res.ResultType.MessageList = new List<string>();
 

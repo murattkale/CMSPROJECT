@@ -5,14 +5,14 @@ using System.Linq;
 using System.Web;
 
 
-public enum RType
+public enum RType : int
 {
     OK = 1,
     Error = 2,
     Warning = 3
 }
 
-public enum LoginErrorType
+public enum LoginErrorType : int
 {
     Error = -1,
     Success = 0,
@@ -22,7 +22,7 @@ public enum LoginErrorType
     User = 4,
 }
 
-public enum ContentPageType
+public enum ContentPageType : int
 {
     [Description("SAYFA")]
     Sayfa = 2,
@@ -49,7 +49,7 @@ public enum ContentPageType
 }
 
 
-public enum FormType
+public enum FormType : int
 {
     [Description("Anasayfa")]
     Anasayfa = 1,
@@ -63,7 +63,7 @@ public enum FormType
     ilkteknem = 9,
 }
 
-public enum GelirGiderType
+public enum GelirGiderTipi : int
 {
     [Description("Gelir")]
     Gelir = 1,
@@ -72,7 +72,7 @@ public enum GelirGiderType
 }
 
 
-public enum YakinlikDerecesi
+public enum YakinlikDerecesi : int
 {
     [Description("Anne")]
     Anne = 1,

@@ -3,9 +3,9 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
 namespace Entity
 {
-    public partial class Okullar : BaseModel
+    public partial class Okul : BaseModel
     {
-        public Okullar()
+        public Okul()
         {
             OgrenciDetay = new HashSet<OgrenciDetay>();
         }

@@ -7,15 +7,11 @@ namespace Entity
     {
         public OgrenciDetay()
         {
+            VeliDetay = new HashSet<VeliDetay>();
+
             OgrenciSozlesme = new HashSet<OgrenciSozlesme>();
         }
 
-       
-        
-        
-        
-       
-        
        
        
         public int? NeredenDuydunuzId { get; set; }
@@ -25,7 +21,9 @@ namespace Entity
         public int? OkullarId { get; set; }
 
         public virtual NeredenDuydunuz NeredenDuydunuz { get; set; }
-        public virtual Okullar Okullar { get; set; }
+        public virtual Okul Okullar { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
+
+        public virtual ICollection<VeliDetay> VeliDetay { get; set; }
     }
 }
