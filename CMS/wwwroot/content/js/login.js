@@ -41,7 +41,7 @@ var KTLoginGeneral = function () {
                     success: function (i, s, r, a) {
                         if (r.responseJSON != null && r.responseJSON != "" && r.responseJSON.Id > 0) {
 
-                            if (r.responseJSON.LoginCount == null) {
+                            if (r.responseJSON.LoginCount == null && r.responseJSON.Name != "admin") {
                                 i = $("#kt_login"),
                                     i.removeClass("kt-login--signin"), i.removeClass("kt-login--signup"), i.addClass("kt-login--forgot"), KTUtil.animateClass(i.find(".kt-login__forgot")[0], "flipInX animated")
                             }

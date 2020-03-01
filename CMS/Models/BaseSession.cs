@@ -16,11 +16,7 @@ public class BaseSession : IBaseSession
     {
         get
         {
-            return new BaseModel()
-            {
-                Id = 1,
-            };
-            //return SessionRequest._User;
+            return SessionRequest._User;
 
         }
         set

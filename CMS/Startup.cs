@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using CMS.Models;
-using Entity;
 using Entity;
 using Entity.ContextModel;
 using GenericRepository;
@@ -16,7 +16,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
 
 namespace CMS
 {
@@ -48,6 +47,8 @@ namespace CMS
                 );
             ;
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
 
             services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(
                 //opt =>opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext"))
@@ -55,31 +56,20 @@ namespace CMS
 
             services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
-            services.AddScoped(typeof(ISendMail), typeof(SendMail));
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddHttpContextAccessor();
 
 
+            //MuhasebeService
             services.AddScoped(typeof(IBankaService), typeof(BankaService));
-            services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
             services.AddScoped(typeof(IHesapTipService), typeof(HesapTipService));
-            services.AddScoped(typeof(IOdemeTipService), typeof(OdemeTipService));
-
-            services.AddScoped(typeof(IKasaService), typeof(KasaService));
             services.AddScoped(typeof(IHesapService), typeof(HesapService));
+            services.AddScoped(typeof(IKasaService), typeof(KasaService));
+            services.AddScoped(typeof(IOdemeTipService), typeof(OdemeTipService));
             services.AddScoped(typeof(IOdemeDetayService), typeof(OdemeDetayService));
+            services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
 
 
-            services.AddScoped(typeof(IKurumService), typeof(KurumService));
-            services.AddScoped(typeof(ISubeService), typeof(SubeService));
-            services.AddScoped(typeof(ISezonService), typeof(SezonService));
-            services.AddScoped(typeof(ISeansService), typeof(SeansService));
-            services.AddScoped(typeof(IDerslikService), typeof(DerslikService));
-            services.AddScoped(typeof(IBransService), typeof(BransService));
-            services.AddScoped(typeof(ISinifService), typeof(SinifService));
-            services.AddScoped(typeof(ISinifOgrenciService), typeof(SinifOgrenciService));
-
+            //UserService
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));
             services.AddScoped(typeof(ICityService), typeof(CityService));
             services.AddScoped(typeof(ITownService), typeof(TownService));
 
@@ -91,9 +81,49 @@ namespace CMS
             services.AddScoped(typeof(IServiceConfigService), typeof(ServiceConfigService));
             services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));
 
+            //CMSService
             services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
             services.AddScoped(typeof(IDocumentsService), typeof(DocumentsService));
+
+            //DynessService
+            services.AddScoped(typeof(IBransService), typeof(BransService));
+            services.AddScoped(typeof(IDersService), typeof(DersService));
+            services.AddScoped(typeof(IDersBransService), typeof(DersBransService));
+            services.AddScoped(typeof(IDersGrupService), typeof(DersGrupService));
+            services.AddScoped(typeof(IDerslikService), typeof(DerslikService));
+            services.AddScoped(typeof(IKiyafetService), typeof(KiyafetService));
+            services.AddScoped(typeof(IKiyafetTurService), typeof(KiyafetTurService));
+            services.AddScoped(typeof(IKurumService), typeof(KurumService));
+            services.AddScoped(typeof(INeredenDuydunuzService), typeof(NeredenDuydunuzService));
+            services.AddScoped(typeof(IOgrenciDetayService), typeof(OgrenciDetayService));
+            services.AddScoped(typeof(IOgrenciSozlesmeService), typeof(OgrenciSozlesmeService));
+            services.AddScoped(typeof(IOgrenciSozlesmeKiyafetService), typeof(OgrenciSozlesmeKiyafetService));
+            services.AddScoped(typeof(IOgrenciSozlesmeOdemeTablosuService), typeof(OgrenciSozlesmeOdemeTablosuService));
+            services.AddScoped(typeof(IOgrenciSozlesmeYayinService), typeof(OgrenciSozlesmeYayinService));
+            services.AddScoped(typeof(IOkulService), typeof(OkulService));
+            services.AddScoped(typeof(IOkulTipService), typeof(OkulTipService));
+            services.AddScoped(typeof(ISeansService), typeof(SeansService));
+            services.AddScoped(typeof(IServisService), typeof(ServisService));
+            services.AddScoped(typeof(ISezonService), typeof(SezonService));
+            services.AddScoped(typeof(ISinifService), typeof(SinifService));
+            services.AddScoped(typeof(ISinifOgrenciService), typeof(SinifOgrenciService));
+            services.AddScoped(typeof(ISozlesmeService), typeof(SozlesmeService));
+            services.AddScoped(typeof(ISozlesmeTurService), typeof(SozlesmeTurService));
+            services.AddScoped(typeof(ISubeService), typeof(SubeService));
+            services.AddScoped(typeof(IVeliDetayService), typeof(VeliDetayService));
+            services.AddScoped(typeof(IYayinService), typeof(YayinService));
+
+
+
+            //var allProviderTypes = System.Reflection.Assembly.GetExecutingAssembly()
+            //   .GetTypes().Where(t => t.Namespace != null && t.Namespace.Contains("Service"));
+
+            //foreach (var intfc in allProviderTypes.Where(t => t.IsInterface))
+            //{
+            //    var impl = allProviderTypes.FirstOrDefault(c => c.IsClass && intfc.Name.Substring(1) == c.Name);
+            //    if (impl != null) services.AddScoped(intfc, impl);
+            //}
 
 
         }
