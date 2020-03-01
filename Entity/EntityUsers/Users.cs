@@ -10,6 +10,7 @@ namespace Entity
     {
         public Users()
         {
+            OgrenciDetay = new HashSet<OgrenciDetay>();
             OgrenciSozlesmeGorusenPersonel = new HashSet<OgrenciSozlesme>();
             OgrenciSozlesmeKurumaGetirenPersonel = new HashSet<OgrenciSozlesme>();
             ServiceConfigAuth = new HashSet<ServiceConfigAuth>();
@@ -68,6 +69,7 @@ namespace Entity
         public City City { get; set; }
         public Town Town { get; set; }
 
+        public virtual ICollection<OgrenciDetay> OgrenciDetay { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeGorusenPersonel { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesmeKurumaGetirenPersonel { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }

@@ -1159,7 +1159,7 @@ namespace Entity.Migrations
                     b.Property<int?>("NeredenDuydunuzId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OkullarId")
+                    b.Property<int?>("OkulId")
                         .HasColumnType("int");
 
                     b.Property<int?>("OrderNo")
@@ -1175,7 +1175,7 @@ namespace Entity.Migrations
 
                     b.HasIndex("NeredenDuydunuzId");
 
-                    b.HasIndex("OkullarId");
+                    b.HasIndex("OkulId");
 
                     b.ToTable("OgrenciDetay");
                 });
@@ -1489,7 +1489,7 @@ namespace Entity.Migrations
 
                     b.HasIndex("OkulTipId");
 
-                    b.ToTable("Okullar");
+                    b.ToTable("Okul");
                 });
 
             modelBuilder.Entity("Entity.OkulTip", b =>
@@ -2797,10 +2797,10 @@ namespace Entity.Migrations
                         .HasForeignKey("NeredenDuydunuzId")
                         .HasConstraintName("FK_OgrenciDetay_NeredenDuydunuz");
 
-                    b.HasOne("Entity.Okul", "Okullar")
+                    b.HasOne("Entity.Okul", "Okul")
                         .WithMany("OgrenciDetay")
-                        .HasForeignKey("OkullarId")
-                        .HasConstraintName("FK_OgrenciDetay_Okullar");
+                        .HasForeignKey("OkulId")
+                        .HasConstraintName("FK_OgrenciDetay_Okul");
                 });
 
             modelBuilder.Entity("Entity.OgrenciSozlesme", b =>
@@ -2892,9 +2892,9 @@ namespace Entity.Migrations
             modelBuilder.Entity("Entity.Okul", b =>
                 {
                     b.HasOne("Entity.OkulTip", "OkulTip")
-                        .WithMany("Okullar")
+                        .WithMany("Okul")
                         .HasForeignKey("OkulTipId")
-                        .HasConstraintName("FK_Okullar_OkulTip")
+                        .HasConstraintName("FK_Okul_OkulTip")
                         .IsRequired();
                 });
 

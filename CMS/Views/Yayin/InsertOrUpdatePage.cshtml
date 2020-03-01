@@ -1,28 +1,29 @@
 ﻿
 @{
     Layout = null;
-    string pageTitle = "OgrenciDetay";
-    string OgrenciDetay_ControlNameUrl = "OgrenciDetay";
-    string FormName = "frm_" + OgrenciDetay_ControlNameUrl + "_";
-    int OgrenciDetay_idUrl = Context.Request.Query["id"].ToInt();
-    var OgrenciDetay_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = OgrenciDetay_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string pageTitle = "Yayin";
+    string Yayin_ControlNameUrl = "Yayin";
+    string FormName = "frm_" + Yayin_ControlNameUrl + "_";
+    int Yayin_idUrl = Context.Request.Query["id"].ToInt();
+    var Yayin_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = Yayin_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as OgrenciDetay;
+    var edit = ViewBag.edit as Yayin;
     if (edit == null)
     {
-        edit = new OgrenciDetay();
+        edit = new Yayin();
     }
     else
     {
+        //Yayin_idUrl_select = edit.KasaTipId.ToStr();
     }
 
 }
 
 <script type="text/javascript">
-        var OgrenciDetay_FormName = "@Html.Raw(FormName)";
-        var OgrenciDetay_ControlNameUrl = "@OgrenciDetay_ControlNameUrl";
-    var OgrenciDetay_idUrl = @OgrenciDetay_idUrl;
+        var Yayin_FormName = "@Html.Raw(FormName)";
+        var Yayin_ControlNameUrl = "@Yayin_ControlNameUrl";
+    var Yayin_idUrl = @Yayin_idUrl;
 
 </script>
 
@@ -36,7 +37,7 @@
 
 
 
-<!-- begin:: Content -->
+<!-- begin:: Yayin -->
 <div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
 
     <div class="kt-portlet kt-portlet--mobile">
@@ -67,7 +68,9 @@
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
 
+
                     @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
+
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
@@ -80,30 +83,26 @@
         </div>
     </div>
 </div>
-<!-- end:: Content -->
+<!-- end:: Yayin -->
 
 
 
 
 
 <script type="text/javascript">
-    var OgrenciDetay_EditFunc;
-    var customComment = "";
+    var Yayin_EditFunc;
     $(function () {
-        OgrenciDetay_EditFunc = {
-          
-
+        Yayin_EditFunc = {
             load: function () {
 
-
-                $('#' + OgrenciDetay_FormName).submit(function (e) {
+                $('#' + Yayin_FormName).submit(function (e) {
                     e.preventDefault();
-                    var postModel = $.fn.toForm("#" + OgrenciDetay_FormName);
+                    var postModel = $.fn.toForm("#" + Yayin_FormName);
                     $.LoadingOverlay("show");
 
-                    $.ajx(OgrenciDetay_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajx(Yayin_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
-                            OgrenciDetay_ListFunc.GetPaging();
+                            Yayin_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
                         }
                         else {
@@ -118,11 +117,10 @@
 
 
         };
-        OgrenciDetay_EditFunc.load();
+        Yayin_EditFunc.load();
     });
 
 
-    //ayarlar();
 </script>
 
 

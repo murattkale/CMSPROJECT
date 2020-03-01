@@ -1,28 +1,29 @@
 ﻿
 @{
     Layout = null;
-    string pageTitle = "OgrenciDetay";
-    string OgrenciDetay_ControlNameUrl = "OgrenciDetay";
-    string FormName = "frm_" + OgrenciDetay_ControlNameUrl + "_";
-    int OgrenciDetay_idUrl = Context.Request.Query["id"].ToInt();
-    var OgrenciDetay_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = OgrenciDetay_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string pageTitle = "VeliDetay";
+    string VeliDetay_ControlNameUrl = "VeliDetay";
+    string FormName = "frm_" + VeliDetay_ControlNameUrl + "_";
+    int VeliDetay_idUrl = Context.Request.Query["id"].ToInt();
+    var VeliDetay_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = VeliDetay_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as OgrenciDetay;
+    var edit = ViewBag.edit as VeliDetay;
     if (edit == null)
     {
-        edit = new OgrenciDetay();
+        edit = new VeliDetay();
     }
     else
     {
+        //VeliDetay_idUrl_select = edit.KasaTipId.ToStr();
     }
 
 }
 
 <script type="text/javascript">
-        var OgrenciDetay_FormName = "@Html.Raw(FormName)";
-        var OgrenciDetay_ControlNameUrl = "@OgrenciDetay_ControlNameUrl";
-    var OgrenciDetay_idUrl = @OgrenciDetay_idUrl;
+        var VeliDetay_FormName = "@Html.Raw(FormName)";
+        var VeliDetay_ControlNameUrl = "@VeliDetay_ControlNameUrl";
+    var VeliDetay_idUrl = @VeliDetay_idUrl;
 
 </script>
 
@@ -36,7 +37,7 @@
 
 
 
-<!-- begin:: Content -->
+<!-- begin:: VeliDetay -->
 <div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
 
     <div class="kt-portlet kt-portlet--mobile">
@@ -67,7 +68,9 @@
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
 
+
                     @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
+
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
@@ -80,30 +83,26 @@
         </div>
     </div>
 </div>
-<!-- end:: Content -->
+<!-- end:: VeliDetay -->
 
 
 
 
 
 <script type="text/javascript">
-    var OgrenciDetay_EditFunc;
-    var customComment = "";
+    var VeliDetay_EditFunc;
     $(function () {
-        OgrenciDetay_EditFunc = {
-          
-
+        VeliDetay_EditFunc = {
             load: function () {
 
-
-                $('#' + OgrenciDetay_FormName).submit(function (e) {
+                $('#' + VeliDetay_FormName).submit(function (e) {
                     e.preventDefault();
-                    var postModel = $.fn.toForm("#" + OgrenciDetay_FormName);
+                    var postModel = $.fn.toForm("#" + VeliDetay_FormName);
                     $.LoadingOverlay("show");
 
-                    $.ajx(OgrenciDetay_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajx(VeliDetay_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
-                            OgrenciDetay_ListFunc.GetPaging();
+                            VeliDetay_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
                         }
                         else {
@@ -118,11 +117,10 @@
 
 
         };
-        OgrenciDetay_EditFunc.load();
+        VeliDetay_EditFunc.load();
     });
 
 
-    //ayarlar();
 </script>
 
 

@@ -40,7 +40,7 @@ namespace Entity.ContextModel
         public virtual DbSet<OgrenciSozlesmeKiyafet> OgrenciSozlesmeKiyafet { get; set; }
         public virtual DbSet<OgrenciSozlesmeOdemeTablosu> OgrenciSozlesmeOdemeTablosu { get; set; }
         public virtual DbSet<OgrenciSozlesmeYayin> OgrenciSozlesmeYayin { get; set; }
-        public virtual DbSet<Okul> Okullar { get; set; }
+        public virtual DbSet<Okul> Okul { get; set; }
         public virtual DbSet<OkulTip> OkulTip { get; set; }
         public virtual DbSet<ParaBirimi> ParaBirimi { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
@@ -447,10 +447,15 @@ namespace Entity.ContextModel
                     .HasForeignKey(d => d.NeredenDuydunuzId)
                     .HasConstraintName("FK_OgrenciDetay_NeredenDuydunuz");
 
-                entity.HasOne(d => d.Okullar)
+                entity.HasOne(d => d.Okul)
                     .WithMany(p => p.OgrenciDetay)
-                    .HasForeignKey(d => d.OkullarId)
-                    .HasConstraintName("FK_OgrenciDetay_Okullar");
+                    .HasForeignKey(d => d.OkulId)
+                    .HasConstraintName("FK_OgrenciDetay_Okul");
+
+                entity.HasOne(d => d.Ogrenci)
+                   .WithMany(p => p.OgrenciDetay)
+                   .HasForeignKey(d => d.OgrenciId)
+                   .HasConstraintName("FK_OgrenciDetay_Ogrenci");
 
             });
 
@@ -589,10 +594,10 @@ namespace Entity.ContextModel
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.OkulTip)
-                 .WithMany(p => p.Okullar)
+                 .WithMany(p => p.Okul)
                  .HasForeignKey(d => d.OkulTipId)
                  .OnDelete(DeleteBehavior.ClientSetNull)
-                 .HasConstraintName("FK_Okullar_OkulTip");
+                 .HasConstraintName("FK_Okul_OkulTip");
 
             });
 

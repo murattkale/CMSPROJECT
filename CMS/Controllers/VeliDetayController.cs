@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
 
-using Entity; using Entity.ContextModel;
+using Entity;
+using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
@@ -19,11 +20,11 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<VeliDetay> param, VeliDetay searchModel)
         {
-            var result = _IVeliDetayService.GetPaging(null, true, param, false);
+            var result = _IVeliDetayService.GetPaging(null, true, param, false, o => o.OgrenciDetay, o => o.OgrenciDetay.Ogrenci);
             return Json(result);
         }
 
-      
+
 
         public JsonResult InsertOrUpdate(VeliDetay postModel)
         {

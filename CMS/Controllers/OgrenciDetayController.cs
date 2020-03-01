@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
 
-using Entity; using Entity.ContextModel;
+using Entity;
+using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
@@ -19,7 +20,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<OgrenciDetay> param, OgrenciDetay searchModel)
         {
-            var result = _IOgrenciDetayService.GetPaging(null, true, param, false);
+            var result = _IOgrenciDetayService.GetPaging(null, true, param, false, o => o.NeredenDuydunuz, o => o.Okul, o => o.Ogrenci);
             return Json(result);
         }
 

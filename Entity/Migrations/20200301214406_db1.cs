@@ -376,7 +376,7 @@ namespace Entity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Okullar",
+                name: "Okul",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -394,9 +394,9 @@ namespace Entity.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Okullar", x => x.Id);
+                    table.PrimaryKey("PK_Okul", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Okullar_OkulTip",
+                        name: "FK_Okul_OkulTip",
                         column: x => x.OkulTipId,
                         principalTable: "OkulTip",
                         principalColumn: "Id",
@@ -558,7 +558,7 @@ namespace Entity.Migrations
                     AileMedeniDurum = table.Column<bool>(nullable: false),
                     OzelHastalik = table.Column<string>(nullable: true),
                     SinifTekrar = table.Column<bool>(nullable: true),
-                    OkullarId = table.Column<int>(nullable: true)
+                    OkulId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -570,9 +570,9 @@ namespace Entity.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OgrenciDetay_Okullar",
-                        column: x => x.OkullarId,
-                        principalTable: "Okullar",
+                        name: "FK_OgrenciDetay_Okul",
+                        column: x => x.OkulId,
+                        principalTable: "Okul",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1643,9 +1643,9 @@ namespace Entity.Migrations
                 column: "NeredenDuydunuzId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OgrenciDetay_OkullarId",
+                name: "IX_OgrenciDetay_OkulId",
                 table: "OgrenciDetay",
-                column: "OkullarId");
+                column: "OkulId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OgrenciSozlesme_FinansorId",
@@ -1713,8 +1713,8 @@ namespace Entity.Migrations
                 column: "YayinId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Okullar_OkulTipId",
-                table: "Okullar",
+                name: "IX_Okul_OkulTipId",
+                table: "Okul",
                 column: "OkulTipId");
 
             migrationBuilder.CreateIndex(
@@ -1978,7 +1978,7 @@ namespace Entity.Migrations
                 name: "NeredenDuydunuz");
 
             migrationBuilder.DropTable(
-                name: "Okullar");
+                name: "Okul");
 
             migrationBuilder.DropTable(
                 name: "Kurum");

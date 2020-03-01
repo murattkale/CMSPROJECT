@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
 
-using Entity; using Entity.ContextModel;
+using Entity;
+using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
@@ -19,11 +20,11 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Yayin> param, Yayin searchModel)
         {
-            var result = _IYayinService.GetPaging(null, true, param, false);
+            var result = _IYayinService.GetPaging(null, true, param, false, o => o.Brans, o => o.Ders);
             return Json(result);
         }
 
-    
+
         public JsonResult InsertOrUpdate(Yayin postModel)
         {
             var result = _IYayinService.InsertOrUpdate(postModel);

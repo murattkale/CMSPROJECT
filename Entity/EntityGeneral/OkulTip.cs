@@ -7,7 +7,7 @@ namespace Entity
     {
         public OkulTip()
         {
-            Okullar = new HashSet<Okul>();
+            Okul = new HashSet<Okul>();
         }
 
        
@@ -21,6 +21,6 @@ namespace Entity
         public string Ad { get; set; }
         [Required()] public int OkulTipId { get; set; }
 
-        public virtual ICollection<Okul> Okullar { get; set; }
+        public virtual ICollection<Okul> Okul { get; set; }
     }
 }
