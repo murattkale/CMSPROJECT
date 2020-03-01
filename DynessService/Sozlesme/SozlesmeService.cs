@@ -19,14 +19,13 @@ public class SozlesmeService : GenericRepo<Sozlesme>, ISozlesmeService
         res.ResultType = new ResultType();
         res.ResultType.MessageList = new List<string>();
 
-        ////Duplicate Control
-        //var modelControl = Where(o => o.Id != model.Id &&  o. == model.Ad, false).Result.FirstOrDefault();
-        //if (modelControl != null)
-        if (false)
+        //Duplicate Control
+        var modelControl = Where(o => o.Id != model.Id && o.Ad == model.Ad, false).Result.FirstOrDefault();
+        if (modelControl != null)
         {
-            //res.ResultType.RType = RType.Warning;
-            //res.ResultType.MessageList.Add("Duplicate");
-            //res.ResultRow = modelControl;
+            res.ResultType.RType = RType.Warning;
+            res.ResultType.MessageList.Add("Duplicate");
+            res.ResultRow = modelControl;
         }
         else
         {

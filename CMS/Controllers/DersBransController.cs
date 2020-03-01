@@ -11,41 +11,42 @@ using Entity; using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
-    public class OgrenciDetayController : Controller
+    public class DersBransController : Controller
     {
-        IOgrenciDetayService _IOgrenciDetayService;
-        public OgrenciDetayController(IOgrenciDetayService _IOgrenciDetayService) { this._IOgrenciDetayService = _IOgrenciDetayService; }
+        IDersBransService _IDersBransService;
+        public DersBransController(IDersBransService _IDersBransService) { this._IDersBransService = _IDersBransService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<OgrenciDetay> param, OgrenciDetay searchModel)
+        public JsonResult GetPaging(DTParameters<DersBrans> param, DersBrans searchModel)
         {
-            var result = _IOgrenciDetayService.GetPaging(null, true, param, false);
+            var result = _IDersBransService.GetPaging(null, true, param, false);
             return Json(result);
         }
 
+     
 
-        public JsonResult InsertOrUpdate(OgrenciDetay postModel)
+        public JsonResult InsertOrUpdate(DersBrans postModel)
         {
-            var result = _IOgrenciDetayService.InsertOrUpdate(postModel);
+            var result = _IDersBransService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public OgrenciDetay Get(int id)
+        public DersBrans Get(int id)
         {
-            var result = _IOgrenciDetayService.Find(id);
+            var result = _IDersBransService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IOgrenciDetayService.Delete(id);
-            _IOgrenciDetayService.SaveChanges();
+            var result = _IDersBransService.Delete(id);
+            _IDersBransService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "OgrenciDetay";
+            ViewBag.pageTitle = "DersBrans";
             return View();
         }
 

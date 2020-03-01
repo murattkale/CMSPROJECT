@@ -11,41 +11,41 @@ using Entity; using Entity.ContextModel;
 
 namespace CMS.Controllers
 {
-    public class OgrenciDetayController : Controller
+    public class ServisController : Controller
     {
-        IOgrenciDetayService _IOgrenciDetayService;
-        public OgrenciDetayController(IOgrenciDetayService _IOgrenciDetayService) { this._IOgrenciDetayService = _IOgrenciDetayService; }
+        IServisService _IServisService;
+        public ServisController(IServisService _IServisService) { this._IServisService = _IServisService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<OgrenciDetay> param, OgrenciDetay searchModel)
+        public JsonResult GetPaging(DTParameters<Servis> param, Servis searchModel)
         {
-            var result = _IOgrenciDetayService.GetPaging(null, true, param, false);
+            var result = _IServisService.GetPaging(null, true, param, false);
             return Json(result);
         }
 
 
-        public JsonResult InsertOrUpdate(OgrenciDetay postModel)
+        public JsonResult InsertOrUpdate(Servis postModel)
         {
-            var result = _IOgrenciDetayService.InsertOrUpdate(postModel);
+            var result = _IServisService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public OgrenciDetay Get(int id)
+        public Servis Get(int id)
         {
-            var result = _IOgrenciDetayService.Find(id);
+            var result = _IServisService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IOgrenciDetayService.Delete(id);
-            _IOgrenciDetayService.SaveChanges();
+            var result = _IServisService.Delete(id);
+            _IServisService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "OgrenciDetay";
+            ViewBag.pageTitle = "Servis";
             return View();
         }
 
