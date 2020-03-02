@@ -62,7 +62,6 @@ namespace Entity
         [DisplayName("Profil Resmi")]
         public string ProfilImage { get; set; }
         [DisplayName("Açıklama")]
-
         //[Column(TypeName = "Text")]
         public string Description { get; set; }
 

@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+﻿using Entity;
+using System;
+using System.Collections.Generic; 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -19,7 +20,7 @@ public class BaseModel : IBaseModel
     public int? LoginCount { get; set; }
 
 
-
+    //public Users Users { get; set; }
 
 
 }

@@ -1,4 +1,5 @@
 ﻿@{
+    string pageTitle_OgrenciDetay = "Öğrenci Detay";
     string control_Name_OgrenciDetay = "OgrenciDetay";
 
 }
@@ -20,7 +21,7 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    @Html.Raw(ViewBag.pageTitle)
+                    @Html.Raw(pageTitle_OgrenciDetay)
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -30,7 +31,7 @@
 
                         <a href="/@control_Name_OgrenciDetay/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
                             <i class="la la-plus"></i>
-                            @Html.Raw(ViewBag.pageTitle + " Ekle")
+                            @Html.Raw(pageTitle_OgrenciDetay + " Ekle")
                         </a>
                     </div>
                 </div>
@@ -89,7 +90,7 @@
                         "datatype": "json",
                         "data": function (searchModel) {
                             $(dt_OgrenciDetay).LoadingOverlay("show");
-                            searchModel.pagingSearchParam = 'Name,Link';
+                            //searchModel.pagingSearchParam = 'Name,Link';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -137,9 +138,9 @@
                             });
                         });
 
-                        $('.dt-buttons.btn-group.flex-wrap').css('float', 'right');
-                        $('.dt-buttons.btn-group.flex-wrap').css('margin-left', '20px');
-                        $('.dt-buttons.btn-group.flex-wrap').css('margin-top', '16px');
+                        $('.dt-buttons').css('float', 'right');
+                        $('.dt-buttons').css('margin-left', '20px');
+                        $('.dt-buttons').css('margin-top', '16px');
 
                         $(dt_OgrenciDetay).LoadingOverlay("hide");
                         ayarlar();

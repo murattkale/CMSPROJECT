@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using GenericRepository;
-using Entity;
 using System;
 using Entity; using Entity.ContextModel;
 
@@ -21,7 +20,7 @@ public class SinifOgrenciService : GenericRepo<SinifOgrenci>, ISinifOgrenciServi
         res.ResultType.MessageList = new List<string>();
 
         //Duplicate Control
-        var modelControl = Where(o => o.Id != model.Id && o.OgrenciId == model.OgrenciId && o.SinifId != model.SinifId, false).Result.FirstOrDefault();
+        var modelControl = Where(o => o.Id != model.Id && o.OgrenciDetayId == model.OgrenciDetayId && o.SinifId != model.SinifId, false).Result.FirstOrDefault();
         if (modelControl != null)
         {
             res.ResultType.RType = RType.Warning;

@@ -20,7 +20,13 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<OgrenciDetay> param, OgrenciDetay searchModel)
         {
-            var result = _IOgrenciDetayService.GetPaging(null, true, param, false, o => o.NeredenDuydunuz, o => o.Okul, o => o.Ogrenci);
+            var result = _IOgrenciDetayService.GetPaging(null, true, param, false,
+                o => o.OgrenciSozlesme,
+                o => o.Ogrenci,
+                o => o.NeredenDuydunuz,
+                o => o.Okul
+                );
+
             return Json(result);
         }
 

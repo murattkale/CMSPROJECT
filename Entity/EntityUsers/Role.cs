@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entity
 {
@@ -13,20 +15,22 @@ namespace Entity
             UserRoles = new HashSet<UserRole>();
         }
 
-       
-        
-        
-        
-       
-        
-       
-       
+
+
+
+
+
+
+
+        [DisplayName("Üst Rol")]
         public int? RoleParentId { get; set; }
+        [DisplayName("Ad")]
         public string Name { get; set; }
-        public int? ServiceConfigId { get; set; }
+        //[DisplayName("Servis Ayar")]
+        //public int? ServiceConfigId { get; set; }
 
         public virtual Role RoleParent { get; set; }
-        public virtual ServiceConfig ServiceConfig { get; set; }
+        //public virtual ServiceConfig ServiceConfig { get; set; }
         public virtual ICollection<Role> ParentRoles { get; set; }
         public virtual ICollection<Permission> Permissions { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }

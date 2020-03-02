@@ -21,17 +21,20 @@ namespace CMS.Controllers
         public JsonResult GetPaging(DTParameters<OgrenciSozlesme> param, OgrenciSozlesme searchModel)
         {
             var result = _IOgrenciSozlesmeService.GetPaging(null, true, param, false,
-                o => o.OgrenciDetay,
-                o => o.OgrenciDetay.Ogrenci,
-                o => o.SozlesmeTur,
-                o => o.Sube,
-                o => o.KurumaGetirenPersonel,
-                o => o.Sezon,
-                o => o.Servis,
-                o => o.Finansor
+                  o => o.SozlesmeTur,
+                  o => o.OgrenciDetay,
+                  o => o.OgrenciDetay.Okul,
+                  o => o.OgrenciDetay.Ogrenci,
+                  o => o.OgrenciSozlesmeOdemeTablosu,
+                  o => o.GorusenPersonel,
+                  o => o.KurumaGetirenPersonel,
+                  o => o.Finansor,
+                  o => o.Servis,
+                  o => o.Sezon,
+                  o => o.Sube,
+                  o => o.Sube.Kurum
+                  );
 
-
-                );
             return Json(result);
         }
 

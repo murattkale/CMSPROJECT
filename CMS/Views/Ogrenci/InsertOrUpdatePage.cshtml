@@ -1,41 +1,29 @@
 ﻿
 @{
-    Layout = null;
-    string pageTitle = "Role";
-    string Role_ControlNameUrl = "Role";
-    string FormName = "frm_" + Role_ControlNameUrl + "_";
-    int Role_idUrl = Context.Request.Query["id"].ToInt();
-    var Role_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = Role_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string Users_pageTitle = "Öğrenci";
+    string Users_ControlNameUrl = "Users";
+    string FormName = "frm_" + Users_ControlNameUrl + "_";
+    int Users_idUrl = Context.Request.Query["id"].ToInt();
+    var Users_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string Users_title = Users_idUrl > 0 ? (Users_pageTitle + " Düzenle") : (Users_pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as Role;
+    var edit = ViewBag.edit as Users;
     if (edit == null)
     {
-        edit = new Role();
+        edit = new Users();
     }
     else
     {
-        //Role_idUrl_select = edit.KurumId.ToStr();
     }
 
 }
 
 <script type="text/javascript">
-        var Role_FormName = "@Html.Raw(FormName)";
-        var Role_ControlNameUrl = "@Role_ControlNameUrl";
-    var Role_idUrl = @Role_idUrl;
-
-    var edit = @Html.Raw(Json.Serialize(edit));
+        var Users_FormName = "@Html.Raw(FormName)";
+        var Users_ControlNameUrl = "@Users_ControlNameUrl";
+    var Users_idUrl = @Users_idUrl;
 
 </script>
-
-
-
-<style>
-    .modal-dialog {
-        width: 75% !important;
-    }
-</style>
 
 
 
@@ -50,8 +38,8 @@
                 <span class="kt-portlet__head-icon">
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
-                <h3 class="kt-portlet__head-title">
-                    @Html.Raw(title)
+                <h3 class="kt-portlet__head-Users_title">
+                    @Html.Raw(Users_pageTitle)
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -72,9 +60,15 @@
 
                     @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
 
+
+                    <hr />
+
+
+
+
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
-                            <input id="btnOK" type="submit" value="@title" class="btn btn-brand btn-elevate btn-icon-sm" />
+                            <input id="btnOK" type="submit" value="@Users_title" class="btn btn-brand btn-elevate btn-icon-sm" />
                         </div>
                     </div>
 
@@ -90,21 +84,22 @@
 
 
 <script type="text/javascript">
-    var Role_EditFunc;
-
+    var Users_EditFunc;
     $(function () {
-        Role_EditFunc = {
+        Users_EditFunc = {
+
+
             load: function () {
 
-                $('#' + Role_FormName).submit(function (e) {
-                    e.preventDefault();
-                    var postModel = $.fn.toForm("#" + Role_FormName);
 
+                $('#' + Users_FormName).submit(function (e) {
+                    e.preventDefault();
+                    var postModel = $.fn.toForm("#" + Users_FormName);
                     $.LoadingOverlay("show");
 
-                    $.ajx(Role_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajx(Users_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
-                            Role_ListFunc.GetPaging();
+                            Users_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
                         }
                         else {
@@ -119,7 +114,7 @@
 
 
         };
-        Role_EditFunc.load();
+        Users_EditFunc.load();
     });
 
 

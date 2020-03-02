@@ -1,12 +1,12 @@
 ﻿
 @{
     Layout = null;
-    string pageTitle = "OgrenciSozlesmeOdemeTablosu";
+    string pageTitle_OgrenciSozlesmeOdemeTablosu = "Ödeme Tablosu";
     string OgrenciSozlesmeOdemeTablosu_ControlNameUrl = "OgrenciSozlesmeOdemeTablosu";
-    string FormName = "frm_" + OgrenciSozlesmeOdemeTablosu_ControlNameUrl + "_";
+    string OgrenciSozlesmeOdemeTablosu_FormName = "frm_" + OgrenciSozlesmeOdemeTablosu_ControlNameUrl + "_";
     int OgrenciSozlesmeOdemeTablosu_idUrl = Context.Request.Query["id"].ToInt();
     var OgrenciSozlesmeOdemeTablosu_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = OgrenciSozlesmeOdemeTablosu_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string title_OgrenciSozlesmeOdemeTablosu = OgrenciSozlesmeOdemeTablosu_idUrl > 0 ? (pageTitle_OgrenciSozlesmeOdemeTablosu + " Düzenle") : (pageTitle_OgrenciSozlesmeOdemeTablosu + " Kaydet");
 
     var edit = ViewBag.edit as OgrenciSozlesmeOdemeTablosu;
     if (edit == null)
@@ -21,9 +21,9 @@
 }
 
 <script type="text/javascript">
-        var OgrenciSozlesmeOdemeTablosu_FormName = "@Html.Raw(FormName)";
+        var OgrenciSozlesmeOdemeTablosu_FormName = "@Html.Raw(OgrenciSozlesmeOdemeTablosu_FormName)";
         var OgrenciSozlesmeOdemeTablosu_ControlNameUrl = "@OgrenciSozlesmeOdemeTablosu_ControlNameUrl";
-    var OgrenciSozlesmeOdemeTablosu_idUrl = @OgrenciSozlesmeOdemeTablosu_idUrl;
+        var OgrenciSozlesmeOdemeTablosu_idUrl = @OgrenciSozlesmeOdemeTablosu_idUrl;
 
 </script>
 
@@ -31,7 +31,7 @@
 
 <style>
     .modal-dialog {
-        width: 75% !important;
+        width: 50% !important;
     }
 </style>
 
@@ -48,8 +48,8 @@
                 <span class="kt-portlet__head-icon">
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
-                <h3 class="kt-portlet__head-title">
-                    @Html.Raw(title)
+                <h3 class="kt-portlet__head-title_OgrenciSozlesmeOdemeTablosu">
+                    @Html.Raw(title_OgrenciSozlesmeOdemeTablosu)
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="kt-portlet__body">
-            <form name="@FormName" id="@FormName">
+            <form name="@OgrenciSozlesmeOdemeTablosu_FormName" id="@OgrenciSozlesmeOdemeTablosu_FormName">
                 <div class="form-horizontal">
 
 
@@ -74,7 +74,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
-                            <input id="btnOK" type="submit" value="@title" class="btn btn-brand btn-elevate btn-icon-sm" />
+                            <input id="btnOK" type="submit" value="@title_OgrenciSozlesmeOdemeTablosu" class="btn btn-brand btn-elevate btn-icon-sm" />
                         </div>
                     </div>
 

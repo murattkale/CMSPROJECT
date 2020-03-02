@@ -5,18 +5,17 @@ namespace Entity
 {
     public partial class SinifOgrenci : BaseModel
     {
-       
-        
-        
-        
-       
-        
-       
-       
-        [Required()] public int SinifId { get; set; }
-        [Required()] public int OgrenciId { get; set; }
 
-        public virtual Users Ogrenci { get; set; }
+  
+
+
+
+
+        [Required()] public int SinifId { get; set; }
+        [Required()] public int OgrenciDetayId { get; set; }
+
+        public virtual OgrenciDetay OgrenciDetay { get; set; }
         public virtual Sinif Sinif { get; set; }
+
     }
 }

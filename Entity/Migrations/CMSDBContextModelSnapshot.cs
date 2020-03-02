@@ -1160,6 +1160,10 @@ namespace Entity.Migrations
                     b.Property<int>("OgrenciId")
                         .HasColumnType("int");
 
+                    b.Property<string>("OgrenciNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("OkulId")
                         .HasColumnType("int");
 
@@ -2082,7 +2086,7 @@ namespace Entity.Migrations
                     b.Property<int?>("ModUser")
                         .HasColumnType("int");
 
-                    b.Property<int>("OgrenciId")
+                    b.Property<int>("OgrenciDetayId")
                         .HasColumnType("int");
 
                     b.Property<int?>("OrderNo")
@@ -2091,11 +2095,16 @@ namespace Entity.Migrations
                     b.Property<int>("SinifId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsersId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("OgrenciId");
+                    b.HasIndex("OgrenciDetayId");
 
                     b.HasIndex("SinifId");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("SinifOgrenci");
                 });
@@ -2924,10 +2933,9 @@ namespace Entity.Migrations
                         .HasForeignKey("RoleParentId")
                         .HasConstraintName("FK_Roles_Roles");
 
-                    b.HasOne("Entity.ServiceConfig", "ServiceConfig")
+                    b.HasOne("Entity.ServiceConfig", null)
                         .WithMany("Role")
-                        .HasForeignKey("ServiceConfigId")
-                        .HasConstraintName("FK_Roles_ServiceConfig");
+                        .HasForeignKey("ServiceConfigId");
                 });
 
             modelBuilder.Entity("Entity.Seans", b =>
@@ -3012,10 +3020,10 @@ namespace Entity.Migrations
 
             modelBuilder.Entity("Entity.SinifOgrenci", b =>
                 {
-                    b.HasOne("Entity.Users", "Ogrenci")
+                    b.HasOne("Entity.OgrenciDetay", "OgrenciDetay")
                         .WithMany("SinifOgrenci")
-                        .HasForeignKey("OgrenciId")
-                        .HasConstraintName("FK_SinifOgrenci_Users")
+                        .HasForeignKey("OgrenciDetayId")
+                        .HasConstraintName("FK_SinifOgrenci_OgrenciDetay")
                         .IsRequired();
 
                     b.HasOne("Entity.Sinif", "Sinif")
@@ -3023,6 +3031,10 @@ namespace Entity.Migrations
                         .HasForeignKey("SinifId")
                         .HasConstraintName("FK_SinifOgrenci_Sinif")
                         .IsRequired();
+
+                    b.HasOne("Entity.Users", null)
+                        .WithMany("SinifOgrenci")
+                        .HasForeignKey("UsersId");
                 });
 
             modelBuilder.Entity("Entity.Sozlesme", b =>

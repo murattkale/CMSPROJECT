@@ -254,7 +254,7 @@ public static class Helpers
                                     }
                                     else
                                     {
-                                        str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', " + value + ", 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                                        str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
                                     }
                                 }
                                 else

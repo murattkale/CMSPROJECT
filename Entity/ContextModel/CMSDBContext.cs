@@ -672,10 +672,10 @@ namespace Entity.ContextModel
                     .HasForeignKey(d => d.RoleParentId)
                     .HasConstraintName("FK_Roles_Roles");
 
-                entity.HasOne(d => d.ServiceConfig)
-                    .WithMany(p => p.Role)
-                    .HasForeignKey(d => d.ServiceConfigId)
-                    .HasConstraintName("FK_Roles_ServiceConfig");
+                //entity.HasOne(d => d.ServiceConfig)
+                //    .WithMany(p => p.Role)
+                //    .HasForeignKey(d => d.ServiceConfigId)
+                //    .HasConstraintName("FK_Roles_ServiceConfig");
             });
 
             modelBuilder.Entity<Seans>(entity =>
@@ -832,11 +832,11 @@ namespace Entity.ContextModel
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Ogrenci)
+                entity.HasOne(d => d.OgrenciDetay)
                     .WithMany(p => p.SinifOgrenci)
-                    .HasForeignKey(d => d.OgrenciId)
+                    .HasForeignKey(d => d.OgrenciDetayId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SinifOgrenci_Users");
+                    .HasConstraintName("FK_SinifOgrenci_OgrenciDetay");
 
                 entity.HasOne(d => d.Sinif)
                     .WithMany(p => p.SinifOgrenci)

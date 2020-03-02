@@ -1,11 +1,13 @@
 ﻿@{
-    string control_Name_ContentPage = "ContentPage";
+    string pageTitle_Ogrenci = "Öğrenci";
+
+    string control_Name_Ogrenci = "Ogrenci";
 
 }
 
 <script type="text/javascript">
-    var control_Name_ContentPage = "@control_Name_ContentPage";
-    var dt_ContentPage = "#dt_" + control_Name_ContentPage;
+    var control_Name_Ogrenci = "@control_Name_Ogrenci";
+    var dt_Ogrenci = "#dt_" + control_Name_Ogrenci;
 </script>
 
 
@@ -20,7 +22,7 @@
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
                 <h3 class="kt-portlet__head-title">
-                    @Html.Raw("İçerik Yönetimi")
+                    @Html.Raw(pageTitle_Ogrenci)
                 </h3>
             </div>
             <div class="kt-portlet__head-toolbar">
@@ -28,9 +30,9 @@
                     <div class="kt-portlet__head-actions">
 
 
-                        <a href="/@control_Name_ContentPage/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
+                        <a target="_blank" href="/@control_Name_Ogrenci/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm ">
                             <i class="la la-plus"></i>
-                            @Html.Raw("İçerik" + " Ekle")
+                            @Html.Raw(pageTitle_Ogrenci + " Ekle")
                         </a>
                     </div>
                 </div>
@@ -39,13 +41,11 @@
 
         <div class="kt-portlet__body">
             <!--begin: Datatable -->
-            <table id="dt_@control_Name_ContentPage" class="table table-striped- table-bordered table-hover table-checkable">
+            <table id="dt_@control_Name_Ogrenci" class="table table-striped- table-bordered table-hover table-checkable">
                 <thead>
                     <tr>
                     </tr>
                 </thead>
-
-
             </table>
             <!--end: Datatable -->
         </div>
@@ -56,41 +56,47 @@
 
 
 <script type="text/javascript">
-    var ContentPage_ListFunc;
+    var Ogrenci_ListFunc;
     $(function () {
-        ContentPage_ListFunc = {
+        Ogrenci_ListFunc = {
             load: function () {
-                ContentPage_ListFunc.GetPaging();
+                Ogrenci_ListFunc.GetPaging();
 
             },
 
             GetPaging: function () {
 
                 var columns = [];
-                columns.push({ "data": "Name", text: "Ad" });
-                columns.push({ "data": "ContentPageType", text: "Tip" });
-                columns.push({ "data": "Link", text: "Link" });
-                columns.push({ "data": "ContentShort", text: "Kısa İçerik" });
-                columns.push({ "data": "IsHeaderMenu", text: "Üst Menü" });
-                columns.push({ "data": "IsFooterMenu", text: "Alt Menü" });
-                columns.push({ "data": "IsSideMenu", text: "Yan Menü" });
-                columns.push({ "data": "IsHamburgerMenu", text: "Hamburger Menü" });
+                columns.push({ "data": "OgrenciNo", text: "No" });
+                columns.push({ "data": "OgrenciAd", text: "Öğrenci" });
+                columns.push({ "data": "SexType", text: "Cinsiyet" });
+                columns.push({ "data": "CreaDate", text: "Kayıt Tarihi" });
+                columns.push({ "data": "EgitimTutar", text: "Kayıt Ücreti" });
+                columns.push({ "data": "ToplamTutar", text: "Toplam Tutar" });
+                columns.push({ "data": "SubeAd", text: "Şube" });
+                columns.push({ "data": "SezonAd", text: "Sezon" });
+                columns.push({ "data": "OkulAd", text: "Okul" });
+                columns.push({ "data": "SinifAd", text: "Sınıf" });
+                columns.push({ "data": "Seviye", text: "Seviye" });
+                columns.push({ "data": "Tc", text: "TC" });
+                columns.push({ "data": "GSM1", text: "Telefon" });
+                columns.push({ "data": "BirdhDay", text: "Doğum Tarihi" });
 
                 columns.push({ "data": "Detail", text: "İşlemler" });
 
                 $.each(columns, function (i, item) {
-                    $(dt_ContentPage + ' thead tr').append('<td>' + item.text + '</td>');
+                    $(dt_Ogrenci + ' thead tr').append('<td>' + item.text + '</td>');
                 });
 
 
-                var table = $(dt_ContentPage).DataTable({
+                var table = $(dt_Ogrenci).DataTable({
                     "ajax": {
-                        "url": '/' + control_Name_ContentPage + '/GetPaging',
+                        "url": '/' + control_Name_Ogrenci + '/GetPaging',
                         "type": "POST",
                         "datatype": "json",
                         "data": function (searchModel) {
-                            $(dt_ContentPage).LoadingOverlay("show");
-                            searchModel.pagingSearchParam = 'Name,Link,ContentPageType';
+                            $(dt_Ogrenci).LoadingOverlay("show");
+                            //searchModel.pagingSearchParam = 'Name,Link';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -99,20 +105,26 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_ContentPage + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
+                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Ogrenci + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
 
 
 
                                 return_data.push({
-                                    'Name': row.Name,
-                                    'ContentPageType': row.ContentPageType > 0 ? getEnumRow(ContentPageTypeAll,row.ContentPageType).text : "",
-                                    'Link': row.Link,
-                                    'ContentShort': row.ContentShort,
-                                    'IsHeaderMenu': row.IsHeaderMenu == true ? 'aktif' : 'pasif',
-                                    'IsFooterMenu': row.IsFooterMenu == true ? 'aktif' : 'pasif',
-                                    'IsSideMenu': row.IsSideMenu == true ? 'aktif' : 'pasif',
-                                    'IsHamburgerMenu': row.IsHamburgerMenu == true ? 'aktif' : 'pasif',
+                                    "OgrenciNo": row.OgrenciNo,
+                                    "OgrenciAd": row.Ogrenci.Name + ' ' + row.Ogrenci.Surname,
+                                    "SexType": row.SexType,
+                                    "CreaDate": row.CreaDate,
+                                    "EgitimTutar": row.EgitimTutar,
+                                    "ToplamTutar": row.ToplamTutar,
+                                    "SubeAd": row.OgrenciSozlesme.Sube.Ad,
+                                    "SezonAd": row.OgrenciSozlesme.Sezon.Ad,
+                                    "OkulAd": row.Okul.Ad,
+                                    "SinifAd": row.Sinif.Ad,
+                                    "Seviye": row.Seviye,
+                                    "Tc": row.Ogrenci.Tc,
+                                    "Phone1": row.Ogrenci.Phone1,
+                                    "BirdhDay": row.Ogrenci.BirdhDay,
 
                                     'Detail': Detail,
                                 });
@@ -122,19 +134,19 @@
                         }
                     },
                     "fnDrawCallback": function (settings, json) {
-                        $(dt_ContentPage + ' .btnDelete').click(function () {
+                        $(dt_Ogrenci + ' .btnDelete').click(function () {
                             var dataid = $(this).attr("dataid");
                             alerts("Silinsin mi ?", "yesno", function (result) {
                                 if (result == true) {
-                                    $(dt_ContentPage).LoadingOverlay("show");
-                                    $.ajx('/' + control_Name_ContentPage + "/Delete", { id: dataid }, function (resultData) {
+                                    $(dt_Ogrenci).LoadingOverlay("show");
+                                    $.ajx('/' + control_Name_Ogrenci + "/Delete", { id: dataid }, function (resultData) {
                                         if (resultData && resultData.IsDeleted) {
                                             table.ajax.reload();
                                         }
                                         else {
                                             alerts(resultData.ResultType.MessageList[0]);
                                         }
-                                        $(dt_ContentPage).LoadingOverlay("hide");
+                                        $(dt_Ogrenci).LoadingOverlay("hide");
                                     });
                                 }
                             });
@@ -144,7 +156,7 @@
                         $('.dt-buttons').css('margin-left', '20px');
                         $('.dt-buttons').css('margin-top', '16px');
 
-                        $(dt_ContentPage).LoadingOverlay("hide");
+                        $(dt_Ogrenci).LoadingOverlay("hide");
                         ayarlar();
                     },
                     "language": {
@@ -172,7 +184,7 @@
 
 
         }
-        ContentPage_ListFunc.load();
+        Ogrenci_ListFunc.load();
 
     });
 

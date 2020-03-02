@@ -14,8 +14,9 @@ public static class ServerSideProcessor
     public static IQueryable<T> ToGlobalSearchInAllColumn<T>(this IQueryable<T> table, DTParameters<T> Param)
     {
         var GlobalSearchText = Param.Search != null && Param.Search.Value != null ? Param.Search.Value : string.Empty;
+
         var pagingSearchParam = Param.pagingSearchParam;
-        var pagingSearchParamSplit = pagingSearchParam.Split(',').ToList();
+        var pagingSearchParamSplit = pagingSearchParam==null  ? new List<string>() :  pagingSearchParam.Split(',').ToList();
         if (!string.IsNullOrEmpty(GlobalSearchText))
         {
             // return BooksData.Where(x => x.BookId.ToString() == GlobalSearchText || x.BookName.Contains(GlobalSearchText) || x.Category.Contains(GlobalSearchText));
