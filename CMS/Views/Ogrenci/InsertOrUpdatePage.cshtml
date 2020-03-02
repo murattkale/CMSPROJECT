@@ -2,7 +2,7 @@
 @{
     string Users_pageTitle = "Öğrenci";
     string Users_ControlNameUrl = "Users";
-    string FormName = "frm_" + Users_ControlNameUrl + "_";
+    string Users_FormName = "frm_" + Users_ControlNameUrl + "_";
     int Users_idUrl = Context.Request.Query["id"].ToInt();
     var Users_idUrl_select = Context.Request.Query["selectid"].ToStr();
     string Users_title = Users_idUrl > 0 ? (Users_pageTitle + " Düzenle") : (Users_pageTitle + " Kaydet");
@@ -19,7 +19,7 @@
 }
 
 <script type="text/javascript">
-        var Users_FormName = "@Html.Raw(FormName)";
+        var Users_FormName = "@Html.Raw(Users_FormName)";
         var Users_ControlNameUrl = "@Users_ControlNameUrl";
     var Users_idUrl = @Users_idUrl;
 
@@ -42,20 +42,11 @@
                     @Html.Raw(Users_pageTitle)
                 </h3>
             </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
 
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="kt-portlet__body">
-            <form name="@FormName" id="@FormName">
+            <form name="@Users_FormName" id="@Users_FormName">
                 <div class="form-horizontal">
 
                     @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
@@ -76,13 +67,11 @@
             </form>
         </div>
     </div>
+
+
+
 </div>
 <!-- end:: Content -->
-
-
-
-
-
 <script type="text/javascript">
     var Users_EditFunc;
     $(function () {
@@ -120,6 +109,13 @@
 
     //ayarlar();
 </script>
+
+
+
+
+
+
+<partial name="../OgrenciDetay/InsertOrUpdatePage" />
 
 
 

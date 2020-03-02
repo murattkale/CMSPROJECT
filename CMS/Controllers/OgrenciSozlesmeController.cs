@@ -21,18 +21,18 @@ namespace CMS.Controllers
         public JsonResult GetPaging(DTParameters<OgrenciSozlesme> param, OgrenciSozlesme searchModel)
         {
             var result = _IOgrenciSozlesmeService.GetPaging(null, true, param, false,
-                  o => o.SozlesmeTur,
-                  o => o.OgrenciDetay,
-                  o => o.OgrenciDetay.Okul,
-                  o => o.OgrenciDetay.Ogrenci,
-                  o => o.OgrenciSozlesmeOdemeTablosu,
-                  o => o.GorusenPersonel,
-                  o => o.KurumaGetirenPersonel,
-                  o => o.Finansor,
-                  o => o.Servis,
-                  o => o.Sezon,
-                  o => o.Sube,
-                  o => o.Sube.Kurum
+                  o => o.SozlesmeTur
+                  //o => o.OgrenciDetay
+                  //o => o.OgrenciDetay.Okul,
+                  //o => o.OgrenciDetay.Ogrenci,
+                  //o => o.OgrenciSozlesmeOdemeTablosu,
+                  //o => o.GorusenPersonel,
+                  //o => o.KurumaGetirenPersonel,
+                  //o => o.Finansor,
+                  //o => o.Servis,
+                  //o => o.Sezon,
+                  //o => o.Sube,
+                  //o => o.Sube.Kurum
                   );
 
             return Json(result);
@@ -47,7 +47,7 @@ namespace CMS.Controllers
 
         public OgrenciSozlesme Get(int id)
         {
-            var result = _IOgrenciSozlesmeService.Find(id);
+            var result = _IOgrenciSozlesmeService.Where(o => o.OgrenciDetayId == id).Result.FirstOrDefault();
             return (result);
         }
 

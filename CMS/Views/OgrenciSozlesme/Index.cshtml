@@ -1,4 +1,6 @@
-﻿@{
+﻿<partial name="../OgrenciSozlesme/InsertOrUpdatePage" />
+
+@{
     string pageTitle_OgrenciSozlesme = "Sözleşme";
     string control_Name_OgrenciSozlesme = "OgrenciSozlesme";
 
@@ -24,18 +26,7 @@
                     @Html.Raw(pageTitle_OgrenciSozlesme)
                 </h3>
             </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-
-
-                        <a href="/@control_Name_OgrenciSozlesme/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm">
-                            <i class="la la-plus"></i>
-                            @Html.Raw(pageTitle_OgrenciSozlesme + " Ekle")
-                        </a>
-                    </div>
-                </div>
-            </div>
+            
         </div>
 
         <div class="kt-portlet__body">
@@ -107,7 +98,7 @@
                         "datatype": "json",
                         "data": function (searchModel) {
                             $(dt_OgrenciSozlesme).LoadingOverlay("show");
-                            searchModel.pagingSearchParam = 'Ad';
+                            //searchModel.pagingSearchParam = 'Ad';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -231,3 +222,5 @@
 
 
 </script>
+
+

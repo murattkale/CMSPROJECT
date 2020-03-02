@@ -1,5 +1,6 @@
-﻿@{
-    Layout = null;
+﻿<partial name="../OgrenciSozlesmeOdemeTablosu/InsertOrUpdatePage" />
+
+@{
     string pageTitle_OgrenciSozlesmeOdemeTablosu = "Ödeme Tablosu";
     string control_Name_OgrenciSozlesmeOdemeTablosu = "OgrenciSozlesmeOdemeTablosu";
     int OgrenciSozlesmeOdemeTablosu_idUrl = Context.Request.Query["id"].ToInt();
@@ -27,18 +28,7 @@
                     @Html.Raw(pageTitle_OgrenciSozlesmeOdemeTablosu)
                 </h3>
             </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-
-
-                        <a href="/@control_Name_OgrenciSozlesmeOdemeTablosu/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
-                            <i class="la la-plus"></i>
-                            @Html.Raw(pageTitle_OgrenciSozlesmeOdemeTablosu + " Ekle")
-                        </a>
-                    </div>
-                </div>
-            </div>
+           
         </div>
 
         <div class="kt-portlet__body">
@@ -86,8 +76,8 @@
                         "data": function (searchModel) {
                             $(dt_OgrenciSozlesmeOdemeTablosu).LoadingOverlay("show");
                             searchModel.pagingSearchParam = 'Tutar';
-                            debugger;
-                            searchModel.searchModel.OgrenciSozlesmeId = OgrenciSozlesmeOdemeTablosu_idUrl;
+
+                            //searchModel.searchModel.OgrenciSozlesmeId = OgrenciSozlesmeOdemeTablosu_idUrl;
 
                         },
                         "dataSrc": function (json) {

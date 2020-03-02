@@ -21,9 +21,9 @@ namespace CMS.Controllers
         public JsonResult GetPaging(DTParameters<OgrenciSozlesmeOdemeTablosu> param, OgrenciSozlesmeOdemeTablosu searchModel)
         {
             var result = _IOgrenciSozlesmeOdemeTablosuService.GetPaging(null, true, param, false,
-                o => o.OgrenciSozlesme,
-                o => o.OgrenciSozlesme.OgrenciDetay,
-                o => o.OgrenciSozlesme.OgrenciDetay.Ogrenci
+                o => o.OgrenciSozlesme
+                //o => o.OgrenciSozlesme.OgrenciDetay,
+                //o => o.OgrenciSozlesme.OgrenciDetay.Ogrenci
 
 
                 );

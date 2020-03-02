@@ -1,12 +1,12 @@
 ﻿
 @{
     Layout = null;
-    string pageTitle = "OgrenciDetay";
+    string OgrenciDetay_pageTitle = "OgrenciDetay";
     string OgrenciDetay_ControlNameUrl = "OgrenciDetay";
-    string FormName = "frm_" + OgrenciDetay_ControlNameUrl + "_";
+    string OgrenciDetay_FormName = "frm_" + OgrenciDetay_ControlNameUrl + "_";
     int OgrenciDetay_idUrl = Context.Request.Query["id"].ToInt();
     var OgrenciDetay_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = OgrenciDetay_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string OgrenciDetay_title = OgrenciDetay_idUrl > 0 ? (OgrenciDetay_pageTitle + " Düzenle") : (OgrenciDetay_pageTitle + " Kaydet");
 
     var edit = ViewBag.edit as OgrenciDetay;
     if (edit == null)
@@ -20,7 +20,7 @@
 }
 
 <script type="text/javascript">
-        var OgrenciDetay_FormName = "@Html.Raw(FormName)";
+        var OgrenciDetay_FormName = "@Html.Raw(OgrenciDetay_FormName)";
         var OgrenciDetay_ControlNameUrl = "@OgrenciDetay_ControlNameUrl";
     var OgrenciDetay_idUrl = @OgrenciDetay_idUrl;
 
@@ -47,31 +47,22 @@
                 <span class="kt-portlet__head-icon">
                     <i class="kt-font-brand flaticon2-line-chart"></i>
                 </span>
-                <h3 class="kt-portlet__head-title">
-                    @Html.Raw(title)
+                <h3 class="kt-portlet__head-OgrenciDetay_title">
+                    @Html.Raw(OgrenciDetay_pageTitle)
                 </h3>
             </div>
-            <div class="kt-portlet__head-toolbar">
-                <div class="kt-portlet__head-wrapper">
-                    <div class="kt-portlet__head-actions">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
 
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="kt-portlet__body">
-            <form name="@FormName" id="@FormName">
+            <form name="@OgrenciDetay_FormName" id="@OgrenciDetay_FormName">
                 <div class="form-horizontal">
 
                     @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
-                            <input id="btnOK" type="submit" value="@title" class="btn btn-brand btn-elevate btn-icon-sm" />
+                            <input id="btnOK" type="submit" value="@OgrenciDetay_title" class="btn btn-brand btn-elevate btn-icon-sm" />
                         </div>
                     </div>
 
@@ -91,7 +82,7 @@
     var customComment = "";
     $(function () {
         OgrenciDetay_EditFunc = {
-          
+
 
             load: function () {
 
@@ -126,4 +117,15 @@
 </script>
 
 
+<partial name="../OgrenciSozlesme/Index" />
 
+
+<hr />
+
+<partial name="../OgrenciSozlesmeKiyafet/Index" />
+
+<hr />
+
+<partial name="../OgrenciSozlesmeYayin/Index" />
+
+<partial name="../OgrenciSozlesmeOdemeTablosu/Index" />
