@@ -100,7 +100,7 @@
                     <div class="form-group div_alici d-none">
                         <label class="control-label col-md-2">Alici Kasa</label>
                         <div class="col-md-10">
-                            <select required class="form-control" id="dp_AliciKasaId" name="dp_AliciKasaId"></select>
+                            <select  class="form-control" id="dp_AliciKasaId" name="dp_AliciKasaId"></select>
                         </div>
                     </div>
                      
@@ -151,10 +151,12 @@
             },
               getOdemeTip: function () {
                   $('#dp_OdemeTipId').addOptionAjax("/OdemeTip/GetSelect", "", "value", "text", function () {
-                      if ($("#dp_OdemeTipId option:selected").text().toUpperCase() == "ÇEK") {
+                      if ($("#dp_OdemeTipId option:selected").text().trim().toUpperCase() == "ÇEK") {
+                         $('#dp_AliciKasaId').attr("required",'');
                           $('.div_alici').removeClass("d-none");
                       }
                       else {
+                          $('#dp_AliciKasaId').removeAttr("required");
                           $('.div_alici').addClass("d-none");
 
                       }
@@ -179,6 +181,7 @@
 
                 $('#' + Hesap_FormName).submit(function (e) {
                     e.preventDefault();
+                  
                     var postModel = $.fn.toForm("#" + Hesap_FormName);
                     $.LoadingOverlay("show");
 

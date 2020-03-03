@@ -96,7 +96,7 @@
                         "datatype": "json",
                         "data": function (searchModel) {
                             $(dt_Ogrenci).LoadingOverlay("show");
-                            //searchModel.pagingSearchParam = 'Name,Link';
+                            searchModel.pagingSearchParam = 'OgrenciNo';
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();

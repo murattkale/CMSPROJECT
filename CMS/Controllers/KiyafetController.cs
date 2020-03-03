@@ -19,7 +19,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Kiyafet> param, Kiyafet searchModel)
         {
-            var result = _IKiyafetService.GetPaging(null, true, param, false);
+            var result = _IKiyafetService.GetPaging(null, true, param, false,o=>o.KiyafetTur);
             return Json(result);
         }
 

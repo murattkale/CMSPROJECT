@@ -73,6 +73,13 @@ namespace CMS.Controllers
             return View();
         }
 
+
+        public IActionResult Logout()
+        {
+            _IHttpContextAccessor.HttpContext.Session.Clear();
+            return RedirectToAction("Login1", "Login");
+        }
+
         public IActionResult Report()
         {
             return View();

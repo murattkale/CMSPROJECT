@@ -296,6 +296,8 @@
             },
             load: function () {
 
+                 $('#dp_ContentPageType').addOption(ContentPageTypeAll, "value", "text", function () { }, function () { }, ContentPageType, '', 'Tip Seçiniz');
+
                 $('#' + ContentPage_FormName + ' textarea').each(function () {
                     if (CKEDITOR.instances[$(this).attr('name')])
                         CKEDITOR.instances[$(this).attr('name')].destroy();
