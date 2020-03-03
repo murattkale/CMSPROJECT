@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    [Migration("20200302142130_db1")]
-    partial class db1
+    [Migration("20200303002230_db77")]
+    partial class db77
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -2935,10 +2935,9 @@ namespace Entity.Migrations
                         .HasForeignKey("RoleParentId")
                         .HasConstraintName("FK_Roles_Roles");
 
-                    b.HasOne("Entity.ServiceConfig", "ServiceConfig")
+                    b.HasOne("Entity.ServiceConfig", null)
                         .WithMany("Role")
-                        .HasForeignKey("ServiceConfigId")
-                        .HasConstraintName("FK_Roles_ServiceConfig");
+                        .HasForeignKey("ServiceConfigId");
                 });
 
             modelBuilder.Entity("Entity.Seans", b =>

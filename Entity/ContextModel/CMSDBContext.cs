@@ -67,10 +67,12 @@ namespace Entity.ContextModel
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;");
-                optionsBuilder.UseSqlServer("Server=.;Database=cmsdb;user id=sa;password=123_*1;MultipleActiveResultSets=True;",
-                    x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema")
-                    );
+                optionsBuilder.UseSqlServer("Server=94.73.145.8;Database=u9073914_cms;user id=u9073914_cms;password=GTuw14C7TOcs14E;MultipleActiveResultSets=True;",
+                x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema")
+                );
+                //optionsBuilder.UseSqlServer("Server=.;Database=cmsdb;user id=sa;password=123_*1;MultipleActiveResultSets=True;",
+                //    x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema")
+                //    );
             }
         }
 
@@ -613,7 +615,7 @@ namespace Entity.ContextModel
 
                 entity.Property(e => e.ModDate).HasColumnType("datetime");
 
-              
+
 
             });
 
