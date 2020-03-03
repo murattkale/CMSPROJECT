@@ -8,20 +8,67 @@ using Microsoft.Extensions.Logging;
 using CMS.Models;
 
 using Entity;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Reflection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
 
 namespace CMS.Controllers
 {
     public class BaseController : Controller
     {
-    
+
+        IHostingEnvironment _IHostingEnvironment;
+        IServiceConfigService _IServiceConfigService;
+        IHttpContextAccessor _IHttpContextAccessor;
+
+        public BaseController(IHostingEnvironment _IHostingEnvironment, IServiceConfigService _IServiceConfigService, IHttpContextAccessor _IHttpContextAccessor)
+        {
+            this._IHostingEnvironment = _IHostingEnvironment;
+            this._IServiceConfigService = _IServiceConfigService;
+            this._IHttpContextAccessor = _IHttpContextAccessor;
+
+        }
+
 
         public IActionResult Index()
         {
+
+
+
             if (SessionRequest._User == null)
             {
                 return RedirectToAction("Login1", "Login");
             }
             ViewBag.pageTitle = "Dashboard";
+
+            var menus = _IServiceConfigService.Where().Result.ToList();
+            _IHttpContextAccessor.HttpContext.Session.Set("menus", menus);
+
+
+            // var menuler = Directory.EnumerateFiles(_IHostingEnvironment.ContentRootPath + @"\Views", "*", SearchOption.AllDirectories).Select(o =>
+            //"/" + o.Split("\\")[8].ToStr()
+
+            //).Where(o =>
+            //!o.ToStr().Contains("Base")
+            //&& !o.ToStr().Contains("Shared")
+            //&& !o.ToStr().Contains("Login")
+            // && !o.ToStr().Contains("_")
+            //).Distinct().OrderBy(o => o).ToList();
+
+            // menuler.ForEach(o =>
+            // {
+            //     _IServiceConfigService.Add(new ServiceConfig()
+            //     {
+            //         Name = o,
+            //         Description = o,
+            //         Url = o,
+            //         ServiceName = o
+            //     });
+            //     _IServiceConfigService.SaveChanges();
+            // });
+
 
             return View();
         }
@@ -31,6 +78,6 @@ namespace CMS.Controllers
             return View();
         }
 
-   
+
     }
 }

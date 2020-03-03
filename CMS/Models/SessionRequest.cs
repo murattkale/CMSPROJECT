@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -39,6 +40,9 @@ public static class SessionRequest
     public static string layoutUrl = $"http://cms.dyness.com.tr";
     public static string logo = "~/img/logo.png";
     public static string defaultImage = "~/img/default.png";
+
+
+
 
 
     public static int KurumId { get; set; }
