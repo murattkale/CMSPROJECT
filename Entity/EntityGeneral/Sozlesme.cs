@@ -13,7 +13,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         public string Metin { get; set; }
         [Required()] public int SubeId { get; set; }
 

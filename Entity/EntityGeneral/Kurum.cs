@@ -22,7 +22,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         [Required()] public int CityId { get; set; }
         [Required()] public int TownId { get; set; }
         public string Adres { get; set; }

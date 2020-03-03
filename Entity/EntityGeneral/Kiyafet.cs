@@ -18,7 +18,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         [Required()] public int KiyafetTurId { get; set; }
         [Required()] public int Beden { get; set; }
         [Required()] public int Stok { get; set; }

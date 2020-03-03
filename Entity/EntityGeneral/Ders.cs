@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entity
 {
@@ -19,7 +21,8 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
+        [DisplayName("Ders Grup")]
         [Required()] public int DersGrupId { get; set; }
 
         public virtual DersGrup DersGrup { get; set; }

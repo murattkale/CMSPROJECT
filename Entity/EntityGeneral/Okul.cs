@@ -18,7 +18,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         [Required()] public int OkulTipId { get; set; }
 
         public virtual ICollection<OgrenciDetay> OgrenciDetay { get; set; }

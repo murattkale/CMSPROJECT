@@ -67,63 +67,14 @@
         <div class="kt-portlet__body">
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
-                    <input type="hidden" id="Id" name="Id" value="@edit.Id" />
-                    <input type="hidden" id="IsDeleted" name="IsDeleted" value="@edit.IsDeleted" />
-                    <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
-                    <input type="hidden" id="KurumId" name="KurumId" value="1" />
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="Ad">@Html.Raw("Kasa Adı".Trans())</label>
-                        <div class="col-md-10">
-                            <input required id="Ad" name="Ad" placeholder="@Html.Raw("Kasa Adı".Trans())" value="@edit.Ad" class="form-control" type="text">
-                        </div>
+                    @*<div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button> Lütfen zorunlu alanları doldurunuz.
                     </div>
+                    <div class="alert alert-success display-hide">
+                        <button class="close" data-close="alert"></button> Başarılı...
+                    </div>*@
 
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Üst Kasa</label>
-                        <div class="col-md-10">
-                            <select class="form-control" id="dp_UstKasaId" name="dp_UstKasaId"></select>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Banka</label>
-                        <div class="col-md-10">
-                            <select class="form-control" id="dp_BankaId" name="dp_BankaId"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Para Birimi</label>
-                        <div class="col-md-10">
-                            <select required class="form-control" id="dp_ParaBirimId" name="dp_ParaBirimId"></select>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="GelenTotal">@Html.Raw("Gelen Tutar".Trans())</label>
-                        <div class="col-md-10">
-                            <input disabled id="GelenTotal" name="GelenTotal" placeholder="@Html.Raw("Gelen Tutar".Trans())" value="@edit.GelenTotal" class="form-control" type="text">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="CekilenTotal">@Html.Raw("Çekilen Tutar".Trans())</label>
-                        <div class="col-md-10">
-                            <input disabled id="CekilenTotal" name="CekilenTotal" placeholder="@Html.Raw("Çekilen Tutar".Trans())" value="@edit.CekilenTotal" class="form-control" type="text">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="Total">@Html.Raw("Genel Tutar".Trans())</label>
-                        <div class="col-md-10">
-                            <input disabled id="Total" name="Total" placeholder="@Html.Raw("Genel Tutar".Trans())" value="@edit.Total" class="form-control" type="text">
-                        </div>
-                    </div>
-
+                    @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
 
 
                     <div class="form-group">
@@ -139,29 +90,19 @@
 </div>
 <!-- end:: Content -->
 
+@*<script src="@SessionRequest.layoutUrl/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="@SessionRequest.layoutUrl/assets/global/plugins/jquery-validation/js/additional-methods.min.js" type="text/javascript"></script>
+<script src="~/content/js/form-validation.min.js?v=@SessionRequest.version" type="text/javascript"></script>*@
 
 
 
 
 <script type="text/javascript">
     var Kasa_EditFunc;
-    var customComment = "";
     $(function () {
         Kasa_EditFunc = {
-            getKasa: function () {
-                $('#dp_UstKasaId').addOptionAjax("/Kasa/GetParent", "", "value", "text", function () { }, function () { }, '@Kasa_idUrl_select', '', 'Seçiniz');
-            },
-             getParaBirim: function () {
-                $('#dp_ParaBirimId').addOptionAjax("/ParaBirimi/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.ParaBirimId', '', 'Seçiniz');
-            },
-               getBanka: function () {
-                $('#dp_BankaId').addOptionAjax("/Banka/GetSelect", "", "value", "text", function () { }, function () { }, '@edit.BankaId', '', 'Seçiniz');
-            },
-            load: function () {
-                Kasa_EditFunc.getKasa();
-                   Kasa_EditFunc.getParaBirim();
-                   Kasa_EditFunc.getBanka();
 
+            load: function () {
 
                 $('#' + Kasa_FormName).submit(function (e) {
                     e.preventDefault();

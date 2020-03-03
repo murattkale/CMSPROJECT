@@ -18,7 +18,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         public int? GelirGiderTipi { get; set; }
 
         public virtual ICollection<Hesap> Hesap { get; set; }

@@ -19,7 +19,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
 
         public virtual ICollection<Kasa> Kasa { get; set; }
         public virtual ICollection<OdemeTip> OdemeTip { get; set; }

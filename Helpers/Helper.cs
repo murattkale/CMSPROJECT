@@ -171,8 +171,13 @@ public static class Helpers
                         DisplayName = prp.Name;
 
                     var Required = "";
+                    var strReq = "";
                     if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
+                    {
                         Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
+                        strReq = " <span class='required'> * </span>";
+                        DisplayName += strReq;
+                    }
 
                     switch (Type.GetTypeCode(prp.PropertyType))
                     {

@@ -6,7 +6,7 @@ namespace Entity
     public partial class Formlar : BaseModel
     {
 
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         public string Soyad { get; set; }
         public string Mail { get; set; }
         public string Telefon { get; set; }

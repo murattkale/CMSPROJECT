@@ -67,26 +67,7 @@
         <div class="kt-portlet__body">
             <form name="@FormName" id="@FormName">
                 <div class="form-horizontal">
-                    <input type="hidden" id="Id" name="Id" value="@edit.Id" />
-                    <input type="hidden" id="IsDeleted" name="IsDeleted" value="@edit.IsDeleted" />
-                    <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
-                    <input type="hidden" id="KurumId" name="KurumId" value="1" />
-
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="Name">@Html.Raw("Ad".Trans())</label>
-                        <div class="col-md-10">
-                            <input required id="Ad" name="Ad" placeholder="@Html.Raw("Ad".Trans())" value="@edit.Ad" class="form-control" type="text">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2" for="Kod">@Html.Raw("Kod".Trans())</label>
-                        <div class="col-md-10">
-                            <input required id="Kod" name="Kod" placeholder="@Html.Raw("Kod".Trans())" value="@edit.Kod" class="form-control" type="text">
-                        </div>
-                    </div>
-
+                    @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
 
 
                     <div class="form-group">
@@ -108,7 +89,7 @@
 
 <script type="text/javascript">
     var ParaBirimi_EditFunc;
-    var customComment = "";
+    
     $(function () {
         ParaBirimi_EditFunc = {
         

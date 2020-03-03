@@ -25,7 +25,7 @@ namespace Entity
         
        
         [Required()] public int KurumId { get; set; }
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
 
         [DisplayName("Şehir")]
         public int? CityId { get; set; }

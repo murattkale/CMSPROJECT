@@ -18,7 +18,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         [Required()] public int SubeId { get; set; }
 
         public virtual Sube Sube { get; set; }

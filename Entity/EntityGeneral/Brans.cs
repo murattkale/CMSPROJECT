@@ -19,7 +19,7 @@ namespace Entity
         
        
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         [Required()] public int KurumId { get; set; }
 
         public virtual Kurum Kurum { get; set; }

@@ -26,6 +26,12 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _service_Kasa.Where().Result.Select(o => new { value = o.Id, text = o.Ad });
+            return Json(result);
+        }
 
         [HttpPost]
         public JsonResult GetParent(int? Id)

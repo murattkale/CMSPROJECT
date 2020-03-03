@@ -13,7 +13,7 @@ namespace Entity
         }
 
        
-        public string Ad { get; set; }
+        [Required()] public string Ad  { get; set; }
         [Required()] public int ParaBirimId { get; set; }
         public int? BankaId { get; set; }
         public int? UstKasaId { get; set; }

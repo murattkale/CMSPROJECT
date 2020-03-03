@@ -4,9 +4,7 @@
 
 <!-- begin::Head -->
 <head>
-    <script>
-        var baseUrl = '';
-    </script>
+
     <!-- begin::Global Config(global config for global JS sciprts) -->
     <script>
         var KTAppOptions = {
@@ -106,8 +104,10 @@
     <script src="~/content/js/bootbox.min.js" type="text/javascript"></script>
     <script src="~/content/js/loadingoverlay.min.js" type="text/javascript"></script>
 
+
     <script>
         var baseUrl = '';
+        var layoutUrl = '@SessionRequest.layoutUrl';
 
         $.fn.datepicker.dates['tr'] = {
             days: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
@@ -130,21 +130,20 @@
     <script src="~/content/js/general.js?v=@SessionRequest.version"></script>
 
 
-
     <script type="text/javascript">
 
         var ContentPageTypeAll = [];
         function getContentPageTypeAll() {
-            $.ajx("ContentPage/getContentPageType", {}, function (result) {
+            $.ajx("/ContentPage/getContentPageType", {}, function (result) {
                 ContentPageTypeAll = result;
             }, function () { });
         }
 
         getContentPageTypeAll();
 
-
-
     </script>
+
+
     <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
 
 
@@ -255,7 +254,7 @@
                                 <i class="kt-menu__section-icon flaticon-more-v2"></i>
                             </li>
 
-                            @foreach (var item in SessionRequest._HttpContext.Session.Get<List<ServiceConfig>>("menus"))
+                            @foreach (var item in SessionRequest._HttpContext.Session.Get<List<ServiceConfig>>("menus").OrderBy(o => o.Description))
                             {
 
                                 <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
@@ -268,7 +267,7 @@
                                                     <path d="M4.21611835,7.74669402 C4.30015839,7.64056877 4.40623188,7.55087574 4.5299008,7.48500698 L11.5299008,3.75665466 C11.8237589,3.60013944 12.1762411,3.60013944 12.4700992,3.75665466 L19.4700992,7.48500698 C19.5654307,7.53578262 19.6503066,7.60071528 19.7226939,7.67641889 L12.0479413,12.1074394 C11.9974761,12.1365754 11.9509488,12.1699127 11.9085461,12.2067543 C11.8661433,12.1699127 11.819616,12.1365754 11.7691509,12.1074394 L4.21611835,7.74669402 Z" fill="#000000" opacity="0.3"></path>
                                                 </g>
                                             </svg>
-                                        </span><span class="kt-menu__link-text">@Html.Raw(item.Name)</span>
+                                        </span><span class="kt-menu__link-text">@Html.Raw(item.Description)</span>
                                     </a>
                                 </li>
 
@@ -1959,6 +1958,8 @@
     <script type="text/javascript" src="http://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="http://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js"></script>
+
+  
 
     @RenderSection("Scripts", required: false)
 </body>
