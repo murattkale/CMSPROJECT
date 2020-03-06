@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class OdemeDetay : BaseModel
     {
        
@@ -28,4 +27,3 @@ namespace Entity
 
         public virtual Hesap Hesap { get; set; }
     }
-}

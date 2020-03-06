@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Permission : BaseModel
     {
         public Permission()
@@ -24,4 +23,4 @@ namespace Entity
         public virtual Role Role { get; set; }
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
     }
-}
+

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Yayin : BaseModel
     {
         public Yayin()
@@ -28,4 +27,3 @@ namespace Entity
         public virtual Ders Ders { get; set; }
         public virtual ICollection<OgrenciSozlesmeYayin> OgrenciSozlesmeYayin { get; set; }
     }
-}

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
-using Entity; using Entity.ContextModel;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

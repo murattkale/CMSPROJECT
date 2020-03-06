@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class OgrenciDetay : BaseModel
     {
         public OgrenciDetay()
@@ -36,4 +35,4 @@ namespace Entity
 
         public virtual ICollection<SinifOgrenci> SinifOgrenci { get; set; }
     }
-}
+

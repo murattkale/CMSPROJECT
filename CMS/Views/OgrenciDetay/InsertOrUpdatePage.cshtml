@@ -1,6 +1,5 @@
 ﻿
 @{
-    Layout = null;
     string OgrenciDetay_pageTitle = "OgrenciDetay";
     string OgrenciDetay_ControlNameUrl = "OgrenciDetay";
     string OgrenciDetay_FormName = "frm_" + OgrenciDetay_ControlNameUrl + "_";
@@ -28,13 +27,6 @@
 
 
 
-<style>
-    .modal-dialog {
-        width: 75% !important;
-    }
-</style>
-
-
 
 <!-- begin:: Content -->
 <div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
@@ -58,7 +50,7 @@
             <form name="@OgrenciDetay_FormName" id="@OgrenciDetay_FormName">
                 <div class="form-horizontal">
 
-                    @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
+                    @Html.Raw(edit.DynamicInputHelper(new string[] {"OgrenciId" }, new string[] { "" }))
 
                     <div class="form-group">
                         <div class="col-md-offset-9 col-md-9">
@@ -116,16 +108,3 @@
     //ayarlar();
 </script>
 
-
-<partial name="../OgrenciSozlesme/Index" />
-
-
-<hr />
-
-<partial name="../OgrenciSozlesmeKiyafet/Index" />
-
-<hr />
-
-<partial name="../OgrenciSozlesmeYayin/Index" />
-
-<partial name="../OgrenciSozlesmeOdemeTablosu/Index" />

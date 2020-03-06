@@ -1,12 +1,11 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using System;
-using Entity; using Entity.ContextModel;
+using Entity;
 
-
-public class SinifOgrenciService : GenericRepo<SinifOgrenci>, ISinifOgrenciService
+public class SinifOgrenciService : GenericRepo<CMSDBContext,SinifOgrenci>, ISinifOgrenciService
 {
 
 

@@ -1,29 +1,28 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Entity
+
+public partial class City : BaseModel
 {
-    public partial class City : BaseModel
+    public City()
     {
-        public City()
-        {
-            Kurum = new HashSet<Kurum>();
-            Sube = new HashSet<Sube>();
-            Town = new HashSet<Town>();
-        }
-
-       
-        
-        
-        
-       
-        
-       
-       
-        public string CityName { get; set; }
-
-        public virtual ICollection<Kurum> Kurum { get; set; }
-        public virtual ICollection<Sube> Sube { get; set; }
-        public virtual ICollection<Town> Town { get; set; }
+        Kurum = new HashSet<Kurum>();
+        Sube = new HashSet<Sube>();
+        Town = new HashSet<Town>();
     }
+
+
+
+
+
+
+
+
+
+    public string CityName { get; set; }
+
+    public virtual ICollection<Kurum> Kurum { get; set; }
+    public virtual ICollection<Sube> Sube { get; set; }
+    public virtual ICollection<Town> Town { get; set; }
 }

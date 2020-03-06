@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class SinifOgrenci : BaseModel
     {
 
@@ -18,4 +17,4 @@ namespace Entity
         public virtual Sinif Sinif { get; set; }
 
     }
-}
+

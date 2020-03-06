@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
 using System;
- using Entity.ContextModel;
+ 
 
 
-public class BransService : GenericRepo<Brans>, IBransService
+public class BransService : GenericRepo<CMSDBContext,Brans>, IBransService
     {
 
 

@@ -8,8 +8,8 @@
     <ProjectReference Include="..\CMSService\CMSService.csproj" />
     <ProjectReference Include="..\DynessService\DynessService.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\MuhasebeService\MuhasebeService.csproj" />
     <ProjectReference Include="..\UserService\UserService.csproj" />
   </ItemGroup>
 

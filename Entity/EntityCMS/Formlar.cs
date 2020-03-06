@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Formlar : BaseModel
     {
 
@@ -19,4 +18,4 @@ namespace Entity
 
 
     }
-}
+

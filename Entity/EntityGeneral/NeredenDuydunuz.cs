@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class NeredenDuydunuz : BaseModel
     {
         public NeredenDuydunuz()
@@ -22,4 +21,4 @@ namespace Entity
 
         public virtual ICollection<OgrenciDetay> OgrenciDetay { get; set; }
     }
-}
+

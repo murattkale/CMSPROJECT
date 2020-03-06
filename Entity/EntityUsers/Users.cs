@@ -4,8 +4,7 @@ using System.ComponentModel;
 
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Entity
-{
+
     public partial class Users : BaseModel
     {
         public Users()
@@ -51,6 +50,7 @@ namespace Entity
         public DateTime BirdhDay { get; set; }
         [DisplayName("Kullanıcı No")]
         public string UserNo { get; set; }
+        [Required]
         [DisplayName("Cinsiyet")]
         public string SexType { get; set; }
         [DisplayName("Şehir")]
@@ -75,4 +75,4 @@ namespace Entity
         public virtual ICollection<SinifOgrenci> SinifOgrenci { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
-}
+

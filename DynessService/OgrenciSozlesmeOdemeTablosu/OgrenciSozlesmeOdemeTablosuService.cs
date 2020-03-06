@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
 using System;
-using Entity.ContextModel;
 
-public class OgrenciSozlesmeOdemeTablosuService : GenericRepo<OgrenciSozlesmeOdemeTablosu>, IOgrenciSozlesmeOdemeTablosuService
+
+public class OgrenciSozlesmeOdemeTablosuService : GenericRepo<CMSDBContext,OgrenciSozlesmeOdemeTablosu>, IOgrenciSozlesmeOdemeTablosuService
 {
 
 

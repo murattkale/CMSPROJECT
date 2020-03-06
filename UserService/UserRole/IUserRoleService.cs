@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
-using System;
-using Entity; using Entity.ContextModel;
 
+using System;
+using Entity;
 
 public interface IUserRoleService : IGenericRepo<UserRole>
 {

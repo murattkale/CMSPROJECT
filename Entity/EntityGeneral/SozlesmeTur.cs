@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class SozlesmeTur : BaseModel
     {
         public SozlesmeTur()
@@ -23,4 +22,4 @@ namespace Entity
 
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }
-}
+

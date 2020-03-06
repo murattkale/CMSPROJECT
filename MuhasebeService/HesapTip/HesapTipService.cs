@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
 using System;
-using Entity; using Entity.ContextModel;
 
 
-public class HesapTipService : GenericRepo<HesapTip>, IHesapTipService
+
+public class HesapTipService : GenericRepo<CMSDBContext,HesapTip>, IHesapTipService
 {
 
 

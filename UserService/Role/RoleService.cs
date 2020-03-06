@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
 using System;
-using Entity; using Entity.ContextModel;
 
 
-    public class RoleService : GenericRepo<Role>, IRoleService
+
+    public class RoleService : GenericRepo<CMSDBContext,Role>, IRoleService
     {
 
 

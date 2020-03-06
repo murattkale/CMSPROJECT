@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Entity;
-using Entity; using Entity.ContextModel;
-using GenericRepository;
+
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ilkteknem
 {
@@ -28,24 +29,31 @@ namespace ilkteknem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region BaseServices
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-
-            //unutulmayan hata json result baþ harf küçük > büyük
-            services.AddMvc().AddJsonOptions(o =>
+            services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    
+            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
+            services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(opt =>
             {
-                o.JsonSerializerOptions.PropertyNamingPolicy = null;
-                o.JsonSerializerOptions.DictionaryKeyPolicy = null;
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
             });
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(opt =>
-       opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext")));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpContextAccessor();
 
 
+            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
 
-            services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
+            services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
+            #endregion
 
+            //CMSService
+            services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
+            services.AddScoped(typeof(IDocumentsService), typeof(DocumentsService));
 
 
         }

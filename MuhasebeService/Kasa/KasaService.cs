@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
-using Entity; using Entity.ContextModel;
 
 
-    public class KasaService : GenericRepo<Kasa>, IKasaService
+
+    public class KasaService : GenericRepo<CMSDBContext,Kasa>, IKasaService
     {
         public KasaService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {

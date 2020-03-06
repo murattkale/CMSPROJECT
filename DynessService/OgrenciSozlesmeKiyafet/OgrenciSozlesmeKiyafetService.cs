@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
 using System;
-using Entity.ContextModel;
 
-public class OgrenciSozlesmeKiyafetService : GenericRepo<OgrenciSozlesmeKiyafet>, IOgrenciSozlesmeKiyafetService
+
+public class OgrenciSozlesmeKiyafetService : GenericRepo<CMSDBContext,OgrenciSozlesmeKiyafet>, IOgrenciSozlesmeKiyafetService
 {
 
 

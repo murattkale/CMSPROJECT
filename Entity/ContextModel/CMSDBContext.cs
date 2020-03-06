@@ -1,11 +1,10 @@
 ﻿using System;
 using Entity;
-using Entity.ContextModel;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Entity.ContextModel
-{
+
     public partial class CMSDBContext : DbContext
     {
         public CMSDBContext()
@@ -1049,4 +1048,4 @@ namespace Entity.ContextModel
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
-}
+

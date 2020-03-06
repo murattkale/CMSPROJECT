@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
+
 using Entity;
 using System;
-using Entity.ContextModel;
 
-public class SozlesmeService : GenericRepo<Sozlesme>, ISozlesmeService
+
+public class SozlesmeService : GenericRepo<CMSDBContext,Sozlesme>, ISozlesmeService
 {
 
 

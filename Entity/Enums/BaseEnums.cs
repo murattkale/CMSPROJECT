@@ -5,12 +5,6 @@ using System.Linq;
 using System.Web;
 
 
-public enum RType : int
-{
-    OK = 1,
-    Error = 2,
-    Warning = 3
-}
 
 public enum LoginErrorType : int
 {

@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Entity\Entity.csproj" />
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
-    <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\GenericRepoPattern\GenericRepoPattern.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace Entity
-{
+
     public partial class ContentPage : BaseModel
     {
         public ContentPage()
@@ -32,7 +31,7 @@ namespace Entity
         [DisplayName("Hamburger Menü")]
         public bool? IsHamburgerMenu { get; set; }
         [DisplayName("İçerik")]
-        public string Content { get; set; }
+        public string ContentData { get; set; }
         [DisplayName("Kısa İçerik")]
         public string ContentShort { get; set; }
         public string MetaKeywords { get; set; }
@@ -51,4 +50,4 @@ namespace Entity
 
         public virtual ICollection<Documents> Documents { get; set; }
     }
-}
+

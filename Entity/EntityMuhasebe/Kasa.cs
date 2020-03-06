@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
     public partial class Kasa : BaseModel
     {
         public Kasa()
@@ -32,4 +30,4 @@ namespace Entity
         public virtual ICollection<Hesap> HesapIlgiliKasa { get; set; }
         public virtual ICollection<Kasa> UstKasaList { get; set; }
     }
-}
+

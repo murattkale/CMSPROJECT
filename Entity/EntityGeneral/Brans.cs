@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Brans : BaseModel
     {
         public Brans()
@@ -26,4 +25,4 @@ namespace Entity
         public virtual ICollection<DersBrans> DersBrans { get; set; }
         public virtual ICollection<Yayin> Yayin { get; set; }
     }
-}
+

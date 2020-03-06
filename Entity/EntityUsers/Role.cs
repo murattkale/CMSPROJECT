@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Role : BaseModel
     {
         public Role()
@@ -36,4 +35,4 @@ namespace Entity
         public virtual ICollection<ServiceConfigAuth> ServiceConfigAuth { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }
-}
+

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class DersGrup : BaseModel
     {
         public DersGrup()
@@ -22,4 +21,4 @@ namespace Entity
 
         public virtual ICollection<Ders> Ders { get; set; }
     }
-}
+

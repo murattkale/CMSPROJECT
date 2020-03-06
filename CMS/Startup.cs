@@ -5,8 +5,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CMS.Models;
 using Entity;
-using Entity.ContextModel;
-using GenericRepository;
+
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,31 +31,29 @@ namespace CMS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region BaseServices
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
-
-
-            services
-                .AddMvc(option => option.EnableEndpointRouting = false)
-                .AddNewtonsoftJson(opt =>
-                {
-                    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                    opt.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
-                }
-                );
-            ;
+            services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
+            });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>(
-                //opt =>opt.UseSqlServer(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext"))
-                );
 
-            services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
+            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
+
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
+            services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
+            #endregion
+
+
+
 
 
             //MuhasebeService

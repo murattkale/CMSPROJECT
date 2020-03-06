@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Sezon : BaseModel
     {
         public Sezon()
@@ -24,4 +23,4 @@ namespace Entity
         public virtual Kurum Kurum { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }
-}
+

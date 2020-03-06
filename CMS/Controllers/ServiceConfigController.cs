@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
 
-using Entity; using Entity.ContextModel;
+
 
 namespace CMS.Controllers
 {

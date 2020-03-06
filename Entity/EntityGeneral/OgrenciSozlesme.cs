@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class OgrenciSozlesme : BaseModel
     {
         public OgrenciSozlesme()
@@ -55,4 +54,4 @@ namespace Entity
         public virtual ICollection<OgrenciSozlesmeOdemeTablosu> OgrenciSozlesmeOdemeTablosu { get; set; }
         public virtual ICollection<OgrenciSozlesmeYayin> OgrenciSozlesmeYayin { get; set; }
     }
-}
+

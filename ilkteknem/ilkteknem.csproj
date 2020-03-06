@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Antiforgery" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Core" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
@@ -14,7 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CMSService\CMSService.csproj" />
     <ProjectReference Include="..\Entity\Entity.csproj" />
-    <ProjectReference Include="..\GenericRepository\GenericRepository.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
   </ItemGroup>
 

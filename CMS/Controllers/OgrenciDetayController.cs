@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using CMS.Models;
 
 using Entity;
-using Entity.ContextModel;
+
 
 namespace CMS.Controllers
 {
@@ -39,7 +39,7 @@ namespace CMS.Controllers
 
         public OgrenciDetay Get(int id)
         {
-            var result = _IOgrenciDetayService.Find(id);
+            var result = _IOgrenciDetayService.Where(o=>o.OgrenciId == id).Result.FirstOrDefault();
             return (result);
         }
 

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Okul : BaseModel
     {
         public Okul()
@@ -24,4 +23,4 @@ namespace Entity
         public virtual ICollection<OgrenciDetay> OgrenciDetay { get; set; }
         public virtual OkulTip OkulTip { get; set; }
     }
-}
+

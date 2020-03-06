@@ -2,8 +2,7 @@
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
-namespace Entity
-{
+
     public partial class Sube : BaseModel
     {
         public Sube()
@@ -60,4 +59,4 @@ namespace Entity
         public virtual ICollection<Sinif> Sinif { get; set; }
         public virtual ICollection<Sozlesme> Sozlesme { get; set; }
     }
-}
+

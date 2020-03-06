@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Sozlesme : BaseModel
     {
        
@@ -19,4 +18,3 @@ namespace Entity
 
         public virtual Sube Sube { get; set; }
     }
-}

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Servis : BaseModel
     {
         public Servis()
@@ -26,4 +25,4 @@ namespace Entity
         public virtual Sube Sube { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }
-}
+

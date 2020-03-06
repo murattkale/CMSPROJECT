@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CMS.Models;
-
-using Entity; using Entity.ContextModel;
+using Entity;
 
 namespace CMS.Controllers
 {

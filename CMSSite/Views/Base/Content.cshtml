@@ -61,10 +61,10 @@
                             <hr />
 
 
-                            @if (!string.IsNullOrEmpty(_page.Content))
+                            @if (!string.IsNullOrEmpty(_page.ContentData))
                             {
                                 <div class="row mt--20">
-                                    <p>@Html.Raw(_page.Content)</p>
+                                    <p>@Html.Raw(_page.ContentData)</p>
 
                                 </div>
                             }

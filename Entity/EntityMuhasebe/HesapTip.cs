@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class HesapTip : BaseModel
     {
         public HesapTip()
@@ -23,4 +22,3 @@ namespace Entity
 
         public virtual ICollection<Hesap> Hesap { get; set; }
     }
-}

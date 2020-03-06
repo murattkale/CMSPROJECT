@@ -27,9 +27,9 @@
                                         <div style="width:45% !important;background:#000000;opacity:0.4 !important;z-index:9998 !important;color:#ffffff !important;border-radius:5px;padding:10px;">
                                             <h1 style="font-size: 41px;z-index:9999 !important;color:#ffffff !important;">@Html.Raw(contents.Name) </h1>
 
-                                            @if (!string.IsNullOrEmpty(contents.Content))
+                                            @if (!string.IsNullOrEmpty(contents.ContentData))
                                             {
-                                                <p style="z-index:9999 !important;color: #ffffff !important; font-size:28px !important;font-weight:bold !important;">@Html.Raw(contents.Content)</p>
+                                                <p style="z-index:9999 !important;color: #ffffff !important; font-size:28px !important;font-weight:bold !important;">@Html.Raw(contents.ContentData)</p>
                                             }
 
                                             @if (!string.IsNullOrEmpty(contents.ButtonText1))

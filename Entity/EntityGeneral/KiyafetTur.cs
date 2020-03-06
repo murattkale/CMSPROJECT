@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class KiyafetTur : BaseModel
     {
         public KiyafetTur()
@@ -22,4 +21,4 @@ namespace Entity
 
         public virtual ICollection<Kiyafet> Kiyafet { get; set; }
     }
-}
+

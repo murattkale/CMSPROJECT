@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using CMS.Models;
 
 using Entity;
-using Entity; using Entity.ContextModel;
+
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;

@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Linq.Expressions;
 using System.Collections.Generic;
-using GenericRepository;
-using Entity;
-using Entity; using Entity.ContextModel;
 
-public class FormlarService : GenericRepo<Formlar>, IFormlarService
+using Entity;
+
+
+public class FormlarService : GenericRepo<CMSDBContext,Formlar>, IFormlarService
 {
     public FormlarService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {

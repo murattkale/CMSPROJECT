@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class VeliDetay : BaseModel
     {
         public VeliDetay()
@@ -25,4 +24,3 @@ namespace Entity
         public virtual OgrenciDetay OgrenciDetay { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }
     }
-}

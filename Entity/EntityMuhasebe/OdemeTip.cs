@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class OdemeTip : BaseModel
     {
         public OdemeTip()
@@ -24,4 +23,4 @@ namespace Entity
         public virtual Banka Banka { get; set; }
         public virtual ICollection<Hesap> Hesap { get; set; }
     }
-}
+

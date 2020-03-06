@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Entity
-{
+
     public partial class Ders : BaseModel
     {
         public Ders()
@@ -29,4 +28,4 @@ namespace Entity
         public virtual ICollection<DersBrans> DersBrans { get; set; }
         public virtual ICollection<Yayin> Yayin { get; set; }
     }
-}
+

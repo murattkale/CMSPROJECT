@@ -3,12 +3,13 @@
 @{
     string pageTitle_OgrenciDetay = "Öğrenci Detay";
     string control_Name_OgrenciDetay = "OgrenciDetay";
-
+    int OgrenciDetay_idUrl = Context.Request.Query["id"].ToInt();
 }
 
 <script type="text/javascript">
     var control_Name_OgrenciDetay = "@control_Name_OgrenciDetay";
     var dt_OgrenciDetay = "#dt_" + control_Name_OgrenciDetay;
+     var OgrenciDetay_idUrl = @OgrenciDetay_idUrl;
 </script>
 
 
@@ -85,6 +86,10 @@
                         "datatype": "json",
                         "data": function (searchModel) {
                             $(dt_OgrenciDetay).LoadingOverlay("show");
+
+                            debugger;
+                            searchModel.OgrenciDetay_idUrl = OgrenciDetay_idUrl;
+
                         },
                         "dataSrc": function (json) {
                             return_data = new Array();
@@ -93,7 +98,6 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_OgrenciDetay + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
 
 
