@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMSService", "CMSService\CM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSite", "DynamicSite\DynamicSite.csproj", "{F8A80FBF-FB1E-45C1-AA44-E50BBE4D7799}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSiteEntity", "EntityCMS\DynamicSiteEntity.csproj", "{7D2F8059-3CB4-477F-AB4A-12EFDB403B08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSiteEntity", "DynamicSiteEntity\DynamicSiteEntity.csproj", "{7D2F8059-3CB4-477F-AB4A-12EFDB403B08}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSiteService", "DynamicCMSService\DynamicSiteService.csproj", "{8AAEEEF1-CF3B-4354-9308-B29A5BF0E307}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSiteService", "DynamicSiteService\DynamicSiteService.csproj", "{8AAEEEF1-CF3B-4354-9308-B29A5BF0E307}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericRepoPattern", "GenericRepoPattern\GenericRepoPattern.csproj", "{C886CD19-E5D3-4412-AAAB-698743BD6C18}"
 EndProject
