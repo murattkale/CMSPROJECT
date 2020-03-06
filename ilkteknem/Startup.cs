@@ -67,7 +67,7 @@ namespace ilkteknem
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
 

@@ -59,24 +59,19 @@ namespace DynamicSite
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
             }
 
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseSession();
-            app.UseAuthorization();
-
-            //app.UseAuthenticationMiddleware();
 
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
@@ -85,38 +80,38 @@ namespace DynamicSite
             {
                 endpoints.MapControllerRoute(
          name: "sosyalmedya",
-         pattern: "sosyalmedya/{controller=Home}/{action=sosyalmedya}/{id?}");
+         pattern: "sosyalmedya/{controller=Base}/{action=sosyalmedya}/{id?}");
 
                 endpoints.MapControllerRoute(
            name: "istatistikler",
-           pattern: "istatistikler/{controller=Home}/{action=istatistikler}/{id?}");
+           pattern: "istatistikler/{controller=Base}/{action=istatistikler}/{id?}");
 
                 endpoints.MapControllerRoute(
                 name: "referanslar",
-                pattern: "referanslar/{controller=Home}/{action=referanslar}/{id?}");
+                pattern: "referanslar/{controller=Base}/{action=referanslar}/{id?}");
 
                 endpoints.MapControllerRoute(
             name: "paketlerimiz",
-            pattern: "paketlerimiz/{controller=Home}/{action=paketlerimiz}/{id?}");
+            pattern: "paketlerimiz/{controller=Base}/{action=paketlerimiz}/{id?}");
 
 
                 endpoints.MapControllerRoute(
               name: "iletisim",
-              pattern: "iletisim/{controller=Home}/{action=iletisim}/{id?}");
+              pattern: "iletisim/{controller=Base}/{action=iletisim}/{id?}");
 
 
                 endpoints.MapControllerRoute(
                 name: "biznasilcalisiriz",
-                pattern: "biznasilcalisiriz/{controller=Home}/{action=biznasilcalisiriz}/{id?}");
+                pattern: "biznasilcalisiriz/{controller=Base}/{action=biznasilcalisiriz}/{id?}");
 
 
                 endpoints.MapControllerRoute(
                   name: "hakkimizda",
-                  pattern: "hakkimizda/{controller=Home}/{action=hakkimizda}/{id?}");
+                  pattern: "hakkimizda/{controller=Base}/{action=hakkimizda}/{id?}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Base}/{action=Index}/{id?}");
 
 
 
@@ -125,6 +120,14 @@ namespace DynamicSite
 
             app.UseMvc(routes =>
             {
+
+               
+
+                routes.MapRoute(
+                 "sosyalmedya",
+                  "/Base/{action}/{id?}",
+                 defaults: new { site = "", controller = "Base", action = "", link = "", id = "" }
+                );
 
 
 
@@ -136,8 +139,8 @@ namespace DynamicSite
 
 
                 routes.MapRoute(
-                    "ContentPages",
-                    "/ContentPages",
+                    "ContentPage",
+                    "/ContentPage",
                     defaults: new { site = "", controller = "ContentPages", action = "", link = "", }
                    );
 

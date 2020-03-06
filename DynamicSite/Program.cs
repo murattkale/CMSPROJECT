@@ -18,14 +18,17 @@ namespace DynamicSite
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-              Host.CreateDefaultBuilder(args)
+          Host.CreateDefaultBuilder(args)
 
-                  .ConfigureWebHostDefaults(webBuilder =>
-                  {
-                      //webBuilder.UseUrls("http://localhost:1111");
-                      webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
-                      webBuilder.UseKestrel();
-                      webBuilder.UseStartup<Startup>();
-                  });
+              .ConfigureWebHostDefaults(webBuilder =>
+              {
+                  //webBuilder.UseUrls("http://localhost:1111");
+                  webBuilder.UseKestrel();
+                  webBuilder.UseStartup<Startup>()
+                   .CaptureStartupErrors(true)
+                   .UseSetting("detailedErrors", "true")
+                  ;
+              });
     }
+
 }
