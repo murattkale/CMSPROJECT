@@ -1,4 +1,23 @@
-﻿
+﻿@{
+    //var kategori = ViewBag.kategori as ContentPage;
+    //var Sayfa = ViewBag.Sayfa as ContentPage;
+    //var row1 = ViewBag.row1 as ContentPage;
+    //var row2 = ViewBag.row2 as List<ContentPage>;
+    //var row3 = ViewBag.row3 as List<ContentPage>;
+    //var row4 = ViewBag.row4 as List<ContentPage>;
+    //var row5 = ViewBag.row5 as List<ContentPage>;
+    //var etkinlikler = ViewBag.etkinlikler as List<ContentPage>;
+    //var blog = ViewBag.blog as List<ContentPage>;
+    //var haberler = ViewBag.haberler as List<ContentPage>;
+    //var galeri = ViewBag.galeri as List<ContentPage>;
+    //var sliderUst = ViewBag.sliderUst as List<ContentPage>;
+    //var sliderAlt = ViewBag.sliderAlt as List<ContentPage>;
+
+    var content = ViewBag.content as List<ContentPage>;
+
+}
+
+
 <header class="video-wrapper">
     <div class="video-loader" style="display: none;">
         <i class="fas fa-circle-notch fa-spin"></i>
@@ -164,23 +183,6 @@
 
 
 
-<section class="info p-90-0-90">
-    <div class="dots dots-right"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 order-last order-lg-first col-lg-12">
-                <h2 style="font-size: 40px;text-align:center;" class="font-lighter secondary-color mb-30">
-                    Türkiye’de İnternet Kullanım ve Sosyal Medya
-                    <span class="font-bold">İstatistikleri</span>
-                </h2>
-                <a style="left: 0 !important;position: absolute;font-size: 11px;" href="/istatistikler" class="button button-filled">İstatistikler<i class="fas fa-chevron-right"></i></a>
-                <a style="right: 0 !important;position: absolute;font-size: 11px;" href="/sosyalmedya" class="button button-filled">Sosyal Medya<i class="fas fa-chevron-right"></i></a>
-           <br />
-            </div>
-
-        </div>
-    </div>
-</section>
 
 
 <section class="career parallax-window" data-parallax="scroll" data-image-src="img/anasayfa/1.jpg">
@@ -338,19 +340,6 @@
 
 
 
-
-                        @*<div class="swiper-slide" style="width: 316px; margin-right: 30px;">
-                                <a href="javascript:;" class="clickable-card">
-                                    <div class="card career-card career-card-all">
-                                        <div style="max-height:88px !important;" class="card-body">
-                                            <h3>Hepsini<br>İncele</h3>
-                                            <i class="fas fa-chevron-circle-right"></i>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>*@
-
-
                     </div>
                     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                 </div>
@@ -363,9 +352,9 @@
                 <span><i class="fas fa-chevron-right"></i></span>
                 <span class="sr-only">Next</span>
             </a>
-            @*<div class="row">
-                    <a href="/jobs" class="button button-filled margin-auto">HEPSİNİ İNCELE<i class="fas fa-chevron-right"></i></a>
-                </div>*@
+            <div class="row">
+                <a href="/all" class="button button-filled margin-auto">HEPSİNİ İNCELE<i class="fas fa-chevron-right"></i></a>
+            </div>
         </div>
     </div>
 </section>

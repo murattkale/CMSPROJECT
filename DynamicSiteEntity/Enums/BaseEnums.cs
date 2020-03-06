@@ -19,28 +19,32 @@ public enum LoginErrorType : int
 
 public enum ContentPageType : int
 {
+    [Description("Kategori")]
+    kategori = 11,
     [Description("SAYFA")]
-    Sayfa = 2,
+    Sayfa = 12,
     [Description("AnaSayfa 1.KISIM")]
-    row1 = 3,
+    row1 = 1,
     [Description("AnaSayfa 2.KISIM")]
-    row2 = 4,
+    row2 = 2,
     [Description("AnaSayfa 3.KISIM")]
-    row4 = 6,
+    row3 = 3,
+    [Description("AnaSayfa 4.KISIM")]
+    row4 = 4,
+    [Description("AnaSayfa 5.KISIM")]
+    row5 = 5,
+    [Description("ETKİNLİK (Max 10 Görsel)")]
+    etkinlikler = 13,
+    [Description("BLOG (Max 10 Görsel)")]
+    blog = 14,
+    [Description("HABER (Max 10 Görsel)")]
+    haberler = 15,
+    [Description("GALERİ (Max 10 Görsel)")]
+    galeri = 16,
     [Description("ÜST SLİDER (Max 10 Görsel)")]
-    sliderUst = 7,
+    sliderUst = 17,
     [Description("ALT SLİDER (Max 10 Görsel)")]
-    sliderAlt = 8,
-    [Description("ETKİNLİK (Max 10 Görsel - Boyut:370x275)")]
-    etkinlikler = 9,
-    [Description("HABER (Max 10 Görsel - Boyut:370x205)")]
-    haberler = 10,
-    [Description("3'LÜ HABER (Max 10 Görsel - Boyut:370x205)")]
-    haberler3 = 11,
-    [Description("3'LÜ ETKİNLİK (Max 10 Görsel - Boyut:370x275)")]
-    etkinlikler3 = 12,
-    [Description("GALERİ (Max 3 Görsel)")]
-    galeri = 13,
+    sliderAlt = 18,
 }
 
 

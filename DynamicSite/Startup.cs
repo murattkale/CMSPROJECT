@@ -76,60 +76,50 @@ namespace DynamicSite
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-         name: "sosyalmedya",
-         pattern: "sosyalmedya/{controller=Base}/{action=sosyalmedya}/{id?}");
+         //   app.UseEndpoints(endpoints =>
+         //   {
+         //       endpoints.MapControllerRoute(
+         //name: "sosyalmedya",
+         //pattern: "sosyalmedya/{controller=Base}/{action=sosyalmedya}/{id?}");
 
-                endpoints.MapControllerRoute(
-           name: "istatistikler",
-           pattern: "istatistikler/{controller=Base}/{action=istatistikler}/{id?}");
+         //       endpoints.MapControllerRoute(
+         //  name: "istatistikler",
+         //  pattern: "istatistikler/{controller=Base}/{action=istatistikler}/{id?}");
 
-                endpoints.MapControllerRoute(
-                name: "referanslar",
-                pattern: "referanslar/{controller=Base}/{action=referanslar}/{id?}");
+         //       endpoints.MapControllerRoute(
+         //       name: "referanslar",
+         //       pattern: "referanslar/{controller=Base}/{action=referanslar}/{id?}");
 
-                endpoints.MapControllerRoute(
-            name: "paketlerimiz",
-            pattern: "paketlerimiz/{controller=Base}/{action=paketlerimiz}/{id?}");
-
-
-                endpoints.MapControllerRoute(
-              name: "iletisim",
-              pattern: "iletisim/{controller=Base}/{action=iletisim}/{id?}");
+         //       endpoints.MapControllerRoute(
+         //   name: "paketlerimiz",
+         //   pattern: "paketlerimiz/{controller=Base}/{action=paketlerimiz}/{id?}");
 
 
-                endpoints.MapControllerRoute(
-                name: "biznasilcalisiriz",
-                pattern: "biznasilcalisiriz/{controller=Base}/{action=biznasilcalisiriz}/{id?}");
+         //       endpoints.MapControllerRoute(
+         //     name: "iletisim",
+         //     pattern: "iletisim/{controller=Base}/{action=iletisim}/{id?}");
 
 
-                endpoints.MapControllerRoute(
-                  name: "hakkimizda",
-                  pattern: "hakkimizda/{controller=Base}/{action=hakkimizda}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Base}/{action=Index}/{id?}");
+         //       endpoints.MapControllerRoute(
+         //       name: "biznasilcalisiriz",
+         //       pattern: "biznasilcalisiriz/{controller=Base}/{action=biznasilcalisiriz}/{id?}");
 
 
+         //       endpoints.MapControllerRoute(
+         //         name: "hakkimizda",
+         //         pattern: "hakkimizda/{controller=Base}/{action=hakkimizda}/{id?}");
 
-            });
+         //       endpoints.MapControllerRoute(
+         //           name: "default",
+         //           pattern: "{controller=Base}/{action=Index}/{id?}");
+
+
+
+         //   });
 
 
             app.UseMvc(routes =>
             {
-
-               
-
-                routes.MapRoute(
-                 "sosyalmedya",
-                  "/Base/{action}/{id?}",
-                 defaults: new { site = "", controller = "Base", action = "", link = "", id = "" }
-                );
-
-
 
                 routes.MapRoute(
                   "Ajax",
@@ -137,12 +127,6 @@ namespace DynamicSite
                   defaults: new { site = "", controller = "Base", action = "", link = "", id = "" }
                  );
 
-
-                routes.MapRoute(
-                    "ContentPage",
-                    "/ContentPage",
-                    defaults: new { site = "", controller = "ContentPages", action = "", link = "", }
-                   );
 
                 routes.MapRoute(
                    name: "Content",
