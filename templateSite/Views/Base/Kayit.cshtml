@@ -1,0 +1,265 @@
+﻿
+
+
+<section class="ds ms intro_section page_mainslider">
+    <div class="flexslider">
+        <ul class="slides ds">
+
+            <li>
+                <img src="~/images/top_slider_01.jpg" alt="">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="slide_description_wrapper">
+                                <div class="slide_description">
+                                    <div class="intro-layer" data-animation="expandUp">
+
+                                        <div class="col-sm-12">
+
+                                            <h3 class=" bold " style="color:white; margin-left:140px">
+                                                Kayıt Ol
+                                            </h3>
+                                            <div class="clearfix"></div>
+
+                                            <form name="form1" id="form1">
+
+                                                <div class="form-horizontal">
+                                                    <div id="ContentPlaceHolder1_UpdatePanel3">
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3">Ad Soyad</label>
+                                                            <div class="col-sm-9">
+                                                                <input required name="adsoyad" type="text" id="ContentPlaceHolder1_txtNameSurnameR" class="form-control" AutoComplete="off" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3">Yaşınız</label>
+                                                            <div class="col-sm-3">
+                                                                <input required name="yas" type="text" id="yas" class="form-control" AutoComplete="off" />
+                                                            </div>
+
+                                                            <label class="control-label col-sm-3">Mail</label>
+                                                            <div class="col-sm-3">
+                                                                <input required name="mail" id="mail" type="email" class="form-control" AutoComplete="off" />
+                                                            </div>
+
+                                                            <label class="control-label col-sm-3">Şehir</label>
+                                                            <div class="col-sm-3">
+                                                                <input required name="il" type="text" id="il" class="form-control" AutoComplete="off" />
+                                                            </div>
+                                                            <label class="control-label col-sm-3">İlçe</label>
+                                                            <div class="col-sm-3">
+                                                                <input required name="ilce" type="text" id="ilce" class="form-control" AutoComplete="off" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3">Telefon</label>
+                                                            <div class="col-sm-3">
+                                                                <input required name="telefon" id="telefon"  type="tel" class="form-control" AutoComplete="off" />
+                                                            </div>
+
+                                                            <label class="control-label col-sm-3">Cinsiyetiniz</label>
+                                                            <div class="col-sm-3">
+                                                                <select required name="dp_cinsiyet" id="dp_cinsiyet" class="form-control">
+                                                                    <option selected value="Bay">Bay</option>
+                                                                    <option value="Bayan">Bayan</option>
+                                                                    <option value="Diğer">Diğer</option>
+
+                                                                </select>
+                                                            </div>
+
+                                                            <label class="control-label col-sm-3">Arzuladığınız Yaş</label>
+                                                            <div class="col-sm-3">
+                                                                <select required name="dp_yasaraligi" id="dp_yasaraligi" class="form-control">
+                                                                    @for (int i = 18; i < 65; i++)
+                                                                    {
+                                                                        if (i == 18)
+                                                                        {
+                                                                            <option selected value="@i">@i</option>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <option value="@i">@i</option>
+                                                                        }
+
+                                                                    }
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="control-label col-sm-3">Görüşme yapmaya hazır mısınız?</label>
+                                                            <div class="col-sm-9">
+                                                                <textarea rows="5" class="form-control" AutoComplete="off" name="gorusme" id="gorusme"></textarea>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <input type="submit" name="btnKaydet" value="Kaydet" id="btnKaydet" class="theme_button color1 pull-right" />
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <script>
+                                                $(function () {
+                                                    var formid = '#form1';
+                                                    $(formid).submit(function (e) {
+                                                        e.preventDefault();
+                                                        var postModel = $.fn.toForm(formid);
+
+                                                        $.ajx('/Base/FormSave', { postModel: postModel }, function (resultMenus) {
+                                                            if (resultMenus == "ok") {
+
+                                                                alert('Kayıt Olduğunuz İçin Tesekkür ederiz. Ekibimiz En kısa Sürede Sizinle İletişime Geçecektir.');
+                                                                location.reload();
+                                                            }
+                                                            else {
+                                                                location.reload();
+                                                            }
+                                                        }, function () { location.reload(); });
+
+                                                    });
+
+
+
+                                                });
+
+
+
+
+                                            </script>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- eof .slide_description -->
+                            </div>
+                            <!-- eof .slide_description_wrapper -->
+                        </div>
+                        <!-- eof .col-* -->
+                    </div>
+                    <!-- eof .row -->
+                </div>
+                <!-- eof .container -->
+            </li>
+        </ul>
+    </div>
+    <!-- eof flexslider -->
+</section>
+
+<section class="ds parallax calltoaction section_padding_100" style="background-image: url('/images/call_to_action_2.jpg')">
+    <div class="container">
+        <div class="row topmargin_60 bottommargin_60">
+            <div class="col-sm-6">
+                Pink Ajans “Profesyonellik” ve “Gizlilik” ilkelerini prensip edinmiş olup bu sektörde 2013 yılından itibaren Bayan ve Erkek üyelerimizi Türkiye’nin her bir noktasında buluşturmak üzere kurulmuş bir portal ağdır. Pink Ajans rakiplerinin aksine etkili ve doğru eşleştirmeler ile üyelerimize kaliteli arkadaşlık hizmeti sunmayı hedef almıştır.
+                <br /><br />
+                En büyük iddialarımızdan biri ise üyelik başvurunuzdan sonraki 24 saat içerisinde sizlere müşteri temsilciniz tarafından geri dönüş olunur ve Türkiye’nin hangi ilinde olursanız olun, sizlere hızlı bir şekilde eşleştirme sağlanılıp görüşmelerinize çıkarılır.
+
+                Bunun yanı sıra bütün üyelerimiz ile müşteri temsilcilerimiz saat 10:00 – 20:30 arasında canlı destek hizmeti sunmaktadır. Eğer sizde sıradan hayatınızdan kurtulup hayatınıza renk katmak istiyorsanız sizin için bu görevi üstlenmekten büyük zevk duyarız.
+                <br /><br /><b>BİLMENİZ GEREKENLER :</b>
+                Kayıt ve üyelik esnasında yer alan telefon ve isim bilgileriniz sizlere dönüş yapabilmesi için gereklidir.
+                Haftada Minimum 2 Görüşme GARANTİSİ vermekteyiz.
+                Üyeler arası yönlendirmelerde telefon bilgileriniz ve profil bilgileriniz dışında özel bilgilerin aktarımı yapılmaz ve gizlilik içinde buluşma yönlendirilir.
+                18 Yaşından küçüklerin başvurusu kabul edilmez. Sitede bulunmaları tamamen yasaktır.
+
+
+            </div>
+            <div class="col-sm-6">
+                <img src="~/images/vergiiii_JPG.webp" style="width:100%" />
+                <p>&nbsp;</p>
+                <a target="_blank" href="https://www.turkiye.gov.tr/e-vergi-levhasi-sorgulama" style="display:block; background:#e0006c; padding:5px; color:#fff;text-align:center; width:200px; margin:0 auto;">VERGİ LEVHASI SORGULAMA</a>
+                <p>&nbsp;</p>
+                <a href="javascript:;" style="display:block; background:#e0006c; padding:5px; color:#fff;text-align:center; width:40%; float:left; margin:0 auto;">VERGİ NO :  9310587288</a>
+                <a href="javascript:;" style="display:block; background:#e0006c; padding:5px; color:#fff;text-align:center; width:40%; float:right; margin:0 auto;">TC : 49162033020</a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="ds ms parallax contacts section_padding_50" style="background-image: url('/images/map2.jpg')">
+    <div class="container">
+        <div class="row topmargin_10 bottommargin_20">
+            <div class="col-sm-4">
+                <div class="teaser text-center">
+                    <div class="teaser_icon black size_normal">
+                        <i class="fa fa-female highlight"></i>
+                    </div>
+                    <div class="fontsize_20 thin topmargin_20">
+                        <span class="grey">KADIN ÜYE</span>
+                        <br>
+                        <span class="extra-big">150</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 with_border">
+                <div class="teaser text-center">
+                    <div class="teaser_icon black size_normal">
+                        <i class="fa fa-male highlight"></i>
+                    </div>
+                    <div class="fontsize_20 thin topmargin_20">
+                        <span class="grey">ERKEK ÜYE</span>
+                        <br>
+                        <span class="extra-big">120</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="teaser text-center">
+                    <div class="teaser_icon black size_normal">
+                        <i class="fa fa-users highlight"></i>
+                    </div>
+                    <div class="fontsize_20 thin topmargin_20 darklinks">
+                        <span class="grey">TOPLAM ÜYE</span>
+                        <br>
+                        <span class="extra-big">270</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="ds section_padding_70 parallax" style="background-image: url('/images/map2.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 text-center">
+                <h2 class="big margin_0">Bize ulaşın</h2>
+                <h2 class="muellerhoff topmargin_5 bottommargin_50 highlight">iletisim formu</h2>
+
+                <div class="contact-form">
+                    <div class="form-group">
+                        <input name="ctl00$ContentPlaceHolder1$txtMNameSurname" type="text" id="ContentPlaceHolder1_txtMNameSurname" class="form-control text-center" placeholder="Ad Soyad" />
+                    </div>
+                    <div class="form-group">
+                        <input name="ctl00$ContentPlaceHolder1$txtMPhone" type="text" id="ContentPlaceHolder1_txtMPhone" class="form-control text-center" placeholder="Telefon" />
+                    </div>
+                    <div class="form-group">
+                        <input name="ctl00$ContentPlaceHolder1$txtMEmail" type="text" id="ContentPlaceHolder1_txtMEmail" class="form-control text-center" placeholder="E-Mail" />
+                    </div>
+                    <div class="form-group bottommargin_30">
+                        <textarea name="ctl00$ContentPlaceHolder1$txtMMessage" rows="4" cols="20" id="ContentPlaceHolder1_txtMMessage" class="form-control text-center" placeholder="Mesajınız">
+</textarea>
+                    </div>
+                    <input type="submit" name="ctl00$ContentPlaceHolder1$btnSendMe" value="GÖNDER" id="ContentPlaceHolder1_btnSendMe" class="theme_button color1 bottommargin_0" />
+                    <button type="reset" id="contact_form_clear" name="contact_clear" class="theme_button inverse bottommargin_0">TEMİZLE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+

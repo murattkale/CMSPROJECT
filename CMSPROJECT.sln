@@ -31,7 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSiteService", "Dynam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericRepoPattern", "GenericRepoPattern\GenericRepoPattern.csproj", "{C886CD19-E5D3-4412-AAAB-698743BD6C18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicSiteCMS", "DynamicSiteCMS\DynamicSiteCMS.csproj", "{51BC58DA-218E-42FD-8A57-8272BBAC2DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicSiteCMS", "DynamicSiteCMS\DynamicSiteCMS.csproj", "{51BC58DA-218E-42FD-8A57-8272BBAC2DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "templateSite", "templateSite\templateSite.csproj", "{1082EB16-80BD-4E49-A0AF-9542AC3BA243}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailService", "MailService\MailService.csproj", "{BD77E6ED-C0B6-473C-B62B-7140DB2AB81C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +103,14 @@ Global
 		{51BC58DA-218E-42FD-8A57-8272BBAC2DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51BC58DA-218E-42FD-8A57-8272BBAC2DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51BC58DA-218E-42FD-8A57-8272BBAC2DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1082EB16-80BD-4E49-A0AF-9542AC3BA243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1082EB16-80BD-4E49-A0AF-9542AC3BA243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1082EB16-80BD-4E49-A0AF-9542AC3BA243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1082EB16-80BD-4E49-A0AF-9542AC3BA243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD77E6ED-C0B6-473C-B62B-7140DB2AB81C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD77E6ED-C0B6-473C-B62B-7140DB2AB81C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD77E6ED-C0B6-473C-B62B-7140DB2AB81C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD77E6ED-C0B6-473C-B62B-7140DB2AB81C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
