@@ -20,6 +20,13 @@ public partial class CMSDBContext : DbContext
     public virtual DbSet<Formlar> Formlar { get; set; }
     public virtual DbSet<Documents> Documents { get; set; }
 
+
+    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Permission> Permissions { get; set; }
+    public virtual DbSet<Role> Role { get; set; }
+    public virtual DbSet<ServiceConfig> ServiceConfig { get; set; }
+    public virtual DbSet<ServiceConfigAuth> ServiceConfigAuth { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)

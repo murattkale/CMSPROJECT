@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DynamicSiteEntity\DynamicSiteEntity.csproj" />
     <ProjectReference Include="..\EntityCMS\DynamicSiteEntity.csproj" />
     <ProjectReference Include="..\GenericRepoPattern\GenericRepoPattern.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />

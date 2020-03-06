@@ -25,6 +25,6 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
         public virtual Permission Permission { get; set; }
         public virtual Role Role { get; set; }
         public virtual ServiceConfig ServiceConfig { get; set; }
-        public virtual Users Users { get; set; }
+        public virtual User Users { get; set; }
     }
 

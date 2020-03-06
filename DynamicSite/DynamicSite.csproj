@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DynamicCMSService\DynamicSiteService.csproj" />
+    <ProjectReference Include="..\DynamicSiteEntity\DynamicSiteEntity.csproj" />
+    <ProjectReference Include="..\DynamicSiteService\DynamicSiteService.csproj" />
     <ProjectReference Include="..\EntityCMS\DynamicSiteEntity.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
   </ItemGroup>

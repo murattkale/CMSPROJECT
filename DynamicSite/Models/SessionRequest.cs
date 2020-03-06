@@ -18,11 +18,11 @@ public static class SessionRequest
 
     public static HttpContext _HttpContext => _IHttpContextAccessor.HttpContext;
 
-    public static Users _User
+    public static User _User
     {
         get
         {
-            return new Users()
+            return new User()
             {
                 Id = 1,
             };

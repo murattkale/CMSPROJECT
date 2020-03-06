@@ -36,11 +36,13 @@ public static class SessionRequest
     public static string version = DateTime.Now.ToString().Replace("-", "").Replace(":", "").Replace(".", "").Replace(" ", "");
     public static string copyright = $"{DateTime.Now.Year} © Yazılım&Tasarım (Software&Design)  <a target='_blank' href='#'> by Murat Kale</a>";
     public static string layoutID = "1";
-    //public static string layoutUrl = $"http://content.zonagency.com/demo{layoutID}";
-    public static string layoutUrl = $"http://cms.dyness.com.tr";
+    public static string layoutUrlBase = $"http://cms.dyness.com.tr";
+    public static string layoutUrl = $"{layoutUrlBase}/demo{layoutID}";
     public static string logo = "~/img/logo.png";
     public static string defaultImage = "~/img/default.png";
-
+    public static string baseUrl = "/";
+    public static string ImageUrl = "http://cms.dyness.com/uploads/";
+    public static string RawUrl { get; set; }
 
 
 
@@ -48,8 +50,6 @@ public static class SessionRequest
     public static int KurumId { get; set; }
     public static int SubeId { get; set; }
 
-    public static string baseUrl { get; set; }
-    public static string RawUrl { get; set; }
     public static string Trans(this string keyword)
     {
         return keyword;

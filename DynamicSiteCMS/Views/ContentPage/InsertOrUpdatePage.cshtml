@@ -1,0 +1,367 @@
+﻿@{
+    Layout = null;
+    string pageTitle = "ContentPage";
+    string ContentPage_ControlNameUrl = "ContentPage";
+    string FormName = "frm_" + ContentPage_ControlNameUrl + "_";
+    int ContentPage_idUrl = Context.Request.Query["id"].ToInt();
+    var ContentPage_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = ContentPage_idUrl > 0 ? ("İçerik " + " Düzenle") : (pageTitle + " Kaydet");
+
+    var edit = ViewBag.edit as ContentPage;
+    if (edit == null)
+    {
+        edit = new ContentPage();
+    }
+    else
+    {
+        //ContentPage_idUrl_select = edit.data.ToStr();
+    }
+
+}
+
+<script type="text/javascript">
+
+    var ContentPage_FormName = "@Html.Raw(FormName)";
+    var ContentPage_ControlNameUrl = "/"+ "@ContentPage_ControlNameUrl";
+    var ContentPage_idUrl = "@ContentPage_idUrl";
+    var ContentPage_idUrl_select ="@ContentPage_idUrl_select";
+    var ContentPageType = "@edit.ContentPageType";
+
+</script>
+
+
+
+<style>
+    .modal-dialog {
+        width: 75% !important;
+    }
+</style>
+
+
+
+<!-- begin:: Content -->
+<div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+
+            <div class="kt-portlet__head-label">
+
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    @Html.Raw("İçerik")
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+            <form name="@FormName" id="@FormName">
+                <div class="form-horizontal">
+                    <input type="hidden" id="Id" name="Id" value="@edit.Id" />
+                    <input type="hidden" id="IsDeleted" name="IsDeleted" value="@edit.IsDeleted" />
+                    <input type="hidden" id="IsStatus" name="IsStatus" value="@edit.IsStatus" />
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="Name">@Html.Raw("Ad")</label>
+                        <div class="col-md-10">
+                            <input required id="Name" name="Name" placeholder="@Html.Raw("Ad")" value="@edit.Name" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2">Üst Kategori/Sayfa</label>
+                        <div class="col-md-10">
+                            <select class="form-control" id="dp_ContentPageId" name="dp_ContentPageId"></select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2">Tip</label>
+                        <div class="col-md-10">
+                            <select required class="form-control" id="dp_ContentPageType" name="dp_ContentPageType"></select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="Link">@Html.Raw("Link")</label>
+                        <div class="col-md-10">
+                            <input required id="Link" name="Link" placeholder="@Html.Raw("Link")" value="@edit.Link" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="MetaKeywords">@Html.Raw("MetaKeywords")</label>
+                        <div class="col-md-10">
+                            <input id="MetaKeywords" name="MetaKeywords" placeholder="@Html.Raw("MetaKeywords")" value="@edit.MetaKeywords" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="MetaDescription">@Html.Raw("MetaDescription")</label>
+                        <div class="col-md-10">
+                            <input id="MetaDescription" name="MetaDescription" placeholder="@Html.Raw("MetaDescription")" value="@edit.MetaDescription" class="form-control" type="text">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input @Html.Raw(edit.IsHeaderMenu == true ? "checked='checked'" : "") id="IsHeaderMenu" name="IsHeaderMenu" class="custom-control-input" type="checkbox">
+                                <label class="custom-control-label" for="IsHeaderMenu">@Html.Raw("IsHeaderMenu")</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input @Html.Raw(edit.IsFooterMenu == true ? "checked='checked'" : "") id="IsFooterMenu" name="IsFooterMenu" class="custom-control-input" type="checkbox">
+                                <label class="custom-control-label" for="IsFooterMenu">@Html.Raw("IsFooterMenu")</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input @Html.Raw(edit.IsSideMenu == true ? "checked='checked'" : "") id="IsSideMenu" name="IsSideMenu" class="custom-control-input" type="checkbox">
+                                <label class="custom-control-label" for="IsSideMenu">@Html.Raw("IsSideMenu")</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="custom-control custom-checkbox">
+                                <input @Html.Raw(edit.IsHamburgerMenu == true ? "checked='checked'" : "") id="IsHamburgerMenu" name="IsHamburgerMenu" class="custom-control-input" type="checkbox">
+                                <label class="custom-control-label" for="IsHamburgerMenu">@Html.Raw("IsHamburgerMenu")</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="ContentShort">@Html.Raw("Kısa İçerik")</label>
+                        <div class="col-md-10">
+                            <input id="ContentShort" name="ContentShort" placeholder="@Html.Raw("Kısa İçerik")" value="@edit.ContentShort" class="form-control" type="text">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <input multiple for="DefaultImage" id="file_DefaultImage" type="file" value="@edit.DefaultImage">
+                        </div>
+                    </div>
+
+                    @if (edit.Documents.Any())
+                    {
+                        <div style="border: solid 1px #ccc;border-radius:3px;margin:5px;overflow-y:scroll;" class="form-group row">
+                            <div class="col-md-12">
+                                @foreach (var image in edit.Documents)
+                                {
+                                    var link = "uploads/" + image.Link;
+                                    <div dataid="@image.Id" style="border: solid 1px #ccc;border-radius:3px;float:left;margin:5px;">
+                                        <img src="@link" dataid="@image.Id" name="@image.Name" alt="@image.Alt" title="@image.Title" width="100" height="100" />
+                                        <a href="javascript:;" dataid="@image.Id" class="deleteImage"><i style="margin:5px !important; " class="far fa-trash-alt"></i></a>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    }
+
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="Content">@Html.Raw("İçerik")</label>
+                        <div class="col-md-10">
+                            <textarea id="ContentData" name="ContentData" placeholder="@Html.Raw("İçerik")" class="form-control">@Html.Raw(edit.ContentData)</textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="ButtonText1">@Html.Raw("Buton yazısı 1")</label>
+                        <div class="col-md-10">
+                            <input id="ButtonText1" name="ButtonText1" placeholder="@Html.Raw("Buton yazısı 1")" value="@edit.ButtonText1" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="ButtonText1Link">@Html.Raw("Buton yazısı Linki 1")</label>
+                        <div class="col-md-10">
+                            <input id="ButtonText1Link" name="ButtonText1Link" placeholder="@Html.Raw("Buton yazısı Linki 1")" value="@edit.ButtonText1Link" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="ButtonText2">@Html.Raw("Buton yazısı 2")</label>
+                        <div class="col-md-10">
+                            <input id="ButtonText2" name="ButtonText2" placeholder="@Html.Raw("Buton yazısı 2")" value="@edit.ButtonText2" class="form-control" type="text">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="ButtonText2Link">@Html.Raw("Buton yazısı Linki 2")</label>
+                        <div class="col-md-10">
+                            <input id="ButtonText2Link" name="ButtonText2Link" placeholder="@Html.Raw("Buton yazısı Linki 2")" value="@edit.ButtonText2Link" class="form-control" type="text">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group row">
+                        <div class="col-md-offset-9 col-md-9">
+                            <input id="btnOK" type="submit" value="Kaydet" class="btn btn-brand btn-elevate btn-icon-sm" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end:: Content -->
+
+
+
+<script type="text/javascript">
+    var ContentPage_EditFunc;
+    var customComment = "";
+    $(function () {
+        ContentPage_EditFunc = {
+            GetParent: function () {
+                $('#dp_ContentPageId').addOptionAjax(ContentPage_ControlNameUrl + "/GetContentPage", "", "value", "text", function () { }, function () { }, ContentPage_idUrl_select, '', 'Seçiniz');
+            },
+            load: function () {
+                $('#dp_ContentPageType').addOption(ContentPageTypeAll, "value", "text", function () { }, function () { }, ContentPageType, '', 'Tip Seçiniz');
+
+                $('#' + ContentPage_FormName + ' textarea').each(function () {
+                    if (CKEDITOR.instances[$(this).attr('name')])
+                        CKEDITOR.instances[$(this).attr('name')].destroy();
+
+                    CKEDITOR.replace($(this).attr('name'), {});
+                });
+
+                $('#Name').ceo({ target: '#Link' });
+                $('#Name').ceo({ target: '#MetaKeywords' });
+                $('#Name').dup({ target: '#MetaDescription' });
+
+
+
+
+                ContentPage_EditFunc.GetParent();
+
+                $('#' + ContentPage_FormName).submit(function (e) {
+                    e.preventDefault();
+
+                    var postModel = $.fn.toForm("#" + ContentPage_FormName);
+
+                    var fileUpload = $('#' + 'file_DefaultImage').get(0);
+                    var files = fileUpload.files;
+
+                    var maxFiles = 1;
+
+                    if (postModel.ContentPageType == ContentPageTypeEnum.sliderUst || postModel.ContentPageType == ContentPageTypeEnum.sliderAlt
+                        || postModel.ContentPageType == ContentPageTypeEnum.haberler
+                        || postModel.ContentPageType == ContentPageTypeEnum.haberler3
+                        || postModel.ContentPageType == ContentPageTypeEnum.etkinlikler
+                        || postModel.ContentPageType == ContentPageTypeEnum.etkinlikler3
+                    ) {
+                        maxFiles = 10;
+                    }
+                    else if (postModel.ContentPageType == ContentPageTypeEnum.galeri) {
+                        maxFiles = 4;
+                    }
+                    else {
+                        maxFiles = 1;
+                    }
+
+
+
+                    if (files.length > maxFiles) {
+                        alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');
+                        return;
+                    }
+
+                    var totalImage = ($('.deleteImage[dataid]').length + files.length);
+                    if (totalImage > maxFiles) {
+                        alert($('.deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');
+                        return;
+                    }
+
+                    //if (maxFiles > 1 && totalImage < 1) {
+                    //    alert('Lütfen görsel ekleyiniz.');
+                    //    return;
+                    //}
+
+                    var fileData = new FormData();
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append('files', files[i]);
+                    }
+
+                    fileData.append('postmodel', JSON.stringify(postModel));
+
+                    $.LoadingOverlay("show");
+
+                    $.ajxUpload(ContentPage_ControlNameUrl + "/InsertOrUpdate", fileData, function (resultData) {
+                        if (resultData.ResultType.RType != 3) {
+                            ContentPage_ListFunc.GetPaging();
+                            $("#ajaxSub button[data-dismiss='modal']").click();
+                        }
+                        else {
+                            alerts(resultData.ResultType.MessageList[0]);
+                        }
+                        $.LoadingOverlay("hide");
+                    }, function () { location.reload(); });
+
+                });
+
+                $(".deleteImage").click(function () {
+                    var id = $(this).attr("dataid");
+                    alerts("Resimi silmek istediğinize emin misiniz ? ", "yesno", function (result) {
+                        if (result == true) {
+                            $.LoadingOverlay("show");
+                            $.ajx(ContentPage_ControlNameUrl + '/DeleteImage', { id: id }, function (resultID) {
+                                $('div[dataid="' + resultID + '"]').remove();
+                                $.LoadingOverlay("hide");
+                            });
+                        }
+                    });
+
+
+                });
+
+
+
+            },
+
+
+
+        };
+        ContentPage_EditFunc.load();
+    });
+
+
+    //ayarlar();
+</script>
+
+
+
