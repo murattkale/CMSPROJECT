@@ -53,12 +53,26 @@ namespace DynamicSiteCMS
 
 
 
+            //UserService
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));
+            services.AddScoped(typeof(ICityService), typeof(CityService));
+            services.AddScoped(typeof(ITownService), typeof(TownService));
+
+            services.AddScoped(typeof(IUserService), typeof(UserService));
+            services.AddScoped(typeof(IUserRoleService), typeof(UserRoleService));
+            services.AddScoped(typeof(IRoleService), typeof(RoleService));
+            services.AddScoped(typeof(IPermissionService), typeof(PermissionService));
+
+            services.AddScoped(typeof(IServiceConfigService), typeof(ServiceConfigService));
+            services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));
+
             //CMSService
             services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
             services.AddScoped(typeof(IDocumentsService), typeof(DocumentsService));
 
-          
+
+
 
 
             //var allProviderTypes = System.Reflection.Assembly.GetExecutingAssembly()

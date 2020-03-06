@@ -1,0 +1,503 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+namespace DynamicSiteEntity.Migrations
+{
+    public partial class db1 : Migration
+    {
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "City",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    CityName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_City", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContentPage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    ParentId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ContentPageType = table.Column<int>(nullable: false),
+                    IsHeaderMenu = table.Column<bool>(nullable: true),
+                    IsFooterMenu = table.Column<bool>(nullable: true),
+                    IsSideMenu = table.Column<bool>(nullable: true),
+                    IsHamburgerMenu = table.Column<bool>(nullable: true),
+                    ContentData = table.Column<string>(nullable: true),
+                    ContentShort = table.Column<string>(nullable: true),
+                    MetaKeywords = table.Column<string>(nullable: true),
+                    MetaDescription = table.Column<string>(nullable: true),
+                    BannerText = table.Column<string>(nullable: true),
+                    BannerImage = table.Column<string>(nullable: true),
+                    DefaultImage = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    ButtonText1 = table.Column<string>(nullable: true),
+                    ButtonText1Link = table.Column<string>(nullable: true),
+                    ButtonText2 = table.Column<string>(nullable: true),
+                    ButtonText2Link = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContentPage", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Formlar",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    Ad = table.Column<string>(nullable: false),
+                    Soyad = table.Column<string>(nullable: true),
+                    Mail = table.Column<string>(nullable: true),
+                    Telefon = table.Column<string>(nullable: true),
+                    Adres = table.Column<string>(nullable: true),
+                    CityId = table.Column<int>(nullable: true),
+                    TownId = table.Column<int>(nullable: true),
+                    Icerik = table.Column<string>(nullable: true),
+                    FormType = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Formlar", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceConfig",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    ParentId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    ServiceName = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    UrlTarget = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceConfig", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServiceConfig_ServiceConfig_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "ServiceConfig",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Town",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    CityId = table.Column<int>(nullable: false),
+                    TownName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Town", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Town_City_CityId",
+                        column: x => x.CityId,
+                        principalTable: "City",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    Types = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    Guid = table.Column<string>(nullable: true),
+                    Alt = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    data_class = table.Column<string>(nullable: true),
+                    dataid = table.Column<int>(nullable: false),
+                    ContentPageId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Documents_ContentPage_ContentPageId",
+                        column: x => x.ContentPageId,
+                        principalTable: "ContentPage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    RoleParentId = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    ServiceConfigId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Role_Role_RoleParentId",
+                        column: x => x.RoleParentId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Role_ServiceConfig_ServiceConfigId",
+                        column: x => x.ServiceConfigId,
+                        principalTable: "ServiceConfig",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    Tc = table.Column<string>(maxLength: 11, nullable: false),
+                    Pass = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Surname = table.Column<string>(nullable: false),
+                    Mail1 = table.Column<string>(nullable: true),
+                    Mail2 = table.Column<string>(nullable: true),
+                    Phone1 = table.Column<string>(nullable: true),
+                    Phone2 = table.Column<string>(nullable: true),
+                    Phone3 = table.Column<string>(nullable: true),
+                    Adress1 = table.Column<string>(nullable: true),
+                    Adress2 = table.Column<string>(nullable: true),
+                    BirdhDay = table.Column<DateTime>(nullable: false),
+                    UserNo = table.Column<string>(nullable: true),
+                    SexType = table.Column<string>(nullable: false),
+                    CityId = table.Column<int>(nullable: true),
+                    TownId = table.Column<int>(nullable: true),
+                    ZipCode = table.Column<string>(nullable: true),
+                    ProfilImage = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_City_CityId",
+                        column: x => x.CityId,
+                        principalTable: "City",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_User_Town_TownId",
+                        column: x => x.TownId,
+                        principalTable: "Town",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Permission",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    RoleId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permission", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Permission_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRole",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    RoleId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRole", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserRole_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRole_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceConfigAuth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    ServiceConfigId = table.Column<int>(nullable: false),
+                    UsersId = table.Column<int>(nullable: true),
+                    RoleId = table.Column<int>(nullable: true),
+                    PermissionId = table.Column<int>(nullable: true),
+                    IsCreate = table.Column<bool>(nullable: true),
+                    IsRead = table.Column<bool>(nullable: true),
+                    IsUpdate = table.Column<bool>(nullable: true),
+                    IsDelete = table.Column<bool>(nullable: true),
+                    IsList = table.Column<bool>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ServiceConfigAuth", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ServiceConfigAuth_Permission_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permission",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ServiceConfigAuth_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ServiceConfigAuth_ServiceConfig_ServiceConfigId",
+                        column: x => x.ServiceConfigId,
+                        principalTable: "ServiceConfig",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ServiceConfigAuth_User_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_ContentPageId",
+                table: "Documents",
+                column: "ContentPageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Permission_RoleId",
+                table: "Permission",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Role_RoleParentId",
+                table: "Role",
+                column: "RoleParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Role_ServiceConfigId",
+                table: "Role",
+                column: "ServiceConfigId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceConfig_ParentId",
+                table: "ServiceConfig",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceConfigAuth_PermissionId",
+                table: "ServiceConfigAuth",
+                column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceConfigAuth_RoleId",
+                table: "ServiceConfigAuth",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceConfigAuth_ServiceConfigId",
+                table: "ServiceConfigAuth",
+                column: "ServiceConfigId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiceConfigAuth_UsersId",
+                table: "ServiceConfigAuth",
+                column: "UsersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Town_CityId",
+                table: "Town",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_CityId",
+                table: "User",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_TownId",
+                table: "User",
+                column: "TownId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_RoleId",
+                table: "UserRole",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_UserId",
+                table: "UserRole",
+                column: "UserId");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Documents");
+
+            migrationBuilder.DropTable(
+                name: "Formlar");
+
+            migrationBuilder.DropTable(
+                name: "ServiceConfigAuth");
+
+            migrationBuilder.DropTable(
+                name: "UserRole");
+
+            migrationBuilder.DropTable(
+                name: "ContentPage");
+
+            migrationBuilder.DropTable(
+                name: "Permission");
+
+            migrationBuilder.DropTable(
+                name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Role");
+
+            migrationBuilder.DropTable(
+                name: "Town");
+
+            migrationBuilder.DropTable(
+                name: "ServiceConfig");
+
+            migrationBuilder.DropTable(
+                name: "City");
+        }
+    }
+}

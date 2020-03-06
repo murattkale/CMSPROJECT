@@ -21,8 +21,8 @@ public partial class CMSDBContext : DbContext
     public virtual DbSet<Documents> Documents { get; set; }
 
 
-    public virtual DbSet<User> Users { get; set; }
-    public virtual DbSet<Permission> Permissions { get; set; }
+    public virtual DbSet<User> User { get; set; }
+    public virtual DbSet<Permission> Permission { get; set; }
     public virtual DbSet<Role> Role { get; set; }
     public virtual DbSet<ServiceConfig> ServiceConfig { get; set; }
     public virtual DbSet<ServiceConfigAuth> ServiceConfigAuth { get; set; }
@@ -31,7 +31,7 @@ public partial class CMSDBContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql("Host=78.188.40.28;Database=CMSDBS;Username=postgres;Password=123_*1", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema"));
+            optionsBuilder.UseNpgsql("Host=78.188.40.28;Database=DynamicCMS;Username=postgres;Password=123_*1", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema"));
 
         }
     }

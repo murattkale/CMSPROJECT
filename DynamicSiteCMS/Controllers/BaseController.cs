@@ -32,30 +32,6 @@ namespace DynamicSiteCMS.Controllers
         public IActionResult Index()
         {
 
-            var menuler = Directory.EnumerateFiles(_IHostingEnvironment.ContentRootPath + @"\Views", "*", SearchOption.AllDirectories).Select(o =>
-                "/" + o.Split("\\")[8].ToStr()
-
-                ).Where(o =>
-                !o.ToStr().Contains("Base")
-                && !o.ToStr().Contains("Shared")
-                && !o.ToStr().Contains("Login")
-                && !o.ToStr().Contains("_")
-                ).Distinct().OrderBy(o => o).ToList();
-
-            menuler.ForEach(o =>
-            {
-                _IServiceConfigService.Add(new ServiceConfig()
-                {
-                    Name = o,
-                    Description = o,
-                    Url = o,
-                    ServiceName = o
-                });
-                _IServiceConfigService.SaveChanges();
-            });
-
-
-
 
             if (SessionRequest._User == null)
             {
@@ -65,6 +41,34 @@ namespace DynamicSiteCMS.Controllers
 
             var menus = _IServiceConfigService.Where().Result.ToList();
             _IHttpContextAccessor.HttpContext.Session.Set("menus", menus);
+
+            if (menus.Count<1)
+            {
+                var menuler = Directory.EnumerateFiles(_IHostingEnvironment.ContentRootPath + @"\Views", "*", SearchOption.AllDirectories).Select(o =>
+                   o.Split("\\")[8].ToStr()
+
+                   ).Where(o =>
+                   !o.ToStr().Contains("Base")
+                   && !o.ToStr().Contains("Shared")
+                   && !o.ToStr().Contains("Login")
+                   && !o.ToStr().Contains("_")
+                   ).Distinct().OrderBy(o => o).ToList();
+
+                menuler.ForEach(o =>
+                {
+                    _IServiceConfigService.Add(new ServiceConfig()
+                    {
+                        Name = o,
+                        Description = o,
+                        Url = "/" + o,
+                        ServiceName = o
+                    });
+                    _IServiceConfigService.SaveChanges();
+                });
+            }
+
+
+
 
             return View();
         }
