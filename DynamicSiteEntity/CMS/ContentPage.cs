@@ -42,6 +42,14 @@ public partial class ContentPage : BaseModel
 
     public string Link { get; set; }
 
+    [DisplayName("Video Link")]
+    public string VideoLink { get; set; }
+
+
+    [DisplayName("Resim Link")]
+    public string ResimLink { get; set; }
+
+
     public string MetaKeywords { get; set; }
     public string MetaDescription { get; set; }
     public string BannerText { get; set; }

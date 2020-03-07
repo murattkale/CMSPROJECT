@@ -7,18 +7,21 @@ else {
 
 
 var ContentPageTypeEnum = {
-    Sayfa: 2,
-    row1: 3,
-    row2: 4,
-    row3: 5,
-    row4: 6,
-    sliderUst: 7,
-    sliderAlt: 8,
-    etkinlikler: 9,
-    haberler: 10,
-    haberler3: 11,
-    etkinlikler3: 12,
-    galeri: 13,
+
+    kategori: 11,
+    Sayfa: 12,
+    row1: 1,
+    row2: 2,
+    row3: 3,
+    row4: 4,
+    row5: 5,
+    etkinlikler: 13,
+    blog: 14,
+    haberler: 15,
+    galeri: 16,
+    sliderUst: 17,
+    sliderAlt: 18,
+
 };
 
 

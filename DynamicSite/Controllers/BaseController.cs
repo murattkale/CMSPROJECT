@@ -16,12 +16,15 @@ namespace DynamicSite.Controllers
         IHttpContextAccessor _httpContextAccessor;
         IHostingEnvironment _IHostingEnvironment;
         IContentPageService _IContentPageService;
+        IDocumentsService _IDocumentsService;
         public BaseController(
+            IDocumentsService _IDocumentsService,
             IContentPageService _IContentPageService,
          IHttpContextAccessor _IHttpContextAccessor,
          IHostingEnvironment _IHostingEnvironment
             )
         {
+            this._IDocumentsService = _IDocumentsService;
             this._IContentPageService = _IContentPageService;
             this._httpContextAccessor = _IHttpContextAccessor;
             this._IHostingEnvironment = _IHostingEnvironment;
@@ -62,27 +65,31 @@ namespace DynamicSite.Controllers
         public IActionResult Index()
         {
             var link = HttpContext.Request.Path.Value.Trim().ToStr();
-            var content = _IContentPageService.Where(o => o.Link == link, true, false, o => o.Documents, o => o.ContentPageChilds, o => o.Parent).Result.ToList();
-            content.ForEach(o => { 
-                o.Documents = o.Documents.Where(oo => oo.IsDeleted == null).ToList();
-                o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).ToList();
-            
+            var content = _IContentPageService.Where(o => o.Link == link, true, false, o => o.ContentPageChilds, o => o.Parent).Result.ToList();
+
+            var document = _IDocumentsService.Where().Result.ToList();
+
+            content.ForEach(o =>
+            {
+                o.Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList();
+                o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).Select(o => new ContentPage
+                {
+                    Name = o.Name,
+                    Link = o.Link,
+                    ContentOrderNo = o.ContentOrderNo,
+                    ButtonText1 = o.ButtonText1,
+                    ButtonText1Link = o.ButtonText1Link,
+                    ButtonText2 = o.ButtonText2,
+                    ButtonText2Link = o.ButtonText2Link,
+                    ContentShort = o.ContentShort,
+                    ContentPageType = o.ContentPageType,
+                    Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList()
+                }).ToList();
+
             });
             ViewBag.content = content;
 
-            //ViewBag.kategori = allContent.Where(o => o.ContentPageType == ContentPageType.kategori);
-            //ViewBag.Sayfa = allContent.FirstOrDefault(o => o.ContentPageType == ContentPageType.Sayfa);
-            //ViewBag.row1 = allContent.FirstOrDefault(o => o.ContentPageType == ContentPageType.row1);
-            //ViewBag.row2 = allContent.Where(o => o.ContentPageType == ContentPageType.row2);
-            //ViewBag.row3 = allContent.Where(o => o.ContentPageType == ContentPageType.row3);
-            //ViewBag.row4 = allContent.Where(o => o.ContentPageType == ContentPageType.row4);
-            //ViewBag.row5 = allContent.FirstOrDefault(o => o.ContentPageType == ContentPageType.row5);
-            //ViewBag.etkinlikler = allContent.Where(o => o.ContentPageType == ContentPageType.etkinlikler);
-            //ViewBag.blog = allContent.Where(o => o.ContentPageType == ContentPageType.blog);
-            //ViewBag.haberler = allContent.Where(o => o.ContentPageType == ContentPageType.haberler);
-            //ViewBag.galeri = allContent.Where(o => o.ContentPageType == ContentPageType.galeri);
-            //ViewBag.sliderUst = allContent.Where(o => o.ContentPageType == ContentPageType.sliderUst);
-            //ViewBag.sliderAlt = allContent.Where(o => o.ContentPageType == ContentPageType.sliderAlt);
+
 
             return View();
         }
