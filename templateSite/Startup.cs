@@ -58,7 +58,8 @@ namespace templateSite
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseSession();
-
+            app.UseHsts();
+            app.UseHttpsRedirection();
 
 
             app.UseEndpoints(endpoints =>
