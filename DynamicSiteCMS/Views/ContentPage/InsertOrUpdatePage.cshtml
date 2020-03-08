@@ -14,7 +14,7 @@
     }
     else
     {
-        //ContentPage_idUrl_select = edit.data.ToStr();
+        ContentPage_idUrl_select = edit.ContentPageId.ToStr();
     }
 
 }
@@ -25,7 +25,7 @@
     var ContentPage_ControlNameUrl = "/"+ "@ContentPage_ControlNameUrl";
     var ContentPage_idUrl = "@ContentPage_idUrl";
     var ContentPage_idUrl_select ="@ContentPage_idUrl_select";
-    var ContentPageType = "@edit.ContentPageType";
+    var ContentPageType = "@edit.ContentPageType.ExGetDescription()";
 
 </script>
 
@@ -94,6 +94,13 @@
                         <label class="control-label col-md-2">Tip</label>
                         <div class="col-md-10">
                             <select required class="form-control" id="dp_ContentPageType" name="dp_ContentPageType"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="ContentOrderNo">@Html.Raw("Sıra")</label>
+                        <div class="col-md-10">
+                            <input id="ContentOrderNo" name="ContentOrderNo" placeholder="@Html.Raw("Sıra")" value="@edit.ContentOrderNo" class="form-control" type="number">
                         </div>
                     </div>
 
@@ -265,7 +272,7 @@
                 $('#dp_ContentPageId').addOptionAjax(ContentPage_ControlNameUrl + "/GetContentPage", "", "value", "text", function () { }, function () { }, ContentPage_idUrl_select, '', 'Seçiniz');
             },
             load: function () {
-                $('#dp_ContentPageType').addOption(ContentPageTypeAll, "value", "text", function () { }, function () { }, ContentPageType, '', 'Tip Seçiniz');
+                $('#dp_ContentPageType').addOption(ContentPageTypeAll, "value", "text", function () { }, function () { }, '', ContentPageType, 'Tip Seçiniz');
 
                 $('#' + ContentPage_FormName + ' textarea').each(function () {
                     if (CKEDITOR.instances[$(this).attr('name')])

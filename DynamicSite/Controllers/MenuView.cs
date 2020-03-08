@@ -10,13 +10,13 @@ using Microsoft.Extensions.Logging;
 namespace DynamicSite.Components
 {
 
-    public class ContentView : ViewComponent
+    public class MenuView : ViewComponent
     {
 
         IHttpContextAccessor _httpContextAccessor;
         IContentPageService _IContentPageService;
         IDocumentsService _IDocumentsService;
-        public ContentView(
+        public MenuView(
             IContentPageService _IContentPageService,
             IDocumentsService _IDocumentsService,
         IHttpContextAccessor httpContextAccessor
@@ -29,16 +29,18 @@ namespace DynamicSite.Components
 
 
 
-        public IViewComponentResult Invoke(ContentPageType ContentPageType)
+        public IViewComponentResult Invoke(string type)
         {
-            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents, o => o.Parent).Result;
+            #region dynamicContent
+            var link = HttpContext.Request.Path.Value.Trim().ToStr();
+            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds,o=>o.Documents, o => o.Parent).Result.ToList();
             var document = _IDocumentsService.Where().Result.ToList();
 
-            var list = contentPages.Where(o => o.ContentPageType == ContentPageType);
+            ViewBag.IsHeaderMenu = contentPages.Where(o => o.IsHeaderMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
+            ViewBag.IsFooterMenu = contentPages.Where(o => o.IsFooterMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
+            var content = contentPages.Where(o => o.Link == link).ToList();
 
-            var lastList = list.ToList();
-
-            lastList.ForEach(o =>
+            content.ForEach(o =>
             {
                 o.Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList();
                 o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).Select(o => new ContentPage
@@ -53,38 +55,25 @@ namespace DynamicSite.Components
                     VideoLink = o.VideoLink,
                     ResimLink = o.ResimLink,
                     ContentShort = o.ContentShort,
-
                     ContentPageType = o.ContentPageType,
                     Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList()
                 }).ToList();
 
             });
+            ViewBag.content = content;
+            #endregion
 
-            ViewBag.contents = lastList.ToList();
 
-            switch (ContentPageType)
+            if (type=="h")
             {
-
-                case ContentPageType.galeri:
-                    {
-                        return View("galeri");
-                    }
-                case ContentPageType.haberler:
-                    {
-                        return View("haberler");
-                    }
-                case ContentPageType.etkinlikler:
-                    {
-                        return View("etkinlikler");
-                    }
-                case ContentPageType.Sayfa:
-                    {
-                        return View("Sayfa");
-                    }
+                return View("_Header");
+            }
+            else
+            {
+                return View("_Footer");
             }
 
-
-            return View();
+           
         }
 
 

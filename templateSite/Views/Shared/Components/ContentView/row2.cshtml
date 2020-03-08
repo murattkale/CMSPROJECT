@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 0;
+}
+
+
+
+
+<section style="min-height: 511px !important;background-image: url(images/bg/33.jpg);background-repeat: no-repeat;background-size: cover;background-position: center center; }" class="junior__welcome__area section-padding--lg poss-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section__title--2">
+                    <h2 class="title__line" data-shadow="Eğitim Modelimiz">Eğitim <span class="theme-">Mod</span>elimiz</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row jn__welcome__wrapper--2 align-items-center">
+            <div class="col-md-12 col-lg-6 col-sm-12">
+                <div class="welcome__juniro__three">
+                    <div class="welcome-tab nav" role="tablist">
+                        @foreach (var item in contents)
+                        {
+                            i++;
+                            <a class="nav-item nav-link @Html.Raw(i==1 ? "active" : "")" data-toggle="tab" href="#item_@item.Id" role="tab">@item.Name</a>
+                        }
+
+                    </div>
+                    <div class="welcome__tab__content">
+                        <!-- Start Single Content -->
+                        @{ i = 0;}
+                        @foreach (var item in contents)
+                        {
+                            i++;
+                            <div class="single__welcome__content tab-pane fade show @Html.Raw(i==1 ? "active" : "")" id="item_@item.Id" role="tabpanel">
+                                <p>@Html.Raw(item.ContentData)</p>
+                            </div>
+
+
+                        }
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="welcome__images wow fadeInUp" data-wow-delay="0.5s">
+            <img style="max-width: 57%; float:right !important;" src="images/wel-come/3.png" alt="welcome images">
+        </div>
+    </div>
+</section>
+

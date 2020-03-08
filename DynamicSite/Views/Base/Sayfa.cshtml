@@ -1,0 +1,71 @@
+﻿@{
+    var _page = new ContentPage();
+
+    if (_page != null)
+    {
+        _page = ViewBag.page as ContentPage;
+    }
+
+
+    var imageUrl = _page.ResimLink;
+    if (string.IsNullOrEmpty(imageUrl))
+    {
+        if (_page.Documents.Any())
+        {
+            imageUrl = _page.Documents.FirstOrDefault().Link;
+        }
+    }
+
+    if (!string.IsNullOrEmpty(imageUrl))
+    {
+        imageUrl = SessionRequest.ImageUrl + imageUrl;
+    }
+
+}
+
+@*------https://peakweb.global.ssl.fastly.net/static/assets/backgrounds/blog.4841f0ac.jpg*@
+
+
+<header class="header-subpage">
+    <div class="header-subpage-bg-img" style="background-image: url(@imageUrl); background-position: top"></div>
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 header-subpage-title text-center">
+                    <h1><span class="font-bold">@_page.Name</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="content">
+    <section class="info p-90-0-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div>
+                            @Html.Raw(_page.ContentShort)
+
+                        </div>
+                        <hr />
+                    </div>
+                    <div class="row">
+
+
+
+                        <div>
+                            <p>@Html.Raw(_page.ContentData)</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

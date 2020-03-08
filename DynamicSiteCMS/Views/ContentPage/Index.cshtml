@@ -67,6 +67,7 @@
             GetPaging: function () {
 
                 var columns = [];
+                columns.push({ "data": "ParentName", text: "Üst Kategori" });
                 columns.push({ "data": "Name", text: "Ad" });
                 columns.push({ "data": "ContentPageType", text: "Tip" });
                 columns.push({ "data": "Link", text: "Link" });
@@ -105,8 +106,9 @@
 
 
                                 return_data.push({
+                                    'ParentName': (row.Parent == null ? "" : row.Parent.Name),
                                     'Name': row.Name,
-                                    'ContentPageType': row.ContentPageType > 0 ? getEnumRow(ContentPageTypeAll,row.ContentPageType).text : "",
+                                    'ContentPageType': row.ContentPageType > 0 ? getEnumRow(ContentPageTypeAll, row.ContentPageType).text : "",
                                     'Link': row.Link,
                                     'ContentShort': row.ContentShort,
                                     'IsHeaderMenu': row.IsHeaderMenu == true ? 'aktif' : 'pasif',

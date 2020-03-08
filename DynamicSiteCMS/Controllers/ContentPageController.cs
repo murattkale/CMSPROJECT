@@ -31,7 +31,7 @@ namespace DynamicSiteCMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ContentPage> param, ContentPage searchModel)
         {
-            var result = _IContentPageService.GetPaging(null, true, param, false);
+            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Parent);
             result.data = result.data.OrderByDescending(o => o.Id).ThenByDescending(o => o.Name).ToList();
             return Json(result);
         }

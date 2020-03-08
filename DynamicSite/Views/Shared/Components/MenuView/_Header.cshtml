@@ -1,0 +1,68 @@
+﻿@{
+    var IsHeaderMenu = ViewBag.IsHeaderMenu as List<ContentPage>;
+    var IsFooterMenu = ViewBag.IsFooterMenu as List<ContentPage>;
+
+    var header = IsHeaderMenu.Where(o => o.Parent == null).ToList();
+
+    var url = Context.Request.Path.Value.ToStr().ToLower();
+}
+
+
+
+
+<nav id="navigation" class="navbar navbar-expand-lg bg-scroll">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <h3 style="color:#fff;font-size:30px;">Kazasker  <b> Fen Bilimleri</b></h3>
+        </a>
+        <a class="navbar-brand navbar-brand-dark" href="/">
+            <h3 style="font-size:30px;">Kazasker <b style="color:#b12028"> Fen Bilimleri</b></h3>
+        </a>
+        <a href="/" class="mobile-nav-show">
+            <i class="fas fa-bars"></i>
+        </a>
+        <div class="collapse navbar-collapse no-transition" id="navbarMenu">
+            <div class="mobile-nav-header">
+                <a class="logo" href="/">
+                    <h3 style="color:#fff;font-size:30px;">Kazasker <b style="color:#b12028"> Fen Bilimleri</b></h3>
+                </a>
+                <a href="#" class="mobile-nav-hide">
+                    <img src="/index_files/close-light-20-20.c99bdb80.png" alt="Close">
+                </a>
+            </div>
+            <ul class="navbar-nav ml-auto">
+
+                @foreach (var menu in header)
+                {
+                    var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
+                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
+                    var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
+
+                    <li style="display: inline-flex;" class="nav-item @Html.Raw(menu.Link.ToLower().Contains(url) ? "active":"")">
+                        <a target="@target" href="@link" title="@menu.Name" class="nav-link" style="@cursor">@menu.Name</a>
+                        @*<ul style="position: relative;left: -131px !important;top: 50px;">
+                                @foreach (var submenu in IsHeaderMenu.Where(o => o.ContentPageId == menu.Id).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name))
+                                {
+                                    <li class="nav-item " style="list-style: none;">
+                                        <a href="/@menu.Link" title="@menu.Name" class="nav-link" style="font-size: 10px !important;background: white;opacity: 0.5;color: black;">
+                                            @menu.Name
+                                        </a>
+                                    </li>
+                                }
+                            </ul>*@
+                    </li>
+                }
+
+
+            </ul>
+            <div class="mobile-nav-footer">
+                <ul class="social-list">
+                    <li><a href="https://www.instagram.com/kazaskerfenbilimleri/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://facebook.com/kazaskerfenbilimleri" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://twitter.com/kazaskerfenbilimleri" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                </ul>
+                <p class="semi-transparent copy">@SessionRequest.version</p>
+            </div>
+        </div>
+    </div>
+</nav>

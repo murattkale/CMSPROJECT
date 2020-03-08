@@ -1,7 +1,80 @@
 ﻿@{
     var content = ViewBag.content as List<ContentPage>;
+
+
 }
 
+@foreach (var row in content.Where(o => o.ContentPageType == ContentPageType.row1))
+{
+    <header ctype="@row.ContentPageType.ExGetDescription()" class="video-wrapper">
+        <div class="video-loader" style="display: none;">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </div>
+        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop="" src="@row.VideoLink">
+        </video>
+        <div class="overlay">
+            <div class="container">
+                <div class="main-title text-center">
+                    <h1 class="font-lighter mb-90">@row.ContentShort</h1>
+                    <div class="hb">
+                        <a href="@row.Link" class="discover-now button button-filled">@row.ButtonText1 <i class="fas fa-chevron-down"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+}
+
+
+@foreach (var item in content.Where(o => o.ContentPageType == ContentPageType.row2))
+{
+    var i = -1;
+    foreach (var row in item.ContentPageChilds.OrderBy(o => o.ContentOrderNo).OrderBy(o => o.Name))
+    {
+        i++; var j = 0;
+
+        <section ctype="@row.ContentPageType.ExGetDescription()" id="div_@row.Id" class="info p-90-0-90">
+            <div class="dots dots-@Html.Raw(i % 2 == 0 ? "right" : "left")"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 order-last order-lg-first col-lg-5">
+                        <h2 style="font-size: 44px;" class="font-lighter secondary-color mb-30">@row.Name</h2>
+                        <p class="description secondary-color mb-30">
+                            @Html.Raw(row.ContentShort)
+                        </p>
+                        <a href="@row.Link" class="button button-filled">Detay<i class="fas fa-chevron-right"></i></a>
+                    </div>
+
+                    <div class="col-12 order-first order-lg-last col-lg-7 info-carousel">
+                        <div id="divsub_@row.Id" class="carousel slide carousel-fade" data-ride="carousel">
+
+                            <div class="carousel-inner">
+                                
+                                @foreach (var image in row.Documents)
+                                {
+                                    j++;
+                                    var imageUrl = image.Link != null && image.Link.Contains("http") ? image.Link : SessionRequest.ImageUrl + image.Link;
+                                    <div class="carousel-item @Html.Raw(j==1 ? "active":"")" data-interval="3000">
+                                        <img src="@imageUrl" title="@image.Title" alt="@image.Alt" class="d-block w-100">
+                                    </div>
+                                }
+                            </div>
+                            <a class="carousel-control-prev" href="#divsub_@row.Id" role="button" data-slide="prev">
+                                <i class="fas fa-chevron-left"></i>
+                                <span class="sr-only">Geri</span>
+                            </a>
+                            <a class="carousel-control-next" href="#divsub_@row.Id" role="button" data-slide="next">
+                                <i class="fas fa-chevron-right"></i>
+                                <span class="sr-only">İleri</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+
+}
 
 
 @foreach (var item in content)
@@ -14,61 +87,12 @@
         {
             case ContentPageType.row1:
                 {
-                    <header ctype="@row.ContentPageType.ExGetDescription()" class="video-wrapper">
-                        <div class="video-loader" style="display: none;">
-                            <i class="fas fa-circle-notch fa-spin"></i>
-                        </div>
-                        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop="" src="@row.VideoLink">
-                        </video>
-                        <div class="overlay">
-                            <div class="container">
-                                <div class="main-title text-center">
-                                    <h1 class="font-lighter mb-90">@row.ButtonText1</h1>
-                                    <div class="hb"> 
-                                        <a href="@row.ButtonText1Link" class="discover-now button button-filled">@row.ButtonText1 <i class="fas fa-chevron-down"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
+
                 }
                 break;
             case ContentPageType.row2:
                 {
-                    <section ctype="@row.ContentPageType.ExGetDescription()" id="top-info" class="info p-90-0-90">
-                        <div class="dots dots-@Html.Raw(i%2==0 ? "right":"left")"></div>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12 order-last order-lg-first col-lg-5">
-                                    <h2 style="font-size: 44px;" class="font-lighter secondary-color mb-30">@row.Name</h2>
-                                    <p class="description secondary-color mb-30">
-                                        @Html.Raw(row.ContentShort)
-                                    </p>
-                                    <a href="@row.ButtonText1Link" class="button button-filled">@row.ButtonText1<i class="fas fa-chevron-right"></i></a>
-                                </div>
-                                <div class="col-12 order-first order-lg-last col-lg-7 info-carousel">
-                                    <div id="div_@row.Id" class="carousel slide carousel-fade" data-ride="carousel">
-                                        <div class="carousel-inner">
-                                            @foreach (var image in row.Documents)
-                                            {
-                                                <div class="carousel-item" data-interval="3000">
-                                                    <img src="@image.Link" title="@image.Title" alt="@image.Alt" class="d-block w-100">
-                                                </div>
-                                            }
-                                        </div>
-                                        <a class="carousel-control-prev" href="#div_@row.Id" role="button" data-slide="prev">
-                                            <i class="fas fa-chevron-left"></i>
-                                            <span class="sr-only">Geri</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#div_@row.Id" role="button" data-slide="next">
-                                            <i class="fas fa-chevron-right"></i>
-                                            <span class="sr-only">İleri</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+
                 }
                 break;
             case ContentPageType.row3:
@@ -225,3 +249,5 @@
 
 
 }
+
+

@@ -129,10 +129,10 @@ namespace DynamicSite
 
 
                 routes.MapRoute(
-                   name: "Content",
+                   name: "Sayfa",
                    template: "{*link}",
                    constraints: new { site = new DynamicRouting() },
-                   defaults: new { site = "", controller = "Base", action = "Content", link = "" }
+                   defaults: new { site = "", controller = "Base", action = "Sayfa", link = "" }
                );
 
 

@@ -1,0 +1,44 @@
+﻿@{
+    Layout = null;
+    var contents = (List<ContentPage>)ViewBag.contents;
+    var i = 0;
+}
+
+@if (contents.Count > 0)
+{
+
+
+    <div class="dacre__kidz__area section-padding--lg bg-image--16">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="dcare__kidezone__wrapper d-flex justify-content-between">
+
+                        @foreach (var item in contents)
+                        {
+                            var documents = item.Documents.FirstOrDefault();
+                            var image = documents.Link != null && documents.Link.Contains("http") ? documents.Link : SessionRequest.ImageUrl + documents.Link;
+                            var target = item.Link != null && item.Link.Contains("http") ? "_blank" : "";
+                            var link = (item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.baseUrl + item.Link);
+                            var cursor = string.IsNullOrEmpty(item.Link) ? "cursor:default;" : "";
+
+                            <a target="@target" href="@link">
+                                <div class="kidz__zone">
+                                    <div class="kidz__thumb">
+                                        <img style="max-width: 55% !important;" src="@image" alt="@item.Name">
+                                    </div>
+                                    <div class="kidz__details">
+                                        <h6>@item.Name <span></span></h6>
+                                        <p>@Html.Raw(item.ContentShort)</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
