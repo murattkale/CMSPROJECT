@@ -183,7 +183,7 @@
                             <div class="col-md-12">
                                 @foreach (var image in edit.Documents)
                                 {
-                                    var link = "uploads/" + image.Link;
+                                    var link = SessionRequest.ImageUrl + image.Link;
                                     <div dataid="@image.Id" style="border: solid 1px #ccc;border-radius:3px;float:left;margin:5px;">
                                         <img src="@link" dataid="@image.Id" name="@image.Name" alt="@image.Alt" title="@image.Title" width="100" height="100" />
                                         <a href="javascript:;" dataid="@image.Id" class="deleteImage"><i style="margin:5px !important; " class="far fa-trash-alt"></i></a>

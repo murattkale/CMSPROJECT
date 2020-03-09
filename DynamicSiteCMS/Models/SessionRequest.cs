@@ -38,7 +38,7 @@ public static class SessionRequest
     public static string logo = "~/img/logo.png";
     public static string defaultImage = "~/img/default.png";
     public static string baseUrl = "/";
-    public static string ImageUrl = "http://kazaskerfenbilimleri.com/uploads/";
+    public static string ImageUrl = "/uploads/";
     public static string RawUrl { get; set; }
     public static string jokerPass = "123_*1";
 

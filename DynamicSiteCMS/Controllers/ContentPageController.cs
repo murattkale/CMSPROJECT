@@ -93,8 +93,10 @@ namespace DynamicSiteCMS.Controllers
         public ContentPage Get(int id)
         {
             var result = _IContentPageService.Where(o => o.Id == id, true, false, o => o.Documents).Result.FirstOrDefault();
-            if (result != null && result.Documents.Any())
-                result.Documents = result.Documents.Where(o => o.IsDeleted == null).ToList();
+
+            var dc = _IDocumentsService.Where().Result.ToList();
+
+            result.Documents =dc.Where(o => o.dataid == id).ToList();
             return (result);
         }
 
