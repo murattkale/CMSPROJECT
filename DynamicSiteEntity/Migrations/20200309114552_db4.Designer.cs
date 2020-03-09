@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DynamicSiteEntity.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    partial class CMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200309114552_db4")]
+    partial class db4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,6 +257,9 @@ namespace DynamicSiteEntity.Migrations
                     b.Property<string>("Adres")
                         .HasColumnType("text");
 
+                    b.Property<int?>("CityId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreaDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -289,12 +294,13 @@ namespace DynamicSiteEntity.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Soyad")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Telefon")
-                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("TownId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

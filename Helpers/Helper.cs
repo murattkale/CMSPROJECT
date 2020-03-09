@@ -39,6 +39,10 @@ public static class Helpers
             {
                 attribs[typeName] = typeName.ToLower();
             }
+            else if (typeName == "DataType")
+            {
+                attribs[typeName] = attribData.ConstructorArguments[0].Value;
+            }
             else
             {
                 attribs[typeName] = attribData.ConstructorArguments[0].Value;
@@ -67,11 +71,11 @@ public static class Helpers
 
             if (info.PropertyType.Name.ToLower().Contains("collection"))
             {
-                var list = (System.Collections.IList)info.GetValue(obj, null);
-                foreach (var item in list) //<-- this list should be the "Details" property
-                {
-                    value += "," + item;
-                }
+                value = (System.Collections.IList)info.GetValue(obj, null);
+                //foreach (var item in list) //<-- this list should be the "Details" property
+                //{
+                //    value += "," + item;
+                //}
             }
             else
             {
@@ -81,6 +85,358 @@ public static class Helpers
         }
         return value;
     }
+    public static string DynamicInputHelper2(this object model, string[] nonProp, string[] orderby, string titleName)
+    {
+        string str = "";
+
+        str += "<style>.modal-dialog {width: 75% !important;} .form-group.row{margin-left: 0px;}</style>";
+        str += "      <div style='width:100%;' class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
+        str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
+        str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                    ";
+        str += "          <div class='kt-portlet__head-label'>                                                                                                               ";
+        str += $"              <span class='kt-portlet__head-icon'><i class='kt-font-brand flaticon2-line-chart'></i></span><h3 class='kt-portlet__head-title'>{titleName}</h3>   ";
+        str += "          </div><div class='kt-portlet__head-toolbar'>                                                                                                       ";
+        str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
+        str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";
+        str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>           ";
+        str += "                  </div>                                                                                                                                     ";
+        str += "              </div>                                                                                                                                         ";
+        str += "          </div>                                                                                                                                             ";
+        str += "      </div>                                                                                                                                                 ";
+        str += "      <div class='kt-portlet__body'>                                                                                                                         ";
+        str += "          <div class='form-horizontal'>                                                                                                                      ";
+
+        try
+        {
+
+            Type t = model.GetType();
+            var formname = "frm_" + t.Name;
+            str += $"<form name='{formname}' id='frm_" + t.Name + "'>"; ;
+            var props = t.GetProperties().ToList();
+
+            var baseType = new BaseModel().GetType().GetProperties().ToList();
+            baseType.ForEach(prp =>
+            {
+
+                if (prp.PropertyType.Name != "DateTime")
+                {
+                    str +=
+                                  "<input  " +
+                                  "id='" + prp.Name + "' " +
+                                  "name='" + prp.Name + "' " +
+                                  "value='" + model.GetPropValue(prp.Name) + "' " +
+                                  "type='hidden'>  ";
+                }
+                else
+                {
+                    str +=
+                                  "<input  " +
+                                  "id='" + prp.Name + "' " +
+                                  "name='" + prp.Name + "' " +
+                                  "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
+                                  "type='hidden'>  ";
+                }
+                props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
+            });
+
+            if (nonProp.Count() > 0)
+                nonProp.ToList().ForEach(o =>
+                {
+                    props = props.AsQueryable().Where(d => d.Name != o).ToList();
+                });
+
+            if (orderby.Count() > 0)
+                orderby.ToList().ForEach(o =>
+                {
+                    if (!string.IsNullOrEmpty(o))
+                        props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
+                });
+
+            foreach (var prp in props)
+            {
+                try
+                {
+                    object value = null;
+
+                    switch (Type.GetTypeCode(prp.PropertyType))
+                    {
+                        case TypeCode.Boolean:
+                        case TypeCode.Char:
+                        case TypeCode.SByte:
+                        case TypeCode.Byte:
+                        case TypeCode.Int16:
+                        case TypeCode.UInt16:
+                        case TypeCode.Int32:
+                        case TypeCode.UInt32:
+                        case TypeCode.Int64:
+                        case TypeCode.UInt64:
+                        case TypeCode.Single:
+                        case TypeCode.Double:
+                        case TypeCode.Decimal:
+                        case TypeCode.DateTime:
+                        case TypeCode.String:
+                        case TypeCode.Object:
+                            {
+
+                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
+                                {
+                                    if (prp.Name != "Documents")
+                                        break;
+                                    else
+                                    {
+                                        value = model.GetPropValue(prp.Name) as IList;
+
+                                    }
+                                }
+                                else
+                                {
+                                    value = model.GetPropValue(prp.Name);
+                                }
+                                break;
+                            }
+                    }
+
+                    var dName = GetPropertyAttributes(prp);
+
+
+
+
+
+                    var DisplayName = "";
+                    if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
+                        DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
+                    else
+                        DisplayName = prp.Name;
+
+                    var Required = "";
+                    var strReq = "";
+                    var placeholder = "";
+                    if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
+                    {
+                        Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
+                        placeholder = DisplayName;
+                        strReq = " <span class='required'> * </span>";
+                        DisplayName += strReq;
+                    }
+
+                    switch (Type.GetTypeCode(prp.PropertyType))
+                    {
+                        case TypeCode.Empty:
+                            break;
+
+                        case TypeCode.DBNull:
+                            break;
+                        case TypeCode.Char:
+                            break;
+                        case TypeCode.SByte:
+                        case TypeCode.Byte:
+                            break;
+                        case TypeCode.Single:
+                        case TypeCode.Double:
+                        case TypeCode.Decimal:
+                            {
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10'>                                                                                      ";
+                                str +=
+                                    "<input " + Required + "  " +
+                                    "id='" + prp.Name + "' " +
+                                    "name='" + prp.Name + "' " +
+                                    "placeholder='" + prp.Name + "' " +
+                                    "value='" + value + "' " +
+                                    "class='form-control' " +
+                                    "type='text'>  ";
+                                str += "</div>                                                                                                       ";
+                                str += "</div>                                                                                                                            ";
+                                break;
+                            }
+                        case TypeCode.Boolean:
+                            {
+                                var boolCount = 12 / props.Count(o => Type.GetTypeCode(prp.PropertyType) == TypeCode.Boolean);
+                                str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
+                                str += "     <div class='custom-control custom-checkbox'>                                                                                                                     ";
+                                str += "         <input " + (value.ToBoolean() == true ? "'checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
+                                str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
+                                str += "     </div>                                                                                                                                                           ";
+                                str += " </div>                                                                                                                                                               ";
+                                break;
+                            }
+                        case TypeCode.Int16:
+                        case TypeCode.UInt16:
+                        case TypeCode.UInt32:
+                        case TypeCode.Int64:
+                        case TypeCode.UInt64:
+                        case TypeCode.Object:
+                            {
+                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
+                                {
+                                    if (prp.Name == "Documents")
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    var relation = props.FirstOrDefault(o => prp.Name.Substring(prp.Name.Length - 2, 2) == "Id" && o.Name == prp.Name.Replace("Id", ""));
+                                    if (relation != null)
+                                    {
+                                        str += "<div class='form-group row'>                                                                                                            ";
+                                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                        str += "<div class='col-md-10'>";
+                                        str +=
+                                            "<select " + Required + " " +
+                                            "id='dp_" + prp.Name + "' " +
+                                            "name='dp_" + prp.Name + "' " +
+                                            "class='form-control'>" +
+                                            "</select>";
+                                        str += "</div>";
+                                        str += "</div>";
+
+                                        if (prp.Name == "CityId")
+                                        {
+                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
+                                        }
+                                        else if (prp.Name == "TownId")
+                                        {
+                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
+                                        }
+                                        else
+                                        {
+                                            str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                                        }
+                                    }
+
+                                }
+                                break;
+                            }
+                        case TypeCode.Int32:
+                            {
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10'>";
+                                str +=
+                               "<input  " + Required + "  " +
+                               "id='" + prp.Name + "' " +
+                               "name='" + prp.Name + "' " +
+                               "placeholder='" + prp.Name + "' " +
+                               "value='" + value + "' " +
+                               "class='form-control' " +
+                               "type='number'>  ";
+                                str += "</div>";
+                                str += "</div>";
+
+
+                                break;
+                            }
+                        case TypeCode.DateTime:
+                            {
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10 input-group date'>";
+                                str +=
+                                   "<input " + Required + "  " +
+                                   "placeholder='" + DisplayName + " Seçiniz'" +
+                                   "autocomplete='off'" +
+                                   "id='" + prp.Name + "' " +
+                                   "name='" + prp.Name + "' " +
+                                   "value='" + (value.ToDateTime().Value.Year < 1900 ? "" : value?.ToDateTime().Value.ToShortDateString()) + "' " +
+                                   "class='form-control' " +
+                                   "type='datetime'>  ";
+                                str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
+                                str += "</div>";
+                                str += "</div>";
+                                //str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
+                                break;
+                            }
+                        case TypeCode.String:
+                            {
+                                var textName = "";
+                                if (dName.Count > 0 && dName.Any(o => o.Key == "DataType"))
+                                    textName = dName.FirstOrDefault(o => o.Key == "DataType").Value.ToStr();
+
+                                str += "<div class='form-group row'>                                                                                                            ";
+                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                str += "<div class='col-md-10'>                                                                                      ";
+                                if (textName != "")
+                                {
+                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + DisplayName + "' class='form - control'>" + value + "</textarea>";
+                                }
+                                else
+                                {
+                                    str +=
+                                   "<input " + Required + "  " +
+                                   "id='" + prp.Name + "' " +
+                                   "name='" + prp.Name + "' " +
+                                   "placeholder='" + placeholder + "' " +
+                                   "value='" + value + "' " +
+                                   "class='form-control' " +
+                                   "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
+                                }
+
+
+
+
+                                str += "</div>                                                                                                       ";
+                                str += "</div>                                                                                                                            ";
+                                break;
+                            }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    str += prp.Name + " : " + ex.Message + "\n <br/>" + ex.InnerException;
+                }
+            }
+
+            str += "<div style='float:right;' class='form-group'><div class='col-md-offset-9 col-md-9'><input type='submit' value='" + "Kaydet" + "' class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>";
+
+
+            str += "<script>$(function () { ";
+            str += $"    $('#{formname} textarea').each(function()    ";
+            str += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
+            str += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
+            str += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
+            str += "   });                                                              ";
+
+
+            str += $"   $('#{formname}').submit(function(e)                                                               ";
+            str += " {      e.preventDefault();                                                                                  ";
+            str += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
+            str += "           $.LoadingOverlay('show');                                                                        ";
+            str += $"           $.ajx('{t.Name}/InsertOrUpdate', ";
+            str += " { postModel: postModel }, function(resultData) {             ";
+            str += "    if (resultData.ResultType.RType != 3)                                                            ";
+            str += "           {           try {                                                                                      ";
+            str += $"               {t.Name}_ListFunc.GetPaging();                                                                   ";
+            str += @"               $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}                                   ";
+            str += "           }                                                                                                ";
+            str += "           else                                                                                             ";
+            str += "           {                                                                                                ";
+            str += "               alerts(resultData.ResultType.MessageList[0]);                                                ";
+            str += "           }                                                                                                ";
+            str += "               $.LoadingOverlay('hide');                                                                    ";
+            str += "       }, function() { location.reload(); });                                                               ";
+            str += "   });                                                                                                      ";
+
+            str += "});</script>";
+
+
+        }
+        catch (Exception ex)
+        {
+            str = ex.Message + "\n <br/>" + ex.InnerException;
+        }
+
+
+        str += "</div></div></div></div>";
+
+        return str;
+    }
     public static string DynamicInputHelper(this object model, string[] nonProp, string[] orderby)
     {
         string str = "";
@@ -88,6 +444,8 @@ public static class Helpers
         {
 
             Type t = model.GetType();
+            var formname = "frm_" + t.Name;
+            str += $"<form name='{formname}' id='frm_" + t.Name + "'>"; ;
             var props = t.GetProperties().ToList();
 
             var baseType = new BaseModel().GetType().GetProperties().ToList();
@@ -164,6 +522,11 @@ public static class Helpers
                     }
 
                     var dName = GetPropertyAttributes(prp);
+
+
+
+
+
                     var DisplayName = "";
                     if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
                         DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
@@ -303,17 +666,32 @@ public static class Helpers
                             }
                         case TypeCode.String:
                             {
+                                var textName = "";
+                                if (dName.Count > 0 && dName.Any(o => o.Key == "DataType"))
+                                    textName = dName.FirstOrDefault(o => o.Key == "DataType").Value.ToStr();
+
                                 str += "<div class='form-group row'>                                                                                                            ";
                                 str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                                 str += "<div class='col-md-10'>                                                                                      ";
-                                str +=
-                                    "<input " + Required + "  " +
-                                    "id='" + prp.Name + "' " +
-                                    "name='" + prp.Name + "' " +
-                                    "placeholder='" + prp.Name + "' " +
-                                    "value='" + value + "' " +
-                                    "class='form-control' " +
-                                    "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
+                                if (textName != "")
+                                {
+                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + DisplayName + "' class='form - control'>" + value + "</textarea>";
+                                }
+                                else
+                                {
+                                    str +=
+                                   "<input " + Required + "  " +
+                                   "id='" + prp.Name + "' " +
+                                   "name='" + prp.Name + "' " +
+                                   "placeholder='" + DisplayName + "' " +
+                                   "value='" + value + "' " +
+                                   "class='form-control' " +
+                                   "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
+                                }
+
+
+
+
                                 str += "</div>                                                                                                       ";
                                 str += "</div>                                                                                                                            ";
                                 break;
@@ -326,6 +704,40 @@ public static class Helpers
                     str += prp.Name + " : " + ex.Message + "\n <br/>" + ex.InnerException;
                 }
             }
+
+            str += "<div class='form-group'><div class='col-md-offset-9 col-md-9'><input type='submit' value='" + "Kaydet" + "' class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>";
+
+
+            str += "<script>$(function () { ";
+            str += $"    $('#{formname}' textarea').each(function()    ";
+            str += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
+            str += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
+            str += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
+            str += "   });                                                              ";
+
+
+            str += $"   $('#{formname}').submit(function(e)                                                               ";
+            str += " {      e.preventDefault();                                                                                  ";
+            str += $"       var postModel = $.fn.toForm('#' + {formname});                                                    ";
+            str += "           $.LoadingOverlay('show');                                                                        ";
+            str += $"           $.ajx('{formname}/InsertOrUpdate', ";
+            str += " { postModel: postModel }, function(resultData) {             ";
+            str += "    if (resultData.ResultType.RType != 3)                                                            ";
+            str += "           {                                                                                                ";
+            str += $"               {t.Name}_ListFunc.GetPaging();                                                                   ";
+            str += @"               $(""#ajaxSub button[data-dismiss='modal']"").click();                                      ";
+            str += "           }                                                                                                ";
+            str += "           else                                                                                             ";
+            str += "           {                                                                                                ";
+            str += "               alerts(resultData.ResultType.MessageList[0]);                                                ";
+            str += "           }                                                                                                ";
+            str += "               $.LoadingOverlay('hide');                                                                    ";
+            str += "       }, function() { location.reload(); });                                                               ";
+            str += "   });                                                                                                      ";
+
+
+            str += "});</script>";
+
 
         }
         catch (Exception ex)

@@ -32,10 +32,10 @@ public class SendMail : ISendMail
             mail.IsBodyHtml = true;
             SmtpClient smp = new SmtpClient();
             smp.UseDefaultCredentials = true;
-            //mailin gönderileceği Nameres ve şifresi
-            smp.Credentials = new NetworkCredential("zondigitaldev@gmail.com", "123_*1Zon");
+            smp.Credentials = new NetworkCredential("bilgi@kazaskerfenbilimleri.com", "NCbg78G0");
             smp.Port = 587;
-            smp.Host = "smtp.gmail.com";//gmail üzerinden gönderiliyor.
+            smp.Host = "mail.kazaskerfenbilimleri.com";//mail üzerinden gönderiliyor.
+            //mailin gönderileceği Nameres ve şifresi
             smp.EnableSsl = true;
             smp.SendMailAsync(mail);//mail isimli mail gönderiliyor.
 

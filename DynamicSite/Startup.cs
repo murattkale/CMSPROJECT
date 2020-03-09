@@ -48,6 +48,7 @@ namespace DynamicSite
             services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
             services.AddScoped(typeof(IDocumentsService), typeof(DocumentsService));
             services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));
 
 
 

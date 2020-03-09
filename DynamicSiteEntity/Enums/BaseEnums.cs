@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Linq;
 using System.Web;
@@ -45,6 +46,8 @@ public enum ContentPageType : int
     sliderUst = 17,
     [Description("ALT SLİDER (Max 10 Görsel)")]
     sliderAlt = 18,
+    [Description("Bilgi Formu")]
+    formlar = 88,
 }
 
 

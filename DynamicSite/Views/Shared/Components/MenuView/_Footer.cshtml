@@ -10,21 +10,7 @@
 
 
 
-<div id="tmp-join-us">
-    <section class="join-us">
-        <div class="bg-img" style="background-image: url('img/anasayfa/2.jpg');"></div>
-        <div class="overlay">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 header-subpage-title text-center">
-                        <h2 class="h1 font-lighter color-white mb-30">Denemeye <span class="font-bold">Hazır</span> mısın ?</h2>
-                        <a href="#" class="button button-filled">BENİ TAKİP <span class="font-bold">ET</span> <i class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+
 
 
 <footer class="footer text-center text-lg-left">
@@ -36,14 +22,13 @@
                 </a>
             </div>
 
-
             <div class="col-6 col-lg-3 footer-section">
                 <h5>Bizim Şirket</h5>
                 <ul>
                     @foreach (var menu in header)
                     {
                         var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
-                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
+                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.baseUrl + menu.Link));
                     var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
 
                     var active = "";

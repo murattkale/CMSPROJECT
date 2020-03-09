@@ -35,8 +35,12 @@ public partial class ContentPage : BaseModel
     public bool? IsSideMenu { get; set; }
     [DisplayName("Hamburger Menü")]
     public bool? IsHamburgerMenu { get; set; }
+
+    [DataType("text")]
     [DisplayName("İçerik")]
     public string ContentData { get; set; }
+
+
     [DisplayName("Kısa İçerik")]
     public string ContentShort { get; set; }
 
@@ -52,6 +56,18 @@ public partial class ContentPage : BaseModel
 
     public string MetaKeywords { get; set; }
     public string MetaDescription { get; set; }
+
+    [DataType("text")]
+    public string HeadScript { get; set; }
+    [DataType("text")]
+    public string HeadStyle { get; set; }
+    [DataType("text")]
+    public string BodyScript { get; set; }
+    [DataType("text")]
+    public string FooterScript { get; set; }
+    [DataType("text")]
+    public string FooterStyle { get; set; }
+
     public string BannerText { get; set; }
     public string BannerImage { get; set; }
     public string DefaultImage { get; set; }

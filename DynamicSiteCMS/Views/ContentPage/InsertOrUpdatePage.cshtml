@@ -19,13 +19,16 @@
 
 }
 
+@*@Html.Raw(edit.DynamicInputHelper2(new string[] { }, new string[] { "Document" }, "İçerik"))*@
+
+
 <script type="text/javascript">
 
     var ContentPage_FormName = "@Html.Raw(FormName)";
     var ContentPage_ControlNameUrl = "/"+ "@ContentPage_ControlNameUrl";
     var ContentPage_idUrl = "@ContentPage_idUrl";
     var ContentPage_idUrl_select ="@ContentPage_idUrl_select";
-    var ContentPageType = "@edit.ContentPageType.ExGetDescription()";
+    var ContentPageType = "@edit?.ContentPageType.ExGetDescription()";
 
 </script>
 
@@ -126,6 +129,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label class="control-label col-md-2" for="HeadScript">@Html.Raw("HeadScript")</label>
+                        <div class="col-md-10">
+                            <input id="HeadScript" name="HeadScript" placeholder="@Html.Raw("HeadScript")" value="@edit.HeadScript" class="form-control" type="text">
+                        </div>
+                    </div>
+
 
 
                     <div class="form-group row">
@@ -169,11 +179,9 @@
                     </div>
 
 
-
-
                     <div class="form-group row">
                         <div class="col-md-12">
-                            <input multiple for="DefaultImage" id="file_DefaultImage" type="file" value="@edit.DefaultImage">
+                            <input multiple for="DefaultImage" id="file_DefaultImage" type="file">
                         </div>
                     </div>
 
@@ -283,6 +291,7 @@
 
                 $('#Name').ceo({ target: '#Link' });
                 $('#Name').ceo({ target: '#MetaKeywords' });
+
                 $('#Name').dup({ target: '#MetaDescription' });
 
 
@@ -302,14 +311,12 @@
 
                     if (postModel.ContentPageType == ContentPageTypeEnum.sliderUst || postModel.ContentPageType == ContentPageTypeEnum.sliderAlt
                         || postModel.ContentPageType == ContentPageTypeEnum.haberler
-                        || postModel.ContentPageType == ContentPageTypeEnum.haberler3
                         || postModel.ContentPageType == ContentPageTypeEnum.etkinlikler
-                        || postModel.ContentPageType == ContentPageTypeEnum.etkinlikler3
                     ) {
                         maxFiles = 10;
                     }
                     else if (postModel.ContentPageType == ContentPageTypeEnum.galeri) {
-                        maxFiles = 4;
+                        maxFiles = 10;
                     }
                     else {
                         maxFiles = 1;

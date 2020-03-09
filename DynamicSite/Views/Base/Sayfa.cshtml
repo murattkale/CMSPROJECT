@@ -21,9 +21,12 @@
         imageUrl = SessionRequest.ImageUrl + imageUrl;
     }
 
+
+      var url = Context.Request.Path.Value.ToStr().ToLower();
+
 }
 
-@*------https://peakweb.global.ssl.fastly.net/static/assets/backgrounds/blog.4841f0ac.jpg*@
+
 
 
 <header class="header-subpage">
@@ -49,19 +52,31 @@
                     <div class="row">
                         <div>
                             @Html.Raw(_page.ContentShort)
-
                         </div>
-                        <hr />
+
+
                     </div>
+                    <hr />
+                    <br />
+
                     <div class="row">
-
-
-
                         <div>
                             <p>@Html.Raw(_page.ContentData)</p>
                         </div>
 
                     </div>
+
+
+                    @if (_page.ContentPageType == ContentPageType.formlar)
+                    {
+                        <div class="row">
+                            <partial name="../Base/formlar" />
+                        </div>
+                    }
+
+
+
+
                 </div>
             </div>
         </div>
