@@ -67,7 +67,7 @@
                     </div>
 
 
-                    @if (_page.ContentPageType == ContentPageType.formlar)
+                    @if (_page.ContentPageType == ContentPageType.formlar || url.Contains("/iletisim"))
                     {
                         <div class="row">
                             <partial name="../Base/formlar" />
