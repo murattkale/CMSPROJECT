@@ -43,10 +43,24 @@
                     @foreach (var menu in header)
                     {
                         var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
-                        var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
-                        var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
+                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : SessionRequest.baseUrl + menu.Link);
+                    var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
 
-                        <li class="nav-item @Html.Raw(menu.Link.ToLower().Contains(url) ? "active":"")">
+                    var active = "";
+                    if (menu.Link.ToLower() == ("/"))
+                    {
+                        link = "/";
+                        if (menu.Link.ToLower() == url)
+                            active = " active";
+                    }
+
+                    if (menu.Link.ToLower().Contains(url.Replace("/", "")) && url.Replace("/", "") != "")
+                    {
+                        active = " active";
+                    }
+
+
+                        <li class="nav-item @active">
                             <a target="@target" href="@link" title="@menu.Name" class="" style="@cursor">@menu.Name</a>
                          
                         </li>

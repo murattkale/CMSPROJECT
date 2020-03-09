@@ -19,8 +19,8 @@ public enum LoginErrorType : int
 
 public enum ContentPageType : int
 {
-    [Description("Kategori")]
-    kategori = 11,
+    //[Description("Kategori")]
+    //kategori = 11,
     [Description("SAYFA")]
     Sayfa = 12,
     [Description("AnaSayfa 1.KISIM")]
