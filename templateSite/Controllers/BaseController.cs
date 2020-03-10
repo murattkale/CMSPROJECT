@@ -46,7 +46,7 @@ namespace templateSite.Controllers
 
             _ISendMail.SendMails(new templateMailModel
             {
-                Alicilar = new string[] { "elifaltay495@gmail.com" },
+                Alicilar = new string[] { "elifaltay495@gmail.com", "info@ajanspiink.com","murat.kale9339@gmail.com" },
                 cc = new string[] { "elifaltay495@gmail.com" },
                 KimdenMail = "elifaltay495@gmail.com",
                 KimdenText = "Ajans",

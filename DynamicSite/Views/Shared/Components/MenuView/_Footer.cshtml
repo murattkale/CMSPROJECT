@@ -1,8 +1,7 @@
 ﻿@{
-    var IsHeaderMenu = ViewBag.IsHeaderMenu as List<ContentPage>;
-    var IsFooterMenu = ViewBag.IsFooterMenu as List<ContentPage>;
+    var menuler = ViewBag.IsFooterMenu as List<ContentPage>;
 
-    var header = IsHeaderMenu.Where(o => o.Parent == null).ToList();
+    var header = menuler.Where(o => o.Parent == null).ToList();
 
     var url = Context.Request.Path.Value.ToStr().ToLower();
 }
@@ -28,26 +27,24 @@
                     @foreach (var menu in header)
                     {
                         var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
-                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.baseUrl + menu.Link));
-                    var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
+                        var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.baseUrl + menu.Link));
+                        var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
 
-                    var active = "";
-                    if (menu.Link.ToLower() == ("/"))
-                    {
-                        link = "/";
-                        if (menu.Link.ToLower() == url)
+                        var active = "";
+                        if (menu.Link.ToLower() == ("/"))
+                        {
+                            link = "/";
+                            if (menu.Link.ToLower() == url)
+                                active = " active";
+                        }
+
+                        if (menu.Link.ToLower().Contains(url.Replace("/", "")) && url.Replace("/", "") != "")
+                        {
                             active = " active";
-                    }
-
-                    if (menu.Link.ToLower().Contains(url.Replace("/", "")) && url.Replace("/", "") != "")
-                    {
-                        active = " active";
-                    }
-
+                        }
 
                         <li class="nav-item @active">
                             <a target="@target" href="@link" title="@menu.Name" class="" style="@cursor">@menu.Name</a>
-                         
                         </li>
                     }
                 </ul>

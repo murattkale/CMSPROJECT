@@ -71,7 +71,7 @@ public static class Helpers
 
             if (info.PropertyType.Name.ToLower().Contains("collection"))
             {
-                value = (System.Collections.IList)info.GetValue(obj, null);
+                value = info.GetValue(obj, null) as IList;
                 //foreach (var item in list) //<-- this list should be the "Details" property
                 //{
                 //    value += "," + item;
@@ -242,7 +242,7 @@ public static class Helpers
                                     "<input " + Required + "  " +
                                     "id='" + prp.Name + "' " +
                                     "name='" + prp.Name + "' " +
-                                    "placeholder='" + prp.Name + "' " +
+                                    "placeholder='" + placeholder + "' " +
                                     "value='" + value + "' " +
                                     "class='form-control' " +
                                     "type='text'>  ";
@@ -252,13 +252,7 @@ public static class Helpers
                             }
                         case TypeCode.Boolean:
                             {
-                                var boolCount = 12 / props.Count(o => Type.GetTypeCode(prp.PropertyType) == TypeCode.Boolean);
-                                str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
-                                str += "     <div class='custom-control custom-checkbox'>                                                                                                                     ";
-                                str += "         <input " + (value.ToBoolean() == true ? "'checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
-                                str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
-                                str += "     </div>                                                                                                                                                           ";
-                                str += " </div>                                                                                                                                                               ";
+
                                 break;
                             }
                         case TypeCode.Int16:
@@ -270,20 +264,44 @@ public static class Helpers
                             {
                                 if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
                                 {
-                                    if (prp.Name == "Documents")
-                                    {
-
-                                    }
+                                    if (prp.Name != "Documents")
+                                        break;
                                     else
                                     {
-                                        break;
+                                        str += "     <div class='form-group row'>                                                       ";
+                                        str += "          <div class='col-md-12'>                                                       ";
+                                        str += "              <input multiple for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
+                                        str += "          </div>                                                                        ";
+                                        str += "     </div>                                                                              ";
+
+                                        if (value != null && (value as IList).Count > 0)
+                                        {
+                                            str += "  <div style='border: solid 1px #ccc;border-radius:3px;margin:5px;overflow-y:scroll;' class='form-group row'>                                              ";
+                                            str += "     <div class='col-md-12'>                                                                                                                               ";
+                                            foreach (var image in (value as IList))
+                                            {
+                                                var link = "/uploads/" + image.GetPropValue("Link");
+                                                str += "             <div dataid='" + image.GetPropValue("Id") + "' style='border: solid 1px #ccc;border-radius:3px;float:left;margin:5px;'>                                              ";
+                                                str += "                 <img src='" + link + "' dataid='" + image.GetPropValue("Link") + "' name='" + image.GetPropValue("Name") + "' alt='" + image.GetPropValue("Alt") + "' title='" + image.GetPropValue("Title") + "' width='100' height='100' />                  ";
+                                                str += "                 <a href='javascript:;' dataid='" + image.GetPropValue("Id") + "' class='deleteImage'><i style='margin:5px !important; ' class='far fa-trash-alt'></i></a>        ";
+                                                str += "             </div>                                                                                                                                        ";
+                                                str += "                                                                                                                                                           ";
+                                            }
+                                            str += "     </div>                                                                                                                                                ";
+                                            str += "  </div>                                                                                                                                                   ";
+                                        }
+
                                     }
                                 }
                                 else
                                 {
                                     var relation = props.FirstOrDefault(o => prp.Name.Substring(prp.Name.Length - 2, 2) == "Id" && o.Name == prp.Name.Replace("Id", ""));
-                                    if (relation != null)
+                                    if (relation != null || prp.Name.Substring(prp.Name.Length - 2, 2) == "Id")
                                     {
+                                        var methodName = prp.Name.Replace("Id", "");
+                                        if (relation != null)
+                                            methodName = relation.PropertyType.Name;
+
                                         str += "<div class='form-group row'>                                                                                                            ";
                                         str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
                                         str += "<div class='col-md-10'>";
@@ -306,7 +324,36 @@ public static class Helpers
                                         }
                                         else
                                         {
-                                            str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
+                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + methodName + "(); });</script>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (prp.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"))
+                                        {
+                                            var boolCount = 12 / props.Count(o => o.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"));
+                                            str += " <div class='row col-md-" + boolCount + "'>                                                                                                                                               ";
+                                            str += "     <div class='custom-control custom-checkbox'>                                                                                                                     ";
+                                            str += "         <input " + (value.ToBoolean() == true ? "checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
+                                            str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
+                                            str += "     </div>                                                                                                                                                           ";
+                                            str += " </div>                                                                                                                                                               ";
+                                        }
+                                        if (prp.PropertyType.GenericTypeArguments.Any(o => o.Name == "Int32"))
+                                        {
+                                            str += "<div class='form-group row'>                                                                                                            ";
+                                            str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                            str += "<div class='col-md-10'>";
+                                            str +=
+                                           "<input  " + Required + "  " +
+                                           "id='" + prp.Name + "' " +
+                                           "name='" + prp.Name + "' " +
+                                           "placeholder='" + placeholder + "' " +
+                                           "value='" + value + "' " +
+                                           "class='form-control' " +
+                                           "type='number'>  ";
+                                            str += "</div>";
+                                            str += "</div>";
                                         }
                                     }
 
@@ -315,21 +362,39 @@ public static class Helpers
                             }
                         case TypeCode.Int32:
                             {
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10'>";
-                                str +=
-                               "<input  " + Required + "  " +
-                               "id='" + prp.Name + "' " +
-                               "name='" + prp.Name + "' " +
-                               "placeholder='" + prp.Name + "' " +
-                               "value='" + value + "' " +
-                               "class='form-control' " +
-                               "type='number'>  ";
-                                str += "</div>";
-                                str += "</div>";
+                                if (prp.PropertyType.IsEnum)
+                                {
 
+                                    str += "<div class='form-group row'>                                                                                                            ";
+                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                    str += "<div class='col-md-10'>";
+                                    str +=
+                                        "<select " + Required + " " +
+                                        "id='dp_" + prp.Name + "' " +
+                                        "name='dp_" + prp.Name + "' " +
+                                        "class='form-control'>" +
+                                        "</select>";
+                                    str += "</div>";
+                                    str += "</div>";
 
+                                    str += "<script>$(function () { function get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } get" + prp.Name + "(); });</script>";
+                                }
+                                else
+                                {
+                                    str += "<div class='form-group row'>                                                                                                            ";
+                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
+                                    str += "<div class='col-md-10'>";
+                                    str +=
+                                   "<input  " + Required + "  " +
+                                   "id='" + prp.Name + "' " +
+                                   "name='" + prp.Name + "' " +
+                                   "placeholder='" + placeholder + "' " +
+                                   "value='" + value + "' " +
+                                   "class='form-control' " +
+                                   "type='number'>  ";
+                                    str += "</div>";
+                                    str += "</div>";
+                                }
                                 break;
                             }
                         case TypeCode.DateTime:
@@ -404,24 +469,100 @@ public static class Helpers
             str += "   });                                                              ";
 
 
+            str += "   try {                                                    ";
+            str += "           $('#Name').ceo({ target: '#Link' });             ";
+            str += "       } catch (e) { }                                      ";
+            str += "       try {                                                ";
+            str += "           $('#Name').ceo({ target: '#MetaKeywords' });     ";
+            str += "       } catch (e) { }                                      ";
+            str += "       try {                                                ";
+            str += "           $('#Name').dup({ target: '#MetaDescription' });  ";
+            str += "       } catch (e) { }                                      ";
+
+
+            if (props.Where(o => o.Name == "Documents").Any())
+            {
+                str += $"$('#{formname} .deleteImage').click(function ()                                                           ";
+                str += "{ var id = $(this).attr('dataid');                                                               ";
+                //str += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
+                //str += "     if (result == true) {                                                                      ";
+                //str += "         $.LoadingOverlay('show');                                                              ";
+                //str += $"        $.ajx({t.Name} + '/DeleteImage',   ";
+                //str += " { id: id }, function (resultID) { ";
+                //str += $"$('#{formname} div[dataid='' + resultID + '']').remove();                                      ";
+                //str += "            $.LoadingOverlay('hide');                                                          ";
+                //str += "         });                                                                                    ";
+                //str += "     }                                                                                          ";
+                str += " });                                                                                        ";
+            }
+
+
             str += $"   $('#{formname}').submit(function(e)                                                               ";
             str += " {      e.preventDefault();                                                                                  ";
             str += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
-            str += "           $.LoadingOverlay('show');                                                                        ";
-            str += $"           $.ajx('{t.Name}/InsertOrUpdate', ";
-            str += " { postModel: postModel }, function(resultData) {             ";
-            str += "    if (resultData.ResultType.RType != 3)                                                            ";
-            str += "           {           try {                                                                                      ";
-            str += $"               {t.Name}_ListFunc.GetPaging();                                                                   ";
-            str += @"               $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}                                   ";
-            str += "           }                                                                                                ";
-            str += "           else                                                                                             ";
-            str += "           {                                                                                                ";
-            str += "               alerts(resultData.ResultType.MessageList[0]);                                                ";
-            str += "           }                                                                                                ";
-            str += "               $.LoadingOverlay('hide');                                                                    ";
-            str += "       }, function() { location.reload(); });                                                               ";
-            str += "   });                                                                                                      ";
+
+
+
+            if (props.Where(o => o.Name == "Documents").Any())
+            {
+                str += "      var fileUpload = $('#' + 'file_" + "Documents" + "').get(0);                                                                     ";
+                str += "      var files = fileUpload.files;                                                                                             ";
+                str += "      var maxFiles = 10;                                                                                                        ";
+                str += "                                                                                                                                ";
+                str += "      if (files.length > maxFiles) {                                                                                            ";
+                str += "          alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');                                                          ";
+                str += "          return;                                                                                                               ";
+                str += "      }                                                                                                                         ";
+                str += $"      var totalImage = ($('#{formname} .deleteImage[dataid]').length + files.length);                                                       ";
+                str += "      if (totalImage > maxFiles) {                                                                                              ";
+                str += $"          alert($('#{formname} .deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');  ";
+                str += "          return;                                                                                                               ";
+                str += "      }                                                                                                                         ";
+                str += "                                                                                                                                ";
+                str += "      var fileData = new FormData();                                                                                            ";
+                str += "      for (var i = 0; i < files.length; i++) {                                                                                  ";
+                str += "          fileData.append('files', files[i]);                                                                                   ";
+                str += "      }                                                                                                                         ";
+                str += "      fileData.append('postmodel', JSON.stringify(postModel));                                                                  ";
+
+                str += "        $.LoadingOverlay('show');";
+                str += $"       $.ajxUpload('/{t.Name}/InsertOrUpdate',                                                           ";
+                str += "        fileData, function(resultData) {                                           ";
+                str += "        if (resultData.ResultType.RType != 3)                                                      ";
+                str += "        {           try {                                                                          ";
+                str += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
+                str += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
+                str += "        }                                                                                          ";
+                str += "        else                                                                                       ";
+                str += "        {                                                                                          ";
+                str += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
+                str += "        }                                                                                          ";
+                str += "        $.LoadingOverlay('hide');                                                                  ";
+                str += "        }, function() { location.reload(); });                                                     ";
+                str += "        });                                                                                        ";
+
+
+            }
+            else
+            {
+                str += "        $.LoadingOverlay('show');";
+                str += $"       $.ajx('/{t.Name}/InsertOrUpdate',                                                           ";
+                str += "        { postModel: postModel }, function(resultData) {                                           ";
+                str += "        if (resultData.ResultType.RType != 3)                                                      ";
+                str += "        {           try {                                                                          ";
+                str += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
+                str += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
+                str += "        }                                                                                          ";
+                str += "        else                                                                                       ";
+                str += "        {                                                                                          ";
+                str += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
+                str += "        }                                                                                          ";
+                str += "        $.LoadingOverlay('hide');                                                                  ";
+                str += "        }, function() { location.reload(); });                                                     ";
+                str += "        });                                                                                        ";
+            }
+
+
 
             str += "});</script>";
 
@@ -535,9 +676,11 @@ public static class Helpers
 
                     var Required = "";
                     var strReq = "";
+                    var placeholder = "";
                     if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
                     {
                         Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
+                        placeholder = DisplayName;
                         strReq = " <span class='required'> * </span>";
                         DisplayName += strReq;
                     }
@@ -565,7 +708,7 @@ public static class Helpers
                                     "<input " + Required + "  " +
                                     "id='" + prp.Name + "' " +
                                     "name='" + prp.Name + "' " +
-                                    "placeholder='" + prp.Name + "' " +
+                                    "placeholder='" + placeholder + "' " +
                                     "value='" + value + "' " +
                                     "class='form-control' " +
                                     "type='text'>  ";
@@ -575,13 +718,6 @@ public static class Helpers
                             }
                         case TypeCode.Boolean:
                             {
-                                var boolCount = 12 / props.Count(o => Type.GetTypeCode(prp.PropertyType) == TypeCode.Boolean);
-                                str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
-                                str += "     <div class='custom-control custom-checkbox'>                                                                                                                     ";
-                                str += "         <input " + (value.ToBoolean() == true ? "'checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
-                                str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
-                                str += "     </div>                                                                                                                                                           ";
-                                str += " </div>                                                                                                                                                               ";
                                 break;
                             }
                         case TypeCode.Int16:
@@ -634,7 +770,7 @@ public static class Helpers
                                    "<input  " + Required + "  " +
                                    "id='" + prp.Name + "' " +
                                    "name='" + prp.Name + "' " +
-                                   "placeholder='" + prp.Name + "' " +
+                                   "placeholder='" + placeholder + "' " +
                                    "value='" + value + "' " +
                                    "class='form-control' " +
                                    "type='number'>  ";

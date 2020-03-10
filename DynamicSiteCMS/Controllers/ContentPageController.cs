@@ -37,6 +37,19 @@ namespace DynamicSiteCMS.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IContentPageService.Where().Result.Select(o => new { value = o.Id, text = o.Name }).ToList();
+            return Json(result);
+        }
+
+        public JsonResult GetContentPageType()
+        {
+            var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new {name = ((ContentPageType)x).ToStr(), value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
+            return Json(list);
+        }
+
+        [HttpPost]
         public JsonResult GetContentPage()
         {
             var result = _IContentPageService.Where().Result.Select(o => new { value = o.Id, text = o.Name }).ToList();
@@ -121,11 +134,7 @@ namespace DynamicSiteCMS.Controllers
         }
 
 
-        public JsonResult getContentPageType()
-        {
-            var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new { value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
-            return Json(list);
-        }
+       
 
         private string GetPathAndFilename(string filename)
         {

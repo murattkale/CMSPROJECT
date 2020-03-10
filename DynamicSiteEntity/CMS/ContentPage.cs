@@ -26,6 +26,11 @@ public partial class ContentPage : BaseModel
     [DisplayName("İçerik Sırası")]
     public int? ContentOrderNo { get; set; }
 
+    [DisplayName("Form")]
+    public bool? IsForm { get; set; }
+
+    [DisplayName("Galeri")]
+    public bool? IsGallery { get; set; }
 
     [DisplayName("Üst Menü")]
     public bool? IsHeaderMenu { get; set; }

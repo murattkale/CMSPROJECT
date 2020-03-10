@@ -79,7 +79,7 @@ public class SendMail : ISendMail
             SmtpClient smp = new SmtpClient();
             smp.UseDefaultCredentials = true;
             //mailin gönderileceği Nameres ve şifresi
-            smp.Credentials = new NetworkCredential("elifaltay495@gmail.com", "Bgokcek39");
+            smp.Credentials = new NetworkCredential("elifaltay495@gmail.com", "Azsxdc1453");
             smp.Port = 587;
             smp.Host = "smtp.gmail.com";//gmail üzerinden gönderiliyor.
             smp.EnableSsl = true;

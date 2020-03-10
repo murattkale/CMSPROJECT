@@ -26,6 +26,12 @@
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\MailService\MailService.csproj" />
   </ItemGroup>
+
+
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\ContentView\" />
+  </ItemGroup>
   
 
 </Project>
