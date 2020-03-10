@@ -108,6 +108,9 @@ namespace DynamicSiteCMS
             app.UseAuthorization();
             app.UseAuthenticationMiddleware();
 
+            app.UseHsts();
+            app.UseHttpsRedirection();
+
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
 

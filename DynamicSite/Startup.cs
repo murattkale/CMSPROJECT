@@ -73,6 +73,8 @@ namespace DynamicSite
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseSession();
+            app.UseHsts();
+            app.UseHttpsRedirection();
 
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 

@@ -92,9 +92,9 @@ public static class Helpers
         str += "<style>.modal-dialog {width: 75% !important;} .form-group.row{margin-left: 0px;}</style>";
         str += "      <div style='width:100%;' class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
         str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
-        str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                    ";
-        str += "          <div class='kt-portlet__head-label'>                                                                                                               ";
-        str += $"              <span class='kt-portlet__head-icon'><i class='kt-font-brand flaticon2-line-chart'></i></span><h3 class='kt-portlet__head-title'>{titleName}</h3>   ";
+        str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                       ";
+        str += "          <div class='kt-portlet__head-label'>                                                                                                            ";
+        str += $"              <span class='kt-portlet__head-icon'><i class='kt-font-brand flaticon2-line-chart'></i></span><h3 class='kt-portlet__head-title'>{titleName}</h3><br/>   ";
         str += "          </div><div class='kt-portlet__head-toolbar'>                                                                                                       ";
         str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
         str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";

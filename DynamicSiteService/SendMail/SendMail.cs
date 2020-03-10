@@ -31,13 +31,14 @@ public class SendMail : ISendMail
             mail.Body = postModel.Icerik;
             mail.IsBodyHtml = true;
             SmtpClient smp = new SmtpClient();
-            smp.UseDefaultCredentials = true;
+            //smp.UseDefaultCredentials = true;
             smp.Credentials = new NetworkCredential("bilgi@kazaskerfenbilimleri.com", "NCbg78G0");
             smp.Port = 587;
+            //smp.Host = "mx-out04.natrohost.com";//mail üzerinden gönderiliyor.
             smp.Host = "mail.kazaskerfenbilimleri.com";//mail üzerinden gönderiliyor.
             //mailin gönderileceği Nameres ve şifresi
-            smp.EnableSsl = true;
-            smp.SendMailAsync(mail);//mail isimli mail gönderiliyor.
+            //smp.EnableSsl = true;
+            smp.Send(mail);//mail isimli mail gönderiliyor.
 
         }
         catch (Exception ex)

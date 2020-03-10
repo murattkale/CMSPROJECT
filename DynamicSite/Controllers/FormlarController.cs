@@ -36,7 +36,7 @@ namespace DynamicSite.Controllers
 
             _ISendMail.SendMails(new MailModel()
             {
-                Alicilar = new string[] { "bilgi@kazaskerfenbilimleri.com" },
+                Alicilar = new string[] { "bilgi@kazaskerfenbilimleri.com", "ilker.asan@hotmail.com" },
                 cc = new string[] { "bilgi@kazaskerfenbilimleri.com" },
                 KimdenMail = "bilgi@kazaskerfenbilimleri.com",
                 KimdenText = "bilgi@kazaskerfenbilimleri.com",

@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Collections.Generic;
 
-public class FormlarService : GenericRepo<CMSDBContext,Formlar>, IFormlarService
+public class FormlarService : GenericRepo<CMSDBContext, Formlar>, IFormlarService
 {
     public FormlarService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
@@ -14,12 +14,13 @@ public class FormlarService : GenericRepo<CMSDBContext,Formlar>, IFormlarService
         res.ResultType.MessageList = new List<string>();
 
         //Duplicate Control
-        var modelControl = Where(o => o.Id != model.Id && o.Telefon == model.Telefon, false).Result.FirstOrDefault();
-        if (modelControl != null)
+        //var modelControl = Where(o => o.Id != model.Id && o.Telefon == model.Telefon, false).Result.FirstOrDefault();
+        if (false)
+        //if (modelControl != null)
         {
-            res.ResultType.RType = RType.Warning;
-            res.ResultType.MessageList.Add("Duplicate");
-            res.ResultRow = modelControl;
+            //res.ResultType.RType = RType.Warning;
+            //res.ResultType.MessageList.Add("Duplicate");
+            //res.ResultRow = modelControl;
         }
         else
         {
