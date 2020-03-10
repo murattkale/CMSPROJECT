@@ -22,7 +22,7 @@
     }
 
 
-      var url = Context.Request.Path.Value.ToStr().ToLower();
+    var url = Context.Request.Path.Value.ToStr().ToLower();
 
 }
 
@@ -49,6 +49,61 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+
+                    @if (_page.IsGallery == true)
+                    {
+                        <link rel="stylesheet" href="~/sliderjs/jquery.rondell.css" type="text/css" media="all" title="Screen">
+                        <script src="~/sliderjs/modernizr-2.0.6.min.js"></script>
+
+                        <div class="column size1of2" style="width:800px;margin:0 auto;">
+                            <div id="rondellTopDemo" class="showOnJS hidden">
+                                @foreach (var item in _page.Documents)
+                                {
+                                    var image = item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.ImageUrl + item.Link;
+                                    <a target="_blank" rel="rondell_1" href="@image" title="@item.Title">
+                                        <img style="width:100%;height: auto;object-fit:cover;object-position:50% 50%;" src="@image" alt="@item.Alt" title="@item.Title" />
+                                    </a>
+                                }
+                            </div>
+                        </div>
+
+                        <script src="~/sliderjs/jquery.mousewheel-3.0.6.min.js"></script>
+                        <script src="~/sliderjs/jquery.rondell.js"></script>
+
+                        <script type="text/javascript">
+                            (function () {
+                                $("#rondellTopDemo > *").rondell({
+                                    preset: "carousel",
+                                    radius: {
+                                        x: 300
+                                    },
+                                    center: {
+                                        //left: 450,
+                                        //top: 150
+                                    },
+                                    itemProperties: {
+                                        size: {
+                                            width: 750,
+                                            height: 200
+                                        }
+                                    }
+                                });
+
+                            }).call(this);
+
+                            $('.rondell-control.rondell-shift-left').html('Geri');
+                            $('.rondell-control.rondell-shift-left').css('font-size', '18px');
+                            $('.rondell-control.rondell-shift-right').html('İleri');
+                            $('.rondell-control.rondell-shift-right').css('font-size', '18px');
+
+                        </script>
+
+                        <br />
+                        <hr />
+
+                    }
+
+
                     <div class="row">
                         <div>
                             @Html.Raw(_page.ContentShort)
@@ -56,8 +111,8 @@
 
 
                     </div>
-                    <hr />
 
+                    <hr />
                     <br />
 
                     <div class="row">
@@ -65,16 +120,19 @@
                             <p>@Html.Raw(_page.ContentData)</p>
                         </div>
                     </div>
-                    <br />
-                    <hr />
-
-                  
 
 
 
 
-                    @if (_page.ContentPageType == ContentPageType.formlar || url.Contains("/iletisim"))
+
+
+
+
+                    @if (_page.IsForm == true)
                     {
+                        <br />
+                        <hr />
+
                         <div class="row">
                             <partial name="../Base/formlar" />
                         </div>

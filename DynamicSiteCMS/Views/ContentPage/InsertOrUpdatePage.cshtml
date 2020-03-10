@@ -6,14 +6,3 @@
 }
 @Html.Raw(edit.DynamicInputHelper2(new string[] { }, new string[] { "Document" }, "İçerik"))
 
-                    $('.deleteImage').click(function () {
-                    var id = $(this).attr('dataid');
-                    alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {
-                        if (result == true) {
-                            $.LoadingOverlay('show');
-                            $.ajx(ContentPage_ControlNameUrl + '/DeleteImage', { id: id }, function (resultID) {
-                                $('div[dataid='' + resultID + '']').remove();
-                                $.LoadingOverlay('hide');
-                            });
-                        }
-                    });});

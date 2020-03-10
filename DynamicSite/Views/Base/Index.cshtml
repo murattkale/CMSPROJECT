@@ -4,9 +4,9 @@
 
 }
 
-@if (content.Any(o => o.ContentPageType == ContentPageType.row1 || o.ContentPageType == ContentPageType.formlar))
+@if (content.Any(o => o.ContentPageType == ContentPageType.row1 && o.IsForm == true))
 {
-    var row = content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row1 || o.ContentPageType == ContentPageType.formlar);
+    var row = content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row1 && o.IsForm == true);
 
     <header ctype="@row.ContentPageType.ExGetDescription()" class="video-wrapper">
         <div class="video-loader" style="display: none;">
@@ -185,9 +185,9 @@
 
 
 
-@if (content.Any(o => o.ContentPageType == ContentPageType.row5 || o.ContentPageType == ContentPageType.formlar))
+@if (content.Any(o => o.ContentPageType == ContentPageType.row5 && o.IsForm == true))
 {
-    var row = content.LastOrDefault(o => o.ContentPageType == ContentPageType.row5 || o.ContentPageType == ContentPageType.formlar);
+    var row = content.LastOrDefault(o => o.ContentPageType == ContentPageType.row5 && o.IsForm == true);
 
 
     <div ctype="@row.ContentPageType.ExGetDescription()" id="tmp-join-us">

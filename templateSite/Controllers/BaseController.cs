@@ -33,15 +33,15 @@ namespace templateSite.Controllers
         {
             var str = "";
 
-            str += "Ad Soyad : " + postModel.adsoyad + "</br>";
-            str += "Yaş : " + postModel.yas + "</br>";
-            str += "Mail : " + postModel.mail + "</br>";
-            str += "İl : " + postModel.il + "</br>";
-            str += "İlçe : " + postModel.ilce + "</br>";
-            str += "Telefon : " + postModel.telefon + "</br>";
-            str += "Cinsiyet : " + postModel.cinsiyet + "</br>";
-            str += "Arzuladığı Yaş : " + postModel.yasaraligi + "</br>";
-            str += "Mesaj : " + postModel.gorusme + "</br>";
+            str += "Ad Soyad : " + postModel.adsoyad + " | ";
+            str += "Yaş : " + postModel.yas + " | ";
+            str += "Mail : " + postModel.mail + " | ";
+            str += "İl : " + postModel.il + " | ";
+            str += "İlçe : " + postModel.ilce + " | ";
+            str += "Telefon : " + postModel.telefon + " | ";
+            str += "Cinsiyet : " + postModel.cinsiyet + " | ";
+            str += "Arzuladığı Yaş : " + postModel.yasaraligi + " | ";
+            str += "Mesaj : " + postModel.gorusme + " | ";
 
 
             _ISendMail.SendMails(new templateMailModel

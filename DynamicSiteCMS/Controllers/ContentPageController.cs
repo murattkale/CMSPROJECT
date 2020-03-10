@@ -102,6 +102,20 @@ namespace DynamicSiteCMS.Controllers
             return Json(result.Id);
         }
 
+        public JsonResult DeleteImageAll(int id)
+        {
+            var result = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.dataid == id).Result.FirstOrDefault();
+
+            var path = this.GetPathAndFilename(result.Link);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+                _IDocumentsService.Delete(result);
+                var res = _IDocumentsService.SaveChanges();
+            }
+            return Json(result.Id);
+        }
+
 
         public ContentPage Get(int id)
         {
@@ -118,6 +132,9 @@ namespace DynamicSiteCMS.Controllers
         {
             var result = _IContentPageService.Delete(id);
             _IContentPageService.SaveChanges();
+
+            DeleteImageAll(id);
+
             return Json(result);
         }
 

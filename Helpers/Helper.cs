@@ -482,18 +482,22 @@ public static class Helpers
 
             if (props.Where(o => o.Name == "Documents").Any())
             {
-                str += $"$('#{formname} .deleteImage').click(function ()                                                           ";
-                str += "{ var id = $(this).attr('dataid');                                                               ";
-                //str += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
-                //str += "     if (result == true) {                                                                      ";
-                //str += "         $.LoadingOverlay('show');                                                              ";
-                //str += $"        $.ajx({t.Name} + '/DeleteImage',   ";
-                //str += " { id: id }, function (resultID) { ";
-                //str += $"$('#{formname} div[dataid='' + resultID + '']').remove();                                      ";
-                //str += "            $.LoadingOverlay('hide');                                                          ";
-                //str += "         });                                                                                    ";
-                //str += "     }                                                                                          ";
-                str += " });                                                                                        ";
+                str += $" $('#{formname} .deleteImage').click(function ()                                                           ";
+                str += " { var id = $(this).attr('dataid');                                                               ";
+                str += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
+                str += "     if (result == true) {                                                                      ";
+                str += "         $.LoadingOverlay('show');                                                              ";
+              
+                
+                str += $"        $.ajx('/{t.Name}/DeleteImage',";
+                str += "{ id: id }, function (resultID) { ";
+                str += $@"           $(""#{formname} div[dataid='"" + resultID + ""']"").remove();                                      ";
+                str += "            $.LoadingOverlay('hide');                                                          ";
+                str += "         });                                                                                    ";
+               
+                
+                str += "     }                                                                                          ";
+                str += " });   });                                                                                      ";
             }
 
 
