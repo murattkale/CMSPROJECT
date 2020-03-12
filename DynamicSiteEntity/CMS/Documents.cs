@@ -24,7 +24,7 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
 
         public string data_class { get; set; }
 
-        [Required()] public int dataid { get; set; }
+        [Required()] public int ContentPageId { get; set; }
 
         public ContentPage ContentPage { get; set; }
 

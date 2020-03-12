@@ -41,7 +41,7 @@ namespace DynamicSite.Controllers
                 {
                     var document = _IDocumentsService.Where().Result.ToList();
 
-                    menu.Documents = document.Where(o => o.dataid == menu.Id).ToList();
+                    menu.Documents = document.Where(o => o.ContentPageId == menu.Id).ToList();
                     ViewBag.page = menu;
                     return View();
                 }
@@ -84,7 +84,7 @@ namespace DynamicSite.Controllers
 
             content.ForEach(o =>
             {
-                o.Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList();
+                o.Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList();
                 o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).Select(o => new ContentPage
                 {
                     Id = o.Id,
@@ -99,7 +99,7 @@ namespace DynamicSite.Controllers
                     ResimLink = o.ResimLink,
                     ContentShort = o.ContentShort,
                     ContentPageType = o.ContentPageType,
-                    Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList()
+                    Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList()
                 }).ToList();
 
             });

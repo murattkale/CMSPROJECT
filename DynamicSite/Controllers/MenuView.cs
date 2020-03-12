@@ -42,7 +42,7 @@ namespace DynamicSite.Components
 
             content.ForEach(o =>
             {
-                o.Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList();
+                o.Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList();
                 o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).Select(o => new ContentPage
                 {
                     Name = o.Name,
@@ -56,7 +56,7 @@ namespace DynamicSite.Components
                     ResimLink = o.ResimLink,
                     ContentShort = o.ContentShort,
                     ContentPageType = o.ContentPageType,
-                    Documents = document.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList()
+                    Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList()
                 }).ToList();
 
             });

@@ -421,13 +421,19 @@ function alerts(message, button, call) {
         });
 
         $(id + ' textarea').each(function () {
-            if (CKEDITOR.instances[$(this).attr('name')])
-                returnArray[$(this).attr('name')] = CKEDITOR.instances[$(this).attr('name')].getData();
-            else {
-                returnArray[$(this).attr('name')] = $(this).val();
+            try {
+                if (CKEDITOR.instances[$(this).attr('name')])
+                    returnArray[$(this).attr('name')] = CKEDITOR.instances[$(this).attr('name')].getData();
+                else {
+                    returnArray[$(this).attr('name')] = $(this).val();
 
+                }
+            } catch (e) {
+                console.error(e);
             }
+
         });
+
 
         $(id + ' input[type="checkbox"]').each(function () {
             returnArray[$(this).attr('name')] = $(this).prop("checked");

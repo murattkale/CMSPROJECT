@@ -76,7 +76,7 @@ namespace DynamicSiteCMS.Controllers
 
                     _IDocumentsService.InsertOrUpdate(new Documents
                     {
-                        dataid = result.ResultRow.Id,
+                        ContentPageId = result.ResultRow.Id,
                         Link = filename,
                         Guid = Guid.NewGuid().ToString(),
                         Name = orjinalFileName,
@@ -104,7 +104,7 @@ namespace DynamicSiteCMS.Controllers
 
         public JsonResult DeleteImageAll(int id)
         {
-            var result = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.dataid == id).Result.FirstOrDefault();
+            var result = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.ContentPageId == id).Result.FirstOrDefault();
 
             var path = this.GetPathAndFilename(result.Link);
             if (System.IO.File.Exists(path))
@@ -123,7 +123,7 @@ namespace DynamicSiteCMS.Controllers
             if (id > 0)
             {
                 var dc = _IDocumentsService.Where().Result.ToList();
-                result.Documents = dc.Where(o => o.dataid == id).ToList();
+                result.Documents = dc.Where(o => o.ContentPageId == id).ToList();
             }
             return (result);
         }

@@ -290,15 +290,14 @@
                     <!-- Uncomment this to display the close button of the panel
                     <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
                     -->
-
                     @*<div class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
 
-                        <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
-                            <ul class="kt-menu__nav ">
-                              
-                            </ul>
-                        </div>
-                    </div>*@
+                            <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
+                                <ul class="kt-menu__nav ">
+
+                                </ul>
+                            </div>
+                        </div>*@
                     <!-- end:: Header Menu -->
                     <!-- begin:: Header Topbar -->
                     <div class="kt-header__topbar">
@@ -1167,7 +1166,7 @@
                         <div class="kt-footer__copyright">
                             @Html.Raw(SessionRequest.copyright)
                         </div>
-                       
+
                     </div>
                 </div>
                 <!-- end:: Footer -->
@@ -1628,14 +1627,7 @@
 
     <!--end::Page Scripts -->
 
-    <script>
-        $(function () {
-            $('#kt_aside_menu .kt-menu__link[href="' + window.location.pathname + '"]').parent().addClass('kt-menu__item--active');
-            $('#kt_aside_menu .kt-menu__link[href="' + window.location.pathname + '"]').parent().parent().parent().parent().addClass('kt-menu__item--open');
-            $('#kt_aside_menu .kt-menu__link[href="' + window.location.pathname + '"]').parent().parent().parent().parent().parent().addClass('kt-menu__item--open');
 
-        });
-    </script>
 
 
     <link type="text/css" href="~/content/css/buttons.dataTables.min.css" rel="stylesheet">
@@ -1649,6 +1641,14 @@
     <script type="text/javascript" src="~/content//js/buttons.print.min.js"></script>
 
 
+    <script>
+        $(function () {
+            $('#kt_aside_menu .kt-menu__link[href="' + window.location.pathname + '"]').parent().addClass('kt-menu__item--active');
+            $('#kt_aside_menu .kt-menu__link[href="' + window.location.pathname + '"]').parent().parent().parent().parent().addClass('kt-menu__item--open');
+            $('#kt_aside_menu .kt-menu__link[href="' + window.location.pathname + '"]').parent().parent().parent().parent().parent().addClass('kt-menu__item--open');
+
+        });
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>
