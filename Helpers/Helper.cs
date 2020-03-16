@@ -201,7 +201,7 @@ public static class Helpers
                                           "type='hidden'>  ";
                         }
                         props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
-                       
+
                     });
 
 
@@ -456,7 +456,7 @@ public static class Helpers
                             {
                                 str += "<div class='" + colClass + " input-group date'><div class='row form-group'>";
                                 str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
-                               
+
                                 str += "<div class='" + inputClass + "'> " +
                                    "<input " + Required + "  " +
                                    "placeholder='" + DisplayName + " Seçiniz'" +
@@ -484,8 +484,21 @@ public static class Helpers
                                     str += "<div class='" + "col-md-12" + "'><div class='row form-group'>";
                                     str += "<div class='" + "col-md-2" + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
                                     str += "<div class='" + "col-md-10" + "'> ";
-                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + DisplayName + "' class='form-control'>" + value + "</textarea>";
+                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + placeholder +
+                                        "' class='form-control'>" + value.ToStr().Trim() + "</textarea>";
                                     str += "</div></div></div>";
+
+                                    //str += "<script>$(function () {debugger; ";
+
+                                    //str += "       if (CKEDITOR.instances['" + prp.Name + "'])                ";
+                                    //str += "           CKEDITOR.instances['" + prp.Name + "'].destroy();      ";
+                                    //str += "       CKEDITOR.replace('" + prp.Name + "', { });                 ";
+
+                                    ////str += " $('#" + prp.Name + "').val(decodeURIComponent('" + value.ToStr().Trim() + "')); ";
+
+                                    ////str += " CKEDITOR.instances['" + prp.Name + "'].setData('" + System.Uri.UnescapeDataString(value.ToStr()) + "'); ";
+
+                                    //str += "   });</script>";
                                 }
                                 else
                                 {
@@ -497,7 +510,7 @@ public static class Helpers
                                       "id='" + prp.Name + "' " +
                                       "name='" + prp.Name + "' " +
                                       "placeholder='" + placeholder + "' " +
-                                      "value='" + value + "' " +
+                                      "value='" + System.Uri.UnescapeDataString(value.ToStr()) + "' " +
                                       "class='form-control ' " +
                                       "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
                                     str += "</div></div></div>";

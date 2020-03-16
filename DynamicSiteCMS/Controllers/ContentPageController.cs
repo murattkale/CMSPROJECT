@@ -106,24 +106,28 @@ namespace DynamicSiteCMS.Controllers
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
-                _IDocumentsService.Delete(result);
-                var res = _IDocumentsService.SaveChanges();
             }
+            _IDocumentsService.Delete(result);
+            var res = _IDocumentsService.SaveChanges();
             return Json(result.Id);
         }
 
         public JsonResult DeleteImageAll(int id)
         {
-            var result = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.ContentPageId == id).Result.FirstOrDefault();
+            var resultList = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.ContentPageId == id).Result.ToList();
 
-            var path = this.GetPathAndFilename(result.Link);
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
+            resultList.ForEach(result => {
+
+                var path = this.GetPathAndFilename(result.Link);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
                 _IDocumentsService.Delete(result);
                 var res = _IDocumentsService.SaveChanges();
-            }
-            return Json(result.Id);
+            });
+            
+            return Json("ok");
         }
 
 

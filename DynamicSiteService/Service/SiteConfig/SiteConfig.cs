@@ -17,7 +17,6 @@ public partial class SiteConfig : BaseModel
     [Required()] public string layoutUrl { get; set; }
     [Required()] public string Logo { get; set; }
 
-    [DataType("text")]
     public string Map { get; set; }
     public string DefaultImage { get; set; }
     [Required()] public string BaseUrl { get; set; }
@@ -43,17 +42,12 @@ public partial class SiteConfig : BaseModel
     public string Facebook { get; set; }
     public string Youtube { get; set; }
     public string GooglePlus { get; set; }
-    public string Tumblar { get; set; }
+    public string Tumblr { get; set; }
 
-    [DataType("text")]
     public string HeadScript { get; set; }
-    [DataType("text")]
     public string HeadStyle { get; set; }
-    [DataType("text")]
     public string BodyScript { get; set; }
-    [DataType("text")]
     public string FooterScript { get; set; }
-    [DataType("text")]
     public string FooterStyle { get; set; }
 
 
