@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
 
   <ItemGroup>
 
@@ -21,7 +25,6 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\DynamicSiteEntity\DynamicSiteEntity.csproj" />
     <ProjectReference Include="..\DynamicSiteService\DynamicSiteService.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
   </ItemGroup>

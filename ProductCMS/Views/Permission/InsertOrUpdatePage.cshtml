@@ -1,0 +1,127 @@
+﻿
+@{
+    Layout = null;
+    string pageTitle = "Permission";
+    string Permission_ControlNameUrl = "Permission";
+    string FormName = "frm_" + Permission_ControlNameUrl + "_";
+    int Permission_idUrl = Context.Request.Query["id"].ToInt();
+    var Permission_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = Permission_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+
+    var edit = ViewBag.edit as Permission;
+    if (edit == null)
+    {
+        edit = new Permission();
+    }
+    else
+    {
+        //Permission_idUrl_select = edit.KasaTipId.ToStr();
+    }
+
+}
+
+<script type="text/javascript">
+        var Permission_FormName = "@Html.Raw(FormName)";
+        var Permission_ControlNameUrl = "@Permission_ControlNameUrl";
+    var Permission_idUrl = @Permission_idUrl;
+
+</script>
+
+
+
+<style>
+    .modal-dialog {
+        width: 75% !important;
+    }
+</style>
+
+
+
+<!-- begin:: Permission -->
+<div style="width:100%;" class="kt-container  kt-grid__item kt-grid__item--fluid">
+
+    <div class="kt-portlet kt-portlet--mobile">
+        <div class="kt-portlet__head kt-portlet__head--lg">
+
+            <div class="kt-portlet__head-label">
+
+                <span class="kt-portlet__head-icon">
+                    <i class="kt-font-brand flaticon2-line-chart"></i>
+                </span>
+                <h3 class="kt-portlet__head-title">
+                    @Html.Raw(title)
+                </h3>
+            </div>
+            <div class="kt-portlet__head-toolbar">
+                <div class="kt-portlet__head-wrapper">
+                    <div class="kt-portlet__head-actions">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="kt-portlet__body">
+            <form name="@FormName" id="@FormName">
+                <div class="form-horizontal">
+
+
+                    @Html.Raw(edit.DynamicInputHelper(new string[] { }, new string[] { "" }))
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-9 col-md-9">
+                            <input id="btnOK" type="submit" value="@title" class="btn btn-brand btn-elevate btn-icon-sm" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end:: Permission -->
+
+
+
+
+
+<script type="text/javascript">
+    var Permission_EditFunc;
+    $(function () {
+        Permission_EditFunc = {
+            load: function () {
+
+                $('#' + Permission_FormName).submit(function (e) {
+                    e.preventDefault();
+                    var postModel = $.fn.toForm("#" + Permission_FormName);
+                    $.LoadingOverlay("show");
+
+                    $.ajx(Permission_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                        if (resultData.ResultType.RType != 3) {
+                            Permission_ListFunc.GetPaging();
+                            $("#ajaxSub button[data-dismiss='modal']").click();
+                        }
+                        else {
+                            alerts(resultData.ResultType.MessageList[0]);
+                        }
+                        $.LoadingOverlay("hide");
+                    }, function () { location.reload(); });
+
+                });
+            },
+
+
+
+        };
+        Permission_EditFunc.load();
+    });
+
+
+</script>
+
+
+

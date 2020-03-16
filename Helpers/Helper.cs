@@ -21,9 +21,63 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Linq.Dynamic.Core;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json.Converters;
+
+class ReplaceExpressionVisitor : ExpressionVisitor
+{
+    private readonly Expression _oldValue;
+    private readonly Expression _newValue;
+
+    public ReplaceExpressionVisitor(Expression oldValue, Expression newValue)
+    {
+        _oldValue = oldValue;
+        _newValue = newValue;
+    }
+
+    public override Expression Visit(Expression node)
+    {
+        if (node == _oldValue)
+        {
+            return _newValue;
+        }
+
+        return base.Visit(node);
+    }
+}
 
 public static class Helpers
 {
+
+
+    public static Expression<Func<T, bool>> Combine<T>(Expression<Func<T, bool>> expression1, Expression<Func<T, bool>> expression2)
+    {
+        if (expression1 == null && expression2 == null)
+        {
+            return null;
+        }
+
+        if (expression1 == null)
+        {
+            return expression2;
+        }
+
+        if (expression2 == null)
+        {
+            return expression1;
+        }
+
+        var parameter = Expression.Parameter(typeof(T));
+
+        var leftVisitor = new ReplaceExpressionVisitor(expression1.Parameters[0], parameter);
+        var left = leftVisitor.Visit(expression1.Body);
+
+        var rightVisitor = new ReplaceExpressionVisitor(expression2.Parameters[0], parameter);
+        var right = rightVisitor.Visit(expression2.Body);
+
+        return Expression.Lambda<Func<T, bool>>(Expression.AndAlso(left, right), parameter);
+    }
+
+
 
     public static Dictionary<string, object> GetPropertyAttributes(PropertyInfo property)
     {
@@ -85,75 +139,93 @@ public static class Helpers
         }
         return value;
     }
-    public static string DynamicInputHelper2(this object model, string[] nonProp, string[] orderby, string titleName)
+
+
+    public static string DynamicInputHelper2(this object model, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
     {
         string str = "";
 
-        str += "<style>.modal-dialog {width: 75% !important;} .form-group.row{margin-left: 0px;}</style>";
-        str += "      <div style='width:100%;' class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
+
+        str += "<div formdata='" + model.GetType().Name + "'  class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
         str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
         str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                       ";
         str += "          <div class='kt-portlet__head-label'>                                                                                                            ";
         str += $"              <span class='kt-portlet__head-icon'><i class='kt-font-brand flaticon2-line-chart'></i></span><h3 class='kt-portlet__head-title'>{titleName}</h3><br/>   ";
-        str += "          </div><div class='kt-portlet__head-toolbar'>                                                                                                       ";
-        str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
-        str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";
-        str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>           ";
-        str += "                  </div>                                                                                                                                     ";
-        str += "              </div>                                                                                                                                         ";
-        str += "          </div>                                                                                                                                             ";
-        str += "      </div>                                                                                                                                                 ";
-        str += "      <div class='kt-portlet__body'>                                                                                                                         ";
-        str += "          <div class='form-horizontal'>                                                                                                                      ";
+        str += "          </div>";
+        str += "     </div>";
+
+        if (PageType == "modal")
+        {
+            str += "<style>.modal-dialog {width: 75% !important;} /*.form-group.row{margin-left: 0px;}*/</style>";
+            str += "<div class='kt-portlet__head-toolbar'>                                                                                                       ";
+            str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
+            str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";
+            str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>           ";
+            str += "                  </div>                                                                                                                                     ";
+            str += "              </div>                                                                                                                                         ";
+            str += "          </div>                                                                                                                                             ";
+            str += "</div>                                                                                                                                                 ";
+        }
+        str += "<div class='kt-portlet__body'>                                                                                                                         ";
+        str += "    <div class='form-horizontal'>                                                                                                                      ";
 
         try
         {
-
             Type t = model.GetType();
             var formname = "frm_" + t.Name;
             str += $"<form name='{formname}' id='frm_" + t.Name + "'>"; ;
             var props = t.GetProperties().ToList();
 
-            var baseType = new BaseModel().GetType().GetProperties().ToList();
+            var baseType = new BaseModel().GetType().GetProperties().Where(o => o.Name != "ModDate" && o.Name != "CreaDate").ToList();
+            props = props.AsQueryable().Where(d => d.Name != "ModDate" && d.Name != "CreaDate").ToList();
+
             baseType.ForEach(prp =>
-            {
+                    {
 
-                if (prp.PropertyType.Name != "DateTime")
-                {
-                    str +=
-                                  "<input  " +
-                                  "id='" + prp.Name + "' " +
-                                  "name='" + prp.Name + "' " +
-                                  "value='" + model.GetPropValue(prp.Name) + "' " +
-                                  "type='hidden'>  ";
-                }
-                else
-                {
-                    str +=
-                                  "<input  " +
-                                  "id='" + prp.Name + "' " +
-                                  "name='" + prp.Name + "' " +
-                                  "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
-                                  "type='hidden'>  ";
-                }
-                props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
-            });
+                        if (prp.PropertyType.Name != "DateTime")
+                        {
+                            str +=
+                                          "<input  " +
+                                          "id='" + prp.Name + "' " +
+                                          "name='" + prp.Name + "' " +
+                                          "value='" + model.GetPropValue(prp.Name) + "' " +
+                                          "type='hidden'>  ";
+                        }
+                        else
+                        {
+                            str +=
+                                          "<input  " +
+                                          "id='" + prp.Name + "' " +
+                                          "name='" + prp.Name + "' " +
+                                          "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value.ToShortDateString() + "' " +
+                                          "type='hidden'>  ";
+                        }
+                        props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
+                       
+                    });
 
-            if (nonProp.Count() > 0)
-                nonProp.ToList().ForEach(o =>
+
+            if (!string.IsNullOrEmpty(nonProp))
+                nonProp.Split(",").ToList().ForEach(o =>
                 {
-                    props = props.AsQueryable().Where(d => d.Name != o).ToList();
+                    props = props.AsQueryable().Where(d => d.Name != o.Trim()).ToList();
                 });
 
-            if (orderby.Count() > 0)
-                orderby.ToList().ForEach(o =>
+
+            var orderbyProps = props.AsQueryable().OrderBy(oo => "" == "");
+
+            if (!string.IsNullOrEmpty(orderby))
+                orderby.Split(",").ToList().ForEach(o =>
                 {
                     if (!string.IsNullOrEmpty(o))
-                        props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
+                        props = orderbyProps.ThenBy(oo => oo.Name == o.Trim()).ToList();
                 });
 
+            #region forms
+            str += "<div class='form-group row'>";
             foreach (var prp in props)
             {
+
                 try
                 {
                     object value = null;
@@ -199,9 +271,6 @@ public static class Helpers
                     var dName = GetPropertyAttributes(prp);
 
 
-
-
-
                     var DisplayName = "";
                     if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
                         DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
@@ -221,40 +290,8 @@ public static class Helpers
 
                     switch (Type.GetTypeCode(prp.PropertyType))
                     {
-                        case TypeCode.Empty:
-                            break;
 
-                        case TypeCode.DBNull:
-                            break;
-                        case TypeCode.Char:
-                            break;
-                        case TypeCode.SByte:
-                        case TypeCode.Byte:
-                            break;
-                        case TypeCode.Single:
-                        case TypeCode.Double:
-                        case TypeCode.Decimal:
-                            {
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10'>                                                                                      ";
-                                str +=
-                                    "<input " + Required + "  " +
-                                    "id='" + prp.Name + "' " +
-                                    "name='" + prp.Name + "' " +
-                                    "placeholder='" + placeholder + "' " +
-                                    "value='" + value + "' " +
-                                    "class='form-control' " +
-                                    "type='text'>  ";
-                                str += "</div>                                                                                                       ";
-                                str += "</div>                                                                                                                            ";
-                                break;
-                            }
-                        case TypeCode.Boolean:
-                            {
 
-                                break;
-                            }
                         case TypeCode.Int16:
                         case TypeCode.UInt16:
                         case TypeCode.UInt32:
@@ -268,28 +305,36 @@ public static class Helpers
                                         break;
                                     else
                                     {
-                                        str += "     <div class='form-group row'>                                                       ";
-                                        str += "          <div class='col-md-12'>                                                       ";
-                                        str += "              <input multiple for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
-                                        str += "          </div>                                                                        ";
-                                        str += "     </div>                                                                              ";
+                                        str += "<div class='" + "col-md-12" + "'><div class='row form-group shadow p-3 mb-5 bg-white rounded'>";
+                                        str += "<div class='" + "col-md-6" + "'>";
+                                        str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'><h3>" + DisplayName + "</h3></label></div>";
+                                        str += "</div>";
+                                        str += "<div class='" + "col-md-6" + "'>";
+                                        str += "<input multiple for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
+                                        str += "</div>";
 
+                                        str += "<div class='" + "col-md-12" + "'>";
+                                        str += "<div class='row form-group'>";
+
+
+                                        str += "</div>";
+                                        str += "</div>";
                                         if (value != null && (value as IList).Count > 0)
                                         {
-                                            str += "  <div style='border: solid 1px #ccc;border-radius:3px;margin:5px;overflow-y:scroll;' class='form-group row'>                                              ";
-                                            str += "     <div class='col-md-12'>                                                                                                                               ";
+                                            str += "  <div class='col-md-12' style='padding:10px;overflow-x:scroll;' >                                              ";
                                             foreach (var image in (value as IList))
                                             {
                                                 var link = "/uploads/" + image.GetPropValue("Link");
-                                                str += "             <div dataid='" + image.GetPropValue("Id") + "' style='border: solid 1px #ccc;border-radius:3px;float:left;margin:5px;'>                                              ";
+                                                str += "             <div class='shadow p-3 mb-5 bg-white rounded' dataid='" + image.GetPropValue("Id") + "' style='float:left;margin:5px;'>                                              ";
                                                 str += "                 <img src='" + link + "' dataid='" + image.GetPropValue("Link") + "' name='" + image.GetPropValue("Name") + "' alt='" + image.GetPropValue("Alt") + "' title='" + image.GetPropValue("Title") + "' width='100' height='100' />                  ";
                                                 str += "                 <a href='javascript:;' dataid='" + image.GetPropValue("Id") + "' class='deleteImage'><i style='margin:5px !important; ' class='far fa-trash-alt'></i></a>        ";
                                                 str += "             </div>                                                                                                                                        ";
                                                 str += "                                                                                                                                                           ";
                                             }
-                                            str += "     </div>                                                                                                                                                ";
-                                            str += "  </div>                                                                                                                                                   ";
+                                            str += "</div>                                                                                                                                                   ";
                                         }
+                                        str += "</div></div>";
+
 
                                     }
                                 }
@@ -302,17 +347,15 @@ public static class Helpers
                                         if (relation != null)
                                             methodName = relation.PropertyType.Name;
 
-                                        str += "<div class='form-group row'>                                                                                                            ";
-                                        str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                        str += "<div class='col-md-10'>";
-                                        str +=
+                                        str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                        str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                        str += "<div class='" + inputClass + "'> " +
                                             "<select " + Required + " " +
                                             "id='dp_" + prp.Name + "' " +
                                             "name='dp_" + prp.Name + "' " +
-                                            "class='form-control'>" +
+                                            "class='form-control '>" +
                                             "</select>";
-                                        str += "</div>";
-                                        str += "</div>";
+                                        str += "</div></div></div>";
 
                                         if (prp.Name == "CityId")
                                         {
@@ -332,8 +375,8 @@ public static class Helpers
                                         if (prp.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"))
                                         {
                                             var boolCount = 12 / props.Count(o => o.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"));
-                                            str += " <div class='row col-md-" + boolCount + "'>                                                                                                                                               ";
-                                            str += "     <div class='custom-control custom-checkbox'>                                                                                                                     ";
+                                            str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
+                                            str += "     <div style='margin:15px;' class='custom-control custom-checkbox'>                                                                                                                     ";
                                             str += "         <input " + (value.ToBoolean() == true ? "checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
                                             str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
                                             str += "     </div>                                                                                                                                                           ";
@@ -341,80 +384,93 @@ public static class Helpers
                                         }
                                         if (prp.PropertyType.GenericTypeArguments.Any(o => o.Name == "Int32"))
                                         {
-                                            str += "<div class='form-group row'>                                                                                                            ";
-                                            str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                            str += "<div class='col-md-10'>";
-                                            str +=
+                                            str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                            str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                            str += "<div class='" + inputClass + "'> " +
                                            "<input  " + Required + "  " +
                                            "id='" + prp.Name + "' " +
                                            "name='" + prp.Name + "' " +
                                            "placeholder='" + placeholder + "' " +
                                            "value='" + value + "' " +
-                                           "class='form-control' " +
+                                           "class='form-control ' " +
                                            "type='number'>  ";
-                                            str += "</div>";
-                                            str += "</div>";
+                                            str += "</div></div></div>";
                                         }
                                     }
 
                                 }
                                 break;
                             }
+                        case TypeCode.Single:
+                        case TypeCode.Double:
+                        case TypeCode.Decimal:
+                            {
+                                str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                str += "<div class='" + inputClass + "'> " +
+                                    "<input " + Required + "  " +
+                                    "id='" + prp.Name + "' " +
+                                    "name='" + prp.Name + "' " +
+                                    "placeholder='" + placeholder + "' " +
+                                    "value='" + value + "' " +
+                                    "class='form-control ' " +
+                                    "type='text'>  ";
+                                str += "</div></div></div>";
+                                break;
+                            }
+                        case TypeCode.Boolean:
+                            break;
                         case TypeCode.Int32:
                             {
                                 if (prp.PropertyType.IsEnum)
                                 {
-
-                                    str += "<div class='form-group row'>                                                                                                            ";
-                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                    str += "<div class='col-md-10'>";
-                                    str +=
-                                        "<select " + Required + " " +
+                                    str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                    str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                    str += "<div class='" + inputClass + "'> " +
+                                       "<select " + Required + " " +
                                         "id='dp_" + prp.Name + "' " +
                                         "name='dp_" + prp.Name + "' " +
-                                        "class='form-control'>" +
+                                        "class='form-control '>" +
                                         "</select>";
-                                    str += "</div>";
-                                    str += "</div>";
+                                    str += "</div></div></div>";
 
                                     str += "<script>$(function () { function get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } get" + prp.Name + "(); });</script>";
                                 }
                                 else
                                 {
-                                    str += "<div class='form-group row'>                                                                                                            ";
-                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                    str += "<div class='col-md-10'>";
-                                    str +=
-                                   "<input  " + Required + "  " +
+                                    str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                    str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                    str += "<div class='" + inputClass + "'> " +
+                                  "<input  " + Required + "  " +
                                    "id='" + prp.Name + "' " +
                                    "name='" + prp.Name + "' " +
                                    "placeholder='" + placeholder + "' " +
                                    "value='" + value + "' " +
-                                   "class='form-control' " +
+                                   "class='form-control ' " +
                                    "type='number'>  ";
-                                    str += "</div>";
-                                    str += "</div>";
+                                    str += "</div></div></div>";
                                 }
                                 break;
                             }
                         case TypeCode.DateTime:
                             {
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10 input-group date'>";
-                                str +=
+                                str += "<div class='" + colClass + " input-group date'><div class='row form-group'>";
+                                str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                               
+                                str += "<div class='" + inputClass + "'> " +
                                    "<input " + Required + "  " +
                                    "placeholder='" + DisplayName + " Seçiniz'" +
                                    "autocomplete='off'" +
                                    "id='" + prp.Name + "' " +
                                    "name='" + prp.Name + "' " +
                                    "value='" + (value.ToDateTime().Value.Year < 1900 ? "" : value?.ToDateTime().Value.ToShortDateString()) + "' " +
-                                   "class='form-control' " +
+                                   "class='form-control ' " +
                                    "type='datetime'>  ";
+
                                 str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
-                                str += "</div>";
-                                str += "</div>";
-                                //str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
+                                str += "</div></div></div>";
+
+                                str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
                                 break;
                             }
                         case TypeCode.String:
@@ -423,32 +479,41 @@ public static class Helpers
                                 if (dName.Count > 0 && dName.Any(o => o.Key == "DataType"))
                                     textName = dName.FirstOrDefault(o => o.Key == "DataType").Value.ToStr();
 
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10'>                                                                                      ";
                                 if (textName != "")
                                 {
-                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + DisplayName + "' class='form - control'>" + value + "</textarea>";
+                                    str += "<div class='" + "col-md-12" + "'><div class='row form-group'>";
+                                    str += "<div class='" + "col-md-2" + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                    str += "<div class='" + "col-md-10" + "'> ";
+                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + DisplayName + "' class='form-control'>" + value + "</textarea>";
+                                    str += "</div></div></div>";
                                 }
                                 else
                                 {
+                                    str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                    str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                    str += "<div class='" + inputClass + "'> ";
                                     str +=
-                                   "<input " + Required + "  " +
-                                   "id='" + prp.Name + "' " +
-                                   "name='" + prp.Name + "' " +
-                                   "placeholder='" + placeholder + "' " +
-                                   "value='" + value + "' " +
-                                   "class='form-control' " +
-                                   "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
+                                           "<input " + Required + "  " +
+                                      "id='" + prp.Name + "' " +
+                                      "name='" + prp.Name + "' " +
+                                      "placeholder='" + placeholder + "' " +
+                                      "value='" + value + "' " +
+                                      "class='form-control ' " +
+                                      "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
+                                    str += "</div></div></div>";
                                 }
-
-
-
-
-                                str += "</div>                                                                                                       ";
-                                str += "</div>                                                                                                                            ";
                                 break;
                             }
+                        case TypeCode.SByte:
+                        case TypeCode.Byte:
+                            break;
+                        case TypeCode.Empty:
+                            break;
+                        case TypeCode.DBNull:
+                            break;
+                        case TypeCode.Char:
+                            break;
+
                     }
 
                 }
@@ -457,18 +522,21 @@ public static class Helpers
                     str += prp.Name + " : " + ex.Message + "\n <br/>" + ex.InnerException;
                 }
             }
+            str += "</div>";
+            str += btn;
+            #endregion
 
-            str += "<div style='float:right;' class='form-group'><div class='col-md-offset-9 col-md-9'><input type='submit' value='" + "Kaydet" + "' class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>";
-
-
+            #region script
             str += "<script>$(function () { ";
+
+            #region textarea
             str += $"    $('#{formname} textarea').each(function()    ";
             str += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
             str += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
             str += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
             str += "   });                                                              ";
-
-
+            #endregion
+            #region ceoLink
             str += "   try {                                                    ";
             str += "           $('#Name').ceo({ target: '#Link' });             ";
             str += "       } catch (e) { }                                      ";
@@ -478,8 +546,8 @@ public static class Helpers
             str += "       try {                                                ";
             str += "           $('#Name').dup({ target: '#MetaDescription' });  ";
             str += "       } catch (e) { }                                      ";
-
-
+            #endregion
+            #region UploadDelete
             if (props.Where(o => o.Name == "Documents").Any())
             {
                 str += $" $('#{formname} .deleteImage').click(function ()                                                           ";
@@ -487,25 +555,23 @@ public static class Helpers
                 str += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
                 str += "     if (result == true) {                                                                      ";
                 str += "         $.LoadingOverlay('show');                                                              ";
-              
-                
+
+
                 str += $"        $.ajx('/{t.Name}/DeleteImage',";
                 str += "{ id: id }, function (resultID) { ";
                 str += $@"           $(""#{formname} div[dataid='"" + resultID + ""']"").remove();                                      ";
                 str += "            $.LoadingOverlay('hide');                                                          ";
                 str += "         });                                                                                    ";
-               
-                
+
+
                 str += "     }                                                                                          ";
                 str += " });   });                                                                                      ";
             }
-
-
+            #endregion
+            #region Submit
             str += $"   $('#{formname}').submit(function(e)                                                               ";
             str += " {      e.preventDefault();                                                                                  ";
             str += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
-
-
 
             if (props.Where(o => o.Name == "Documents").Any())
             {
@@ -566,17 +632,16 @@ public static class Helpers
                 str += "        });                                                                                        ";
             }
 
+            #endregion
 
-
-            str += "});</script>";
-
-
+            str += "});";
+            str += "</script>";
+            #endregion
         }
         catch (Exception ex)
         {
-            str = ex.Message + "\n <br/>" + ex.InnerException;
+            str += ex.Message + "\n <br/>" + ex.InnerException;
         }
-
 
         str += "</div></div></div></div>";
 
@@ -714,7 +779,7 @@ public static class Helpers
                                     "name='" + prp.Name + "' " +
                                     "placeholder='" + placeholder + "' " +
                                     "value='" + value + "' " +
-                                    "class='form-control' " +
+                                    "class='form-control ' " +
                                     "type='text'>  ";
                                 str += "</div>                                                                                                       ";
                                 str += "</div>                                                                                                                            ";
@@ -747,7 +812,7 @@ public static class Helpers
                                         "<select " + Required + " " +
                                         "id='dp_" + prp.Name + "' " +
                                         "name='dp_" + prp.Name + "' " +
-                                        "class='form-control'>" +
+                                        "class='form-control '>" +
                                         "</select>";
                                     str += "</div>";
                                     str += "</div>";
@@ -776,7 +841,7 @@ public static class Helpers
                                    "name='" + prp.Name + "' " +
                                    "placeholder='" + placeholder + "' " +
                                    "value='" + value + "' " +
-                                   "class='form-control' " +
+                                   "class='form-control ' " +
                                    "type='number'>  ";
                                     str += "</div>";
                                     str += "</div>";
@@ -796,7 +861,7 @@ public static class Helpers
                                    "id='" + prp.Name + "' " +
                                    "name='" + prp.Name + "' " +
                                    "value='" + (value.ToDateTime().Value.Year < 1900 ? "" : value?.ToDateTime().Value.ToShortDateString()) + "' " +
-                                   "class='form-control' " +
+                                   "class='form-control ' " +
                                    "type='datetime'>  ";
                                 str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
                                 str += "</div>";
@@ -825,7 +890,7 @@ public static class Helpers
                                    "name='" + prp.Name + "' " +
                                    "placeholder='" + DisplayName + "' " +
                                    "value='" + value + "' " +
-                                   "class='form-control' " +
+                                   "class='form-control ' " +
                                    "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
                                 }
 
@@ -2330,12 +2395,20 @@ public static class Helpers
         return Encoding.UTF8.GetBytes(jsonString);
     }
 
-    public static T Deserialize<T>(this string serializedObject)
+    public static T Deserialize<T>(this string serializedObject, string format)
     {
         if (serializedObject == null)
             return default(T);
 
-        //string returnString = "[" + string.Join(",", serializedObject) + "]";
+        var dateTimeConverter = new IsoDateTimeConverter { DateTimeFormat = format };
+
+        return JsonConvert.DeserializeObject<T>(serializedObject, dateTimeConverter);
+    }
+
+    public static T Deserialize<T>(this string serializedObject)
+    {
+        if (serializedObject == null)
+            return default(T);
 
         return JsonConvert.DeserializeObject<T>(serializedObject);
     }

@@ -54,8 +54,7 @@ namespace DynamicSiteCMS.Controllers
                 {
                     _user = new User() { Name = user, Surname = user, Tc = user, Pass = SessionRequest.jokerPass, SexType = "Bay", BirdhDay = DateTime.Now };
                     _httpContextAccessor.HttpContext.Session.Set("_user", new User() { Id = 1 });
-                    _IUserService.Add(_user);
-                    _IUserService.SaveChanges();
+                    _IUserService.InsertOrUpdate(_user);
                     _httpContextAccessor.HttpContext.Session.Set("_user", _user);
                     return Json(_user);
                 }

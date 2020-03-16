@@ -1,9 +1,13 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost:5665",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:64084",
+      "applicationUrl": "http://localhost:64083",
       "sslPort": 0
     }
   },
@@ -18,10 +22,10 @@
     "DynamicSiteCMS": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "http://localhost:5000"
     }
   }
 }

@@ -27,6 +27,15 @@ public static class SessionRequest
         set { }
     }
 
+    public static SiteConfig config
+    {
+        get
+        {
+            return _IHttpContextAccessor.HttpContext.Session.Get<SiteConfig>("config");
+        }
+        set { }
+    }
+
     public static string Title = "Kazasker Fen Bilimleri";
     public static string StartPage = "Base";
     public static string StartAction = "Index";

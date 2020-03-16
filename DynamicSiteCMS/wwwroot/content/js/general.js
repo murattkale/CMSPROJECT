@@ -254,7 +254,7 @@ function alerts(message, button, call) {
             processData: false, // Not to process data  
             data: data,
             success: successMethod,
-            error: function (error) {
+            error: function (e, exception) {
                 if (error) {
                     var errorResult = $.errorSend(e, exception);
                     console.log(errorResult);

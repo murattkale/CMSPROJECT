@@ -28,7 +28,6 @@ namespace DynamicSiteCMS.Controllers
 
         }
 
-
         public IActionResult Index()
         {
 
@@ -40,39 +39,54 @@ namespace DynamicSiteCMS.Controllers
             ViewBag.pageTitle = "Dashboard";
 
             var menus = _IServiceConfigService.Where().Result.ToList();
-            _IHttpContextAccessor.HttpContext.Session.Set("menus", menus);
 
-            if (menus.Count<1)
+            var menuler = new List<string>();
+
+            try
             {
-                var menuler = Directory.EnumerateFiles(_IHostingEnvironment.ContentRootPath + @"\Views", "*", SearchOption.AllDirectories).Select(o =>
-                   o.Split("\\")[8].ToStr()
+                var filePath = _IHostingEnvironment.ContentRootPath + @"\Views";
+                menuler = Directory.EnumerateFiles(filePath, "*", SearchOption.AllDirectories).Select(o =>
+                o.Split("\\")[8].ToStr()
 
-                   ).Where(o =>
-                   !o.ToStr().Contains("Base")
-                   && !o.ToStr().Contains("Shared")
-                   && !o.ToStr().Contains("Login")
-                   && !o.ToStr().Contains("_")
-                   ).Distinct().OrderBy(o => o).ToList();
+                ).Where(o =>
+                !o.ToStr().Contains("Base")
+                && !o.ToStr().Contains("Shared")
+                && !o.ToStr().Contains("Login")
+                && !o.ToStr().Contains("_")
+                ).Distinct().OrderBy(o => o).ToList();
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+            }
 
-                menuler.ForEach(o =>
+
+            var fark = menuler.Where(oo => !menus.Select(o => o.Name).Contains(oo)).ToList();
+
+            if (fark.Count > 0)
+            {
+                menus = new List<ServiceConfig>();
+
+                fark.ForEach(o =>
                 {
-                    _IServiceConfigService.Add(new ServiceConfig()
+                    menus.Add(new ServiceConfig()
                     {
                         Name = o,
                         Description = o,
                         Url = "/" + o,
                         ServiceName = o
                     });
-                    _IServiceConfigService.SaveChanges();
+
                 });
+                _IServiceConfigService.AddBulk(menus);
+                _IServiceConfigService.SaveChanges();
+
             }
 
-
-
+            _IHttpContextAccessor.HttpContext.Session.Set("menus", menus);
 
             return View();
         }
-
 
         public IActionResult Logout()
         {

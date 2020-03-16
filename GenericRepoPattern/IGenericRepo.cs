@@ -22,7 +22,6 @@ public interface IGenericRepo<T> where T : class
           , params Expression<Func<T, object>>[] includes
           );
     T Find(int id, bool AsNoTracking = false, bool ShowIsDeleted = false);
-    bool Any(bool AsNoTracking = false, bool ShowIsDeleted = false);
     T Add(T t);
     List<T> AddBulk(List<T> tList);
     T Delete(int id);

@@ -25,33 +25,30 @@ namespace DynamicSite
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region BaseServices
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    
-            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
+            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(60));
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(opt =>
-                {
-                    opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                    opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                    opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
-                });
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                opt.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
+            });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
 
 
-            services.AddEntityFrameworkNpgsql().AddDbContext<CMSDBContext>();
+            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
 
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
             services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
+            #endregion
 
-           
-            services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
-            services.AddScoped(typeof(IDocumentsService), typeof(DocumentsService));
-            services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
-            services.AddScoped(typeof(ISendMail), typeof(SendMail));
-
-
-
+            var servicesAll = AppDomain.CurrentDomain.GetAssemblies().Where(o => o.GetName().Name.Contains("DynamicSiteService"))
+                .FirstOrDefault().DefinedTypes.Where(o => !o.Name.Contains("SendMail") && !o.IsInterface && o.BaseType.Name.Contains("GenericRepo")).ToList();
+            servicesAll.ForEach(baseService => { services.AddScoped(baseService.GetInterface("I" + baseService.Name), baseService); });
 
 
 
@@ -67,59 +64,16 @@ namespace DynamicSite
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseSession();
-            app.UseHsts();
-            app.UseHttpsRedirection();
 
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
-
-
-         //   app.UseEndpoints(endpoints =>
-         //   {
-         //       endpoints.MapControllerRoute(
-         //name: "sosyalmedya",
-         //pattern: "sosyalmedya/{controller=Base}/{action=sosyalmedya}/{id?}");
-
-         //       endpoints.MapControllerRoute(
-         //  name: "istatistikler",
-         //  pattern: "istatistikler/{controller=Base}/{action=istatistikler}/{id?}");
-
-         //       endpoints.MapControllerRoute(
-         //       name: "referanslar",
-         //       pattern: "referanslar/{controller=Base}/{action=referanslar}/{id?}");
-
-         //       endpoints.MapControllerRoute(
-         //   name: "paketlerimiz",
-         //   pattern: "paketlerimiz/{controller=Base}/{action=paketlerimiz}/{id?}");
-
-
-         //       endpoints.MapControllerRoute(
-         //     name: "iletisim",
-         //     pattern: "iletisim/{controller=Base}/{action=iletisim}/{id?}");
-
-
-         //       endpoints.MapControllerRoute(
-         //       name: "biznasilcalisiriz",
-         //       pattern: "biznasilcalisiriz/{controller=Base}/{action=biznasilcalisiriz}/{id?}");
-
-
-         //       endpoints.MapControllerRoute(
-         //         name: "hakkimizda",
-         //         pattern: "hakkimizda/{controller=Base}/{action=hakkimizda}/{id?}");
-
-         //       endpoints.MapControllerRoute(
-         //           name: "default",
-         //           pattern: "{controller=Base}/{action=Index}/{id?}");
-
-
-
-         //   });
-
 
             app.UseMvc(routes =>
             {

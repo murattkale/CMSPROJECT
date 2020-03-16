@@ -17,7 +17,19 @@
         <div class="row footer-link-container">
             <div class="col-6 col-lg-3 footer-section">
                 <a class="footer-brand" href="/">
-                    <h3 style="color:#fff;font-size:30px;">Kazasker <b>Fen Bilimleri</b></h3>
+                    <h3 style="color:#fff;font-size:30px;">
+                        @{var titles = SessionRequest.config.Title.Split(" ").ToList();
+                            var title = ""; var i = 0;
+                            titles.ForEach(o =>
+                            {
+                                i++;
+                                if (i == titles.Count) title += "<b>" + o + "</b>";
+                                else title += o + " ";
+                            });
+                        }
+                        @Html.Raw(title)
+
+                    </h3>
                 </a>
             </div>
 
@@ -61,13 +73,13 @@
         <hr>
         <div class="row">
             <div class="col-12 order-last order-lg-first col-lg-6 copyright-left">
-                <p class="semi-transparent copy mb-15"><span class="align-middle">@Html.Raw(SessionRequest.copyright)</span></p>
+                <p class="semi-transparent copy mb-15"><span class="align-middle">@Html.Raw(HttpUtility.HtmlDecode(SessionRequest.copyright))</span></p>
             </div>
             <div class="col-12 order-1 order-lg-last col-lg-6 copyright-right">
                 <ul class="social-list">
-                    <li><a href="https://www.instagram.com/kazaskerfenbilimleri/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="https://facebook.com/kazaskerfenbilimleri" target="_blank"><i class="fab fa-facebook"></i></a></li>
-                    <li><a href="https://twitter.com/kazaskerfenbilimleri" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://www.instagram.com/@SessionRequest.config.Instagram/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://facebook.com/@SessionRequest.config.Facebook" target="_blank"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="https://twitter.com/@SessionRequest.config.Twitter" target="_blank"><i class="fab fa-twitter"></i></a></li>
 
                 </ul>
             </div>

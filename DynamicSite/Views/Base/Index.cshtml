@@ -12,7 +12,13 @@
         <div class="video-loader" style="display: none;">
             <i class="fas fa-circle-notch fa-spin"></i>
         </div>
-        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop="" src="@row.VideoLink">
+        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop="" data="@row.VideoLink" src="">
+            <script>
+                $(function () {
+                    $('#header-video').attr("src", $('#header-video').attr("data"));
+                    //$("#header-video")[0].autoplay = true;
+                });
+            </script>
         </video>
         <div class="overlay">
             <div class="container">
@@ -56,7 +62,7 @@
                                 @foreach (var image in row.Documents)
                                 {
                                     j++;
-                                    var imageUrl = image.Link != null && image.Link.Contains("http") ? image.Link : SessionRequest.ImageUrl + image.Link;
+                                    var imageUrl = image.Link != null && image.Link.Contains("http") ? image.Link : SessionRequest.config.ImageUrl + image.Link;
                                     <div class="carousel-item @Html.Raw(j==1 ? "active":"")" data-interval="3000">
                                         <a href="@row.Link" class="">     <img src="@imageUrl" title="@image.Title" alt="@image.Alt" class="d-block w-100"></a>
                                     </div>
@@ -82,7 +88,7 @@
 
 @if (content.Any(o => o.ContentPageType == ContentPageType.row3))
 {
-    <section ctype="@ContentPageType.row3.ExGetDescription()" class="career parallax-window" data-parallax="scroll" data-image-src="/img/anasayfa/1.jpg">
+    <section ctype="@ContentPageType.row3.ExGetDescription()" class="career parallax-window" data-parallax="scroll" data-image-src="/index_files/1.jpg">
         <div class="overlay p-90-0-90">
             <div class="container">
                 <div class="row mb-60">
@@ -152,7 +158,7 @@
 
                 @foreach (var row in content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row4).ContentPageChilds.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name))
                 {
-                    var imageUrl = SessionRequest.ImageUrl + row.Documents.FirstOrDefault()?.Link;
+                    var imageUrl = SessionRequest.config.ImageUrl + row.Documents.FirstOrDefault()?.Link;
 
                     <div class="col-12 col-lg-4">
                         <a href="@row.Link" class="clickable-card">
@@ -192,7 +198,7 @@
 
     <div ctype="@row.ContentPageType.ExGetDescription()" id="tmp-join-us">
         <section class="join-us">
-            <div class="bg-img" style="background-image: url('img/anasayfa/2.jpg');"></div>
+            <div class="bg-img" style="background-image: url('/index_files/2.jpg');"></div>
             <div class="overlay">
                 <div class="container">
                     <div class="row">

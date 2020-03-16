@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
+using System.Web;
 
 namespace DynamicSite.Controllers
 {
@@ -17,13 +18,16 @@ namespace DynamicSite.Controllers
         IHostingEnvironment _IHostingEnvironment;
         IContentPageService _IContentPageService;
         IDocumentsService _IDocumentsService;
+        ISiteConfigService _ISiteConfigService;
         public BaseController(
             IDocumentsService _IDocumentsService,
             IContentPageService _IContentPageService,
          IHttpContextAccessor _IHttpContextAccessor,
-         IHostingEnvironment _IHostingEnvironment
+         IHostingEnvironment _IHostingEnvironment,
+         ISiteConfigService _ISiteConfigService
             )
         {
+            this._ISiteConfigService = _ISiteConfigService;
             this._IDocumentsService = _IDocumentsService;
             this._IContentPageService = _IContentPageService;
             this._httpContextAccessor = _IHttpContextAccessor;
@@ -39,17 +43,11 @@ namespace DynamicSite.Controllers
                 var menu = _IContentPageService.Where(o => o.Link == link, true, false, o => o.Documents).Result.FirstOrDefault();
                 if (menu != null)
                 {
-                    var document = _IDocumentsService.Where().Result.ToList();
-
-                    menu.Documents = document.Where(o => o.ContentPageId == menu.Id).ToList();
+                    var config = _ISiteConfigService.Where().Result.FirstOrDefault();
+                    _httpContextAccessor.HttpContext.Session.Set("config", config);
                     ViewBag.page = menu;
                     return View();
                 }
-                //else if (_IContentPageService.Where(o => o.Link == link).Result.FirstOrDefault() != null)
-                //{
-                //    ViewBag.page = _IContentPageService.Where(o => o.Link == link).Result.FirstOrDefault();
-                //    return View();
-                //}
                 else
                 {
                     return Redirect(SessionRequest.baseUrl);
@@ -75,73 +73,16 @@ namespace DynamicSite.Controllers
         {
             #region dynamicContent
             var link = HttpContext.Request.Path.Value.Trim().ToStr();
-            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Parent).Result.ToList();
-            var document = _IDocumentsService.Where().Result.ToList();
+            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents).Result.ToList();
 
             ViewBag.IsHeaderMenu = contentPages.Where(o => o.IsHeaderMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
             ViewBag.IsFooterMenu = contentPages.Where(o => o.IsFooterMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
-            var content = contentPages.ToList();
 
-            content.ForEach(o =>
-            {
-                o.Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList();
-                o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).Select(o => new ContentPage
-                {
-                    Id = o.Id,
-                    Name = o.Name,
-                    Link = o.Link,
-                    ContentOrderNo = o.ContentOrderNo,
-                    ButtonText1 = o.ButtonText1,
-                    ButtonText1Link = o.ButtonText1Link,
-                    ButtonText2 = o.ButtonText2,
-                    ButtonText2Link = o.ButtonText2Link,
-                    VideoLink = o.VideoLink,
-                    ResimLink = o.ResimLink,
-                    ContentShort = o.ContentShort,
-                    ContentPageType = o.ContentPageType,
-                    Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList()
-                }).ToList();
+            ViewBag.content = contentPages;
 
-            });
-            ViewBag.content = content;
+            var config = _ISiteConfigService.Where().Result.FirstOrDefault();
+            _httpContextAccessor.HttpContext.Session.Set("config", config);
             #endregion
-        }
-        public IActionResult hakkimizda()
-        {
-            return View();
-        }
-
-
-        public IActionResult biznasilcalisiriz()
-        {
-            return View();
-        }
-
-
-        public IActionResult iletisim()
-        {
-            return View();
-        }
-
-        public IActionResult referanslar()
-        {
-            return View();
-        }
-
-
-        public IActionResult paketlerimiz()
-        {
-            return View();
-        }
-
-        public IActionResult istatistikler()
-        {
-            return View();
-        }
-
-        public IActionResult sosyalmedya()
-        {
-            return View();
         }
 
 

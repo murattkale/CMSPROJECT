@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Converters;
 
 namespace DynamicSiteCMS.Controllers
 {
@@ -31,7 +32,7 @@ namespace DynamicSiteCMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ContentPage> param, ContentPage searchModel)
         {
-            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Parent);
+            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Documents, o => o.ContentPageChilds, o => o.Parent);
             result.data = result.data.OrderByDescending(o => o.Id).ThenByDescending(o => o.Name).ToList();
             return Json(result);
         }
@@ -45,7 +46,7 @@ namespace DynamicSiteCMS.Controllers
 
         public JsonResult GetContentPageType()
         {
-            var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new {name = ((ContentPageType)x).ToStr(), value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
+            var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new { name = ((ContentPageType)x).ToStr(), value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
             return Json(list);
         }
 
@@ -59,33 +60,42 @@ namespace DynamicSiteCMS.Controllers
         [HttpPost]
         public JsonResult InsertOrUpdate()
         {
-            var postModel = HttpContext.Request.Form["postmodel"][0].Deserialize<ContentPage>();
-            var result = _IContentPageService.InsertOrUpdate(postModel);
-
-            if (result.ResultType.RType == RType.OK)
+            try
             {
-                var files = HttpContext.Request.Form.Files.ToList();
-                files.ForEach(source =>
-                {
-                    string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
-                    var orjinalFileName = filename;
-                    filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
-                    var path = this.GetPathAndFilename(filename);
-                    using (FileStream output = System.IO.File.Create(path))
-                        source.CopyTo(output);
+                var postModel = HttpContext.Request.Form["postmodel"][0].Deserialize<ContentPage>("dd/MM/yyyy");
+                var result = _IContentPageService.InsertOrUpdate(postModel);
 
-                    _IDocumentsService.InsertOrUpdate(new Documents
+                if (result.ResultType.RType == RType.OK)
+                {
+                    var files = HttpContext.Request.Form.Files.ToList();
+                    files.ForEach(source =>
                     {
-                        ContentPageId = result.ResultRow.Id,
-                        Link = filename,
-                        Guid = Guid.NewGuid().ToString(),
-                        Name = orjinalFileName,
-                        Types = "ContentPage"
+                        string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
+                        var orjinalFileName = filename;
+                        filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
+                        var path = this.GetPathAndFilename(filename);
+                        using (FileStream output = System.IO.File.Create(path))
+                            source.CopyTo(output);
+
+                        _IDocumentsService.InsertOrUpdate(new Documents
+                        {
+                            ContentPageId = result.ResultRow.Id,
+                            Link = filename,
+                            Guid = Guid.NewGuid().ToString(),
+                            Name = orjinalFileName,
+                            Types = "ContentPage"
+                        });
+                        _IDocumentsService.SaveChanges();
                     });
-                    _IDocumentsService.SaveChanges();
-                });
+                }
+                return Json(result);
             }
-            return Json(result);
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         public JsonResult DeleteImage(int id)
@@ -151,7 +161,7 @@ namespace DynamicSiteCMS.Controllers
         }
 
 
-       
+
 
         private string GetPathAndFilename(string filename)
         {

@@ -12,7 +12,7 @@ public class DynamicRouting : IRouteConstraint
     {
 
         SessionRequest.RawUrl = SessionRequest.baseUrl;
-        if (values["link"] != null && values["link"] != "" && !values["link"].ToStr().Contains("/") && values["action"].ToStr() == "Sayfa" )
+        if (values["link"] != null && values["link"] != "" && !values["link"].ToStr().Contains("/") && !values["link"].ToStr().Contains(".") && values["action"].ToStr() == "Sayfa" )
         {
             var url = Uri.EscapeDataString(values["link"].ToString());
             httpContext.Items["cmspage"] = Uri.EscapeDataString(url);

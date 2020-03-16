@@ -32,35 +32,11 @@ namespace DynamicSite.Components
         public IViewComponentResult Invoke(ContentPageType ContentPageType)
         {
             var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents, o => o.Parent).Result;
-            var document = _IDocumentsService.Where().Result.ToList();
 
             var list = contentPages.Where(o => o.ContentPageType == ContentPageType);
+          
 
-            var lastList = list.ToList();
-
-            lastList.ForEach(o =>
-            {
-                o.Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList();
-                o.ContentPageChilds = o.ContentPageChilds.Where(oo => oo.IsDeleted == null).Select(o => new ContentPage
-                {
-                    Name = o.Name,
-                    Link = o.Link,
-                    ContentOrderNo = o.ContentOrderNo,
-                    ButtonText1 = o.ButtonText1,
-                    ButtonText1Link = o.ButtonText1Link,
-                    ButtonText2 = o.ButtonText2,
-                    ButtonText2Link = o.ButtonText2Link,
-                    VideoLink = o.VideoLink,
-                    ResimLink = o.ResimLink,
-                    ContentShort = o.ContentShort,
-
-                    ContentPageType = o.ContentPageType,
-                    Documents = document.Where(oo => oo.ContentPageId == o.Id && oo.IsDeleted == null).ToList()
-                }).ToList();
-
-            });
-
-            ViewBag.contents = lastList.ToList();
+            ViewBag.contents = list.ToList();
 
             switch (ContentPageType)
             {

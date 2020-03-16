@@ -72,10 +72,10 @@
                 columns.push({ "data": "ContentPageType", text: "Tip" });
                 columns.push({ "data": "Link", text: "Link" });
                 columns.push({ "data": "ContentShort", text: "Kısa İçerik" });
-                columns.push({ "data": "IsHeaderMenu", text: "Üst Menü" });
-                columns.push({ "data": "IsFooterMenu", text: "Alt Menü" });
-                columns.push({ "data": "IsSideMenu", text: "Yan Menü" });
-                columns.push({ "data": "IsHamburgerMenu", text: "Hamburger Menü" });
+                //columns.push({ "data": "IsHeaderMenu", text: "Üst Menü" });
+                //columns.push({ "data": "IsFooterMenu", text: "Alt Menü" });
+                //columns.push({ "data": "IsSideMenu", text: "Yan Menü" });
+                //columns.push({ "data": "IsHamburgerMenu", text: "Hamburger Menü" });
 
                 columns.push({ "data": "Detail", text: "İşlemler" });
 
@@ -100,9 +100,8 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_ContentPage + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
+                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md" target="_blank" href ="/' + control_Name_ContentPage + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
-
 
 
                                 return_data.push({
@@ -111,10 +110,10 @@
                                     'ContentPageType': row.ContentPageType > 0 ? getEnumRow(ContentPageTypeAll, row.ContentPageType).text : "",
                                     'Link': row.Link,
                                     'ContentShort': row.ContentShort,
-                                    'IsHeaderMenu': row.IsHeaderMenu == true ? 'aktif' : 'pasif',
-                                    'IsFooterMenu': row.IsFooterMenu == true ? 'aktif' : 'pasif',
-                                    'IsSideMenu': row.IsSideMenu == true ? 'aktif' : 'pasif',
-                                    'IsHamburgerMenu': row.IsHamburgerMenu == true ? 'aktif' : 'pasif',
+                                    //'IsHeaderMenu': row.IsHeaderMenu == true ? 'aktif' : 'pasif',
+                                    //'IsFooterMenu': row.IsFooterMenu == true ? 'aktif' : 'pasif',
+                                    //'IsSideMenu': row.IsSideMenu == true ? 'aktif' : 'pasif',
+                                    //'IsHamburgerMenu': row.IsHamburgerMenu == true ? 'aktif' : 'pasif',
 
                                     'Detail': Detail,
                                 });
