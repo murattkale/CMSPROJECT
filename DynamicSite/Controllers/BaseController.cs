@@ -75,10 +75,15 @@ namespace DynamicSite.Controllers
             var link = HttpContext.Request.Path.Value.Trim().ToStr();
             var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents).Result.ToList();
 
+            contentPages.ForEach(o =>
+            {
+                o.ContentPageChilds = contentPages.Where(oo => oo.ContentPageId == o.Id).ToList();
+            });
+
             ViewBag.IsHeaderMenu = contentPages.Where(o => o.IsHeaderMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
             ViewBag.IsFooterMenu = contentPages.Where(o => o.IsFooterMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
 
-            ViewBag.content = contentPages;
+            ViewBag.contentPages = contentPages;
 
             var config = _ISiteConfigService.Where().Result.FirstOrDefault();
             _httpContextAccessor.HttpContext.Session.Set("config", config);

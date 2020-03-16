@@ -46,8 +46,12 @@ namespace DynamicSite
             services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
             #endregion
 
-            var servicesAll = AppDomain.CurrentDomain.GetAssemblies().Where(o => o.GetName().Name.Contains("DynamicSiteService"))
-                .FirstOrDefault().DefinedTypes.Where(o => !o.Name.Contains("SendMail") && !o.IsInterface && o.BaseType.Name.Contains("GenericRepo")).ToList();
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));//Kullanýcaðýnýz servis projesinden en az birtane servisi çaðýrmalýsýnýz.
+
+            var allprops = AppDomain.CurrentDomain.GetAssemblies();
+            var props = allprops.Where(o => o.GetName().Name.Contains("DynamicSiteService"))
+                .FirstOrDefault().DefinedTypes;
+            var servicesAll = props.Where(o => !o.Name.Contains("SendMail") && !o.IsInterface && o.BaseType.Name.Contains("GenericRepo")).ToList();
             servicesAll.ForEach(baseService => { services.AddScoped(baseService.GetInterface("I" + baseService.Name), baseService); });
 
 
