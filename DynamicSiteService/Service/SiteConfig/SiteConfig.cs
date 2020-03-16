@@ -11,7 +11,6 @@ public partial class SiteConfig : BaseModel
     [Required()] public string StartAction { get; set; }
 
     [Required()] public string version { get; set; }
-    [Required()] public string Copyright { get; set; }
     [Required()] public string layoutID { get; set; }
     [Required()] public string layoutUrlBase { get; set; }
     [Required()] public string layoutUrl { get; set; }
