@@ -15,13 +15,19 @@ namespace DynamicSiteCMS.Controllers
 {
     public class BaseController : Controller
     {
-
+        ILangService _ILangService;
         IHostingEnvironment _IHostingEnvironment;
         IServiceConfigService _IServiceConfigService;
         IHttpContextAccessor _IHttpContextAccessor;
 
-        public BaseController(IHostingEnvironment _IHostingEnvironment, IServiceConfigService _IServiceConfigService, IHttpContextAccessor _IHttpContextAccessor)
+        public BaseController(
+            IHostingEnvironment _IHostingEnvironment, 
+            IServiceConfigService _IServiceConfigService, 
+            IHttpContextAccessor _IHttpContextAccessor,
+            ILangService _ILangService
+            )
         {
+            this._ILangService = _ILangService;
             this._IHostingEnvironment = _IHostingEnvironment;
             this._IServiceConfigService = _IServiceConfigService;
             this._IHttpContextAccessor = _IHttpContextAccessor;
@@ -30,13 +36,14 @@ namespace DynamicSiteCMS.Controllers
 
         public IActionResult Index()
         {
-
-
             if (SessionRequest._User == null)
             {
                 return RedirectToAction("Login1", "Login");
             }
+
             ViewBag.pageTitle = "Dashboard";
+
+
 
             var menus = _IServiceConfigService.Where().Result.ToList();
 
@@ -61,11 +68,11 @@ namespace DynamicSiteCMS.Controllers
             }
 
 
+
             var fark = menuler.Where(oo => !menus.Select(o => o.Name).Contains(oo)).ToList();
 
             if (fark.Count > 0)
             {
-                menus = new List<ServiceConfig>();
 
                 fark.ForEach(o =>
                 {

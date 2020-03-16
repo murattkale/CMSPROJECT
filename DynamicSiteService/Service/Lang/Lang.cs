@@ -15,6 +15,9 @@ public partial class Lang : BaseModel
     [DisplayName("Dil Adı")]
     public string Name { get; set; }
 
+    [DisplayName("Dil Kodu")]
+    public string Code { get; set; }
+
     [DisplayName("Varsayılan Dil")]
     public bool IsDefault { get; set; }
 

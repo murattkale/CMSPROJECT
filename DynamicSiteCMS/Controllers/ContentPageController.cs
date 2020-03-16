@@ -32,7 +32,11 @@ namespace DynamicSiteCMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ContentPage> param, ContentPage searchModel)
         {
-            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Documents, o => o.ContentPageChilds, o => o.Parent);
+            //var list = _IContentPageService.Where(null, false, true).Result.ToList();
+            //list.ForEach(o => o.LangId = 1);
+            //_IContentPageService.UpdateBulk(list);
+            //_IContentPageService.SaveChanges();
+            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Lang, o => o.Documents, o => o.ContentPageChilds, o => o.Parent);
             result.data = result.data.OrderByDescending(o => o.Id).ThenByDescending(o => o.Name).ToList();
             return Json(result);
         }
@@ -116,7 +120,8 @@ namespace DynamicSiteCMS.Controllers
         {
             var resultList = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.ContentPageId == id).Result.ToList();
 
-            resultList.ForEach(result => {
+            resultList.ForEach(result =>
+            {
 
                 var path = this.GetPathAndFilename(result.Link);
                 if (System.IO.File.Exists(path))
@@ -126,7 +131,7 @@ namespace DynamicSiteCMS.Controllers
                 _IDocumentsService.Delete(result);
                 var res = _IDocumentsService.SaveChanges();
             });
-            
+
             return Json("ok");
         }
 

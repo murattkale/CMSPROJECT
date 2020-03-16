@@ -438,17 +438,64 @@ public static class Helpers
                                 }
                                 else
                                 {
-                                    str += "<div class='" + colClass + "'><div class='row form-group'>";
-                                    str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
-                                    str += "<div class='" + inputClass + "'> " +
-                                  "<input  " + Required + "  " +
-                                   "id='" + prp.Name + "' " +
-                                   "name='" + prp.Name + "' " +
-                                   "placeholder='" + placeholder + "' " +
-                                   "value='" + value + "' " +
-                                   "class='form-control ' " +
-                                   "type='number'>  ";
-                                    str += "</div></div></div>";
+                                    var relation = props.FirstOrDefault(o => prp.Name.Substring(prp.Name.Length - 2, 2) == "Id" && o.Name == prp.Name.Replace("Id", ""));
+                                    if (relation != null || prp.Name.Substring(prp.Name.Length - 2, 2) == "Id")
+                                    {
+                                        var methodName = prp.Name.Replace("Id", "");
+                                        if (relation != null)
+                                            methodName = relation.PropertyType.Name;
+
+                                        str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                        str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                        str += "<div class='" + inputClass + "'> " +
+                                            "<select " + Required + " " +
+                                            "id='dp_" + prp.Name + "' " +
+                                            "name='dp_" + prp.Name + "' " +
+                                            "class='form-control '>" +
+                                            "</select>";
+                                        str += "</div></div></div>";
+
+                                        if (prp.Name == "CityId")
+                                        {
+                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
+                                        }
+                                        else if (prp.Name == "TownId")
+                                        {
+                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
+                                        }
+                                        else
+                                        {
+                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + methodName + "(); });</script>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (prp.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"))
+                                        {
+                                            var boolCount = 12 / props.Count(o => o.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"));
+                                            str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
+                                            str += "     <div style='margin:15px;' class='custom-control custom-checkbox'>                                                                                                                     ";
+                                            str += "         <input " + (value.ToBoolean() == true ? "checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
+                                            str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
+                                            str += "     </div>                                                                                                                                                           ";
+                                            str += " </div>                                                                                                                                                               ";
+                                        }
+                                        if (prp.PropertyType.GenericTypeArguments.Any(o => o.Name == "Int32"))
+                                        {
+                                            str += "<div class='" + colClass + "'><div class='row form-group'>";
+                                            str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                            str += "<div class='" + inputClass + "'> " +
+                                           "<input  " + Required + "  " +
+                                           "id='" + prp.Name + "' " +
+                                           "name='" + prp.Name + "' " +
+                                           "placeholder='" + placeholder + "' " +
+                                           "value='" + value + "' " +
+                                           "class='form-control ' " +
+                                           "type='number'>  ";
+                                            str += "</div></div></div>";
+                                        }
+                                    }
+
                                 }
                                 break;
                             }
