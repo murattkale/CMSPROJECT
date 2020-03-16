@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
-using System.Web.Mvc;
 
 public class MailModel
 {
@@ -9,7 +9,8 @@ public class MailModel
     public string KimdenMail { get; set; }
     public string KimdenText { get; set; }
 
-    [AllowHtml]
+
+    [DataType(DataType.MultilineText)]
     public string Icerik { get; set; }
     public string[] Alicilar { get; set; }
     public string[] cc { get; set; }

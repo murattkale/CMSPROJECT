@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using MailService;
 
 namespace templateSite.Controllers
 {
