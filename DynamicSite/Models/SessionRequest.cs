@@ -40,20 +40,7 @@ public static class SessionRequest
         set { }
     }
 
-    public static string Title = "Kazasker Fen Bilimleri";
-    public static string StartPage = "Base";
-    public static string StartAction = "Index";
-    public static string version = DateTime.Now.ToString().Replace("-", "").Replace(":", "").Replace(".", "").Replace(" ", "");
     public static string copyright = $"{DateTime.Now.Year} © Yazılım&Tasarım (Software&Design)  <a target='_blank' href='http://muratkale.com.tr'>by Murat KALE 0530 511 71 27</a>";
-    public static string layoutID = "1";
-    public static string layoutUrlBase = $"http://cms.dyness.com.tr";
-    public static string layoutUrl = $"{layoutUrlBase}";
-    public static string logo = "~/img/logo.png";
-    public static string defaultImage = "~/img/default.png";
-    public static string baseUrl = "/";
-    public static string ImageUrl = "http://admin.kazaskerfenbilimleri.com/uploads/";
-    public static string RawUrl { get; set; }
-    public static string jokerPass = "123_*1";
 
 
 }

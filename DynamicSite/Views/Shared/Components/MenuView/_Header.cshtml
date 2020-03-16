@@ -98,7 +98,7 @@
                 @foreach (var menu in header)
                 {
                     var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
-                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.baseUrl + menu.Link));
+                    var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.config.BaseUrl + menu.Link));
                     var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
                     var sublist = IsHeaderMenu.Where(o => o.ContentPageId == menu.Id).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name);
 
@@ -128,7 +128,7 @@
                             {
 
                                 var targetsub = submenu.Link != null && submenu.Link.Contains("http") ? "_blank" : "";
-                                var linksub = (string.IsNullOrEmpty(submenu.Link) ? "javascript:void();" : SessionRequest.baseUrl + submenu.Link);
+                                var linksub = (string.IsNullOrEmpty(submenu.Link) ? "javascript:void();" : SessionRequest.config.BaseUrl + submenu.Link);
                                 var cursorsub = string.IsNullOrEmpty(submenu.Link) ? "cursor:default;" : "";
 
                                 active = "";

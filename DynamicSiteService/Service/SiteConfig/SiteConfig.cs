@@ -11,7 +11,6 @@ public partial class SiteConfig : BaseModel
     [Required()] public string StartAction { get; set; }
 
     [Required()] public string version { get; set; }
-    [DataType("text")]
     [Required()] public string Copyright { get; set; }
     [Required()] public string layoutID { get; set; }
     [Required()] public string layoutUrlBase { get; set; }
@@ -27,6 +26,17 @@ public partial class SiteConfig : BaseModel
 
     public string MetaKeywords { get; set; }
     public string MetaDescription { get; set; }
+
+    public string Adress { get; set; }
+    public string Phone { get; set; }
+    public string Mail { get; set; }
+    public string MailGorunenAd { get; set; }
+    public string SmtpHost { get; set; }
+    public string SmtpPort { get; set; }
+    public string SmtpMail { get; set; }
+    public string SmtpMailPass { get; set; }
+    public bool? SmtpSSL { get; set; }
+
 
     public string Instagram { get; set; }
     public string Twitter { get; set; }

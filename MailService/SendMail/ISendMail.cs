@@ -1,5 +1,4 @@
-﻿using MailService;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,5 +6,6 @@ using System.Text;
 public interface ISendMail
 {
     void SendMails(templateMailModel postModel);
+    void Send(MailModelCustom postModel);
 }
 

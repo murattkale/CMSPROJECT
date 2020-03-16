@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DynamicSiteEntity.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    partial class CMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200316092021_db345345f")]
+    partial class db345345f
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -584,9 +586,6 @@ namespace DynamicSiteEntity.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Mail")
-                        .HasColumnType("text");
-
-                    b.Property<string>("MailGorunenAd")
                         .HasColumnType("text");
 
                     b.Property<string>("Map")

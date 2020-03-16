@@ -51,7 +51,7 @@ namespace DynamicSite
             var allprops = AppDomain.CurrentDomain.GetAssemblies();
             var props = allprops.Where(o => o.GetName().Name.Contains("DynamicSiteService"))
                 .FirstOrDefault().DefinedTypes;
-            var servicesAll = props.Where(o => !o.Name.Contains("SendMail") && !o.IsInterface && o.BaseType.Name.Contains("GenericRepo")).ToList();
+            var servicesAll = props.Where(o => (!o.IsInterface && o.BaseType.Name.Contains("GenericRepo"))).ToList();
             servicesAll.ForEach(baseService => { services.AddScoped(baseService.GetInterface("I" + baseService.Name), baseService); });
 
 

@@ -7,11 +7,6 @@
 }
 
 
-
-
-
-
-
 <footer class="footer text-center text-lg-left">
     <div class="container">
         <div class="row footer-link-container">
@@ -39,7 +34,7 @@
                     @foreach (var menu in header)
                     {
                         var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
-                        var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.baseUrl + menu.Link));
+                        var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.config.BaseUrl + menu.Link));
                         var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
 
                         var active = "";
@@ -64,9 +59,9 @@
             <div class="col-6 col-lg-3 footer-section">
                 <h5><a style="color:#fff;" href="/iletisim">İletişim</a></h5>
                 <ul>
-                    <li>Telefon: (0216) 464 66 33</li>
-                    <li>Adres: 19 Mayıs Mah. Şemsettin Günaltay Cad. NO:135 Kat:1 D:33-34–35, Kazasker/Kadıköy/İstanbul</li>
-                    <li>Mail : bilgi@kazaskerfenbilimleri.com</li>
+                    <li>Telefon: @SessionRequest.config.Phone</li>
+                    <li>Adres: @SessionRequest.config.Adress</li>
+                    <li>Mail : @SessionRequest.config.Mail</li>
                 </ul>
             </div>
         </div>

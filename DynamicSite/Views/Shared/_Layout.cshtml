@@ -10,7 +10,6 @@
 <html lang="tr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@SessionRequest.config.Title</title>
 
@@ -25,7 +24,7 @@
     <script src="./index_files/jquery.min.js" type="text/javascript"></script>
     <script src="~/loadingoverlay.min.js"></script>
     <script src="~/bootbox.min.js"></script>
-    <script src="~/general.js"></script>
+    <script src="~/general.js?v=@SessionRequest.config.version"></script>
 
     <script src="./index_files/home.914fb9ec.js" type="text/javascript"></script>
 
@@ -59,6 +58,11 @@
 
 </head>
 <body>
+    @if (!string.IsNullOrEmpty(SessionRequest.config.BodyScript))
+    {
+        @Html.Raw(HttpUtility.HtmlDecode(SessionRequest.config.BodyScript));
+    }
+
     <div class="parallax-mirror" style="visibility: hidden; z-index: -100; position: fixed; top: 0px; left: 0px; overflow: hidden; height: 736.2px; width: 1519.2px; transform: translate3d(0px, 630.313px, 0px);">
         <img class="parallax-slider" src="./index_files/home-jobs.42785058.jpg" style="position: absolute; height: 686px; width: 1922px; max-width: none; transform: translate3d(-201px, -504.25px, 0px);">
     </div>

@@ -22,8 +22,6 @@ namespace DynamicSite.Controllers
             return Json(result);
         }
 
-
-
         public JsonResult InsertOrUpdate(Formlar postModel)
         {
             var result = _service_Formlar.InsertOrUpdate(postModel);
@@ -34,15 +32,29 @@ namespace DynamicSite.Controllers
             str += "Mail : " + postModel.Mail + "</br>";
             str += "Telefon : " + postModel.Telefon + "</br>";
 
-            _ISendMail.SendMails(new MailModel()
+            _ISendMail.Send(new MailModelCustom()
             {
-                Alicilar = new string[] { "bilgi@kazaskerfenbilimleri.com", "ilker.asan@hotmail.com" },
-                cc = new string[] { "bilgi@kazaskerfenbilimleri.com" },
-                KimdenMail = "bilgi@kazaskerfenbilimleri.com",
-                KimdenText = "bilgi@kazaskerfenbilimleri.com",
+                Alicilar = SessionRequest.config.Mail.Split(","),
+                SmtpMail = SessionRequest.config.SmtpMail,
+                SmtpHost = SessionRequest.config.SmtpHost,
+                SmtpPort = SessionRequest.config.SmtpPort,
+                SmtpMailPass = SessionRequest.config.SmtpMailPass,
+                SmtpSSL = SessionRequest.config.SmtpSSL,
+                MailGorunenAd = SessionRequest.config.MailGorunenAd,
+                cc = null,
                 Konu = "Bilgi Formu",
                 Icerik = str
             });
+
+            //_ISendMail.SendMails(new MailModel()
+            //{
+            //    Alicilar = new string[] { "bilgi@kazaskerfenbilimleri.com", "ilker.asan@hotmail.com" },
+            //    cc = new string[] { "bilgi@kazaskerfenbilimleri.com" },
+            //    KimdenMail = "bilgi@kazaskerfenbilimleri.com",
+            //    KimdenText = "bilgi@kazaskerfenbilimleri.com",
+            //    Konu = "Bilgi Formu",
+            //    Icerik = str
+            //});
             return Json(result);
         }
 

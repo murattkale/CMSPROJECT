@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DynamicSiteService\DynamicSiteService.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
+    <ProjectReference Include="..\MailService\MailService.csproj" />
   </ItemGroup>
   
 </Project>

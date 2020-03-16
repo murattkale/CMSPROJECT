@@ -38,28 +38,26 @@ namespace DynamicSite.Controllers
         public IActionResult Sayfa()
         {
             var link = HttpContext.Items["cmspage"].ToString();
+            var config = _ISiteConfigService.Where().Result.FirstOrDefault();
+            _httpContextAccessor.HttpContext.Session.Set("config", config);
+
             if (!string.IsNullOrEmpty(link))
             {
                 var menu = _IContentPageService.Where(o => o.Link == link, true, false, o => o.Documents).Result.FirstOrDefault();
                 if (menu != null)
                 {
-                    var config = _ISiteConfigService.Where().Result.FirstOrDefault();
-                    _httpContextAccessor.HttpContext.Session.Set("config", config);
                     ViewBag.page = menu;
                     return View();
                 }
                 else
                 {
-                    return Redirect(SessionRequest.baseUrl);
+                    return Redirect(SessionRequest.config.BaseUrl);
                 }
-
-
             }
             else
             {
-                return Redirect(SessionRequest.baseUrl);
+                return Redirect(SessionRequest.config.BaseUrl);
             }
-
         }
 
         public IActionResult Index()
