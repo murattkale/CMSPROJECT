@@ -23,6 +23,7 @@ public partial class CMSDBContext : DbContext
     }
 
 
+    public virtual DbSet<Lang> Lang { get; set; }
     public virtual DbSet<ContentPage> ContentPage { get; set; }
     public virtual DbSet<Formlar> Formlar { get; set; }
     public virtual DbSet<Documents> Documents { get; set; }

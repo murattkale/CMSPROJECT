@@ -16,5 +16,7 @@ public interface IBaseModel
     DateTime? IsDeleted { get; set; }
 
     int? IsStatus { get; set; }
+
+    int? LoginCount { get; set; }
 }
 

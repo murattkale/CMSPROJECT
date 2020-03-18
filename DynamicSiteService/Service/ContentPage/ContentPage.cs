@@ -86,7 +86,7 @@ public partial class ContentPage : BaseModel
     public virtual ContentPage Parent { get; set; }
 
     [DisplayName("Dil")]
-    public int LangId { get; set; }
+    [Required()] public int LangId { get; set; }
     public virtual Lang Lang { get; set; }
 }
 
