@@ -8,11 +8,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 
 
-using Entity;
-
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Converters;
 
 namespace CMS.Controllers
 {
@@ -33,48 +32,75 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ContentPage> param, ContentPage searchModel)
         {
-            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Kurum);
+            //var list = _IContentPageService.Where(null, false, true).Result.ToList();
+            //list.ForEach(o => o.LangId = 1);
+            //_IContentPageService.UpdateBulk(list);
+            //_IContentPageService.SaveChanges();
+            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Kurum, o => o.Sube ,o => o.Lang, o => o.Documents, o => o.ContentPageChilds, o => o.Parent);
             result.data = result.data.OrderByDescending(o => o.Id).ThenByDescending(o => o.Name).ToList();
             return Json(result);
         }
 
         [HttpPost]
-        public JsonResult GetParent()
+        public JsonResult GetSelect()
         {
-            var result = _IContentPageService.Where().Result.Select(o => new { value = o.Id, text = o.Name });
+            var result = _IContentPageService.Where(null, true, false, o => o.Parent, o => o.Parent.Parent)
+               .Result.Select(o => new { value = o.Id, text = (o.Parent.Parent == null ? "" : o.Parent.Parent.Name + " / ") + (o.Parent == null ? "" : o.Parent.Name + " / ") + o.Name });
+            return Json(result);
+        }
+
+        public JsonResult GetContentPageType()
+        {
+            var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new { name = ((ContentPageType)x).ToStr(), value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
+            return Json(list);
+        }
+
+        [HttpPost]
+        public JsonResult GetContentPage()
+        {
+            var result = _IContentPageService.Where().Result.Select(o => new { value = o.Id, text = o.Name }).ToList();
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult InsertOrUpdate()
         {
-            var postModel = HttpContext.Request.Form["postmodel"][0].Deserialize<ContentPage>();
-            var result = _IContentPageService.InsertOrUpdate(postModel);
-
-            if (result.ResultType.RType == RType.OK)
+            try
             {
-                var files = HttpContext.Request.Form.Files.ToList();
-                files.ForEach(source =>
-                {
-                    string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
-                    var orjinalFileName = filename;
-                    filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
-                    var path = this.GetPathAndFilename(filename);
-                    using (FileStream output = System.IO.File.Create(path))
-                        source.CopyTo(output);
+                var postModel = HttpContext.Request.Form["postmodel"][0].Deserialize<ContentPage>("dd/MM/yyyy");
+                var result = _IContentPageService.InsertOrUpdate(postModel);
 
-                    _IDocumentsService.InsertOrUpdate(new Documents
+                if (result.ResultType.RType == RType.OK)
+                {
+                    var files = HttpContext.Request.Form.Files.ToList();
+                    files.ForEach(source =>
                     {
-                        dataid = result.ResultRow.Id,
-                        Link = filename,
-                        Guid = Guid.NewGuid().ToString(),
-                        Name = orjinalFileName,
-                        Types = "ContentPage"
+                        string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
+                        var orjinalFileName = filename;
+                        filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
+                        var path = this.GetPathAndFilename(filename);
+                        using (FileStream output = System.IO.File.Create(path))
+                            source.CopyTo(output);
+
+                        _IDocumentsService.InsertOrUpdate(new Documents
+                        {
+                            ContentPageId = result.ResultRow.Id,
+                            Link = filename,
+                            Guid = Guid.NewGuid().ToString(),
+                            Name = orjinalFileName,
+                            Types = "ContentPage"
+                        });
+                        _IDocumentsService.SaveChanges();
                     });
-                    _IDocumentsService.SaveChanges();
-                });
+                }
+                return Json(result);
             }
-            return Json(result);
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
 
         public JsonResult DeleteImage(int id)
@@ -85,18 +111,35 @@ namespace CMS.Controllers
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
+            }
+            _IDocumentsService.Delete(result);
+            var res = _IDocumentsService.SaveChanges();
+            return Json(result.Id);
+        }
+
+        public JsonResult DeleteImageAll(int id)
+        {
+            var resultList = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.ContentPageId == id).Result.ToList();
+
+            resultList.ForEach(result =>
+            {
+
+                var path = this.GetPathAndFilename(result.Link);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
                 _IDocumentsService.Delete(result);
                 var res = _IDocumentsService.SaveChanges();
-            }
-            return Json(result.Id);
+            });
+
+            return Json("ok");
         }
 
 
         public ContentPage Get(int id)
         {
             var result = _IContentPageService.Where(o => o.Id == id, true, false, o => o.Documents).Result.FirstOrDefault();
-            if (result != null && result.Documents.Any())
-                result.Documents = result.Documents.Where(o => o.IsDeleted == null).ToList();
             return (result);
         }
 
@@ -104,6 +147,9 @@ namespace CMS.Controllers
         {
             var result = _IContentPageService.Delete(id);
             _IContentPageService.SaveChanges();
+
+            DeleteImageAll(id);
+
             return Json(result);
         }
 
@@ -120,11 +166,7 @@ namespace CMS.Controllers
         }
 
 
-        public JsonResult getContentPageType()
-        {
-            var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new { value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
-            return Json(list);
-        }
+
 
         private string GetPathAndFilename(string filename)
         {

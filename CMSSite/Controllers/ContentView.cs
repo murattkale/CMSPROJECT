@@ -62,10 +62,9 @@ namespace CMS.Components
                 SessionRequest.SubeId = 0;
             }
 
-            var list = listAll.Where(o => o.ContentPageType == (int)ContentPageType);
+            var list = listAll.Where(o => o.ContentPageType == (ContentPageType));
 
             var lastList = list.ToList();
-            lastList.ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
             ViewBag.contents = lastList.ToList();
 
             switch (ContentPageType)
@@ -104,15 +103,15 @@ namespace CMS.Components
                     }
                 case ContentPageType.haberler:
                     {
-                        var lastListSon = listAll.Where(o => o.ContentPageType == (int)ContentPageType.haberler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate).ToList();
-                        lastListSon.ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
+                        var lastListSon = listAll.Where(o => o.ContentPageType == ContentPageType.haberler3 || o.ContentPageType == ContentPageType).OrderByDescending(o => o.CreaDate).ToList();
+                        //lastListSon.ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
                         ViewBag.contents = lastListSon.ToList();
                         return View("haberler");
                     }
                 case ContentPageType.etkinlikler:
                     {
-                        var lastListSon = listAll.Where(o => o.ContentPageType == (int)ContentPageType.etkinlikler3 || o.ContentPageType == (int)ContentPageType).OrderByDescending(o => o.CreaDate).ToList();
-                        lastListSon.ToList().ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
+                        var lastListSon = listAll.Where(o => o.ContentPageType == ContentPageType.etkinlikler3 || o.ContentPageType == ContentPageType).OrderByDescending(o => o.CreaDate).ToList();
+                        //lastListSon.ToList().ForEach(o => { o.Documents = o.Documents.Where(oo => oo.dataid == o.Id && oo.IsDeleted == null).ToList(); });
                         ViewBag.contents = lastListSon.ToList();
                         return View("etkinlikler");
                     }

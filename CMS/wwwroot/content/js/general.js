@@ -95,41 +95,6 @@ function getObjects(obj, key, val) {
 }
 
 
-const FikirDurumu = {
-    Ondegerlendirme: 1,
-    Degerlendirme: 2,
-    Tamamlandi: 5,
-    Beklemede: 4,
-    GeriAtandi: 3,
-};
-
-const AtamaStatus = {
-    Havuzda: 1,
-    Atandi: 2,
-    Red: 3,
-    Pasif: 4,
-};
-
-const KapamaStatu = {
-    BuBirOneriDegil: 1,
-    OncedenPlanlanmis: 2,
-    UygulanabilirDegil: 3,
-    Mevcut: 4,
-    Uygulanabilir: 5,
-};
-
-
-const ProjeStatu = {
-    ProjeDegerlendirmede: 1,
-    Projelendiriliyor: 2,
-    iptalEdildi: 3,
-    HayataGecti: 4,
-}
-
-function setFikirDurumu(id, FikirStatus, success) {
-    $.ajx("/Fikir/setFikirDurumu", { id: id, FikirStatus: FikirStatus }, success, function () { });
-}
-
 
 function getEnumList(dataResult, id, selectid, selectText) {
     $(id).addOption(dataResult, "value", "text", null, null, selectid, '', selectText);
@@ -137,11 +102,9 @@ function getEnumList(dataResult, id, selectid, selectText) {
 
 function getEnumRow(dataResult, value) {
     if (value < 1) {
-        row = { value: "", text: "" };
+        row = { value: "", text: "", name: "" };
         return row;
     }
-
-
     var row;
     for (var i = 0; i < dataResult.length; i++) {
         var rowItem = dataResult[i];
@@ -153,110 +116,21 @@ function getEnumRow(dataResult, value) {
     return row;
 }
 
-
-function setCatColor(divid) {
-    var divtext = $(divid);
-    var value = divtext.text();
-    if (divtext.text() == "") {
-        value = divtext.val();
+function getEnumRowName(dataResult, value) {
+    if (value < 1) {
+        row = { value: "", text: "", name: "" };
+        return row;
     }
-    if (value.indexOf('HİZMET & SÜREÇ GELİŞTİRME') != -1) {
-        divtext.css('color', 'red');
+    var row;
+    for (var i = 0; i < dataResult.length; i++) {
+        var rowItem = dataResult[i];
+        if (rowItem.name == value) {
+            row = rowItem;
+            break;
+        }
     }
-    else if (value.indexOf('ÇALIŞAN EKRANLAR') != -1) {
-        divtext.css('color', 'blue');
-    }
-    else if (value.indexOf('YENİ ÜRÜNLER') != -1) {
-        divtext.css('color', 'orange');
-    }
-    else {
-        divtext.css('color', 'green');
-    }
+    return row;
 }
-
-function setCatColorClass(value) {
-
-    if (value.indexOf('HİZMET & SÜREÇ GELİŞTİRME') != -1) {
-        return 'danger';
-    }
-    else if (value.indexOf('ÇALIŞAN EKRANLAR') != -1) {
-        return 'success';
-    }
-    else if (value.indexOf('YENİ ÜRÜNLER') != -1) {
-        return 'primary';
-    }
-    else {
-        return '';
-    }
-}
-
-
-function getAtamaStatusColor(AtamaStatusEnum) {
-    var atamastatusColor = "";
-    switch (AtamaStatusEnum) {
-
-        case AtamaStatus.Havuzda: {
-            atamastatusColor = 'warning';
-            break;
-        }
-        case FikirDurumu.Atandi: {
-            atamastatusColor = 'success';
-            break;
-        }
-        case FikirDurumu.Red: {
-            atamastatusColor = 'light-gray';
-            break;
-        }
-        case FikirDurumu.Pasif: {
-            atamastatusColor = 'gray';
-            break;
-        }
-        default:
-            {
-                atamastatusColor = 'primary';
-                break;
-            }
-    }
-
-    return atamastatusColor;
-
-}
-
-
-function getFikirStatusColor(FikirStatusEnum) {
-    var type = "";
-    switch (FikirStatusEnum) {
-
-        case FikirDurumu.GeriAtandi: {
-            type = 'info';
-            break;
-        }
-        case FikirDurumu.Beklemede: {
-            type = 'success';
-            break;
-        }
-        case FikirDurumu.Tamamlandi: {
-            type = 'danger';
-            break;
-        }
-        case FikirDurumu.Ondegerlendirme: {
-            type = 'warning';
-            break;
-        }
-        default:
-            {
-                type = 'primary';
-                break;
-            }
-    }
-
-    return type;
-
-}
-
-
-
-
 
 
 
@@ -356,8 +230,8 @@ function alerts(message, button, call) {
         var post = $.post(slash + url, data, successMethod)
             .fail(function (e, exception) {
                 if (error) {
-                    error = $.fn.errorSend(e, exception);
-                    console.log(error);
+                    var errorResult = $.errorSend(e, exception);
+                    console.log(exception);
                 }
             });
         postArray.push(post);
@@ -376,10 +250,10 @@ function alerts(message, button, call) {
             processData: false, // Not to process data  
             data: data,
             success: successMethod,
-            error: function (error) {
+            error: function (e, exception) {
                 if (error) {
-                    error = $.fn.errorSend(e, exception);
-                    console.log(error);
+                    var errorResult = $.errorSend(e, exception);
+                    console.log(errorResult);
                 }
             }
         });
@@ -543,13 +417,19 @@ function alerts(message, button, call) {
         });
 
         $(id + ' textarea').each(function () {
-            if (CKEDITOR.instances[$(this).attr('name')])
-                returnArray[$(this).attr('name')] = CKEDITOR.instances[$(this).attr('name')].getData();
-            else {
-                returnArray[$(this).attr('name')] = $(this).val();
+            try {
+                if (CKEDITOR.instances[$(this).attr('name')])
+                    returnArray[$(this).attr('name')] = CKEDITOR.instances[$(this).attr('name')].getData();
+                else {
+                    returnArray[$(this).attr('name')] = $(this).val();
 
+                }
+            } catch (e) {
+                console.error(e);
             }
+
         });
+
 
         $(id + ' input[type="checkbox"]').each(function () {
             returnArray[$(this).attr('name')] = $(this).prop("checked");

@@ -68,7 +68,7 @@ namespace CMSSite
             services.AddScoped(typeof(ICityService), typeof(CityService));
             services.AddScoped(typeof(ITownService), typeof(TownService));
 
-            services.AddScoped(typeof(IUsersService), typeof(UsersService));
+            services.AddScoped(typeof(IUserService), typeof(UserService));
             services.AddScoped(typeof(IUserRoleService), typeof(UserRoleService));
             services.AddScoped(typeof(IRoleService), typeof(RoleService));
             services.AddScoped(typeof(IPermissionService), typeof(PermissionService));

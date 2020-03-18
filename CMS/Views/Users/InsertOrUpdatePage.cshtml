@@ -1,31 +1,31 @@
 ﻿
 @{
     Layout = null;
-    string pageTitle = "Users";
-    string Users_ControlNameUrl = "Users";
-    string FormName = "frm_" + Users_ControlNameUrl + "_";
-    int Users_idUrl = Context.Request.Query["id"].ToInt();
-    var Users_idUrl_select = Context.Request.Query["selectid"].ToStr();
-    string title = Users_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
+    string pageTitle = "User";
+    string User_ControlNameUrl = "User";
+    string FormName = "frm_" + User_ControlNameUrl + "_";
+    int User_idUrl = Context.Request.Query["id"].ToInt();
+    var User_idUrl_select = Context.Request.Query["selectid"].ToStr();
+    string title = User_idUrl > 0 ? (pageTitle + " Düzenle") : (pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as Users;
+    var edit = ViewBag.edit as User;
     if (edit == null)
     {
-        edit = new Users();
+        edit = new User();
     }
     else
     {
-        //Users_idUrl_select = edit.KurumId.ToStr();
+        //User_idUrl_select = edit.KurumId.ToStr();
     }
 
 }
 
 <script type="text/javascript">
-    var Users_FormName = "@Html.Raw(FormName)";
-    var Users_ControlNameUrl = "@Users_ControlNameUrl";
-    var Users_idUrl = "@Users_idUrl";
-    var Users_idUrl_select = "@Users_idUrl_select";
-    var Users_edit = @Html.Raw(Json.Serialize(edit));
+    var User_FormName = "@Html.Raw(FormName)";
+    var User_ControlNameUrl = "@User_ControlNameUrl";
+    var User_idUrl = "@User_idUrl";
+    var User_idUrl_select = "@User_idUrl_select";
+    var User_edit = @Html.Raw(Json.Serialize(edit));
 </script>
 
 
@@ -86,19 +86,19 @@
 
 
 <script type="text/javascript">
-    var Users_EditFunc;
+    var User_EditFunc;
 
     $(function () {
-        Users_EditFunc = {
+        User_EditFunc = {
             load: function () {
 
-                $('#' + Users_FormName).submit(function (e) {
+                $('#' + User_FormName).submit(function (e) {
                     e.preventDefault();
-                    var postModel = $.fn.toForm("#" + Users_FormName);
+                    var postModel = $.fn.toForm("#" + User_FormName);
                     $.LoadingOverlay("show");
-                    $.ajx(Users_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
+                    $.ajx(User_ControlNameUrl + "/InsertOrUpdate", { postModel: postModel }, function (resultData) {
                         if (resultData.ResultType.RType != 3) {
-                            Users_ListFunc.GetPaging();
+                            User_ListFunc.GetPaging();
                             $("#ajaxSub button[data-dismiss='modal']").click();
                         }
                         else {
@@ -113,7 +113,7 @@
 
 
         };
-        Users_EditFunc.load();
+        User_EditFunc.load();
     });
 
     //ayarlar();

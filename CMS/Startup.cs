@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
-
-using Entity;
-
-
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.IISIntegration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +34,7 @@ namespace CMS
             #region BaseServices
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    
-            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(30));
+            services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(60));
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -52,92 +52,97 @@ namespace CMS
             services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
             #endregion
 
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));//Kullanýcaðýnýz servis projesinden en az birtane servisi çaðýrmalýsýnýz.
 
 
-
-
-            //MuhasebeService
-            services.AddScoped(typeof(IBankaService), typeof(BankaService));
-            services.AddScoped(typeof(IHesapTipService), typeof(HesapTipService));
-            services.AddScoped(typeof(IHesapService), typeof(HesapService));
-            services.AddScoped(typeof(IKasaService), typeof(KasaService));
-            services.AddScoped(typeof(IOdemeTipService), typeof(OdemeTipService));
-            services.AddScoped(typeof(IOdemeDetayService), typeof(OdemeDetayService));
-            services.AddScoped(typeof(IParaBirimiService), typeof(ParaBirimiService));
-
-
-            //UserService
-            services.AddScoped(typeof(ISendMail), typeof(SendMail));
-            services.AddScoped(typeof(ICityService), typeof(CityService));
-            services.AddScoped(typeof(ITownService), typeof(TownService));
-
-            services.AddScoped(typeof(IUsersService), typeof(UsersService));
-            services.AddScoped(typeof(IUserRoleService), typeof(UserRoleService));
-            services.AddScoped(typeof(IRoleService), typeof(RoleService));
-            services.AddScoped(typeof(IPermissionService), typeof(PermissionService));
-
-            services.AddScoped(typeof(IServiceConfigService), typeof(ServiceConfigService));
-            services.AddScoped(typeof(IServiceConfigAuthService), typeof(ServiceConfigAuthService));
-
-            //CMSService
-            services.AddScoped(typeof(IContentPageService), typeof(ContentPageService));
-            services.AddScoped(typeof(IFormlarService), typeof(FormlarService));
-            services.AddScoped(typeof(IDocumentsService), typeof(DocumentsService));
-
-            //DynessService
-            services.AddScoped(typeof(IBransService), typeof(BransService));
-            services.AddScoped(typeof(IDersService), typeof(DersService));
-            services.AddScoped(typeof(IDersBransService), typeof(DersBransService));
-            services.AddScoped(typeof(IDersGrupService), typeof(DersGrupService));
-            services.AddScoped(typeof(IDerslikService), typeof(DerslikService));
-            services.AddScoped(typeof(IKiyafetService), typeof(KiyafetService));
-            services.AddScoped(typeof(IKiyafetTurService), typeof(KiyafetTurService));
-            services.AddScoped(typeof(IKurumService), typeof(KurumService));
-            services.AddScoped(typeof(INeredenDuydunuzService), typeof(NeredenDuydunuzService));
-            services.AddScoped(typeof(IOgrenciDetayService), typeof(OgrenciDetayService));
-            services.AddScoped(typeof(IOgrenciSozlesmeService), typeof(OgrenciSozlesmeService));
-            services.AddScoped(typeof(IOgrenciSozlesmeKiyafetService), typeof(OgrenciSozlesmeKiyafetService));
-            services.AddScoped(typeof(IOgrenciSozlesmeOdemeTablosuService), typeof(OgrenciSozlesmeOdemeTablosuService));
-            services.AddScoped(typeof(IOgrenciSozlesmeYayinService), typeof(OgrenciSozlesmeYayinService));
-            services.AddScoped(typeof(IOkulService), typeof(OkulService));
-            services.AddScoped(typeof(IOkulTipService), typeof(OkulTipService));
-            services.AddScoped(typeof(ISeansService), typeof(SeansService));
-            services.AddScoped(typeof(IServisService), typeof(ServisService));
-            services.AddScoped(typeof(ISezonService), typeof(SezonService));
-            services.AddScoped(typeof(ISinifService), typeof(SinifService));
-            services.AddScoped(typeof(ISinifOgrenciService), typeof(SinifOgrenciService));
-            services.AddScoped(typeof(ISozlesmeService), typeof(SozlesmeService));
-            services.AddScoped(typeof(ISozlesmeTurService), typeof(SozlesmeTurService));
-            services.AddScoped(typeof(ISubeService), typeof(SubeService));
-            services.AddScoped(typeof(IVeliDetayService), typeof(VeliDetayService));
-            services.AddScoped(typeof(IYayinService), typeof(YayinService));
-
-
-
-            //var allProviderTypes = System.Reflection.Assembly.GetExecutingAssembly()
-            //   .GetTypes().Where(t => t.Namespace != null && t.Namespace.Contains("Service"));
-
-            //foreach (var intfc in allProviderTypes.Where(t => t.IsInterface))
-            //{
-            //    var impl = allProviderTypes.FirstOrDefault(c => c.IsClass && intfc.Name.Substring(1) == c.Name);
-            //    if (impl != null) services.AddScoped(intfc, impl);
-            //}
+            var allprops = AppDomain.CurrentDomain.GetAssemblies();
+            var props = allprops.Where(o => o.GetName().Name.Contains("EntityService"))
+                .FirstOrDefault().DefinedTypes;
+            var servicesAll = props.Where(o => (!o.IsInterface && o.BaseType.Name.Contains("GenericRepo"))).ToList();
+            servicesAll.ForEach(baseService => { services.AddScoped(baseService.GetInterface("I" + baseService.Name), baseService); });
 
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration config)
         {
+            app.UseDeveloperExceptionPage();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.Run(async (context) =>
+                //{
+                //var sb = new StringBuilder();
+                //var nl = System.Environment.NewLine;
+                //var rule = string.Concat(nl, new string('-', 40), nl);
+                //var authSchemeProvider = app.ApplicationServices
+                //    .GetRequiredService<IAuthenticationSchemeProvider>();
+
+                //sb.Append($"Request{rule}");
+                //sb.Append($"{DateTimeOffset.Now}{nl}");
+                //sb.Append($"{context.Request.Method} {context.Request.Path}{nl}");
+                //sb.Append($"Scheme: {context.Request.Scheme}{nl}");
+                //sb.Append($"Host: {context.Request.Headers["Host"]}{nl}");
+                //sb.Append($"PathBase: {context.Request.PathBase.Value}{nl}");
+                //sb.Append($"Path: {context.Request.Path.Value}{nl}");
+                //sb.Append($"Query: {context.Request.QueryString.Value}{nl}{nl}");
+
+                //sb.Append($"Connection{rule}");
+                //sb.Append($"RemoteIp: {context.Connection.RemoteIpAddress}{nl}");
+                //sb.Append($"RemotePort: {context.Connection.RemotePort}{nl}");
+                //sb.Append($"LocalIp: {context.Connection.LocalIpAddress}{nl}");
+                //sb.Append($"LocalPort: {context.Connection.LocalPort}{nl}");
+                //sb.Append($"ClientCert: {context.Connection.ClientCertificate}{nl}{nl}");
+
+                //sb.Append($"Identity{rule}");
+                //sb.Append($"User: {context.User.Identity.Name}{nl}");
+                //var scheme = await authSchemeProvider
+                //    .GetSchemeAsync(IISDefaults.AuthenticationScheme);
+                //sb.Append($"DisplayName: {scheme?.DisplayName}{nl}{nl}");
+
+                //sb.Append($"Headers{rule}");
+                //foreach (var header in context.Request.Headers)
+                //{
+                //    sb.Append($"{header.Key}: {header.Value}{nl}");
+                //}
+                //sb.Append(nl);
+
+                //sb.Append($"Websockets{rule}");
+                //if (context.Features.Get<IHttpUpgradeFeature>() != null)
+                //{
+                //    sb.Append($"Status: Enabled{nl}{nl}");
+                //}
+                //else
+                //{
+                //    sb.Append($"Status: Disabled{nl}{nl}");
+                //}
+
+                //sb.Append($"Configuration{rule}");
+                //foreach (var pair in config.AsEnumerable())
+                //{
+                //    sb.Append($"{pair.Key}: {pair.Value}{nl}");
+                //}
+                //sb.Append(nl);
+
+                //sb.Append($"Environment Variables{rule}");
+                //var vars = System.Environment.GetEnvironmentVariables();
+                //foreach (var key in vars.Keys.Cast<string>().OrderBy(key => key,
+                //    StringComparer.OrdinalIgnoreCase))
+                //{
+                //    var value = vars[key];
+                //    sb.Append($"{key}: {value}{nl}");
+                //}
+
+                //context.Response.ContentType = "text/plain";
+                //await context.Response.WriteAsync(sb.ToString());
+                //});
             }
             else
             {
                 //app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -146,6 +151,7 @@ namespace CMS
             app.UseSession();
             app.UseAuthorization();
             app.UseAuthenticationMiddleware();
+
 
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 

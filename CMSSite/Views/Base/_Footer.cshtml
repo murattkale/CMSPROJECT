@@ -24,7 +24,7 @@
         foreach (var menu in ms)
         {
             i++;
-            if (i == 2 && menu.ParentId == null)
+            if (i == 2 && menu.ContentPageId == null)
             {
                 <li class="drop">
                     <a href="@Html.Raw(SessionRequest.baseUrl + "subeler")">Şubelerimiz</a>
@@ -37,10 +37,10 @@
             var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
             <li style="@cursor" class="drop">
                 <a style="@cursor" target="@target" href="@link">@menu.Name</a>
-                @if (_IMenusService.Any(o => o.ParentId == menu.Id))
+                @if (_IMenusService.Any(o => o.ContentPageId == menu.Id))
                 {
                     <ul class="dropdown__menu">
-                        @ShowTree(_IMenusService.Where(o => o.ParentId == menu.Id).ToList())
+                        @ShowTree(_IMenusService.Where(o => o.ContentPageId == menu.Id).ToList())
                     </ul>
                 }
             </li>
@@ -120,7 +120,7 @@
                                             <a href="@Html.Raw(SessionRequest.baseUrl + "anasayfa")">Ana Sayfa</a>
                                         </li>
 
-                                        @ShowTree(_IMenusService.Where(o => o.ParentId == null).ToList())
+                                        @ShowTree(_IMenusService.Where(o => o.ContentPageId == null).ToList())
 
 
                                         <li class="drop">

@@ -1,9 +1,12 @@
-﻿
-@{
-    Layout = null;
+﻿@{
     var edit = ViewBag.edit as Banka;
     if (edit == null)
-    {
         edit = new Banka();
-    }
 }
+@Html.Raw(edit.DynamicInputHelper2(
+                        "", "", "BAnka", "page", "col-md-4", "col-md-8", "col-md-6",
+                       "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
+                       "<input type='submit' value='" + "Gönder" + "' " +
+                       "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
+                       ))
+

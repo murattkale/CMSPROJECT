@@ -434,7 +434,7 @@ public static class Helpers
                                         "</select>";
                                     str += "</div></div></div>";
 
-                                    str += "<script>$(function () { function get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } get" + prp.Name + "(); });</script>";
+                                    str += "<script>$(function () { function Get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } Get" + prp.Name + "(); });</script>";
                                 }
                                 else
                                 {

@@ -5,12 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CMSService\CMSService.csproj" />
-    <ProjectReference Include="..\DynessService\DynessService.csproj" />
-    <ProjectReference Include="..\Entity\Entity.csproj" />
+    <ProjectReference Include="..\EntityService\EntityService.csproj" />
+    <ProjectReference Include="..\Entity\EntityService.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
-    <ProjectReference Include="..\MuhasebeService\MuhasebeService.csproj" />
-    <ProjectReference Include="..\UserService\UserService.csproj" />
+    <ProjectReference Include="..\MailService\MailService.csproj" />
   </ItemGroup>
 
   <ItemGroup>

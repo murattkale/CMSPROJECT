@@ -10,48 +10,48 @@ using Entity;
 
 namespace CMS.Controllers
 {
-    public class UsersController : Controller
+    public class UserController : Controller
     {
-        IUsersService _IUsersService;
-        public UsersController(IUsersService _IUsersService) { this._IUsersService = _IUsersService; }
+        IUserService _IUserService;
+        public UserController(IUserService _IUserService) { this._IUserService = _IUserService; }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Users> param, Users searchModel)
+        public JsonResult GetPaging(DTParameters<User> param, User searchModel)
         {
-            var result = _IUsersService.GetPaging(null, true, param, false);
+            var result = _IUserService.GetPaging(null, true, param, false);
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _IUsersService.Where(o => o.Name != "admin").Result.Select(o => new { value = o.Id, text = o.Name + " " + o.Surname });
+            var result = _IUserService.Where(o => o.Name != "admin").Result.Select(o => new { value = o.Id, text = o.Name + " " + o.Surname });
             return Json(result);
         }
 
 
-        public JsonResult InsertOrUpdate(Users postModel)
+        public JsonResult InsertOrUpdate(User postModel)
         {
-            var result = _IUsersService.InsertOrUpdate(postModel);
+            var result = _IUserService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Users Get(int id)
+        public User Get(int id)
         {
-            var result = _IUsersService.Find(id);
+            var result = _IUserService.Find(id);
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IUsersService.Delete(id);
-            _IUsersService.SaveChanges();
+            var result = _IUserService.Delete(id);
+            _IUserService.SaveChanges();
             return Json(result);
         }
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "Users";
+            ViewBag.pageTitle = "User";
             return View();
         }
 

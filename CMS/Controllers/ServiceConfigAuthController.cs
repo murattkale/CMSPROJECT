@@ -20,7 +20,7 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ServiceConfigAuth> param, ServiceConfigAuth searchModel)
         {
-            var result = _IServiceConfigAuthService.GetPaging(null, true, param, false, o => o.Role, o => o.ServiceConfig, o => o.Permission, o => o.Users);
+            var result = _IServiceConfigAuthService.GetPaging(null, true, param, false, o => o.Role, o => o.ServiceConfig, o => o.Permission, o => o.User);
             return Json(result);
         }
 

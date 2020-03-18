@@ -14,14 +14,14 @@ namespace CMS.Controllers
 {
     public class OgrenciController : Controller
     {
-        IUsersService _IUsersService;
+        IUserService _IUserService;
         IOgrenciDetayService _IOgrenciDetayService;
         IOgrenciSozlesmeService _IOgrenciSozlesmeService;
         IOgrenciSozlesmeYayinService _IOgrenciSozlesmeYayinService;
         IOgrenciSozlesmeKiyafetService _IOgrenciSozlesmeKiyafetService;
         IOgrenciSozlesmeOdemeTablosuService _IOgrenciSozlesmeOdemeTablosuService;
         public OgrenciController(
-             IUsersService _IUsersService,
+             IUserService _IUserService,
         IOgrenciDetayService _IOgrenciDetayService,
         IOgrenciSozlesmeService _IOgrenciSozlesmeService,
         IOgrenciSozlesmeYayinService _IOgrenciSozlesmeYayinService,
@@ -29,7 +29,7 @@ namespace CMS.Controllers
         IOgrenciSozlesmeOdemeTablosuService _IOgrenciSozlesmeOdemeTablosuService
             )
         {
-            this._IUsersService = _IUsersService;
+            this._IUserService = _IUserService;
             this._IOgrenciDetayService = _IOgrenciDetayService;
             this._IOgrenciSozlesmeService = _IOgrenciSozlesmeService;
             this._IOgrenciSozlesmeYayinService = _IOgrenciSozlesmeYayinService;
@@ -38,9 +38,9 @@ namespace CMS.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetPaging(DTParameters<Users> param)
+        public JsonResult GetPaging(DTParameters<User> param)
         {
-            var result = _IUsersService.GetPaging(o => o.UserRoles.Any(oo => oo.Role.Name == "Öğrenci"), true, param, false,
+            var result = _IUserService.GetPaging(o => o.UserRoles.Any(oo => oo.Role.Name == "Öğrenci"), true, param, false,
                 o => o.City,
                 o => o.Town,
                 o => o.UserRoles
@@ -50,22 +50,22 @@ namespace CMS.Controllers
         }
 
 
-        public JsonResult InsertOrUpdate(Users postModel)
+        public JsonResult InsertOrUpdate(User postModel)
         {
-            var result = _IUsersService.InsertOrUpdate(postModel);
+            var result = _IUserService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public Users Get(int id)
+        public User Get(int id)
         {
-            var result = _IUsersService.Where(o => o.Id == id).Result.FirstOrDefault();
+            var result = _IUserService.Where(o => o.Id == id).Result.FirstOrDefault();
             return (result);
         }
 
         public JsonResult Delete(int id)
         {
-            var result = _IUsersService.Delete(id);
-            _IUsersService.SaveChanges();
+            var result = _IUserService.Delete(id);
+            _IUserService.SaveChanges();
             return Json(result);
         }
 

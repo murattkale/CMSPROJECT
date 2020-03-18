@@ -7,10 +7,10 @@
     var Ogrenci_idUrl_select = Context.Request.Query["selectid"].ToStr();
     string Ogrenci_title = Ogrenci_idUrl > 0 ? (Ogrenci_pageTitle + " Düzenle") : (Ogrenci_pageTitle + " Kaydet");
 
-    var edit = ViewBag.edit as Users;
+    var edit = ViewBag.edit as User;
     if (edit == null)
     {
-        edit = new Users();
+        edit = new User();
     }
     else
     {

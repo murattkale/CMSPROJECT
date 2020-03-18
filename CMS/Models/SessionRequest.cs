@@ -1,15 +1,11 @@
 ﻿
-using Entity;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Web;
-
-
 
 public static class SessionRequest
 {
@@ -21,40 +17,51 @@ public static class SessionRequest
     }
 
     public static HttpContext _HttpContext => _IHttpContextAccessor.HttpContext;
-    public static Users _User
+
+    public static User _User
     {
         get
         {
-            return _IHttpContextAccessor.HttpContext.Session.Get<Users>("_user");
+            return _IHttpContextAccessor.HttpContext.Session.Get<User>("_user");
         }
         set { }
     }
 
-    public static string Title = "CMS";
+    public static SiteConfig config
+    {
+        get
+        {
+            return _IHttpContextAccessor.HttpContext.Session.Get<SiteConfig>("config");
+        }
+        set { }
+    }
+
+    public static string Trans(this string ts)
+    {
+        return ts;
+    }
+
+    public static string Title = "Dyness";
     public static string StartPage = "Base";
     public static string StartAction = "Index";
     public static string version = DateTime.Now.ToString().Replace("-", "").Replace(":", "").Replace(".", "").Replace(" ", "");
-    public static string copyright = $"{DateTime.Now.Year} © Yazılım&Tasarım (Software&Design)  <a target='_blank' href='#'> by Murat Kale</a>";
+    public static string copyright = $"{DateTime.Now.Year} © Yazılım&Tasarım (Software&Design)  <a target='_blank' href='http://muratkale.com.tr'>by Murat KALE 0530 511 71 27</a>";
     public static string layoutID = "1";
     public static string layoutUrlBase = $"http://cms.dyness.com.tr";
     public static string layoutUrl = $"{layoutUrlBase}";
     public static string logo = "~/img/logo.png";
     public static string defaultImage = "~/img/default.png";
     public static string baseUrl = "/";
-    public static string ImageUrl = "http://cms.dyness.com/uploads/";
+
+    public static string ImageUrl = "/uploads/";
     public static string RawUrl { get; set; }
+    public static string jokerPass = "123_*1";
 
 
-
-
-    public static int KurumId { get; set; }
-    public static int SubeId { get; set; }
-
-    public static string Trans(this string keyword)
-    {
-        return keyword;
-    }
+  
 
 }
+
+
 
 

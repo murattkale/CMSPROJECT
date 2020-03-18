@@ -20,14 +20,14 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<Formlar> param, Formlar searchModel)
         {
-            var result = _service_Formlar.GetPaging(o => o.FormType != (int)FormType.ilkteknem, true, param, false);
+            var result = _service_Formlar.GetPaging(o => o.FormType != FormType.ilkteknem, true, param, false);
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult GetPagingIlkTeknem(DTParameters<Formlar> param, Formlar searchModel)
         {
-            var result = _service_Formlar.GetPaging(o => o.FormType == (int)FormType.ilkteknem, true, param, false);
+            var result = _service_Formlar.GetPaging(o => o.FormType == FormType.ilkteknem, true, param, false);
             return Json(result);
         }
 

@@ -68,7 +68,7 @@
 
                 var columns = [];
                 columns.push({ "data": "ServiceConfigName", text: "Servis Ayar Adı" });
-                columns.push({ "data": "UsersName", text: "Kullanıcı Adı Soyadı" });
+                columns.push({ "data": "UserName", text: "Kullanıcı Adı Soyadı" });
                 columns.push({ "data": "RoleName", text: "Rol Adı" });
                 columns.push({ "data": "PermissionName", text: "Yetki Adı" });
 
@@ -107,7 +107,7 @@
 
                                 return_data.push({
                                     'ServiceConfigName': (row.Parent == null ? "" : row.Parent.Name),
-                                    'UsersName': (row.Users == null ? "" : row.Users.Name + " " + row.Users.Surname),
+                                    'UserName': (row.User == null ? "" : row.User.Name + " " + row.User.Surname),
                                     'RoleName': (row.Role == null ? "" : row.Role.Name),
                                     'PermissionName': (row.Permission == null ? "" : row.Permission.Name),
 

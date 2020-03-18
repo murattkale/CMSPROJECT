@@ -16,10 +16,10 @@
             var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
             <li style="@cursor" class="drop">
                 <a style="@cursor" target="@target" href="@link">@menu.Name</a>
-                @if (_IMenusService.Any(o => o.ParentId == menu.Id))
+                @if (_IMenusService.Any(o => o.ContentPageId == menu.Id))
                 {
                     <ul class="dropdown__menu">
-                        @ShowTree(_IMenusService.Where(o => o.ParentId == menu.Id).ToList())
+                        @ShowTree(_IMenusService.Where(o => o.ContentPageId == menu.Id).ToList())
                     </ul>
                 }
             </li>
@@ -46,7 +46,7 @@
                 </li>
 
 
-                @ShowTree(_IMenusService.Where(o => o.ParentId == null).ToList())
+                @ShowTree(_IMenusService.Where(o => o.ContentPageId == null).ToList())
 
                 <li class="drop">
                     <a href="@Html.Raw(SessionRequest.baseUrl + "iletisim/" +(SessionRequest.SubeId >0?SessionRequest.SubeId.ToString() :"")   )">İletişim</a>
