@@ -43,12 +43,14 @@ namespace templateSite.Controllers
             str += "Mesaj : " + postModel.gorusme + " | ";
 
 
-            _ISendMail.SendMails(new templateMailModel
+            _ISendMail.Send(new MailModelCustom
             {
-                Alicilar = new string[] { "elifaltay495@gmail.com", "info@ajanspiink.com","murat.kale9339@gmail.com" },
-                cc = new string[] { "elifaltay495@gmail.com" },
-                KimdenMail = "elifaltay495@gmail.com",
-                KimdenText = "Ajans",
+                Alicilar = new string[] { "elifaltay495@gmail.com", "info@ajanspiink.com", "murat.kale9339@gmail.com" },
+                SmtpMail = "elifaltay495@gmail.com",
+                SmtpMailPass = "Bgokcek39",
+                SmtpUseDefaultCredentials = true,
+                SmtpSSL = true,
+                MailGorunenAd = "Ajans",
                 Konu = "Bilgilendirme",
                 Icerik = str
 
