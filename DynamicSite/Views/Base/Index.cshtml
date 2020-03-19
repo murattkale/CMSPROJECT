@@ -1,7 +1,5 @@
 ﻿@{
     var content = ViewBag.contentPages as List<ContentPage>;
-
-
 }
 
 @if (content.Any(o => o.ContentPageType == ContentPageType.row1 && o.IsForm == true))
