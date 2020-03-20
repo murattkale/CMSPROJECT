@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 
     public partial class Kurum : BaseModel
@@ -22,8 +24,8 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
        
        
         [Required()] public string Ad  { get; set; }
-        [Required()] public int CityId { get; set; }
-        [Required()] public int TownId { get; set; }
+        [Required()]  [DisplayName("İL")] public int CityId { get; set; }
+        [Required()]  [DisplayName("İlçe")] public int TownId { get; set; }
         public string Adres { get; set; }
         public string Telefon { get; set; }
         public string Cep { get; set; }

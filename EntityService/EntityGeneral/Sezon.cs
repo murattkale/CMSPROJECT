@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 
     public partial class Sezon : BaseModel
@@ -18,7 +20,7 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
        
        
         [Required()] public string Ad  { get; set; }
-        [Required()] public int KurumId { get; set; }
+        [Required()] [DisplayName("Kurum")] public int KurumId { get; set; }
 
         public virtual Kurum Kurum { get; set; }
         public virtual ICollection<OgrenciSozlesme> OgrenciSozlesme { get; set; }

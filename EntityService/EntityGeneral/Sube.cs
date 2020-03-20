@@ -23,10 +23,10 @@ using System.ComponentModel;
        
         
        
-        [Required()] public int KurumId { get; set; }
+        [Required()] [DisplayName("Kurum")] public int KurumId { get; set; }
         [Required()] public string Ad  { get; set; }
 
-        [DisplayName("Şehir")]
+        [DisplayName("İL")]
         public int? CityId { get; set; }
         [DisplayName("İlçe")]
         public int? TownId { get; set; }

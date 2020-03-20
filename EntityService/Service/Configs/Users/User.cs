@@ -53,7 +53,7 @@ using System.ComponentModel.DataAnnotations.Schema;
         [Required]
         [DisplayName("Cinsiyet")]
         public string SexType { get; set; }
-        [DisplayName("Şehir")]
+        [DisplayName("İL")]
         public int? CityId { get; set; }
         [DisplayName("İlçe")]
         public int? TownId { get; set; }

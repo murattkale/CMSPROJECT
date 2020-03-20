@@ -1,12 +1,15 @@
 ﻿@{
-    var edit = ViewBag.edit as ParaBirimi;
+    var edit = ViewBag.edit as User;
     if (edit == null)
-        edit = new ParaBirimi();
+        edit = new User();
 }
 @Html.Raw(edit.DynamicInputHelper2(
-                        "", "", "Para Birimi", "page", "col-md-4", "col-md-8", "col-md-6",
+                        "", "", "Kullanıcı", "page", "col-md-4", "col-md-8", "col-md-6",
                        "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
                        "<input type='submit' value='" + "Gönder" + "' " +
                        "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
                        ))
 
+
+
+<partial name="../UserRole/Index" />

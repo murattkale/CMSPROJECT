@@ -73,13 +73,8 @@
                 columns.push({ "data": "CreaDate", text: "Kayıt Tarihi" });
                 columns.push({ "data": "EgitimTutar", text: "Kayıt Ücreti" });
                 columns.push({ "data": "ToplamTutar", text: "Toplam Tutar" });
-                columns.push({ "data": "SubeAd", text: "Şube" });
-                columns.push({ "data": "SezonAd", text: "Sezon" });
-                columns.push({ "data": "OkulAd", text: "Okul" });
-                columns.push({ "data": "SinifAd", text: "Sınıf" });
-                columns.push({ "data": "Seviye", text: "Seviye" });
                 columns.push({ "data": "Tc", text: "TC" });
-                columns.push({ "data": "GSM1", text: "Telefon" });
+                columns.push({ "data": "Phone1", text: "Telefon" });
                 columns.push({ "data": "BirdhDay", text: "Doğum Tarihi" });
 
                 columns.push({ "data": "Detail", text: "İşlemler" });
@@ -105,26 +100,20 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Ogrenci + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
+                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md" target="_blank" href ="/' + control_Name_Ogrenci + '/InsertOrUpdatePage?id=' + row.Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
 
 
-
                                 return_data.push({
-                                    "OgrenciNo": row.OgrenciNo,
-                                    "OgrenciAd": row.Ogrenci.Name + ' ' + row.Ogrenci.Surname,
+                                    "OgrenciNo": toStr(row.OgrenciDetay.OgrenciNo),
+                                    "OgrenciAd": row.Name + ' ' + row.Surname,
                                     "SexType": row.SexType,
                                     "CreaDate": row.CreaDate,
-                                    "EgitimTutar": row.EgitimTutar,
-                                    "ToplamTutar": row.ToplamTutar,
-                                    "SubeAd": row.OgrenciSozlesme.Sube.Ad,
-                                    "SezonAd": row.OgrenciSozlesme.Sezon.Ad,
-                                    "OkulAd": row.Okul.Ad,
-                                    "SinifAd": row.Sinif.Ad,
-                                    "Seviye": row.Seviye,
-                                    "Tc": row.Ogrenci.Tc,
-                                    "Phone1": row.Ogrenci.Phone1,
-                                    "BirdhDay": row.Ogrenci.BirdhDay,
+                                    "EgitimTutar": toStr(row.OgrenciDetay.EgitimTutar),
+                                    "ToplamTutar": toStr(row.OgrenciDetay.ToplamTutar),
+                                    "Tc": toStr(row.Tc),
+                                    "Phone1": toStr(row.Phone1),
+                                    "BirdhDay": toStr(row.BirdhDay),
 
                                     'Detail': Detail,
                                 });

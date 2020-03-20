@@ -15,6 +15,8 @@ namespace CMS.Controllers
     public class OgrenciController : Controller
     {
         IUserService _IUserService;
+        IRoleService _IRoleService;
+        IUserRoleService _IUserRoleService;
         IOgrenciDetayService _IOgrenciDetayService;
         IOgrenciSozlesmeService _IOgrenciSozlesmeService;
         IOgrenciSozlesmeYayinService _IOgrenciSozlesmeYayinService;
@@ -22,6 +24,8 @@ namespace CMS.Controllers
         IOgrenciSozlesmeOdemeTablosuService _IOgrenciSozlesmeOdemeTablosuService;
         public OgrenciController(
              IUserService _IUserService,
+             IRoleService _IRoleService,
+        IUserRoleService _IUserRoleService,
         IOgrenciDetayService _IOgrenciDetayService,
         IOgrenciSozlesmeService _IOgrenciSozlesmeService,
         IOgrenciSozlesmeYayinService _IOgrenciSozlesmeYayinService,
@@ -30,6 +34,8 @@ namespace CMS.Controllers
             )
         {
             this._IUserService = _IUserService;
+            this._IRoleService = _IRoleService;
+            this._IUserRoleService = _IUserRoleService;
             this._IOgrenciDetayService = _IOgrenciDetayService;
             this._IOgrenciSozlesmeService = _IOgrenciSozlesmeService;
             this._IOgrenciSozlesmeYayinService = _IOgrenciSozlesmeYayinService;
@@ -43,8 +49,8 @@ namespace CMS.Controllers
             var result = _IUserService.GetPaging(o => o.UserRoles.Any(oo => oo.Role.Name == "Öğrenci"), true, param, false,
                 o => o.City,
                 o => o.Town,
-                o => o.UserRoles
-
+                o => o.UserRoles,
+                o => o.OgrenciDetay
                 );
             return Json(result);
         }
@@ -53,6 +59,9 @@ namespace CMS.Controllers
         public JsonResult InsertOrUpdate(User postModel)
         {
             var result = _IUserService.InsertOrUpdate(postModel);
+            var role = _IRoleService.Where(o => o.Name == "Öğrenci").Result.FirstOrDefault();
+            var userrole = new UserRole() { UserId = result.ResultRow.Id, RoleId = role.Id };
+            _IUserRoleService.InsertOrUpdate(userrole);
             return Json(result);
         }
 

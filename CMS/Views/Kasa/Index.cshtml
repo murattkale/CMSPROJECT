@@ -28,7 +28,7 @@
                     <div class="kt-portlet__head-actions">
 
 
-                        <a href="/@control_Name_Kasa/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm mymodal">
+                        <a href="/@control_Name_Kasa/InsertOrUpdatePage" class="btn btn-brand btn-elevate btn-icon-sm" target="_blank">
                             <i class="la la-plus"></i>
                             @Html.Raw(ViewBag.pageTitle + " Ekle")
                         </a>
@@ -98,10 +98,10 @@
                             $.each(data, function (i, row) {
 
                                 var Detail = "";
-                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Kasa + '/InsertOrUpdatePage?id=' + data[i].Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
+                                Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md" target="_blank" href ="/' + control_Name_Kasa + '/InsertOrUpdatePage?id=' + data[i].Id + '"  title="Düzenle" > ' + '<i class="la la-edit"></i>' + ' </a > ';
                                 Detail += '<a class="btn btn-sm btn-clean btn-icon btn-icon-md btnDelete" dataid="' + row.Id + '" title="Sil" > ' + '<i class="la la-remove"></i>' + '  </a>';
 
-                                //Detail += '<a style="margin-left: 15px;" class="btn btn-sm btn-clean btn-icon btn-icon-md mymodal" href ="/' + control_Name_Kasa + '/InsertOrUpdatePage?selectid=' + data[i].Id + '" > ' + 'Alt Kasa Ekle' + ' </a > ';
+                                //Detail += '<a style="margin-left: 15px;" class="btn btn-sm btn-clean btn-icon btn-icon-md" target="_blank" href ="/' + control_Name_Kasa + '/InsertOrUpdatePage?selectid=' + data[i].Id + '" > ' + 'Alt Kasa Ekle' + ' </a > ';
 
                                 return_data.push({
                                     'Ad': row.Ad,

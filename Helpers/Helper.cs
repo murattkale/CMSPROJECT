@@ -359,15 +359,15 @@ public static class Helpers
 
                                         if (prp.Name == "CityId")
                                         {
-                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
+                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getCity(); </script>";
                                         }
                                         else if (prp.Name == "TownId")
                                         {
-                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
+                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getTown(); </script>";
                                         }
                                         else
                                         {
-                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + methodName + "(); });</script>";
+                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); });</script>";
                                         }
                                     }
                                     else
@@ -457,15 +457,15 @@ public static class Helpers
 
                                         if (prp.Name == "CityId")
                                         {
-                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
+                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getCity(); </script>";
                                         }
                                         else if (prp.Name == "TownId")
                                         {
-                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
+                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getTown(); </script>";
                                         }
                                         else
                                         {
-                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + methodName + "(); });</script>";
+                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); });</script>";
                                         }
                                     }
                                     else
@@ -501,10 +501,10 @@ public static class Helpers
                             }
                         case TypeCode.DateTime:
                             {
-                                str += "<div class='" + colClass + " input-group date'><div class='row form-group'>";
+                                str += "<div class='" + colClass + "'><div class='row form-group'>";
                                 str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
 
-                                str += "<div class='" + inputClass + "'> " +
+                                str += "<div class='input-group-append input-group date " + inputClass + "'> " +
                                    "<input " + Required + "  " +
                                    "placeholder='" + DisplayName + " Seçiniz'" +
                                    "autocomplete='off'" +
@@ -514,7 +514,7 @@ public static class Helpers
                                    "class='form-control ' " +
                                    "type='datetime'>  ";
 
-                                str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
+                                str += "<span class='input-group-text'><i class='la la-calendar'></i></span>";
                                 str += "</div></div></div>";
 
                                 str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";

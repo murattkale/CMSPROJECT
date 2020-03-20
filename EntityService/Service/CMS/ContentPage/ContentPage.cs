@@ -12,11 +12,9 @@ public partial class ContentPage : BaseModel
         ContentPageChilds = new HashSet<ContentPage>();
     }
 
-    [DisplayName("Kurum")]
-    [Required()] public int KurumId { get; set; }
+    [Required()] [DisplayName("Kurum")] public int KurumId { get; set; }
 
-    [DisplayName("Şube")]
-    [Required()] public int SubeId { get; set; }
+    [Required()] [DisplayName("Şube")] public int SubeId { get; set; }
 
     [DisplayName("Üst Kategori")]
     public int? ContentPageId { get; set; }

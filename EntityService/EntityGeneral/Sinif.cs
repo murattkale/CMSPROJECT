@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 
     public partial class Sinif : BaseModel
@@ -18,7 +20,7 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
        
        
         [Required()] public string Ad  { get; set; }
-        [Required()] public int SubeId { get; set; }
+        [Required()] [DisplayName("Şube")] public int SubeId { get; set; }
         public int? Tur { get; set; }
         public int? Seviye { get; set; }
         public int? SeansId { get; set; }

@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 
     public partial class Servis : BaseModel
@@ -17,7 +19,7 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
         
        
        
-        [Required()] public int SubeId { get; set; }
+        [Required()] [DisplayName("Şube")] public int SubeId { get; set; }
         public string Plaka { get; set; }
         public string Guzergah { get; set; }
         [Required()] public int Kapasite { get; set; }

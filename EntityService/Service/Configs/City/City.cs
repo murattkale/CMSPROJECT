@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -20,7 +21,7 @@ public partial class City : BaseModel
 
 
 
-    public string CityName { get; set; }
+    [DisplayName("İL")] public string CityName { get; set; }
 
     public virtual ICollection<Kurum> Kurum { get; set; }
     public virtual ICollection<Sube> Sube { get; set; }
