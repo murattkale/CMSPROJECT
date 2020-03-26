@@ -356,6 +356,9 @@ function alerts(message, button, call) {
             console.log(e);
         }
 
+
+       
+
     };
 
     $.fn.addOptionAjax = function (url, param, value, text, dpChange, dpSuccess, selectValue, selectText, selectDefault, attrName) {

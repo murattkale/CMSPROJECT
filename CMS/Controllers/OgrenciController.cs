@@ -55,14 +55,27 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        public JsonResult GetSexType()
+        {
+            var list = Enum.GetValues(typeof(SexType)).Cast<int>().Select(x => new { name = ((SexType)x).ToStr(), value = x.ToString(), text = ((SexType)x).ExGetDescription() }).ToArray();
+            return Json(list);
+        }
 
         public JsonResult InsertOrUpdate(User postModel)
         {
-            var result = _IUserService.InsertOrUpdate(postModel);
-            var role = _IRoleService.Where(o => o.Name == "Öğrenci").Result.FirstOrDefault();
-            var userrole = new UserRole() { UserId = result.ResultRow.Id, RoleId = role.Id };
-            _IUserRoleService.InsertOrUpdate(userrole);
-            return Json(result);
+            if (postModel.Id < 1)
+            {
+                var result = _IUserService.InsertOrUpdate(postModel);
+                var role = _IRoleService.Where(o => o.Name == "Öğrenci").Result.FirstOrDefault();
+                var userrole = new UserRole() { UserId = result.ResultRow.Id, RoleId = role.Id };
+                _IUserRoleService.InsertOrUpdate(userrole);
+                return Json(result);
+            }
+            else
+            {
+                var result = _IUserService.InsertOrUpdate(postModel);
+                return Json(result);
+            }
         }
 
         public User Get(int id)

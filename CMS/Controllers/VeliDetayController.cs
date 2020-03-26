@@ -25,6 +25,11 @@ namespace CMS.Controllers
         }
 
 
+        public JsonResult GetYakinlikDerecesi()
+        {
+            var list = Enum.GetValues(typeof(YakinlikDerecesi)).Cast<int>().Select(x => new { name = ((YakinlikDerecesi)x).ToStr(), value = x.ToString(), text = ((YakinlikDerecesi)x).ExGetDescription() }).ToArray();
+            return Json(list);
+        }
 
         public JsonResult InsertOrUpdate(VeliDetay postModel)
         {

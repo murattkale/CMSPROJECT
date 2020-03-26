@@ -67,6 +67,7 @@
             GetPaging: function () {
 
                 var columns = [];
+                //columns.push({ "data": "RoleName", text: "Rol" });
                 columns.push({ "data": "Name", text: "Ad" });
                 columns.push({ "data": "Surname", text: "Soyad" });
 
@@ -98,6 +99,7 @@
 
 
                                 return_data.push({
+                                    //'RoleName': (row.Role == null ? "" : row.Role.Name),
                                     'Name': row.Name,
                                     'Surname': row.Surname,
 

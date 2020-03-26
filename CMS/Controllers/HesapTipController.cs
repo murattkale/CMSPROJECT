@@ -83,17 +83,19 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        public JsonResult GetGelirGiderTipi()
+        {
+            var list = Enum.GetValues(typeof(GelirGiderTipi)).Cast<int>().Select(x => new { name = ((GelirGiderTipi)x).ToStr(), value = x.ToString(), text = ((GelirGiderTipi)x).ExGetDescription() }).ToArray();
+            return Json(list);
+        }
+
+
         public JsonResult InsertOrUpdate(HesapTip postModel)
         {
             var result = _IHesapTipService.InsertOrUpdate(postModel);
             return Json(result);
         }
 
-        public JsonResult GetGelirGiderTipi()
-        {
-            var list = Enum.GetValues(typeof(GelirGiderTipi)).Cast<int>().Select(x => new { name = ((GelirGiderTipi)x).ToStr(), value = x.ToString(), text = ((GelirGiderTipi)x).ExGetDescription() }).ToArray();
-            return Json(list);
-        }
 
         public HesapTip Get(int id)
         {

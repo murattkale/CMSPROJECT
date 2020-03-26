@@ -1,16 +1,16 @@
 ﻿@{
     var edit = ViewBag.edit as User;
     if (edit == null)
-    {
         edit = new User();
-    }
+
+    var title = "Öğrenci";
+    var controllerName = "Ogrenci";
+
 }
-@Html.Raw(edit.DynamicInputHelper2(
-                         "", "", "Öğrenci", "page", "col-md-4", "col-md-8", "col-md-6",
-                        "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
-                        "<input type='submit' value='" + "Kaydet" + "' " +
-                        "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
-                        ))
+@Html.Raw(edit.DynamicInputHelper2(controllerName,
+                        "", "", title, "page", "col-md-4", "col-md-8", "col-md-6",
+                       "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
+                       "<input type='submit' value='" + "Kaydet" + "' " +
+                       "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
+                       ))
 
-
-@*location.href = "/OgrenciDetay/InsertOrUpdatePage?id=" + resultData.ResultRow.Id;*@

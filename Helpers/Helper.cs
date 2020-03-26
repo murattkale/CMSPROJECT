@@ -141,10 +141,10 @@ public static class Helpers
     }
 
 
-    public static string DynamicInputHelper2(this object model, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
+    public static string DynamicInputHelper2(this object model, string controllerName, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
     {
         string str = "";
-
+        string strScript = "";
 
         str += "<div formdata='" + model.GetType().Name + "'  class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
         str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
@@ -172,6 +172,8 @@ public static class Helpers
         try
         {
             Type t = model.GetType();
+            controllerName = string.IsNullOrEmpty(controllerName) ? t.Name : controllerName;
+
             var formname = "frm_" + t.Name;
             str += $"<form name='{formname}' id='frm_" + t.Name + "'>"; ;
             var props = t.GetProperties().ToList();
@@ -290,8 +292,6 @@ public static class Helpers
 
                     switch (Type.GetTypeCode(prp.PropertyType))
                     {
-
-
                         case TypeCode.Int16:
                         case TypeCode.UInt16:
                         case TypeCode.UInt32:
@@ -357,18 +357,28 @@ public static class Helpers
                                             "</select>";
                                         str += "</div></div></div>";
 
-                                        if (prp.Name == "CityId")
+
+                                        if (prp.Name == "CityId" || prp.Name == "TownId")
                                         {
-                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getCity(); </script>";
-                                        }
-                                        else if (prp.Name == "TownId")
-                                        {
-                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getTown(); </script>";
+                                            if (prp.Name == "CityId")
+                                            {
+                                                var Town = props.FirstOrDefault(o => o.Name == "TownId");
+                                                strScript += " function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, getTown, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
+                                                strScript += "$('#dp_" + "CityId" + "').change(function () { getTown(); });";
+                                                if (Town != null)
+                                                {
+                                                    var TownValue = model.GetPropValue("TownId");
+                                                    var strParam = "{id:$('#dp_CityId').val()}";
+                                                    strScript += " function get" + "Town" + "() { $('#dp_" + Town.Name + "').addOptionAjax('/" + "Town" + "/GetSelect', " + strParam + ", 'value', 'text', null, null, '" + TownValue + "', '', '" + "İlçe" + " Seçiniz'); }   ";
+                                                }
+                                            }
                                         }
                                         else
-                                        {
-                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); });</script>";
-                                        }
+                                            strScript += " function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, null, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
+
+
+
+
                                     }
                                     else
                                     {
@@ -434,7 +444,7 @@ public static class Helpers
                                         "</select>";
                                     str += "</div></div></div>";
 
-                                    str += "<script>$(function () { function Get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } Get" + prp.Name + "(); });</script>";
+                                    strScript += " function Get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } Get" + prp.Name + "(); ";
                                 }
                                 else
                                 {
@@ -455,18 +465,26 @@ public static class Helpers
                                             "</select>";
                                         str += "</div></div></div>";
 
-                                        if (prp.Name == "CityId")
+
+                                        if (prp.Name == "CityId" || prp.Name == "TownId")
                                         {
-                                            str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getCity(); </script>";
-                                        }
-                                        else if (prp.Name == "TownId")
-                                        {
-                                            str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } getTown(); </script>";
+                                            if (prp.Name == "CityId")
+                                            {
+                                                var Town = props.FirstOrDefault(o => o.Name == "TownId");
+                                                strScript += " function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, getTown, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
+                                                strScript += "$('#dp_" + "CityId" + "').change(function () { getTown(); });";
+                                                if (Town != null)
+                                                {
+                                                    var TownValue = model.GetPropValue("TownId");
+                                                    var strParam = "{id:$('#dp_CityId').val()}";
+                                                    strScript += " function get" + "Town" + "() { $('#dp_" + Town.Name + "').addOptionAjax('/" + "Town" + "/GetSelect', " + strParam + ", 'value', 'text', null, null, '" + TownValue + "', '', '" + "İlçe" + " Seçiniz'); }   ";
+                                                }
+                                            }
                                         }
                                         else
-                                        {
-                                            str += "<script>$(function () { function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); });</script>";
-                                        }
+                                            strScript += " function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, null, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
+
+
                                     }
                                     else
                                     {
@@ -517,7 +535,7 @@ public static class Helpers
                                 str += "<span class='input-group-text'><i class='la la-calendar'></i></span>";
                                 str += "</div></div></div>";
 
-                                str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
+                                strScript += " $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}); ";
                                 break;
                             }
                         case TypeCode.String:
@@ -535,17 +553,6 @@ public static class Helpers
                                         "' class='form-control'>" + value.ToStr().Trim() + "</textarea>";
                                     str += "</div></div></div>";
 
-                                    //str += "<script>$(function () {debugger; ";
-
-                                    //str += "       if (CKEDITOR.instances['" + prp.Name + "'])                ";
-                                    //str += "           CKEDITOR.instances['" + prp.Name + "'].destroy();      ";
-                                    //str += "       CKEDITOR.replace('" + prp.Name + "', { });                 ";
-
-                                    ////str += " $('#" + prp.Name + "').val(decodeURIComponent('" + value.ToStr().Trim() + "')); ";
-
-                                    ////str += " CKEDITOR.instances['" + prp.Name + "'].setData('" + System.Uri.UnescapeDataString(value.ToStr()) + "'); ";
-
-                                    //str += "   });</script>";
                                 }
                                 else
                                 {
@@ -587,115 +594,112 @@ public static class Helpers
             #endregion
 
             #region script
-            str += "<script>$(function () { ";
 
             #region textarea
-            str += $"    $('#{formname} textarea').each(function()    ";
-            str += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
-            str += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
-            str += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
-            str += "   });                                                              ";
+            strScript += $"    $('#{formname} textarea').each(function()    ";
+            strScript += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
+            strScript += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
+            strScript += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
+            strScript += "   });                                                              ";
             #endregion
             #region ceoLink
-            str += "   try {                                                    ";
-            str += "           $('#Name').ceo({ target: '#Link' });             ";
-            str += "       } catch (e) { }                                      ";
-            str += "       try {                                                ";
-            str += "           $('#Name').ceo({ target: '#MetaKeywords' });     ";
-            str += "       } catch (e) { }                                      ";
-            str += "       try {                                                ";
-            str += "           $('#Name').dup({ target: '#MetaDescription' });  ";
-            str += "       } catch (e) { }                                      ";
+            strScript += "   try {                                                    ";
+            strScript += "           $('#Name').ceo({ target: '#Link' });             ";
+            strScript += "       } catch (e) { }                                      ";
+            strScript += "       try {                                                ";
+            strScript += "           $('#Name').ceo({ target: '#MetaKeywords' });     ";
+            strScript += "       } catch (e) { }                                      ";
+            strScript += "       try {                                                ";
+            strScript += "           $('#Name').dup({ target: '#MetaDescription' });  ";
+            strScript += "       } catch (e) { }                                      ";
             #endregion
             #region UploadDelete
             if (props.Where(o => o.Name == "Documents").Any())
             {
-                str += $" $('#{formname} .deleteImage').click(function ()                                                           ";
-                str += " { var id = $(this).attr('dataid');                                                               ";
-                str += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
-                str += "     if (result == true) {                                                                      ";
-                str += "         $.LoadingOverlay('show');                                                              ";
+                strScript += $" $('#{formname} .deleteImage').click(function ()                                                           ";
+                strScript += " { var id = $(this).attr('dataid');                                                               ";
+                strScript += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
+                strScript += "     if (result == true) {                                                                      ";
+                strScript += "         $.LoadingOverlay('show');                                                              ";
 
 
-                str += $"        $.ajx('/{t.Name}/DeleteImage',";
-                str += "{ id: id }, function (resultID) { ";
-                str += $@"           $(""#{formname} div[dataid='"" + resultID + ""']"").remove();                                      ";
-                str += "            $.LoadingOverlay('hide');                                                          ";
-                str += "         });                                                                                    ";
+                strScript += $"        $.ajx('/{controllerName}/DeleteImage',";
+                strScript += "{ id: id }, function (resultID) { ";
+                strScript += $@"           $(""#{formname} div[dataid='"" + resultID + ""']"").remove();                                      ";
+                strScript += "            $.LoadingOverlay('hide');                                                          ";
+                strScript += "         });                                                                                    ";
 
 
-                str += "     }                                                                                          ";
-                str += " });   });                                                                                      ";
+                strScript += "     }                                                                                          ";
+                strScript += " });   });                                                                                      ";
             }
             #endregion
             #region Submit
-            str += $"   $('#{formname}').submit(function(e)                                                               ";
-            str += " {      e.preventDefault();                                                                                  ";
-            str += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
+            strScript += $"   $('#{formname}').submit(function(e)                                                               ";
+            strScript += " {      e.preventDefault();                                                                                  ";
+            strScript += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
 
             if (props.Where(o => o.Name == "Documents").Any())
             {
-                str += "      var fileUpload = $('#' + 'file_" + "Documents" + "').get(0);                                                                     ";
-                str += "      var files = fileUpload.files;                                                                                             ";
-                str += "      var maxFiles = 10;                                                                                                        ";
-                str += "                                                                                                                                ";
-                str += "      if (files.length > maxFiles) {                                                                                            ";
-                str += "          alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');                                                          ";
-                str += "          return;                                                                                                               ";
-                str += "      }                                                                                                                         ";
-                str += $"      var totalImage = ($('#{formname} .deleteImage[dataid]').length + files.length);                                                       ";
-                str += "      if (totalImage > maxFiles) {                                                                                              ";
-                str += $"          alert($('#{formname} .deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');  ";
-                str += "          return;                                                                                                               ";
-                str += "      }                                                                                                                         ";
-                str += "                                                                                                                                ";
-                str += "      var fileData = new FormData();                                                                                            ";
-                str += "      for (var i = 0; i < files.length; i++) {                                                                                  ";
-                str += "          fileData.append('files', files[i]);                                                                                   ";
-                str += "      }                                                                                                                         ";
-                str += "      fileData.append('postmodel', JSON.stringify(postModel));                                                                  ";
+                strScript += "      var fileUpload = $('#' + 'file_" + "Documents" + "').get(0);                                                                     ";
+                strScript += "      var files = fileUpload.files;                                                                                             ";
+                strScript += "      var maxFiles = 10;                                                                                                        ";
+                strScript += "                                                                                                                                ";
+                strScript += "      if (files.length > maxFiles) {                                                                                            ";
+                strScript += "          alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');                                                          ";
+                strScript += "          return;                                                                                                               ";
+                strScript += "      }                                                                                                                         ";
+                strScript += $"      var totalImage = ($('#{formname} .deleteImage[dataid]').length + files.length);                                                       ";
+                strScript += "      if (totalImage > maxFiles) {                                                                                              ";
+                strScript += $"          alert($('#{formname} .deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');  ";
+                strScript += "          return;                                                                                                               ";
+                strScript += "      }                                                                                                                         ";
+                strScript += "                                                                                                                                ";
+                strScript += "      var fileData = new FormData();                                                                                            ";
+                strScript += "      for (var i = 0; i < files.length; i++) {                                                                                  ";
+                strScript += "          fileData.append('files', files[i]);                                                                                   ";
+                strScript += "      }                                                                                                                         ";
+                strScript += "      fileData.append('postmodel', JSON.stringify(postModel));                                                                  ";
 
-                str += "        $.LoadingOverlay('show');";
-                str += $"       $.ajxUpload('/{t.Name}/InsertOrUpdate',                                                           ";
-                str += "        fileData, function(resultData) {                                           ";
-                str += "        if (resultData.ResultType.RType != 3)                                                      ";
-                str += "        {           try {                                                                          ";
-                str += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
-                str += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
-                str += "        }                                                                                          ";
-                str += "        else                                                                                       ";
-                str += "        {                                                                                          ";
-                str += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
-                str += "        }                                                                                          ";
-                str += "        $.LoadingOverlay('hide');                                                                  ";
-                str += "        }, function() { location.reload(); });                                                     ";
-                str += "        });                                                                                        ";
+                strScript += "        $.LoadingOverlay('show');";
+                strScript += $"       $.ajxUpload('/{controllerName}/InsertOrUpdate',                                                           ";
+                strScript += "        fileData, function(resultData) {                                           ";
+                strScript += "        if (resultData.ResultType.RType != 3)                                                      ";
+                strScript += "        {           try {                                                                          ";
+                strScript += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
+                strScript += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
+                strScript += "        }                                                                                          ";
+                strScript += "        else                                                                                       ";
+                strScript += "        {                                                                                          ";
+                strScript += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
+                strScript += "        }                                                                                          ";
+                strScript += "        $.LoadingOverlay('hide');                                                                  ";
+                strScript += "        }, function() { location.reload(); });                                                     ";
+                strScript += "        });                                                                                        ";
 
 
             }
             else
             {
-                str += "        $.LoadingOverlay('show');";
-                str += $"       $.ajx('/{t.Name}/InsertOrUpdate',                                                           ";
-                str += "        { postModel: postModel }, function(resultData) {                                           ";
-                str += "        if (resultData.ResultType.RType != 3)                                                      ";
-                str += "        {           try {                                                                          ";
-                str += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
-                str += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
-                str += "        }                                                                                          ";
-                str += "        else                                                                                       ";
-                str += "        {                                                                                          ";
-                str += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
-                str += "        }                                                                                          ";
-                str += "        $.LoadingOverlay('hide');                                                                  ";
-                str += "        }, function() { location.reload(); });                                                     ";
-                str += "        });                                                                                        ";
+                strScript += "        $.LoadingOverlay('show');";
+                strScript += $"       $.ajx('/{controllerName}/InsertOrUpdate',                                                           ";
+                strScript += "        { postModel: postModel }, function(resultData) {                                           ";
+                strScript += "        if (resultData.ResultType.RType != 3)                                                      ";
+                strScript += "        {           try {                                                                          ";
+                strScript += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
+                strScript += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
+                strScript += "        }                                                                                          ";
+                strScript += "        else                                                                                       ";
+                strScript += "        {                                                                                          ";
+                strScript += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
+                strScript += "        }                                                                                          ";
+                strScript += "        $.LoadingOverlay('hide');                                                                  ";
+                strScript += "        }, function() { location.reload(); });                                                     ";
+                strScript += "        });                                                                                        ";
             }
 
             #endregion
 
-            str += "});";
-            str += "</script>";
             #endregion
         }
         catch (Exception ex)
@@ -705,314 +709,10 @@ public static class Helpers
 
         str += "</div></div></div></div>";
 
-        return str;
-    }
-    public static string DynamicInputHelper(this object model, string[] nonProp, string[] orderby)
-    {
-        string str = "";
-        try
-        {
-
-            Type t = model.GetType();
-            var formname = "frm_" + t.Name;
-            str += $"<form name='{formname}' id='frm_" + t.Name + "'>"; ;
-            var props = t.GetProperties().ToList();
-
-            var baseType = new BaseModel().GetType().GetProperties().ToList();
-            baseType.ForEach(prp =>
-            {
-
-                if (prp.PropertyType.Name != "DateTime")
-                {
-                    str +=
-                                  "<input  " +
-                                  "id='" + prp.Name + "' " +
-                                  "name='" + prp.Name + "' " +
-                                  "value='" + model.GetPropValue(prp.Name) + "' " +
-                                  "type='hidden'>  ";
-                }
-                else
-                {
-                    str +=
-                                  "<input  " +
-                                  "id='" + prp.Name + "' " +
-                                  "name='" + prp.Name + "' " +
-                                  "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value + "' " +
-                                  "type='hidden'>  ";
-                }
-                props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
-            });
-
-            if (nonProp.Count() > 0)
-                nonProp.ToList().ForEach(o =>
-                {
-                    props = props.AsQueryable().Where(d => d.Name != o).ToList();
-                });
-
-            if (orderby.Count() > 0)
-                orderby.ToList().ForEach(o =>
-                {
-                    if (!string.IsNullOrEmpty(o))
-                        props = props.AsQueryable().OrderByDescending(oo => oo.Name == o).ToList();
-                });
-
-            foreach (var prp in props)
-            {
-                try
-                {
-                    object value = null;
-
-                    switch (Type.GetTypeCode(prp.PropertyType))
-                    {
-                        case TypeCode.Boolean:
-                        case TypeCode.Char:
-                        case TypeCode.SByte:
-                        case TypeCode.Byte:
-                        case TypeCode.Int16:
-                        case TypeCode.UInt16:
-                        case TypeCode.Int32:
-                        case TypeCode.UInt32:
-                        case TypeCode.Int64:
-                        case TypeCode.UInt64:
-                        case TypeCode.Single:
-                        case TypeCode.Double:
-                        case TypeCode.Decimal:
-                        case TypeCode.DateTime:
-                        case TypeCode.String:
-                        case TypeCode.Object:
-                            {
-
-                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
-                                {
-                                    break;
-                                }
-                                value = model.GetPropValue(prp.Name);
-                                break;
-                            }
-                    }
-
-                    var dName = GetPropertyAttributes(prp);
-
-
-
-
-
-                    var DisplayName = "";
-                    if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
-                        DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
-                    else
-                        DisplayName = prp.Name;
-
-                    var Required = "";
-                    var strReq = "";
-                    var placeholder = "";
-                    if (dName.Count > 0 && dName.Any(o => o.Key == "Required"))
-                    {
-                        Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
-                        placeholder = DisplayName;
-                        strReq = " <span class='required'> * </span>";
-                        DisplayName += strReq;
-                    }
-
-                    switch (Type.GetTypeCode(prp.PropertyType))
-                    {
-                        case TypeCode.Empty:
-                            break;
-
-                        case TypeCode.DBNull:
-                            break;
-                        case TypeCode.Char:
-                            break;
-                        case TypeCode.SByte:
-                        case TypeCode.Byte:
-                            break;
-                        case TypeCode.Single:
-                        case TypeCode.Double:
-                        case TypeCode.Decimal:
-                            {
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10'>                                                                                      ";
-                                str +=
-                                    "<input " + Required + "  " +
-                                    "id='" + prp.Name + "' " +
-                                    "name='" + prp.Name + "' " +
-                                    "placeholder='" + placeholder + "' " +
-                                    "value='" + value + "' " +
-                                    "class='form-control ' " +
-                                    "type='text'>  ";
-                                str += "</div>                                                                                                       ";
-                                str += "</div>                                                                                                                            ";
-                                break;
-                            }
-                        case TypeCode.Boolean:
-                            {
-                                break;
-                            }
-                        case TypeCode.Int16:
-                        case TypeCode.UInt16:
-                        case TypeCode.UInt32:
-                        case TypeCode.Int64:
-                        case TypeCode.UInt64:
-                        case TypeCode.Object:
-                        case TypeCode.Int32:
-                            {
-                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
-                                {
-                                    break;
-                                }
-
-                                var relation = props.FirstOrDefault(o => prp.Name.Substring(prp.Name.Length - 2, 2) == "Id" && o.Name == prp.Name.Replace("Id", ""));
-                                if (relation != null)
-                                {
-                                    str += "<div class='form-group row'>                                                                                                            ";
-                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                    str += "<div class='col-md-10'>";
-                                    str +=
-                                        "<select " + Required + " " +
-                                        "id='dp_" + prp.Name + "' " +
-                                        "name='dp_" + prp.Name + "' " +
-                                        "class='form-control '>" +
-                                        "</select>";
-                                    str += "</div>";
-                                    str += "</div>";
-
-                                    if (prp.Name == "CityId")
-                                    {
-                                        str += "<script> function getCity() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', null, 'value', 'text', function () { getTown()  }, function () {   }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getCity(); </script>";
-                                    }
-                                    else if (prp.Name == "TownId")
-                                    {
-                                        str += "<script> function getTown() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', {id:$('#dp_CityId').val()}, 'value', 'text', function () { }, function () { }, '" + value + "', '', '" + DisplayName + " Seçiniz'); } getTown(); </script>";
-                                    }
-                                    else
-                                    {
-                                        str += "<script>$(function () { function get" + relation.PropertyType.Name + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + relation.PropertyType.Name + "/GetSelect', '" + value + "', 'value', 'text', function () { }, function () { }, '" + value + "', '', 'Seçiniz'); } get" + relation.PropertyType.Name + "(); });</script>";
-                                    }
-                                }
-                                else
-                                {
-                                    str += "<div class='form-group row'>                                                                                                            ";
-                                    str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                    str += "<div class='col-md-10'>";
-                                    str +=
-                                   "<input  " + Required + "  " +
-                                   "id='" + prp.Name + "' " +
-                                   "name='" + prp.Name + "' " +
-                                   "placeholder='" + placeholder + "' " +
-                                   "value='" + value + "' " +
-                                   "class='form-control ' " +
-                                   "type='number'>  ";
-                                    str += "</div>";
-                                    str += "</div>";
-                                }
-
-                                break;
-                            }
-                        case TypeCode.DateTime:
-                            {
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10 input-group date'>";
-                                str +=
-                                   "<input " + Required + "  " +
-                                   "placeholder='" + DisplayName + " Seçiniz'" +
-                                   "autocomplete='off'" +
-                                   "id='" + prp.Name + "' " +
-                                   "name='" + prp.Name + "' " +
-                                   "value='" + (value.ToDateTime().Value.Year < 1900 ? "" : value?.ToDateTime().Value.ToShortDateString()) + "' " +
-                                   "class='form-control ' " +
-                                   "type='datetime'>  ";
-                                str += "<div class='input-group-append'><span class='input-group-text'><i class='la la-calendar'></i></span></div>";
-                                str += "</div>";
-                                str += "</div>";
-                                //str += "<script>$(function () { $('#" + prp.Name + "').datepicker({format: 'dd/mm/yyyy', language: 'tr',todayBtn:'linked',clearBtn:!0,todayHighlight:!0}) }); </script>";
-                                break;
-                            }
-                        case TypeCode.String:
-                            {
-                                var textName = "";
-                                if (dName.Count > 0 && dName.Any(o => o.Key == "DataType"))
-                                    textName = dName.FirstOrDefault(o => o.Key == "DataType").Value.ToStr();
-
-                                str += "<div class='form-group row'>                                                                                                            ";
-                                str += "<label class='control-label col-md-2' for='" + prp.Name + "'>" + DisplayName + "</label>                           ";
-                                str += "<div class='col-md-10'>                                                                                      ";
-                                if (textName != "")
-                                {
-                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + DisplayName + "' class='form - control'>" + value + "</textarea>";
-                                }
-                                else
-                                {
-                                    str +=
-                                   "<input " + Required + "  " +
-                                   "id='" + prp.Name + "' " +
-                                   "name='" + prp.Name + "' " +
-                                   "placeholder='" + DisplayName + "' " +
-                                   "value='" + value + "' " +
-                                   "class='form-control ' " +
-                                   "type='" + ((prp.Name == "Pass" || prp.Name == "Password" || prp.Name == "Sifre") ? "password" : "text") + "'>  ";
-                                }
-
-
-
-
-                                str += "</div>                                                                                                       ";
-                                str += "</div>                                                                                                                            ";
-                                break;
-                            }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    str += prp.Name + " : " + ex.Message + "\n <br/>" + ex.InnerException;
-                }
-            }
-
-            str += "<div class='form-group'><div class='col-md-offset-9 col-md-9'><input type='submit' value='" + "Kaydet" + "' class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>";
-
-
-            str += "<script>$(function () { ";
-            str += $"    $('#{formname}' textarea').each(function()    ";
-            str += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
-            str += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
-            str += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
-            str += "   });                                                              ";
-
-
-            str += $"   $('#{formname}').submit(function(e)                                                               ";
-            str += " {      e.preventDefault();                                                                                  ";
-            str += $"       var postModel = $.fn.toForm('#' + {formname});                                                    ";
-            str += "           $.LoadingOverlay('show');                                                                        ";
-            str += $"           $.ajx('{formname}/InsertOrUpdate', ";
-            str += " { postModel: postModel }, function(resultData) {             ";
-            str += "    if (resultData.ResultType.RType != 3)                                                            ";
-            str += "           {                                                                                                ";
-            str += $"               {t.Name}_ListFunc.GetPaging();                                                                   ";
-            str += @"               $(""#ajaxSub button[data-dismiss='modal']"").click();                                      ";
-            str += "           }                                                                                                ";
-            str += "           else                                                                                             ";
-            str += "           {                                                                                                ";
-            str += "               alerts(resultData.ResultType.MessageList[0]);                                                ";
-            str += "           }                                                                                                ";
-            str += "               $.LoadingOverlay('hide');                                                                    ";
-            str += "       }, function() { location.reload(); });                                                               ";
-            str += "   });                                                                                                      ";
-
-
-            str += "});</script>";
-
-
-        }
-        catch (Exception ex)
-        {
-            str = ex.Message + "\n <br/>" + ex.InnerException;
-        }
+        str += "    <script>$(function(){ " + strScript + " }) </script> ";
 
         return str;
     }
-
 
 
     private static Dictionary<Type, PropertyInfo[]> _TypesWithWriteableProperties = new Dictionary<Type, PropertyInfo[]>();

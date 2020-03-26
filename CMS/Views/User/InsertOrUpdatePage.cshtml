@@ -2,14 +2,17 @@
     var edit = ViewBag.edit as User;
     if (edit == null)
         edit = new User();
+
+    var title = "Kullanıcı";
+    var controllerName = "User";
+
 }
-@Html.Raw(edit.DynamicInputHelper2(
-                        "", "", "Kullanıcı", "page", "col-md-4", "col-md-8", "col-md-6",
+@Html.Raw(edit.DynamicInputHelper2(controllerName,
+                        "", "KurumId,SubeId,Name,Surname", title, "page", "col-md-4", "col-md-8", "col-md-6",
                        "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
-                       "<input type='submit' value='" + "Gönder" + "' " +
+                       "<input type='submit' value='" + "Kaydet" + "' " +
                        "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
                        ))
-
 
 
 <partial name="../UserRole/Index" />

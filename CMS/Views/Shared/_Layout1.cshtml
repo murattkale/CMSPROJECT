@@ -140,13 +140,29 @@
         }
         getContentPageTypeAll();
 
-         var GelirGiderTipiAll = [];
+        var GelirGiderTipiAll = [];
         function getGelirGiderTipiAll() {
             $.ajx("/HesapTip/GetGelirGiderTipi", {}, function (result) {
                 GelirGiderTipiAll = result;
             }, function () { });
         }
         getGelirGiderTipiAll();
+
+        var SexTypeAll = [];
+        function GetSexType() {
+            $.ajx("/User/GetSexType", {}, function (result) {
+                SexTypeAll = result;
+            }, function () { });
+        }
+        GetSexType();
+
+        var YakinlikDerecesiAll = [];
+        function GetYakinlikDerecesi() {
+            $.ajx("/VeliDetay/GetYakinlikDerecesi", {}, function (result) {
+                YakinlikDerecesiAll = result;
+            }, function () { });
+        }
+        GetYakinlikDerecesi();
 
     </script>
 

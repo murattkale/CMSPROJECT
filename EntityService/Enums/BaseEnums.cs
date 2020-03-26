@@ -66,6 +66,17 @@ public enum GelirGiderTipi : int
 }
 
 
+public enum SexType : int
+{
+    [Description("Bay")]
+    Bay = 1,
+    [Description("Bayan")]
+    Bayan = 2,
+    [Description("Diğer")]
+    Diger = 3,
+}
+
+
 public enum YakinlikDerecesi : int
 {
     [Description("Anne")]

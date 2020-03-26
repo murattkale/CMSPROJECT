@@ -1997,6 +1997,9 @@ namespace EntityService.Migrations
                     b.Property<double>("KayitUcreti")
                         .HasColumnType("double precision");
 
+                    b.Property<int>("KurumId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("LoginCount")
                         .HasColumnType("integer");
 
@@ -2030,6 +2033,8 @@ namespace EntityService.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DerslikId");
+
+                    b.HasIndex("KurumId");
 
                     b.HasIndex("SeansId");
 
@@ -2515,6 +2520,9 @@ namespace EntityService.Migrations
                     b.Property<int?>("IsStatus")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("KurumId")
+                        .HasColumnType("integer");
+
                     b.Property<int?>("LoginCount")
                         .HasColumnType("integer");
 
@@ -2553,9 +2561,11 @@ namespace EntityService.Migrations
                     b.Property<string>("ProfilImage")
                         .HasColumnType("text");
 
-                    b.Property<string>("SexType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("SexType")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SubeId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -2578,6 +2588,10 @@ namespace EntityService.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
+
+                    b.HasIndex("KurumId");
+
+                    b.HasIndex("SubeId");
 
                     b.HasIndex("TownId");
 
@@ -3104,6 +3118,12 @@ namespace EntityService.Migrations
                         .WithMany("Sinif")
                         .HasForeignKey("DerslikId");
 
+                    b.HasOne("Kurum", "Kurum")
+                        .WithMany("Sinif")
+                        .HasForeignKey("KurumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Seans", "Seans")
                         .WithMany("Sinif")
                         .HasForeignKey("SeansId");
@@ -3174,6 +3194,14 @@ namespace EntityService.Migrations
                     b.HasOne("City", "City")
                         .WithMany()
                         .HasForeignKey("CityId");
+
+                    b.HasOne("Kurum", "Kurum")
+                        .WithMany("User")
+                        .HasForeignKey("KurumId");
+
+                    b.HasOne("Sube", "Sube")
+                        .WithMany("User")
+                        .HasForeignKey("SubeId");
 
                     b.HasOne("Town", "Town")
                         .WithMany()

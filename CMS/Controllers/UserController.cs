@@ -29,6 +29,12 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        public JsonResult GetSexType()
+        {
+            var list = Enum.GetValues(typeof(SexType)).Cast<int>().Select(x => new { name = ((SexType)x).ToStr(), value = x.ToString(), text = ((SexType)x).ExGetDescription() }).ToArray();
+            return Json(list);
+        }
+
 
         public JsonResult InsertOrUpdate(User postModel)
         {
