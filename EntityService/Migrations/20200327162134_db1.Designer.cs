@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntityService.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    [Migration("20200325232206_db6")]
-    partial class db6
+    [Migration("20200327162134_db1")]
+    partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1152,9 +1152,6 @@ namespace EntityService.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<bool>("AileMedeniDurum")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime>("CreaDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -1541,9 +1538,6 @@ namespace EntityService.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("ModUser")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OkulTipId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("OrderNo")

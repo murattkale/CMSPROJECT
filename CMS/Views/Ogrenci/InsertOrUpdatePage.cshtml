@@ -4,13 +4,58 @@
         edit = new User();
 
     var title = "Öğrenci";
-    var controllerName = "Ogrenci";
 
 }
-@Html.Raw(edit.DynamicInputHelper2(controllerName,
+@Html.Raw(edit.DynamicInputHelper2("",
                         "", "", title, "page", "col-md-4", "col-md-8", "col-md-6",
                        "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
-                       "<input type='submit' value='" + "Kaydet" + "' " +
+                       "<input type='submit' value='" + "Öğrenci Kaydet" + "' " +
                        "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
                        ))
 
+<hr />
+
+@if (edit.Id > 0)
+{
+    var OgrenciDetayStr = "";
+    var row = edit.OgrenciDetay.FirstOrDefault();
+    if (row == null)
+        row = new OgrenciDetay();
+    row.OgrenciId = edit.Id;
+
+    OgrenciDetayStr = row.DynamicInputHelper2("",
+                    "", "SinifTekrar", "Öğrenci Detay Bilgileri", "page", "col-md-4", "col-md-8", "col-md-6",
+                   "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
+                   "<input type='submit' value='" + "Öğrenci Detaylarını Kaydet" + "' " +
+                   "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
+                   );
+    @Html.Raw(OgrenciDetayStr);
+
+    <script>
+        $('#dp_OgrenciId').parent().parent().parent().hide();
+    </script>
+
+    if (row.Id > 0)
+    {
+        var VeliDetayStr = "";
+        var rowVeliDetay = new VeliDetay();
+        rowVeliDetay.OgrenciDetayId = row.Id;
+
+        VeliDetayStr = rowVeliDetay.DynamicInputHelper2("",
+                        "", "", "Veli Detay Bilgileri", "page", "col-md-4", "col-md-8", "col-md-6",
+                       "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
+                       "<input type='submit' value='" + "Veli Detaylarını Kaydet" + "' " +
+                       "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
+                       );
+        @Html.Raw(VeliDetayStr);
+
+        <script>
+            $('#dp_OgrenciDetayId').parent().parent().parent().hide();
+        </script>
+
+    }
+
+
+}
+
+<partial name='../VeliDetay/Index.cshtml'>

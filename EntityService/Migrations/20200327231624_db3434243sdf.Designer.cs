@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace EntityService.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    partial class CMSDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200327231624_db3434243sdf")]
+    partial class db3434243sdf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2648,24 +2650,14 @@ namespace EntityService.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Ad")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("CreaDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("CreaUser")
                         .HasColumnType("integer");
 
-                    b.Property<string>("EvAdres")
-                        .HasColumnType("text");
-
                     b.Property<bool?>("Iletisim")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("IsAdres")
-                        .HasColumnType("text");
 
                     b.Property<DateTime?>("IsDeleted")
                         .HasColumnType("timestamp without time zone");
@@ -2676,33 +2668,17 @@ namespace EntityService.Migrations
                     b.Property<int?>("LoginCount")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Mail")
-                        .HasColumnType("text");
-
                     b.Property<DateTime?>("ModDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("ModUser")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Not")
-                        .HasColumnType("text");
-
                     b.Property<int>("OgrenciDetayId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("OrderNo")
                         .HasColumnType("integer");
-
-                    b.Property<string>("Soyad")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Tc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Telefon")
-                        .HasColumnType("text");
 
                     b.Property<int>("YakinlikDerecesi")
                         .HasColumnType("integer");

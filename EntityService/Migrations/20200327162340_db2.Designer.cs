@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EntityService.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    [Migration("20200325232146_db5")]
-    partial class db5
+    [Migration("20200327162340_db2")]
+    partial class db2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1152,8 +1152,8 @@ namespace EntityService.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<bool>("AileMedeniDurum")
-                        .HasColumnType("boolean");
+                    b.Property<int>("AileMedeniDurum")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreaDate")
                         .HasColumnType("timestamp without time zone");
@@ -1541,9 +1541,6 @@ namespace EntityService.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int?>("ModUser")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("OkulTipId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("OrderNo")
@@ -3197,11 +3194,11 @@ namespace EntityService.Migrations
                         .WithMany()
                         .HasForeignKey("CityId");
 
-                    b.HasOne("Kurum", null)
+                    b.HasOne("Kurum", "Kurum")
                         .WithMany("User")
                         .HasForeignKey("KurumId");
 
-                    b.HasOne("Sube", null)
+                    b.HasOne("Sube", "Sube")
                         .WithMany("User")
                         .HasForeignKey("SubeId");
 

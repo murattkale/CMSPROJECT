@@ -61,6 +61,15 @@ namespace CMS.Controllers
             return Json(list);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IUserService.Where().Result.Select(o => new { value = o.Id, text = o.Name + " " + o.Surname });
+            return Json(result);
+        }
+
+
+
         public JsonResult InsertOrUpdate(User postModel)
         {
             if (postModel.Id < 1)
@@ -80,7 +89,10 @@ namespace CMS.Controllers
 
         public User Get(int id)
         {
-            var result = _IUserService.Where(o => o.Id == id).Result.FirstOrDefault();
+            var result = _IUserService.Where(o => o.Id == id, true, false, o => o.City,
+                o => o.Town,
+                o => o.UserRoles,
+                o => o.OgrenciDetay).Result.FirstOrDefault();
             return (result);
         }
 

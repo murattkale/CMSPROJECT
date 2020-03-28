@@ -132,6 +132,14 @@
 
     <script type="text/javascript">
 
+        var SexTypeAll = [];
+        function GetSexTypeAll() {
+            $.ajx("/User/GetSexType", {}, function (result) {
+                SexTypeAll = result;
+            }, function () { });
+        }
+        GetSexTypeAll();
+
         var ContentPageTypeAll = [];
         function getContentPageTypeAll() {
             $.ajx("/ContentPage/getContentPageType", {}, function (result) {
@@ -148,28 +156,34 @@
         }
         getGelirGiderTipiAll();
 
-        var SexTypeAll = [];
-        function GetSexType() {
-            $.ajx("/User/GetSexType", {}, function (result) {
-                SexTypeAll = result;
-            }, function () { });
-        }
-        GetSexType();
-
         var YakinlikDerecesiAll = [];
-        function GetYakinlikDerecesi() {
+        function GetYakinlikDerecesiAll() {
             $.ajx("/VeliDetay/GetYakinlikDerecesi", {}, function (result) {
                 YakinlikDerecesiAll = result;
             }, function () { });
         }
-        GetYakinlikDerecesi();
+        GetYakinlikDerecesiAll();
+
+        var AileMedeniDurumAll = [];
+        function GetAileMedeniDurumAll() {
+            $.ajx("/OgrenciDetay/GetAileMedeniDurum", {}, function (result) {
+                AileMedeniDurumAll = result;
+            }, function () { });
+        }
+        GetAileMedeniDurumAll();
+
+        var YakinlikDerecesiAll = [];
+        function GetYakinlikDerecesiAll() {
+            $.ajx("/VeliDetay/GetYakinlikDerecesi", {}, function (result) {
+                YakinlikDerecesiAll = result;
+            }, function () { });
+        }
+        GetYakinlikDerecesiAll();
 
     </script>
 
 
     <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
-
-
 
 
     <style>

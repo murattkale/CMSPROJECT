@@ -30,6 +30,12 @@ namespace CMS.Controllers
             return Json(result);
         }
 
+        [HttpPost]
+        public JsonResult GetSelect()
+        {
+            var result = _IOgrenciDetayService.Where().Result.Select(o => new { value = o.Id, text = o.OgrenciNo });
+            return Json(result);
+        }
 
         public JsonResult InsertOrUpdate(OgrenciDetay postModel)
         {
@@ -41,6 +47,12 @@ namespace CMS.Controllers
         {
             var result = _IOgrenciDetayService.Where(o=>o.OgrenciId == id).Result.FirstOrDefault();
             return (result);
+        }
+
+        public JsonResult GetAileMedeniDurum()
+        {
+            var list = Enum.GetValues(typeof(AileMedeniDurum)).Cast<int>().Select(x => new { name = ((AileMedeniDurum)x).ToStr(), value = x.ToString(), text = ((AileMedeniDurum)x).ExGetDescription() }).ToArray();
+            return Json(list);
         }
 
         public JsonResult Delete(int id)

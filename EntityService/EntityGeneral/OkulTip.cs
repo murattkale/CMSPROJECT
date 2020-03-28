@@ -9,15 +9,8 @@ using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
         }
 
        
-        
-        
-        
-       
-        
-       
        
         [Required()] public string Ad  { get; set; }
-        [Required()] public int OkulTipId { get; set; }
 
         public virtual ICollection<Okul> Okul { get; set; }
     }

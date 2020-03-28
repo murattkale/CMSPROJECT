@@ -47,14 +47,19 @@ namespace CMS.Controllers
 
         public JsonResult InsertOrUpdate(User postModel)
         {
-            var result = _IUserService.InsertOrUpdate(postModel);
             if (postModel.Id < 1)
             {
+                var result = _IUserService.InsertOrUpdate(postModel);
                 var role = _IRoleService.Where(o => o.Name == "Personel").Result.FirstOrDefault();
                 var userrole = new UserRole() { UserId = result.ResultRow.Id, RoleId = role.Id };
                 _IUserRoleService.InsertOrUpdate(userrole);
+                return Json(result);
             }
-            return Json(result);
+            else
+            {
+                var result = _IUserService.InsertOrUpdate(postModel);
+                return Json(result);
+            }
         }
 
         public User Get(int id)

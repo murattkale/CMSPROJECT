@@ -131,6 +131,10 @@ public static class Helpers
                 //    value += "," + item;
                 //}
             }
+            else if (info.PropertyType.IsEnum)
+            {
+                value = (int)info.GetValue(obj, null);
+            }
             else
             {
                 value = info.GetValue(obj, null);
@@ -160,7 +164,8 @@ public static class Helpers
             str += "<div class='kt-portlet__head-toolbar'>                                                                                                       ";
             str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
             str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";
-            str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>           ";
+            str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</spa" +
+                "n></button>           ";
             str += "                  </div>                                                                                                                                     ";
             str += "              </div>                                                                                                                                         ";
             str += "          </div>                                                                                                                                             ";
@@ -175,7 +180,7 @@ public static class Helpers
             controllerName = string.IsNullOrEmpty(controllerName) ? t.Name : controllerName;
 
             var formname = "frm_" + t.Name;
-            str += $"<form name='{formname}' id='frm_" + t.Name + "'>"; ;
+            str += $"<form name='{formname}' id='frm_" + t.Name + "'>";
             var props = t.GetProperties().ToList();
 
             var baseType = new BaseModel().GetType().GetProperties().Where(o => o.Name != "ModDate" && o.Name != "CreaDate").ToList();
@@ -444,7 +449,7 @@ public static class Helpers
                                         "</select>";
                                     str += "</div></div></div>";
 
-                                    strScript += " function Get" + prp.Name + "() { var enumTypeValue = getEnumRowName(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } Get" + prp.Name + "(); ";
+                                    strScript += " function Get" + prp.Name + "() { var enumTypeValue = getEnumRow(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } Get" + prp.Name + "(); ";
                                 }
                                 else
                                 {
@@ -482,7 +487,7 @@ public static class Helpers
                                             }
                                         }
                                         else
-                                            strScript += " function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, null, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
+                                            strScript += "sleep(2000); function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, null, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
 
 
                                     }
@@ -592,6 +597,8 @@ public static class Helpers
             str += "</div>";
             str += btn;
             #endregion
+
+            str += "</form>";
 
             #region script
 

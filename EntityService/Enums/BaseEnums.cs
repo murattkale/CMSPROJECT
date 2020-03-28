@@ -65,6 +65,14 @@ public enum GelirGiderTipi : int
     Gider = 2,
 }
 
+public enum AileMedeniDurum : int
+{
+    [Description("Evli")]
+    Evli = 1,
+    [Description("Bekar")]
+    Bekar = 2,
+}
+
 
 public enum SexType : int
 {
