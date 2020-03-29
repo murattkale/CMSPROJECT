@@ -111,38 +111,55 @@ public static class Helpers
         container.GetType().GetProperty(propertyName).SetValue(container, value, null);
     }
 
-    public static object GetPropValue(this object obj, string fieldName)
-    { //<-- fieldName = "Details.Name"
-        object value = null;
-        string[] nameParts = fieldName.Split('.');
-        foreach (String part in nameParts)
-        {
-            if (obj == null) { return ""; }
 
+
+    public static Object GetPropValue(this Object obj, String propName)
+    {
+        string[] nameParts = propName.Split('.');
+        if (nameParts.Length == 1)
+        {
             Type type = obj.GetType();
-            PropertyInfo info = type.GetProperty(part);
-            if (info == null) { return ""; }
+            PropertyInfo info = type.GetProperty(nameParts[0]);
+            if (info == null) { return null; }
 
             if (info.PropertyType.Name.ToLower().Contains("collection"))
             {
-                value = info.GetValue(obj, null) as IList;
-                //foreach (var item in list) //<-- this list should be the "Details" property
-                //{
-                //    value += "," + item;
-                //}
+                return (info.GetValue(obj, null) as IEnumerable<object>).Cast<object>().ToList();
             }
             else if (info.PropertyType.IsEnum)
             {
-                value = (int)info.GetValue(obj, null);
+                return (int)info.GetValue(obj, null);
             }
             else
             {
-                value = info.GetValue(obj, null);
+                return info.GetValue(obj, null);
             }
-
         }
-        return value;
+
+        foreach (String part in nameParts)
+        {
+            if (obj == null) { return null; }
+
+            Type type = obj.GetType();
+            PropertyInfo info = type.GetProperty(part);
+            if (info == null) { return null; }
+
+            if (info.PropertyType.Name.ToLower().Contains("collection"))
+            {
+                obj = (IList)info.GetValue(obj, null);
+            }
+            else if (info.PropertyType.IsEnum)
+            {
+                obj = (int)info.GetValue(obj, null);
+            }
+            else
+            {
+                obj = info.GetValue(obj, null);
+            }
+        }
+        return obj;
     }
+
 
 
     public static string DynamicInputHelper2(this object model, string controllerName, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
@@ -232,11 +249,9 @@ public static class Helpers
             str += "<div class='form-group row'>";
             foreach (var prp in props)
             {
-
                 try
                 {
                     object value = null;
-
                     switch (Type.GetTypeCode(prp.PropertyType))
                     {
                         case TypeCode.Boolean:
@@ -262,21 +277,15 @@ public static class Helpers
                                     if (prp.Name != "Documents")
                                         break;
                                     else
-                                    {
-                                        value = model.GetPropValue(prp.Name) as IList;
-
-                                    }
+                                        value = model.GetPropValue(prp.Name);
                                 }
                                 else
-                                {
                                     value = model.GetPropValue(prp.Name);
-                                }
                                 break;
                             }
                     }
 
                     var dName = GetPropertyAttributes(prp);
-
 
                     var DisplayName = "";
                     if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
@@ -321,13 +330,12 @@ public static class Helpers
                                         str += "<div class='" + "col-md-12" + "'>";
                                         str += "<div class='row form-group'>";
 
-
                                         str += "</div>";
                                         str += "</div>";
-                                        if (value != null && (value as IList).Count > 0)
+                                        if (value != null)
                                         {
                                             str += "  <div class='col-md-12' style='padding:10px;overflow-x:scroll;' >                                              ";
-                                            foreach (var image in (value as IList))
+                                            foreach (var image in (value as IEnumerable<object>).Cast<object>().ToList())
                                             {
                                                 var link = "/uploads/" + image.GetPropValue("Link");
                                                 str += "             <div class='shadow p-3 mb-5 bg-white rounded' dataid='" + image.GetPropValue("Id") + "' style='float:left;margin:5px;'>                                              ";
@@ -339,8 +347,6 @@ public static class Helpers
                                             str += "</div>                                                                                                                                                   ";
                                         }
                                         str += "</div></div>";
-
-
                                     }
                                 }
                                 else
@@ -487,7 +493,7 @@ public static class Helpers
                                             }
                                         }
                                         else
-                                            strScript += "sleep(2000); function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, null, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
+                                            strScript += " function get" + methodName + "() { $('#dp_" + prp.Name + "').addOptionAjax('/" + methodName + "/GetSelect',null, 'value', 'text', null, null, '" + value + "', '', '" + placeholder + " Seçiniz'); } get" + methodName + "(); ";
 
 
                                     }
