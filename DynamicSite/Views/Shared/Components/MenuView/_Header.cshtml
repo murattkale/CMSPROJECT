@@ -2,7 +2,7 @@
     var IsHeaderMenu = ViewBag.IsHeaderMenu as List<ContentPage>;
     var IsFooterMenu = ViewBag.IsFooterMenu as List<ContentPage>;
 
-    var header = IsHeaderMenu.Where(o => o.Parent == null).ToList();
+    var header = IsHeaderMenu.ToList();
 
     var url = Context.Request.Path.Value.ToStr().ToLower();
 }
@@ -14,7 +14,7 @@
     <div class="container">
         <a class="navbar-brand" href="/">
             <h3 style="color:#fff;font-size:30px;">
-                <img style="width:15%;" src="~/index_files/logocheck.png" />
+                <img style="width:8%;" src="~/index_files/logocheck.png" />
                 @{var titles = SessionRequest.config.Title.Split(" ").ToList();
                     var title = ""; var i = 0;
                     titles.ForEach(o =>
@@ -30,7 +30,7 @@
 
         <a class="navbar-brand navbar-brand-dark" href="/">
             <h3 style="font-size:30px;">
-                <img style="width:15%;" src="~/index_files/logocheck.png" />
+                <img style="width:8%;" src="~/index_files/logocheck.png" />
                 @{ titles = SessionRequest.config.Title.Split(" ").ToList();
                     title = ""; i = 0;
                     titles.ForEach(o =>
@@ -51,7 +51,7 @@
             <div class="mobile-nav-header">
                 <a class="logo" href="/">
                     <h3 style="color:#fff;font-size:30px;">
-                        <img style="width:15%;" src="~/index_files/logocheck.png" />
+                        <img style="width:8%;" src="~/index_files/logocheck.png" />
 
                         @{ titles = SessionRequest.config.Title.Split(" ").ToList();
                             title = ""; i = 0;
@@ -100,7 +100,7 @@
                     var target = menu.Link != null && menu.Link.Contains("http") ? "_blank" : "";
                     var link = (string.IsNullOrEmpty(menu.Link) ? "javascript:void();" : (menu.Link.Contains("http") ? menu.Link : SessionRequest.config.BaseUrl + menu.Link));
                     var cursor = string.IsNullOrEmpty(menu.Link) ? "cursor:default;" : "";
-                    var sublist = IsHeaderMenu.Where(o => o.ContentPageId == menu.Id).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name);
+                    var sublist = menu.ContentPageChilds.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name);
 
                     var active = "";
                     if (menu.Link.ToLower() == ("/"))

@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace DynamicSiteEntity.Migrations
+namespace DynamicSiteService.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    [Migration("20200316112828_db34535dfgf")]
-    partial class db34535dfgf
+    [Migration("20200328223932_dbstars")]
+    partial class dbstars
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,6 +132,9 @@ namespace DynamicSiteEntity.Migrations
                     b.Property<int?>("IsStatus")
                         .HasColumnType("integer");
 
+                    b.Property<int>("LangId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Link")
                         .HasColumnType("text");
 
@@ -168,6 +171,8 @@ namespace DynamicSiteEntity.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContentPageId");
+
+                    b.HasIndex("LangId");
 
                     b.ToTable("ContentPage");
                 });
@@ -292,6 +297,51 @@ namespace DynamicSiteEntity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Formlar");
+                });
+
+            modelBuilder.Entity("Lang", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreaDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreaUser")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("IsDeleted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("IsStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LoginCount")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("ModDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("ModUser")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("OrderNo")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lang");
                 });
 
             modelBuilder.Entity("Permission", b =>
@@ -529,10 +579,6 @@ namespace DynamicSiteEntity.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("BodyScript")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Copyright")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreaDate")
@@ -867,6 +913,12 @@ namespace DynamicSiteEntity.Migrations
                     b.HasOne("ContentPage", "Parent")
                         .WithMany("ContentPageChilds")
                         .HasForeignKey("ContentPageId");
+
+                    b.HasOne("Lang", "Lang")
+                        .WithMany("ContentPage")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Documents", b =>

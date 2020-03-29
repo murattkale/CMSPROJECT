@@ -36,7 +36,7 @@ public static class SessionRequest
         set { }
     }
 
-    public static string Title = "Kazasker Fen Bilimleri";
+    public static string Title = "Polat Motors";
     public static string StartPage = "Base";
     public static string StartAction = "Index";
     public static string version = DateTime.Now.ToString().Replace("-", "").Replace(":", "").Replace(".", "").Replace(" ", "");

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace DynamicSiteEntity.Migrations
+namespace DynamicSiteService.Migrations
 {
-    public partial class db1 : Migration
+    public partial class dbstars : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,45 +30,6 @@ namespace DynamicSiteEntity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ContentPage",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CreaDate = table.Column<DateTime>(nullable: false),
-                    CreaUser = table.Column<int>(nullable: false),
-                    ModUser = table.Column<int>(nullable: true),
-                    ModDate = table.Column<DateTime>(nullable: true),
-                    OrderNo = table.Column<int>(nullable: true),
-                    IsDeleted = table.Column<DateTime>(nullable: true),
-                    IsStatus = table.Column<int>(nullable: true),
-                    LoginCount = table.Column<int>(nullable: true),
-                    ParentId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    ContentPageType = table.Column<int>(nullable: false),
-                    IsHeaderMenu = table.Column<bool>(nullable: true),
-                    IsFooterMenu = table.Column<bool>(nullable: true),
-                    IsSideMenu = table.Column<bool>(nullable: true),
-                    IsHamburgerMenu = table.Column<bool>(nullable: true),
-                    ContentData = table.Column<string>(nullable: true),
-                    ContentShort = table.Column<string>(nullable: true),
-                    MetaKeywords = table.Column<string>(nullable: true),
-                    MetaDescription = table.Column<string>(nullable: true),
-                    BannerText = table.Column<string>(nullable: true),
-                    BannerImage = table.Column<string>(nullable: true),
-                    DefaultImage = table.Column<string>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
-                    ButtonText1 = table.Column<string>(nullable: true),
-                    ButtonText1Link = table.Column<string>(nullable: true),
-                    ButtonText2 = table.Column<string>(nullable: true),
-                    ButtonText2Link = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContentPage", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Formlar",
                 columns: table => new
                 {
@@ -83,18 +44,39 @@ namespace DynamicSiteEntity.Migrations
                     IsStatus = table.Column<int>(nullable: true),
                     LoginCount = table.Column<int>(nullable: true),
                     Ad = table.Column<string>(nullable: false),
-                    Soyad = table.Column<string>(nullable: true),
+                    Soyad = table.Column<string>(nullable: false),
                     Mail = table.Column<string>(nullable: true),
-                    Telefon = table.Column<string>(nullable: true),
+                    Telefon = table.Column<string>(nullable: false),
                     Adres = table.Column<string>(nullable: true),
-                    CityId = table.Column<int>(nullable: true),
-                    TownId = table.Column<int>(nullable: true),
                     Icerik = table.Column<string>(nullable: true),
                     FormType = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Formlar", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lang",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(nullable: true),
+                    IsDefault = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lang", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -130,6 +112,61 @@ namespace DynamicSiteEntity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SiteConfig",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
+                    StartPage = table.Column<string>(nullable: false),
+                    StartAction = table.Column<string>(nullable: false),
+                    version = table.Column<string>(nullable: false),
+                    layoutID = table.Column<string>(nullable: false),
+                    layoutUrlBase = table.Column<string>(nullable: false),
+                    layoutUrl = table.Column<string>(nullable: false),
+                    Logo = table.Column<string>(nullable: false),
+                    Map = table.Column<string>(nullable: true),
+                    DefaultImage = table.Column<string>(nullable: true),
+                    BaseUrl = table.Column<string>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true),
+                    JokerPass = table.Column<string>(nullable: false),
+                    MetaKeywords = table.Column<string>(nullable: true),
+                    MetaDescription = table.Column<string>(nullable: true),
+                    Adress = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Mail = table.Column<string>(nullable: true),
+                    MailGorunenAd = table.Column<string>(nullable: true),
+                    SmtpHost = table.Column<string>(nullable: true),
+                    SmtpPort = table.Column<string>(nullable: true),
+                    SmtpMail = table.Column<string>(nullable: true),
+                    SmtpMailPass = table.Column<string>(nullable: true),
+                    SmtpSSL = table.Column<bool>(nullable: true),
+                    Instagram = table.Column<string>(nullable: true),
+                    Twitter = table.Column<string>(nullable: true),
+                    Facebook = table.Column<string>(nullable: true),
+                    Youtube = table.Column<string>(nullable: true),
+                    GooglePlus = table.Column<string>(nullable: true),
+                    Tumblr = table.Column<string>(nullable: true),
+                    HeadScript = table.Column<string>(nullable: true),
+                    HeadStyle = table.Column<string>(nullable: true),
+                    BodyScript = table.Column<string>(nullable: true),
+                    FooterScript = table.Column<string>(nullable: true),
+                    FooterStyle = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SiteConfig", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Town",
                 columns: table => new
                 {
@@ -158,7 +195,7 @@ namespace DynamicSiteEntity.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Documents",
+                name: "ContentPage",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -171,25 +208,48 @@ namespace DynamicSiteEntity.Migrations
                     IsDeleted = table.Column<DateTime>(nullable: true),
                     IsStatus = table.Column<int>(nullable: true),
                     LoginCount = table.Column<int>(nullable: true),
-                    Types = table.Column<string>(nullable: true),
+                    ContentPageId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
+                    ContentPageType = table.Column<int>(nullable: false),
+                    ContentOrderNo = table.Column<int>(nullable: true),
+                    IsForm = table.Column<bool>(nullable: true),
+                    IsGallery = table.Column<bool>(nullable: true),
+                    IsMap = table.Column<bool>(nullable: true),
+                    IsHeaderMenu = table.Column<bool>(nullable: true),
+                    IsFooterMenu = table.Column<bool>(nullable: true),
+                    IsSideMenu = table.Column<bool>(nullable: true),
+                    IsHamburgerMenu = table.Column<bool>(nullable: true),
+                    ContentData = table.Column<string>(nullable: true),
+                    ContentShort = table.Column<string>(nullable: true),
                     Link = table.Column<string>(nullable: true),
-                    Guid = table.Column<string>(nullable: true),
-                    Alt = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    data_class = table.Column<string>(nullable: true),
-                    dataid = table.Column<int>(nullable: false),
-                    ContentPageId = table.Column<int>(nullable: true)
+                    VideoLink = table.Column<string>(nullable: true),
+                    ResimLink = table.Column<string>(nullable: true),
+                    MetaKeywords = table.Column<string>(nullable: true),
+                    MetaDescription = table.Column<string>(nullable: true),
+                    BannerText = table.Column<string>(nullable: true),
+                    BannerImage = table.Column<string>(nullable: true),
+                    ThumbImage = table.Column<string>(nullable: true),
+                    ButtonText1 = table.Column<string>(nullable: true),
+                    ButtonText1Link = table.Column<string>(nullable: true),
+                    ButtonText2 = table.Column<string>(nullable: true),
+                    ButtonText2Link = table.Column<string>(nullable: true),
+                    LangId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.PrimaryKey("PK_ContentPage", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Documents_ContentPage_ContentPageId",
+                        name: "FK_ContentPage_ContentPage_ContentPageId",
                         column: x => x.ContentPageId,
                         principalTable: "ContentPage",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ContentPage_Lang_LangId",
+                        column: x => x.LangId,
+                        principalTable: "Lang",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -276,6 +336,40 @@ namespace DynamicSiteEntity.Migrations
                         principalTable: "Town",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Documents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CreaDate = table.Column<DateTime>(nullable: false),
+                    CreaUser = table.Column<int>(nullable: false),
+                    ModUser = table.Column<int>(nullable: true),
+                    ModDate = table.Column<DateTime>(nullable: true),
+                    OrderNo = table.Column<int>(nullable: true),
+                    IsDeleted = table.Column<DateTime>(nullable: true),
+                    IsStatus = table.Column<int>(nullable: true),
+                    LoginCount = table.Column<int>(nullable: true),
+                    Types = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Link = table.Column<string>(nullable: true),
+                    Guid = table.Column<string>(nullable: true),
+                    Alt = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: true),
+                    data_class = table.Column<string>(nullable: true),
+                    ContentPageId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Documents_ContentPage_ContentPageId",
+                        column: x => x.ContentPageId,
+                        principalTable: "ContentPage",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -394,6 +488,16 @@ namespace DynamicSiteEntity.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContentPage_ContentPageId",
+                table: "ContentPage",
+                column: "ContentPageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContentPage_LangId",
+                table: "ContentPage",
+                column: "LangId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Documents_ContentPageId",
                 table: "Documents",
                 column: "ContentPageId");
@@ -476,6 +580,9 @@ namespace DynamicSiteEntity.Migrations
                 name: "ServiceConfigAuth");
 
             migrationBuilder.DropTable(
+                name: "SiteConfig");
+
+            migrationBuilder.DropTable(
                 name: "UserRole");
 
             migrationBuilder.DropTable(
@@ -486,6 +593,9 @@ namespace DynamicSiteEntity.Migrations
 
             migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "Lang");
 
             migrationBuilder.DropTable(
                 name: "Role");

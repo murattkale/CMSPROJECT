@@ -2,15 +2,16 @@
     var content = ViewBag.contentPages as List<ContentPage>;
 }
 
-@if (content.Any(o => o.ContentPageType == ContentPageType.row1 && o.IsForm == true))
+@if (content.Any(o => o.ContentPageType == ContentPageType.row1))
 {
-    var row = content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row1 && o.IsForm == true);
+    var row = content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row1);
 
     <header ctype="@row.ContentPageType.ExGetDescription()" class="video-wrapper">
         <div class="video-loader" style="display: none;">
             <i class="fas fa-circle-notch fa-spin"></i>
         </div>
-        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop="" data="@row.VideoLink" src="">
+        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop=""
+               data="@Html.Raw(SessionRequest.config.ImageUrl + row.Documents.FirstOrDefault()?.Link)" src="">
             <script>
                 $(function () {
                     $('#header-video').attr("src", $('#header-video').attr("data"));
@@ -161,7 +162,7 @@
                     <div class="col-12 col-lg-4">
                         <a href="@row.Link" class="clickable-card">
                             <div class="card blog-card">
-                                <img src="@imageUrl" class="card-img-top" alt="Marketing - Part 2">
+                                <img src="@imageUrl" class="card-img-top" alt="@row.Name">
                                 <div style="min-height:250px !important;" class="card-body">
                                     <h3 class="card-title">
 
@@ -189,9 +190,9 @@
 
 
 
-@if (content.Any(o => o.ContentPageType == ContentPageType.row5 && o.IsForm == true))
+@if (content.Any(o => o.ContentPageType == ContentPageType.row5))
 {
-    var row = content.LastOrDefault(o => o.ContentPageType == ContentPageType.row5 && o.IsForm == true);
+    var row = content.LastOrDefault(o => o.ContentPageType == ContentPageType.row5);
 
 
     <div ctype="@row.ContentPageType.ExGetDescription()" id="tmp-join-us">

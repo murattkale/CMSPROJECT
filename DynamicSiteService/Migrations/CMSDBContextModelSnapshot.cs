@@ -2,17 +2,15 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace DynamicSiteEntity.Migrations
+namespace DynamicSiteService.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    [Migration("20200312191443_db34354")]
-    partial class db34354
+    partial class CMSDBContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,9 +70,6 @@ namespace DynamicSiteEntity.Migrations
                     b.Property<string>("BannerText")
                         .HasColumnType("text");
 
-                    b.Property<string>("BodyScript")
-                        .HasColumnType("text");
-
                     b.Property<string>("ButtonText1")
                         .HasColumnType("text");
 
@@ -108,21 +103,6 @@ namespace DynamicSiteEntity.Migrations
                     b.Property<int>("CreaUser")
                         .HasColumnType("integer");
 
-                    b.Property<string>("DefaultImage")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FooterScript")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FooterStyle")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HeadScript")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HeadStyle")
-                        .HasColumnType("text");
-
                     b.Property<DateTime?>("IsDeleted")
                         .HasColumnType("timestamp without time zone");
 
@@ -141,10 +121,16 @@ namespace DynamicSiteEntity.Migrations
                     b.Property<bool?>("IsHeaderMenu")
                         .HasColumnType("boolean");
 
+                    b.Property<bool?>("IsMap")
+                        .HasColumnType("boolean");
+
                     b.Property<bool?>("IsSideMenu")
                         .HasColumnType("boolean");
 
                     b.Property<int?>("IsStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("LangId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Link")
@@ -174,12 +160,17 @@ namespace DynamicSiteEntity.Migrations
                     b.Property<string>("ResimLink")
                         .HasColumnType("text");
 
+                    b.Property<string>("ThumbImage")
+                        .HasColumnType("text");
+
                     b.Property<string>("VideoLink")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ContentPageId");
+
+                    b.HasIndex("LangId");
 
                     b.ToTable("ContentPage");
                 });
@@ -304,6 +295,51 @@ namespace DynamicSiteEntity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Formlar");
+                });
+
+            modelBuilder.Entity("Lang", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreaDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreaUser")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("IsDeleted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("IsStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("LoginCount")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("ModDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("ModUser")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("OrderNo")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Lang");
                 });
 
             modelBuilder.Entity("Permission", b =>
@@ -526,6 +562,157 @@ namespace DynamicSiteEntity.Migrations
                     b.ToTable("ServiceConfigAuth");
                 });
 
+            modelBuilder.Entity("SiteConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Adress")
+                        .HasColumnType("text");
+
+                    b.Property<string>("BaseUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BodyScript")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreaDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("CreaUser")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DefaultImage")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Facebook")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterScript")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FooterStyle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("GooglePlus")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HeadScript")
+                        .HasColumnType("text");
+
+                    b.Property<string>("HeadStyle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Instagram")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("IsDeleted")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("IsStatus")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("JokerPass")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("LoginCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Logo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MailGorunenAd")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Map")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MetaDescription")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MetaKeywords")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ModDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int?>("ModUser")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("OrderNo")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SmtpHost")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SmtpMail")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SmtpMailPass")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SmtpPort")
+                        .HasColumnType("text");
+
+                    b.Property<bool?>("SmtpSSL")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("StartAction")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("StartPage")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Tumblr")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Twitter")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Youtube")
+                        .HasColumnType("text");
+
+                    b.Property<string>("layoutID")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("layoutUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("layoutUrlBase")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("version")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SiteConfig");
+                });
+
             modelBuilder.Entity("Town", b =>
                 {
                     b.Property<int>("Id")
@@ -724,6 +911,12 @@ namespace DynamicSiteEntity.Migrations
                     b.HasOne("ContentPage", "Parent")
                         .WithMany("ContentPageChilds")
                         .HasForeignKey("ContentPageId");
+
+                    b.HasOne("Lang", "Lang")
+                        .WithMany("ContentPage")
+                        .HasForeignKey("LangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Documents", b =>
