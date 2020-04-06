@@ -2241,7 +2241,6 @@ public static class Helpers
     }
 
 
-
     public static bool isMail(this string email)
     {
         try

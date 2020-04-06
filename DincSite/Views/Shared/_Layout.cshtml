@@ -1,0 +1,114 @@
+﻿@{
+    var _page = new ContentPage();
+
+    if (_page != null)
+    {
+        _page = ViewBag.page as ContentPage;
+    }
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@SessionRequest.config.Title</title>
+
+    <meta name="description" content="@SessionRequest.config.MetaDescription" />
+    <meta name="title" content="@SessionRequest.config.Title" />
+    <meta name="keywords" content="@SessionRequest.config.MetaKeywords" />
+
+    <link rel="stylesheet" href="./index_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./index_files/all.css">
+    <link rel="stylesheet" href="./index_files/main.57f4c744.css">
+
+    <script src="./index_files/jquery.min.js" type="text/javascript"></script>
+    <script src="~/loadingoverlay.min.js"></script>
+    <script src="~/bootbox.min.js"></script>
+    <script src="~/general.js?v=@SessionRequest.config.version"></script>
+
+    <script src="./index_files/home.914fb9ec.js" type="text/javascript"></script>
+
+    @if (!string.IsNullOrEmpty(SessionRequest.config.HeadStyle))
+    {
+        @Html.Raw(HttpUtility.HtmlDecode(SessionRequest.config.HeadStyle));
+    }
+
+
+    @if (!string.IsNullOrEmpty(SessionRequest.config.HeadScript))
+    {
+        @Html.Raw(HttpUtility.HtmlDecode(SessionRequest.config.HeadScript));
+    }
+
+    @*
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.5409120312206!2d29.082147315412783!3d40.969634979304665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac7aed7af657b%3A0xb243df8cafec86bc!2zRXJlbmvDtnksIMWeZW1zZXR0aW4gR8O8bmFsdGF5IENkLiBObzoxMzUsIDM0NzM4IEthZMSxa8O2eS_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1584319986069!5m2!1str!2str" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135673336-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-135673336-2');
+    </script>
+    <script data-ad-client="ca-pub-9855448984457804" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+
+    *@
+
+
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(SessionRequest.config.BodyScript))
+    {
+        @Html.Raw(HttpUtility.HtmlDecode(SessionRequest.config.BodyScript));
+    }
+
+    <div class="parallax-mirror" style="visibility: hidden; z-index: -100; position: fixed; top: 0px; left: 0px; overflow: hidden; height: 736.2px; width: 1519.2px; transform: translate3d(0px, 630.313px, 0px);">
+        <img class="parallax-slider" src="~/index_files/home-jobs.42785058.jpg" style="position: absolute; height: 686px; width: 1922px; max-width: none; transform: translate3d(-201px, -504.25px, 0px);">
+    </div>
+    <div class="preloader" style="display: none;">
+        <img src="~/img/logo.svg" alt="">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+
+
+        @await Component.InvokeAsync("MenuView", new { type = "h" })
+        @RenderBody()
+        @await Component.InvokeAsync("MenuView", new { type = "f" })
+
+    </div>
+
+
+
+    <div class="scroll-to-top" data-target="html" style="display: block;"><i class="fas fa-chevron-up"></i></div>
+
+
+    <script src="./index_files/bootstrap.min.js" type="text/javascript"></script>
+    <script src="./index_files/main.3504185b.js" type="text/javascript"></script>
+    <script src="./index_files/main.52155535.js" type="text/javascript"></script>
+
+
+    @if (!string.IsNullOrEmpty(SessionRequest.config.FooterStyle))
+    {
+        @Html.Raw(HttpUtility.HtmlDecode(SessionRequest.config.FooterStyle));
+    }
+
+
+    @if (!string.IsNullOrEmpty(SessionRequest.config.FooterScript))
+    {
+        @Html.Raw(HttpUtility.HtmlDecode(SessionRequest.config.FooterScript));
+    }
+
+
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

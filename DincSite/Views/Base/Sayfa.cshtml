@@ -1,0 +1,168 @@
+﻿@{
+    var _page = new ContentPage();
+
+    if (_page != null)
+    {
+        _page = ViewBag.page as ContentPage;
+
+    }
+
+
+    var imageUrl = _page.ResimLink;
+    if (string.IsNullOrEmpty(imageUrl))
+    {
+        if (_page.Documents.Any())
+        {
+            imageUrl = _page.Documents.FirstOrDefault().Link;
+        }
+    }
+
+    if (!string.IsNullOrEmpty(imageUrl))
+    {
+        imageUrl = SessionRequest.config.ImageUrl + imageUrl;
+    }
+
+
+    var url = Context.Request.Path.Value.ToStr().ToLower();
+
+}
+
+
+
+
+<header class="header-subpage">
+    <div class="header-subpage-bg-img" style="background-image: url(@imageUrl); background-position: top"></div>
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 header-subpage-title text-center">
+                    <h1><span class="font-bold">@_page.Name</span></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<div class="content">
+    <section class="info p-90-0-90">
+        <div class="container">
+
+            @if (_page.IsGallery == true)
+            {
+                <div class="row justify-content-center">
+                    <link rel="stylesheet" href="~/sliderjs/jquery.rondell.css" type="text/css" media="all" title="Screen">
+                    <script src="~/sliderjs/modernizr-2.0.6.min.js"></script>
+
+                    <div class="column size1of2 ">
+                        <div id="rondellTopDemo">
+                            @foreach (var item in _page.Documents)
+                            {
+                                var image = item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.config.ImageUrl + item.Link;
+                                <a target="_blank" rel="rondell_1" href="@image" title="@item.Title">
+                                    <img src="@image" alt="@item.Alt" title="@item.Title" />
+                                </a>
+                            }
+
+                        </div>
+                    </div>
+                    <style>
+                        .rondell-item.rondell-item-focused {
+                            width: 100%;
+                            height: auto;
+                            object-fit: cover;
+                            object-position: 50% 50%;
+                            z-index: 0;
+                        }
+                    </style>
+                    <script src="~/sliderjs/jquery.mousewheel-3.0.6.min.js"></script>
+                    <script src="~/sliderjs/jquery.rondell.js"></script>
+
+                    <script type="text/javascript">
+                        (function () {
+                            $("#rondellTopDemo > *").rondell({
+                                preset: "carousel",
+                                radius: {
+                                    x: 300
+                                },
+                                center: {
+                                    //left: 450,
+                                    //top: 150
+                                },
+                                itemProperties: {
+                                    size: {
+                                        width: 750,
+                                        height: 200
+                                    }
+                                }
+                            });
+
+                        }).call(this);
+
+                        $('.rondell-control.rondell-shift-left').html('Geri');
+                        $('.rondell-control.rondell-shift-left').css('font-size', '18px');
+                        $('.rondell-control.rondell-shift-right').html('İleri');
+                        $('.rondell-control.rondell-shift-right').css('font-size', '18px');
+
+                    </script>
+
+
+                </div>
+                <br />
+                <hr />
+            }
+
+            <div class="row">
+                @Html.Raw(_page.ContentShort)
+                <br />
+                <hr />
+            </div>
+
+
+            <div class="row">
+                <p class="text-justify">@Html.Raw(_page.ContentData)</p>
+            </div>
+
+
+            @if (_page.IsMap == true)
+            {
+                <br />
+                <hr />
+                <div class="row myMap">
+                    @Html.Raw(SessionRequest.config.Map)
+                    <style>
+                        .myMap > iframe {
+                            width: 100%;
+                        }
+                    </style>
+                    <hr />
+                </div>
+            }
+
+
+            @if (_page.IsForm == true)
+            {
+                <br />
+                <hr />
+                <div class="row">
+                    @Html.Raw(new Formlar().DynamicInputHelper2("",
+                   "Mail,Icerik", "", "Bilgi Formu", "page", "col-md-4", "col-md-8", "col-md-6",
+                   "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
+                   "<input type='submit' value='" + "Kaydet" + "' " +
+                   "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
+                   ))
+                    <hr />
+                </div>
+            }
+
+
+
+
+
+
+        </div>
+    </section>
+</div>
+
+
