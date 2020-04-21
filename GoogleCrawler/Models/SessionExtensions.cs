@@ -17,7 +17,7 @@ public static class SessionExtensions
     {
         var value = session.GetString(key);
 
-        return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+        return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value,new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
     }
 }
 

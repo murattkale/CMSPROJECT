@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GoogleCrawler.Models.Context;
+using GoogleCrawler.Models.Interfaces;
+using GoogleCrawler.Models.Persistence;
+using GoogleCrawler.Models.Repository;
+using GoogleCrawler.Models.UoW;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,10 +27,21 @@ namespace GoogleCrawler
 
         public IConfiguration Configuration { get; }
 
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            services.AddScoped<IMongoContext, MongoContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+
+            MongoDbPersistence.Configure();
+
             services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(60));
             services.AddMvc(option => option.EnableEndpointRouting = false).AddNewtonsoftJson(opt =>
@@ -37,7 +53,7 @@ namespace GoogleCrawler
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
-
+            RegisterServices(services);
 
             //services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
 
