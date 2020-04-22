@@ -8,8 +8,6 @@ using System;
 
 public class MotorService : GenericRepo<CMSDBContext, Motor>, IMotorService
 {
-
-
     public MotorService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
     {
     }

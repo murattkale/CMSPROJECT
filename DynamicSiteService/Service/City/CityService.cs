@@ -8,8 +8,6 @@ using System;
 
     public class CityService : GenericRepo<CMSDBContext,City>, ICityService
     {
-
-
         public CityService(CMSDBContext context, IBaseSession sessionInfo) : base(context, sessionInfo)
         {
         }

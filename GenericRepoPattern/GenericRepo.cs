@@ -7,23 +7,11 @@ using System.Linq.Expressions;
 
 public class GenericRepo<C, T> : IGenericRepo<T> where T : class, IBaseModel where C : DbContext, new()
 {
-
     private C _context = new C();
-    public C Context
-    {
-
-        get { return _context; }
-        set { _context = value; }
-    }
-
-
+    public C Context { get { return _context; } set { _context = value; } }
     protected IBaseSession sessionInfo;
+    public GenericRepo(C _context, IBaseSession sessionInfo) { this.sessionInfo = sessionInfo; this._context = _context; }
 
-    public GenericRepo(C _context, IBaseSession sessionInfo)
-    {
-        this.sessionInfo = sessionInfo;
-        this._context = _context;
-    }
 
     public DTResult<T> GetPaging(
         Expression<Func<T, bool>> filter = null
@@ -123,7 +111,7 @@ public class GenericRepo<C, T> : IGenericRepo<T> where T : class, IBaseModel whe
         var query = Where(o => o.Id == id, AsNoTracking, IsDeletedShow).Result.FirstOrDefault();
         return query;
     }
-  
+
 
     public T Add(T t)
     {

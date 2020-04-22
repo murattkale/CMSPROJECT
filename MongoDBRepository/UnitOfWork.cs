@@ -1,8 +1,7 @@
-﻿using System.Threading.Tasks;
-using GoogleCrawler.Models.Interfaces;
+﻿using System;
+using System.Threading.Tasks;
 
-namespace GoogleCrawler.Models.UoW
-{
+
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IMongoContext _context;
@@ -19,9 +18,22 @@ namespace GoogleCrawler.Models.UoW
             return changeAmount > 0;
         }
 
-        public void Dispose()
+    private bool disposed = false;
+    protected void Dispose(bool disposing)
+    {
+        if (!this.disposed)
         {
-            _context.Dispose();
+            if (disposing)
+            {
+                _context.Dispose();
+            }
+            this.disposed = true;
         }
     }
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }
+

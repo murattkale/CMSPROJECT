@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
   </PropertyGroup>
+
 
   <ItemGroup>
 
@@ -29,11 +29,11 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\GoogleCrawlerService\GoogleCrawlerService.csproj" />
     <ProjectReference Include="..\Helpers\Helpers.csproj" />
     <ProjectReference Include="..\MailService\MailService.csproj" />
-    <ProjectReference Include="..\MongoDBRepository\MongoDBRepository.csproj" />
   </ItemGroup>
 
+  
+  
 
 </Project>

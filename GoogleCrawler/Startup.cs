@@ -2,11 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GoogleCrawler.Models.Context;
-using GoogleCrawler.Models.Interfaces;
-using GoogleCrawler.Models.Persistence;
-using GoogleCrawler.Models.Repository;
-using GoogleCrawler.Models.UoW;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,7 +36,7 @@ namespace GoogleCrawler
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-            MongoDbPersistence.Configure();
+            GoogleCrawlerConfig.Configure();
 
             services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    
             services.AddSession(s => s.IdleTimeout = TimeSpan.FromMinutes(60));
@@ -53,11 +49,13 @@ namespace GoogleCrawler
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
+
+            services.AddScoped(typeof(IBaseSessionMongo), typeof(BaseSession));
+
             RegisterServices(services);
 
             //services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
 
-            //services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
             //services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
             //#endregion
 
@@ -73,7 +71,6 @@ namespace GoogleCrawler
 
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -82,7 +79,6 @@ namespace GoogleCrawler
             }
             else
             {
-                //app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
@@ -98,21 +94,6 @@ namespace GoogleCrawler
 
             app.UseMvc(routes =>
             {
-
-               // routes.MapRoute(
-               //   "Ajax",
-               //    "/Base/{action}/{id?}",
-               //   defaults: new { site = "", controller = "Base", action = "", link = "", id = "" }
-               //  );
-
-
-               // routes.MapRoute(
-               //    name: "Sayfa",
-               //    template: "{*link}",
-               //    constraints: new { site = new DynamicRouting() },
-               //    defaults: new { site = "", controller = "Base", action = "Sayfa", link = "" }
-               //);
-
 
                 routes.MapRoute(name: "default", template: "{controller=Base}/{action=Index}/{Id?}");
             });
