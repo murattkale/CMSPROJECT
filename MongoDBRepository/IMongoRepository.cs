@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-public interface IMongoRepository<T> : IDisposable where T : class
+public interface IMongoRepository<C,T> : IDisposable where T : class
 {
     T Add(T obj);
     Task<T> GetById(Guid id);

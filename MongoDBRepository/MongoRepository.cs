@@ -5,7 +5,7 @@ using MongoDB.Driver;
 using ServiceStack;
 
 
-public class MongoRepository<C, T> : IMongoRepository<T> where T : class, IBaseModelMongo where C : MongoContext, new()
+public  class MongoRepository<C, T> : IMongoRepository<C,T> where T : class, IBaseModelMongo where C : IMongoContext, new()
 {
     private C _context = new C();
     public C Context { get { return _context; } set { _context = value; } }

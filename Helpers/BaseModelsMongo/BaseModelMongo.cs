@@ -22,9 +22,9 @@ public class BaseModelMongo : IBaseModelMongo
     [Required()] public Guid Id { get; set; }
 
     [BsonElement("CreaDate")]
-    [Required()]  public DateTime CreaDate { get; set; }
+    public DateTime CreaDate { get; set; }
     [BsonElement("CreaUser")]
-    [Required()] public int CreaUser { get; set; }
+    public int CreaUser { get; set; }
     [BsonElement("ModUser")]
     public int? ModUser { get; set; }
     [BsonElement("ModDate")]

