@@ -36,6 +36,14 @@ namespace GoogleCrawler
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+
             GoogleCrawlerConfig.Configure();
 
             services.AddDistributedMemoryCache();//To Store session in Memory, This is default implementation of IDistributedCache    

@@ -8,9 +8,12 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace GoogleCrawler.Controllers
 {
+
+    [EnableCors("MyPolicy")]
     public class BaseController : Controller
     {
         private IUsersRepository _usersRepository;
@@ -44,6 +47,28 @@ namespace GoogleCrawler.Controllers
         {
             ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
             return View();
+        }
+
+        [Route("getuser")]
+        public async Task<IActionResult> getuser(Guid id)
+        {
+            var rs = await _usersRepository.GetById(id);
+            return Json(rs);
+        }
+
+
+        [Route("getusers")]
+        public async Task<IActionResult> getusers()
+        {
+            var rs = await _usersRepository.GetAll();
+            return Json(rs);
+        }
+
+        [Route("getlastuser")]
+        public async Task<IActionResult> getlastuser()
+        {
+            var rs = _usersRepository.GetAll().Result.LastOrDefault();
+            return Json(rs);
         }
 
 
