@@ -92,8 +92,6 @@ namespace GoogleCrawler.Controllers
         [Route("Wait")]
         public async Task<IActionResult> Wait(Users postModel)
         {
-            setUsers(postModel);
-
             var result = setUsers(postModel);
             _usersRepository.Add(result);
             var rs = await _uow.Commit();
