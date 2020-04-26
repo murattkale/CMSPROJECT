@@ -2,6 +2,7 @@
 using ServiceStack;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
@@ -22,7 +23,14 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
 
     private void ConfigDbSet()
     {
-        DbSet = Context.GetCollection<TEntity>(typeof(TEntity).Name);
+        DbSet = DbSet == null ? Context.GetCollection<TEntity>(typeof(TEntity).Name) : DbSet;
+    }
+
+    public virtual async Task<IAsyncCursor<TEntity>> Where(Expression<Func<TEntity, bool>> filter = null)
+    {
+        ConfigDbSet();
+        var query = await DbSet.FindAsync(filter);
+        return query;
     }
 
     public virtual async Task<TEntity> GetById(Guid id)

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
+using MongoDB.Driver;
 
 namespace GoogleCrawler.Controllers
 {
@@ -50,22 +51,26 @@ namespace GoogleCrawler.Controllers
         }
 
         [Route("getuser")]
-        public async Task<IActionResult> getuser(Guid id)
+        public async Task<IActionResult> getuser(string mail)
         {
-            var rs = await _usersRepository.GetById(id);
-            return Json(rs);
+            var rs = _usersRepository.Where(o => o.mail == mail).Result.ToList().LastOrDefault();
+            return Json("ok");
         }
+
+        [Route("settype")]
+        public async Task<IActionResult> settype(string mail, int stypeenum)
+        {
+            var row = _usersRepository.Where(o => o.mail == mail).Result.ToList().LastOrDefault();
+            row.stype = (stype)stypeenum;
+            _usersRepository.Update(row);
+            var res = await _uow.Commit();
+            return Json(row);
+        }
+
 
 
         [Route("getusers")]
         public async Task<IActionResult> getusers()
-        {
-            var rs = await _usersRepository.GetAll();
-            return Json(rs);
-        }
-
-        [Route("getlastuser")]
-        public async Task<IActionResult> getlastuser()
         {
             var rs = _usersRepository.GetAll().Result.LastOrDefault();
             return Json(rs);
