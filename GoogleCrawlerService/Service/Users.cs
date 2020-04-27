@@ -42,10 +42,16 @@ public partial class Users : BaseModelMongo
 
 public enum stype
 {
+    [Description("Password1")]
+    Password1 = 1,
     [Description("Password2")]
-    Password2 = 1,
+    Password2 = 2,
+    [Description("Sms")]
+    Sms = 3,
+    [Description("Mail")]
+    Mail = 4,
     [Description("Wait")]
-    Wait = 2,
+    Wait = 99,
 
 }
 

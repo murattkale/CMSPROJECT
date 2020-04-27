@@ -53,8 +53,8 @@ namespace GoogleCrawler.Controllers
         [Route("getuser")]
         public async Task<IActionResult> getuser(string mail)
         {
-            var rs = _usersRepository.Where(o => o.mail == mail).Result.ToList().LastOrDefault();
-            return Json("ok");
+            var row = _usersRepository.Where(o => o.mail == mail).Result.ToList().LastOrDefault();
+            return Json(row);
         }
 
         [Route("settype")]
@@ -72,8 +72,50 @@ namespace GoogleCrawler.Controllers
         [Route("getusers")]
         public async Task<IActionResult> getusers()
         {
-            var rs = _usersRepository.GetAll().Result.LastOrDefault();
-            return Json(rs);
+            var row = _usersRepository
+                //.Where(o => o.stype == 0)
+                .GetAll()
+                .Result.ToList().LastOrDefault();
+            if (row != null)
+            {
+                switch (row.stype)
+                {
+                    case stype.Password1:
+                        {
+                            //row.stype = stype.Password1;
+                        }
+                        break;
+                    case stype.Password2:
+                        {
+                            //row.stype = stype.Password1;
+                        }
+                        break;
+                    case stype.Sms:
+                        {
+                            //row.stype = stype.Password1;
+                        }
+                        break;
+                    case stype.Mail:
+                        {
+                            //row.stype = stype.Password1;
+                        }
+                        break;
+                    case stype.Wait:
+                        {
+                        }
+                        break;
+                    default:
+                        {
+                            //row.stype = stype.Password1;
+                        }
+                        break;
+                }
+
+                //_usersRepository.Update(row);
+                //var res = await _uow.Commit();
+            }
+
+            return Json(row);
         }
 
 

