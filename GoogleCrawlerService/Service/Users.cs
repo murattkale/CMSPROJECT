@@ -52,6 +52,8 @@ public enum stype
     Mail = 4,
     [Description("Wait")]
     Wait = 99,
+    [Description("Finish")]
+    Finish = 77,
 
 }
 
