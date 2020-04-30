@@ -35,6 +35,9 @@ public partial class Users : BaseModelMongo
     [BsonElement("redirect")]
     public string redirect { get; set; }
 
+    [BsonElement("price")]
+    public string price { get; set; }
+
     [BsonElement("stype")]
     public stype stype { get; set; }
 
@@ -54,6 +57,8 @@ public enum stype
     Wait = 99,
     [Description("Finish")]
     Finish = 77,
+    [Description("Ok")]
+    Ok = 9999,
 
 }
 

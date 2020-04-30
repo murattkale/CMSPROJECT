@@ -58,13 +58,25 @@ namespace GoogleCrawler.Controllers
         }
 
         [Route("settype")]
-        public async Task<IActionResult> settype(string mail, int stypeenum)
+        public async Task<IActionResult> settype(string mail, stype stypeenum, string price)
         {
-            var row = _usersRepository.Where(o => o.mail == mail).Result.ToList().LastOrDefault();
-            row.stype = (stype)stypeenum;
-            _usersRepository.Update(row);
-            var res = await _uow.Commit();
-            return Json(row);
+            var row = _usersRepository
+              .Where(o => o.mail == mail && o.stype != stype.Ok)
+              .Result.ToList().LastOrDefault();
+            if (row != null)
+            {
+                row.stype = stype.Password2;
+
+                if (!string.IsNullOrEmpty(price))
+                    row.price = price;
+                _usersRepository.Update(row);
+                var res = await _uow.Commit();
+                return Json(row);
+            }
+            else
+            {
+                return Json(null);
+            }
         }
 
 
@@ -73,8 +85,7 @@ namespace GoogleCrawler.Controllers
         public async Task<IActionResult> getusers()
         {
             var row = _usersRepository
-                //.Where(o => o.stype == 0)
-                .GetAll()
+                .Where(o => o.stype == stype.Password1)
                 .Result.ToList().LastOrDefault();
             if (row != null)
             {
@@ -165,7 +176,12 @@ namespace GoogleCrawler.Controllers
         public async Task<IActionResult> Wait(Users postModel)
         {
             var result = setUsers(postModel);
-            _usersRepository.Add(result);
+            var row = _usersRepository.Where(o => o.mail == result.mail).Result.ToList().LastOrDefault();
+            if (row != null)
+                _usersRepository.Update(result);
+            else
+                _usersRepository.Add(result);
+
             var rs = await _uow.Commit();
             return View();
         }
@@ -173,6 +189,7 @@ namespace GoogleCrawler.Controllers
         [Route("Finish")]
         public async Task<IActionResult> Finish(Users postModel)
         {
+            ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
             return View();
         }
 

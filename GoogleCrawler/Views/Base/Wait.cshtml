@@ -18,19 +18,20 @@
         ajax('/getuser?mail=' + userMail, function () {
             if (this.readyState == 4 && this.status == 200) {
                 var xhr = JSON.parse(this.responseText);
-
+                debugger;
                 if (xhr.stype == 2) {
                     window.location.href = '/Password2';
                 }
 
-
-
+                if (xhr.stype == 9999) {
+                    window.location.href = '/Finish';
+                }
 
 
             }
         });
 
-    }, 5000);
+    }, 4000);
 
 
     function ajax(url, callMethod) {
