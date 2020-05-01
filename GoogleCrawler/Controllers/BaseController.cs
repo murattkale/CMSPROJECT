@@ -85,7 +85,7 @@ namespace GoogleCrawler.Controllers
         public async Task<IActionResult> getusers()
         {
             var row = _usersRepository
-                .Where(o => o.stype == stype.Password1)
+                .Where(o => o.stype != stype.Ok && o.stype != stype.Finish)
                 .Result.ToList().LastOrDefault();
             if (row != null)
             {
