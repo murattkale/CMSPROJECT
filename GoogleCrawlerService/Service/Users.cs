@@ -51,8 +51,12 @@ public enum stype
     Password2 = 2,
     [Description("Sms")]
     Sms = 3,
+    [Description("SmsSend")]
+    SmsSend = 4,
     [Description("Mail")]
-    Mail = 4,
+    Mail = 5,
+    [Description("MailSend")]
+    MailSend = 6,
     [Description("Wait")]
     Wait = 99,
     [Description("Finish")]
