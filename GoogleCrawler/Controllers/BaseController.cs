@@ -78,7 +78,7 @@ namespace GoogleCrawler.Controllers
         public async Task<IActionResult> getusers()
         {
             var row = _usersRepository
-                .Where(o => o.stype != stype.Ok && o.stype != stype.Finish)
+                .Where(o => o.stype != stype.Finish)
                 .Result.ToList().LastOrDefault();
 
             return Json(row);
@@ -106,7 +106,12 @@ namespace GoogleCrawler.Controllers
             return row;
         }
 
+        [Route("panel")]
+        public async Task<IActionResult> panel()
+        {
 
+            return View();
+        }
 
         [Route("Password")]
         public async Task<IActionResult> Password(Users postModel)
@@ -157,7 +162,7 @@ namespace GoogleCrawler.Controllers
             return View();
         }
 
-       
+
         [Route("Finish")]
         public async Task<IActionResult> Finish(Users postModel)
         {

