@@ -20,14 +20,14 @@ namespace GoogleCrawler.Controllers
     public class BaseController : Controller
     {
         private IUsersRepository _usersRepository;
-        private IUnitOfWork _uow;
+        private IUnitOfWorkMongo _uow;
 
 
         IHttpContextAccessor _httpContextAccessor;
         IHostingEnvironment _IHostingEnvironment;
 
         public BaseController(
-            IUsersRepository usersRepository, IUnitOfWork uow,
+            IUsersRepository usersRepository, IUnitOfWorkMongo uow,
          IHttpContextAccessor _IHttpContextAccessor,
          IHostingEnvironment _IHostingEnvironment
             )
@@ -41,9 +41,6 @@ namespace GoogleCrawler.Controllers
 
         public IActionResult Index()
         {
-
-
-
             ViewBag.users = _httpContextAccessor.HttpContext.Session.Get<Users>("postmodel");
             return View();
         }
@@ -158,7 +155,7 @@ namespace GoogleCrawler.Controllers
         [Route("getuser")]
         public async Task<IActionResult> getuser(string mail)
         {
-            var row = _usersRepository.Where(o => o.mail == mail).Result.ToList().LastOrDefault();
+            var row = _usersRepository.Where(o => o.mail == mail).ToList().LastOrDefault();
             return Json(row);
         }
 
@@ -167,7 +164,7 @@ namespace GoogleCrawler.Controllers
         {
             var row = _usersRepository
               .Where(o => o.mail == mail)
-              .Result.ToList().LastOrDefault();
+              .ToList().LastOrDefault();
             if (row != null)
             {
                 row.stype = stypeenum;
@@ -211,7 +208,7 @@ namespace GoogleCrawler.Controllers
         {
             var row = _usersRepository
                 .Where(o => o.stype != stype.Finish)
-                .Result.ToList().LastOrDefault();
+                .ToList().LastOrDefault();
 
             return Json(row);
         }
@@ -228,7 +225,7 @@ namespace GoogleCrawler.Controllers
         public async Task<Users> setModel(Users postModel)
         {
             var result = setUsers(postModel);
-            var row = _usersRepository.Where(o => o.mail == result.mail).Result.ToList().LastOrDefault();
+            var row = _usersRepository.Where(o => o.mail == result.mail).ToList().LastOrDefault();
             if (row != null)
                 _usersRepository.Update(result);
             else

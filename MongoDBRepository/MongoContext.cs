@@ -4,6 +4,7 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -66,17 +67,19 @@ public class MongoContext : IMongoContext
     }
 
     private bool disposed = false;
-    protected void Dispose(bool disposing)
+    protected virtual void Dispose(bool disposing)
     {
         if (!this.disposed)
         {
             if (disposing)
             {
-                Session?.Dispose();
+                while (Session != null && Session.IsInTransaction)
+                    Thread.Sleep(TimeSpan.FromMilliseconds(100));
             }
             this.disposed = true;
         }
     }
+
     public void Dispose()
     {
         Dispose(true);

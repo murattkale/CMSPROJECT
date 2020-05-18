@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic; using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 public interface IBaseModelMongo
 {
 
-    Guid Id { get; set; }
-    DateTime CreaDate { get; set; }
+    string Id { get; }
+    DateTime CreaDate { get; }
     int CreaUser { get; set; }
     int? ModUser { get; set; }
     DateTime? ModDate { get; set; }

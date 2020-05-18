@@ -2,21 +2,21 @@
 using System.Threading.Tasks;
 
 
-    public class UnitOfWork : IUnitOfWork
+public class UnitOfWorkMongo : IUnitOfWorkMongo
+{
+    private readonly IMongoContext _context;
+
+    public UnitOfWorkMongo(IMongoContext context)
     {
-        private readonly IMongoContext _context;
+        _context = context;
+    }
 
-        public UnitOfWork(IMongoContext context)
-        {
-            _context = context;
-        }
+    public async Task<bool> Commit()
+    {
+        var changeAmount = await _context.SaveChanges();
 
-        public async Task<bool> Commit()
-        {
-            var changeAmount = await _context.SaveChanges();
-
-            return changeAmount > 0;
-        }
+        return changeAmount > 0;
+    }
 
     private bool disposed = false;
     protected void Dispose(bool disposing)

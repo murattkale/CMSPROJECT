@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 
 
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWorkMongo : IDisposable
     {
         Task<bool> Commit();
     }

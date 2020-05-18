@@ -22,7 +22,7 @@ public static class SessionRequest
     {
         get
         {
-            return new Users() { Id = Guid.NewGuid(), CreaUser = 1 };
+            return new Users() {  CreaUser = 1 };
         }
         set { }
     }

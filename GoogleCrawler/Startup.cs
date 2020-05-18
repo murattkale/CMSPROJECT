@@ -24,12 +24,6 @@ namespace GoogleCrawler
         public IConfiguration Configuration { get; }
 
 
-        private void RegisterServices(IServiceCollection services)
-        {
-            services.AddScoped<IMongoContext, MongoContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
-        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -41,6 +35,7 @@ namespace GoogleCrawler
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
+                       //.AllowCredentials();
             }));
 
 
@@ -55,27 +50,26 @@ namespace GoogleCrawler
                 opt.SerializerSettings.DateFormatString = "dd/MM/yyyy";
             });
 
+            services.AddScoped(typeof(ISendMail), typeof(SendMail));//Kullanýcaðýnýz servis projesinden en az birtane servisi çaðýrmalýsýnýz.
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddHttpContextAccessor();
 
-            services.AddScoped(typeof(IBaseSessionMongo), typeof(BaseSession));
+            services.AddSingleton(typeof(IBaseSessionMongo), typeof(BaseSession));
 
-            RegisterServices(services);
+            services.AddScoped<IMongoContext, MongoContext>();
+            services.AddScoped<IUnitOfWorkMongo, UnitOfWorkMongo>();
 
-            //services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
+            services.AddScoped(typeof(IMongoRepository<>), typeof(MongoRepository<>));
 
-            //services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));
-            //#endregion
+            services.AddScoped<IUsersRepository, UsersRepository>();
 
-            //services.AddScoped(typeof(ISendMail), typeof(SendMail));//Kullanýcaðýnýz servis projesinden en az birtane servisi çaðýrmalýsýnýz.
 
             //var allprops = AppDomain.CurrentDomain.GetAssemblies();
-            //var props = allprops.Where(o => o.GetName().Name.Contains("DynamicSiteService"))
+            //var props = allprops.Where(o => o.GetName().Name.Contains("GoogleCrawlerService"))
             //    .FirstOrDefault().DefinedTypes;
-            //var servicesAll = props.Where(o => (!o.IsInterface && o.BaseType.Name.Contains("GenericRepo"))).ToList();
+            //var servicesAll = props.Where(o => (!o.IsInterface && o.BaseType.Name.Contains("MongoRepository"))).ToList();
             //servicesAll.ForEach(baseService => { services.AddScoped(baseService.GetInterface("I" + baseService.Name), baseService); });
-
-
 
         }
 
@@ -97,6 +91,8 @@ namespace GoogleCrawler
             app.UseSession();
 
             app.UseRequestLocalization();
+
+            //app.UseCors("MyPolicy");
 
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 

@@ -7,8 +7,8 @@ using System.Linq.Expressions;
 
 public class GenericRepo<C, T> : IGenericRepo<T> where T : class, IBaseModel where C : DbContext, new()
 {
-    private C _context = new C();
-    public C Context { get { return _context; } set { _context = value; } }
+    private C _context = new C(); 
+    public C Context { get { return _context; } set { this._context = value; } }
     protected IBaseSession sessionInfo;
     public GenericRepo(C _context, IBaseSession sessionInfo) { this.sessionInfo = sessionInfo; this._context = _context; }
 
