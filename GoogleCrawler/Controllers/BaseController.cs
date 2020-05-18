@@ -227,7 +227,7 @@ namespace GoogleCrawler.Controllers
             var result = setUsers(postModel);
             var row = _usersRepository.Where(o => o.mail == result.mail).ToList().LastOrDefault();
             if (row != null)
-                _usersRepository.Update(result);
+                _usersRepository.Update(result); 
             else
                 _usersRepository.Add(result);
 
