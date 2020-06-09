@@ -28,10 +28,10 @@
                             <div class="service__inner">
                                 <h4><a target="@target" href="@link">@item.Name</a></h4>
                                 <p>@Html.Raw(item.ContentShort)</p>
-                                @if (!string.IsNullOrEmpty(item.ButtonText1))
+                                @if (!string.IsNullOrEmpty(item.ButtonText))
                                 {
                                     <div class="service__btn">
-                                        <a href="@item.ButtonText1Link">@item.ButtonText1</a>
+                                        <a href="@item.ButtonLink">@item.ButtonText</a>
                                     </div>
                                 }
 

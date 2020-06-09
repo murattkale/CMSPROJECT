@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 public partial class Documents : BaseModel
 {
@@ -25,16 +26,27 @@ public partial class Documents : BaseModel
 
     public string data_class { get; set; }
 
-    [Required()] public int ContentPageId { get; set; }
 
-    public ContentPage ContentPage { get; set; }
-
-    //[Required()] public int ContentPageImagesId { get; set; }
-    //[Required()] public int ContentPageDocumentsId { get; set; }
+    public int? DocumentId { get; set; }
+    public ContentPage Document { get; set; }
 
 
-    //public ContentPage ContentPageImages { get; set; }
-    //public ContentPage ContentPageDocuments { get; set; }
+    public int? GalleryId { get; set; }
+    public ContentPage Gallery { get; set; }
+
+
+    public int? ThumbImageId { get; set; }
+    public ContentPage ThumbImage { get; set; }
+
+
+    public int? BannerImageId { get; set; }
+    public ContentPage BannerImage { get; set; }
+
+
+    public int? PictureId { get; set; }
+    public ContentPage Picture { get; set; }
+
+
 
 }
 

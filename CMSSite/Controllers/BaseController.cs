@@ -56,8 +56,9 @@ namespace CMS.Controllers
             var kurum = _IKurumService.Where(o => o.Id == SessionRequest.KurumId).Result.FirstOrDefault();
             _httpContextAccessor.HttpContext.Session.Set("kurum", kurum);
 
-            var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result;
-            var footer = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result;
+            //var header = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsHeaderMenu == true).Result;
+            //var footer = _IContentPageService.Where(o => o.KurumId == SessionRequest.KurumId && o.IsFooterMenu == true).Result;
+#warning düzenlenecek
 
 
             if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))))
@@ -75,8 +76,8 @@ namespace CMS.Controllers
             }
 
 
-            _httpContextAccessor.HttpContext.Session.Set("header", header.ToList());
-            _httpContextAccessor.HttpContext.Session.Set("footer", footer.ToList());
+            //_httpContextAccessor.HttpContext.Session.Set("header", header.ToList());
+            //_httpContextAccessor.HttpContext.Session.Set("footer", footer.ToList());
         }
 
         public IActionResult Index()

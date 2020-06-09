@@ -33,21 +33,14 @@
                             </div>
                             <hr />
 
-                            @if (!string.IsNullOrEmpty(_page.ButtonText1))
+                            @if (!string.IsNullOrEmpty(_page.ButtonText))
                             {
-                                <a class="dcare__btn" href="@_page.ButtonText1Link">
-                                    @_page.ButtonText1
+                                <a class="dcare__btn" href="@_page.ButtonLink">
+                                    @_page.ButtonText
                                 </a>
                             }
                             <hr />
 
-                            @if (!string.IsNullOrEmpty(_page.ButtonText2))
-                            {
-                                <a class="dcare__btn" href="@_page.ButtonText2Link">
-                                    @_page.ButtonText2
-                                </a>
-                            }
-                            <hr />
 
 
                             @if (!string.IsNullOrEmpty(_page.ContentShort))

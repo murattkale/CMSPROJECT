@@ -32,19 +32,13 @@
                                                 <p style="z-index:9999 !important;color: #ffffff !important; font-size:28px !important;font-weight:bold !important;">@Html.Raw(contents.ContentData)</p>
                                             }
 
-                                            @if (!string.IsNullOrEmpty(contents.ButtonText1))
+                                            @if (!string.IsNullOrEmpty(contents.ButtonText))
                                             {
                                                 <div style="z-index:9999 !important;color:#ffffff !important;" class="slider__btn">
-                                                    <a style="color:#ffffff !important;" class="dcare__btn max__height-btn hover--theme-white" href="@contents.ButtonText1Link">@Html.Raw(contents.ButtonText1)</a>
+                                                    <a style="color:#ffffff !important;" class="dcare__btn max__height-btn hover--theme-white" href="@contents.ButtonLink">@Html.Raw(contents.ButtonText)</a>
                                                 </div>
                                             }
 
-                                            @if (!string.IsNullOrEmpty(contents.ButtonText2))
-                                            {
-                                                <div style="z-index:9999 !important;color:#ffffff !important;" class="slider__btn">
-                                                    <a style="color:#ffffff !important;" class="dcare__btn max__height-btn hover--theme-white" href="@contents.ButtonText2Link">@contents.ButtonText2</a>
-                                                </div>
-                                            }
 
                                         </div>
 

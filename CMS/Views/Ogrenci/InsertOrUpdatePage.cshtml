@@ -6,7 +6,7 @@
     var title = "Öğrenci";
 
 }
-@Html.Raw(edit.DynamicInputHelper2("",
+@Html.Raw(edit.DynamicInput("",
                         "", "", title, "page", "col-md-4", "col-md-8", "col-md-6",
                        "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
                        "<input type='submit' value='" + "Öğrenci Kaydet" + "' " +
@@ -23,7 +23,7 @@
         row = new OgrenciDetay();
     row.OgrenciId = edit.Id;
 
-    OgrenciDetayStr = row.DynamicInputHelper2("",
+    OgrenciDetayStr = row.DynamicInput("",
                     "", "SinifTekrar", "Öğrenci Detay Bilgileri", "page", "col-md-4", "col-md-8", "col-md-6",
                    "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
                    "<input type='submit' value='" + "Öğrenci Detaylarını Kaydet" + "' " +
@@ -41,7 +41,7 @@
         var rowVeliDetay = new VeliDetay();
         rowVeliDetay.OgrenciDetayId = row.Id;
 
-        VeliDetayStr = rowVeliDetay.DynamicInputHelper2("",
+        VeliDetayStr = rowVeliDetay.DynamicInput("",
                         "", "", "Veli Detay Bilgileri", "page", "col-md-4", "col-md-8", "col-md-6",
                        "<div class='form-group row float-md-right'><div class='col-md-offset-9 col-md-9'>" +
                        "<input type='submit' value='" + "Veli Detaylarını Kaydet" + "' " +

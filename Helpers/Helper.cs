@@ -84,24 +84,16 @@ public static class Helpers
         Dictionary<string, object> attribs = new Dictionary<string, object>();
         foreach (CustomAttributeData attribData in property.GetCustomAttributesData())
         {
-
             string typeName = attribData.Constructor.DeclaringType.Name;
             if (typeName.EndsWith("Attribute"))
                 typeName = typeName.Substring(0, typeName.Length - 9);
 
             if (typeName == "Required")
-            {
                 attribs[typeName] = typeName.ToLower();
-            }
             else if (typeName == "DataType")
-            {
                 attribs[typeName] = attribData.ConstructorArguments[0].Value;
-            }
             else
-            {
-                attribs[typeName] = attribData.ConstructorArguments[0].Value;
-            }
-
+                attribs[typeName] = attribData.ConstructorArguments.Count > 0 ? attribData.ConstructorArguments[0].Value : "";
         }
         return attribs;
     }
@@ -111,62 +103,39 @@ public static class Helpers
         container.GetType().GetProperty(propertyName).SetValue(container, value, null);
     }
 
-
-
-    public static Object GetPropValue(this Object obj, String propName)
-    {
-        string[] nameParts = propName.Split('.');
-        if (nameParts.Length == 1)
-        {
-            Type type = obj.GetType();
-            PropertyInfo info = type.GetProperty(nameParts[0]);
-            if (info == null) { return null; }
-
-            if (info.PropertyType.Name.ToLower().Contains("collection"))
-            {
-                return (info.GetValue(obj, null) as IEnumerable<object>).Cast<object>().ToList();
-            }
-            else if (info.PropertyType.IsEnum)
-            {
-                return (int)info.GetValue(obj, null);
-            }
-            else
-            {
-                return info.GetValue(obj, null);
-            }
-        }
-
+    public static object GetPropValue(this object obj, string fieldName)
+    { //<-- fieldName = "Details.Name"
+        object value = null;
+        string[] nameParts = fieldName.Split('.');
         foreach (String part in nameParts)
         {
-            if (obj == null) { return null; }
+            if (obj == null) { return ""; }
 
             Type type = obj.GetType();
             PropertyInfo info = type.GetProperty(part);
-            if (info == null) { return null; }
+            if (info == null) { return ""; }
 
             if (info.PropertyType.Name.ToLower().Contains("collection"))
             {
-                obj = (IList)info.GetValue(obj, null);
-            }
-            else if (info.PropertyType.IsEnum)
-            {
-                obj = (int)info.GetValue(obj, null);
+                value = info.GetValue(obj, null) as IList;
+                //foreach (var item in list) //<-- this list should be the "Details" property
+                //{
+                //    value += "," + item;
+                //}
             }
             else
             {
-                obj = info.GetValue(obj, null);
+                value = info.GetValue(obj, null);
             }
+
         }
-        return obj;
+        return value;
     }
 
-
-
-    public static string DynamicInputHelper2(this object model, string controllerName, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
+    public static string DynamicInput(this object model, string controllerName, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
     {
         string str = "";
         string strScript = "";
-
         str += "<div formdata='" + model.GetType().Name + "'  class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
         str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
         str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                       ";
@@ -175,6 +144,7 @@ public static class Helpers
         str += "          </div>";
         str += "     </div>";
 
+        #region popup
         if (PageType == "modal")
         {
             str += "<style>.modal-dialog {width: 75% !important;} /*.form-group.row{margin-left: 0px;}*/</style>";
@@ -188,11 +158,14 @@ public static class Helpers
             str += "          </div>                                                                                                                                             ";
             str += "</div>                                                                                                                                                 ";
         }
+        #endregion
+
         str += "<div class='kt-portlet__body'>                                                                                                                         ";
         str += "    <div class='form-horizontal'>                                                                                                                      ";
 
         try
         {
+            #region Configurations
             Type t = model.GetType();
             controllerName = string.IsNullOrEmpty(controllerName) ? t.Name : controllerName;
 
@@ -201,40 +174,40 @@ public static class Helpers
             var props = t.GetProperties().ToList();
 
             var baseType = new BaseModel().GetType().GetProperties().Where(o => o.Name != "ModDate" && o.Name != "CreaDate").ToList();
-            props = props.AsQueryable().Where(d => d.Name != "ModDate" && d.Name != "CreaDate").ToList();
+            props = props.AsQueryable().Where(d => d.Name != "ModDate" && d.Name != "CreaDate" && !GetPropertyAttributes(d).Keys.Any(oo => oo == "NotMapped")).ToList();
+
+            var IdValue = model.GetPropValue("Id");
 
             baseType.ForEach(prp =>
-                    {
+            {
 
-                        if (prp.PropertyType.Name != "DateTime")
-                        {
-                            str +=
-                                          "<input  " +
-                                          "id='" + prp.Name + "' " +
-                                          "name='" + prp.Name + "' " +
-                                          "value='" + model.GetPropValue(prp.Name) + "' " +
-                                          "type='hidden'>  ";
-                        }
-                        else
-                        {
-                            str +=
-                                          "<input  " +
-                                          "id='" + prp.Name + "' " +
-                                          "name='" + prp.Name + "' " +
-                                          "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value.ToShortDateString() + "' " +
-                                          "type='hidden'>  ";
-                        }
-                        props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
+                if (prp.PropertyType.Name != "DateTime")
+                {
+                    str +=
+                                  "<input  " +
+                                  "id='" + prp.Name + "' " +
+                                  "name='" + prp.Name + "' " +
+                                  "value='" + model.GetPropValue(prp.Name) + "' " +
+                                  "type='hidden'>  ";
+                }
+                else
+                {
+                    str +=
+                                  "<input  " +
+                                  "id='" + prp.Name + "' " +
+                                  "name='" + prp.Name + "' " +
+                                  "value='" + model.GetPropValue(prp.Name)?.ToDateTime().Value.ToShortDateString() + "' " +
+                                  "type='hidden'>  ";
+                }
+                props = props.AsQueryable().Where(d => d.Name != prp.Name).ToList();
 
-                    });
-
+            });
 
             if (!string.IsNullOrEmpty(nonProp))
                 nonProp.Split(",").ToList().ForEach(o =>
                 {
                     props = props.AsQueryable().Where(d => d.Name != o.Trim()).ToList();
                 });
-
 
             var orderbyProps = props.AsQueryable().OrderBy(oo => "" == "");
 
@@ -245,13 +218,26 @@ public static class Helpers
                         props = orderbyProps.ThenBy(oo => oo.Name == o.Trim()).ToList();
                 });
 
+            #endregion
+
             #region forms
             str += "<div class='form-group row'>";
+
             foreach (var prp in props)
             {
                 try
                 {
+                    #region Group Label
+                    if (prp.Name == "ContentPageId")
+                        str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>1. Sayfa Yapısı</h3> </div> </div> </div>";
+                    //if (prp.Name == "BannerImage")
+                    //    str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>2. Sayfa İçeriği</h3> </div> </div> </div>";
+                    else if (prp.Name == "LangId")
+                        str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>3. Sayfa Ayarları</h3> </div> </div> </div>";
+                    #endregion
+
                     object value = null;
+                    #region Set Value Custom
                     switch (Type.GetTypeCode(prp.PropertyType))
                     {
                         case TypeCode.Boolean:
@@ -271,28 +257,29 @@ public static class Helpers
                         case TypeCode.String:
                         case TypeCode.Object:
                             {
+                                value = model.GetPropValue(prp.Name);
+                                //if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
+                                //    if (prp.Name == "Documents" || prp.Name == "Gallery")
+                                //        value = model.GetPropValue(prp.Name);
+                                //    else
+                                //        value = model.GetPropValue(prp.Name);
 
-                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
-                                {
-                                    if (prp.Name != "Documents")
-                                        break;
-                                    else
-                                        value = model.GetPropValue(prp.Name);
-                                }
-                                else
-                                    value = model.GetPropValue(prp.Name);
                                 break;
                             }
                     }
+                    #endregion
 
                     var dName = GetPropertyAttributes(prp);
 
+                    #region Display Label Name
                     var DisplayName = "";
                     if (dName.Count > 0 && dName.Any(o => o.Key == "DisplayName"))
                         DisplayName = dName.FirstOrDefault(o => o.Key == "DisplayName").Value.ToStr();
                     else
                         DisplayName = prp.Name;
+                    #endregion
 
+                    #region Required
                     var Required = "";
                     var strReq = "";
                     var placeholder = "";
@@ -300,9 +287,10 @@ public static class Helpers
                     {
                         Required = dName.FirstOrDefault(o => o.Key == "Required").Value.ToStr();
                         placeholder = DisplayName;
-                        strReq = " <span class='required'> * </span>";
+                        strReq = " <span style='color:red;' class='required'> * </span>";
                         DisplayName += strReq;
                     }
+                    #endregion
 
                     switch (Type.GetTypeCode(prp.PropertyType))
                     {
@@ -313,41 +301,211 @@ public static class Helpers
                         case TypeCode.UInt64:
                         case TypeCode.Object:
                             {
-                                if (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity"))
+                                if (IdValue.ToInt() > 0 && (prp.PropertyType.Name == "ICollection`1" || prp.PropertyType.FullName.Contains("Entity")))
                                 {
-                                    if (prp.Name != "Documents")
-                                        break;
-                                    else
+                                    if (prp.Name == "Documents" || prp.Name == "Gallery")
                                     {
                                         str += "<div class='" + "col-md-12" + "'><div class='row form-group shadow p-3 mb-5 bg-white rounded'>";
-                                        str += "<div class='" + "col-md-6" + "'>";
+                                        str += "<div class='" + "col-md-4" + "'>";
                                         str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'><h3>" + DisplayName + "</h3></label></div>";
                                         str += "</div>";
-                                        str += "<div class='" + "col-md-6" + "'>";
-                                        str += "<input multiple for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
+                                        str += "<div class='" + "col-md-4" + "'>";
+                                        str += "<input multiple class='btn-default' for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
                                         str += "</div>";
-
+                                        str += "<div class='" + "col-md-4" + "'>";
+                                        str += "<input value='Yükle' class='btn-default' id='btn_" + prp.Name + "' type='button'>    ";
+                                        str += "</div>";
                                         str += "<div class='" + "col-md-12" + "'>";
                                         str += "<div class='row form-group'>";
-
                                         str += "</div>";
                                         str += "</div>";
                                         if (value != null)
                                         {
-                                            str += "  <div class='col-md-12' style='padding:10px;overflow-x:scroll;' >                                              ";
+                                            str += "  <div id='filediv_" + prp.Name + "' class='filediv col-md-12' style='padding:10px;overflow-x:scroll;' >                                              ";
                                             foreach (var image in (value as IEnumerable<object>).Cast<object>().ToList())
                                             {
+
                                                 var link = "/uploads/" + image.GetPropValue("Link");
                                                 str += "             <div class='shadow p-3 mb-5 bg-white rounded' dataid='" + image.GetPropValue("Id") + "' style='float:left;margin:5px;'>                                              ";
-                                                str += "                 <img src='" + link + "' dataid='" + image.GetPropValue("Link") + "' name='" + image.GetPropValue("Name") + "' alt='" + image.GetPropValue("Alt") + "' title='" + image.GetPropValue("Title") + "' width='100' height='100' />                  ";
-                                                str += "                 <a href='javascript:;' dataid='" + image.GetPropValue("Id") + "' class='deleteImage'><i style='margin:5px !important; ' class='far fa-trash-alt'></i></a>        ";
-                                                str += "             </div>                                                                                                                                        ";
-                                                str += "                                                                                                                                                           ";
+
+                                                var linkStr = "<a href='" + link + "' title='" + image.GetPropValue("Title") + "' target='_blank' >" + image.GetPropValue("Name") + "</a>        ";
+
+                                                if (image.GetPropValue("Name").ToStr().Contains(".png") || image.GetPropValue("Name").ToStr().Contains(".jpeg") || image.GetPropValue("Name").ToStr().Contains(".jpg"))
+                                                {
+                                                    var imageStr = "                 <img src='" + link + "' dataid='" + image.GetPropValue("Link") + "' name='" + image.GetPropValue("Name") + "' " +
+                                                         "alt='" + image.GetPropValue("Alt") + "' " +
+                                                         "title='" + image.GetPropValue("Title") + "' width='100' height='100' />                  ";
+                                                    linkStr = "<a href='" + link + "' title='" + image.GetPropValue("Title") + "' target='_blank' >" + imageStr + "</a>        ";
+                                                }
+                                                str += linkStr;
+
+                                                str += "</div>";
                                             }
                                             str += "</div>                                                                                                                                                   ";
                                         }
+
                                         str += "</div></div>";
+
+
+
+                                        var gallleryOrdocumentName = prp.Name == "Gallery" ? "Gallery" : "Document";
+                                        #region JS UPLOAD
+                                        var strUpload = $"   $('#btn_{prp.Name}').click(function(e)                                                               ";
+                                        strUpload += " {                                                                                  ";
+
+                                        strUpload += "      var fileUpload = $('#' + 'file_" + prp.Name + "').get(0);                                                                     ";
+                                        strUpload += "      var files = fileUpload.files;                                                                                             ";
+                                        strUpload += "      var maxFiles = 10;                                                                                                        ";
+                                        strUpload += "                                                                                                                                ";
+                                        strUpload += "      if (files.length > maxFiles) {                                                                                            ";
+                                        strUpload += "          alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');                                                          ";
+                                        strUpload += "          return;                                                                                                               ";
+                                        strUpload += "      }                                                                                                                         ";
+                                        strUpload += $"      var totalImage = ($('#filediv_{prp.Name} .deleteImage[dataid]').length + files.length);                                                       ";
+                                        strUpload += "      if (totalImage > maxFiles) {                                                                                              ";
+                                        strUpload += $"          alert($('#filediv_{prp.Name} .deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');  ";
+                                        strUpload += "          return;                                                                                                               ";
+                                        strUpload += "      }                                                                                                                         ";
+                                        strUpload += "                                                                                                                                ";
+                                        strUpload += "      var fileData = new FormData();                                                                                            ";
+                                        strUpload += "      for (var i = 0; i < files.length; i++) {                                                                                  ";
+                                        strUpload += "          fileData.append('files', files[i]);                                                                                   ";
+                                        strUpload += "      }                                                                                                                         ";
+                                        strUpload += "   var postModel = []; var ids={Name:'" + gallleryOrdocumentName + "',Id:" + (IdValue.ToInt() > 0 ? IdValue : 0) + "};   postModel.push(ids); fileData.append('postmodel', JSON.stringify(postModel));                                                                  ";
+
+
+                                        strUpload += "        $.LoadingOverlay('show');";
+                                        strUpload += $"       $.ajxUpload('/{controllerName}/ImportDocuments',                                                           ";
+                                        strUpload += "        fileData, function(resultData) {                                           ";
+
+                                        strUpload += "       alerts('Yüklendi'); location.reload();                                            ";
+
+                                        strUpload += "        $.LoadingOverlay('hide');                                                                  ";
+                                        strUpload += "        }, function() { location.reload(); });                                                     ";
+                                        strUpload += "        });                                                                                        ";
+
+
+
+                                        strUpload += $" $('#filediv_{prp.Name} .deleteImage').click(function ()                                                           ";
+                                        strUpload += " { var id = $(this).attr('dataid');                                                               ";
+                                        strUpload += " alerts('Silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
+                                        strUpload += "     if (result == true) {                                                                      ";
+                                        strUpload += "         $.LoadingOverlay('show');                                                              ";
+
+
+                                        strUpload += $"        $.ajx('/{controllerName}/DeleteImage',";
+                                        strUpload += "{ id: id }, function (resultID) { ";
+                                        strUpload += $@"           $(""#filediv_{prp.Name} div[dataid='"" + resultID + ""']"").remove();                                      ";
+                                        strUpload += "            $.LoadingOverlay('hide');                                                          ";
+                                        strUpload += "         });                                                                                    ";
+
+                                        strUpload += "     }                                                                                          ";
+                                        strUpload += " });   });                                                                                      ";
+
+
+
+                                        str += "    <script>$(function(){ " + strUpload + " }) </script> ";
+                                        #endregion
+
+
                                     }
+                                }
+                                else if (IdValue.ToInt() > 0 && prp.PropertyType.Name == "Documents")
+                                {
+
+                                    str += "<div style='margin:1px;' class='" + "col-md-5" + "'><div class='row form-group'>";
+                                    str += "<div class='" + "col-md-3" + "'><label class='control-label ' for='" + prp.Name + "'><h6>" + DisplayName + "</h6></label></div>";
+                                    str += "<div class='" + "col-md-6" + "'>";
+                                    str += "<input class='btn-default' for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
+                                    str += "</div>";
+                                    str += "<div class='" + "col-md-1" + "'>";
+                                    str += "<input value='Yükle' class='btn-default' id='btn_" + prp.Name + "' type='button'>    ";
+                                    str += "</div>";
+
+
+
+                                    if (value != null)
+                                    {
+                                        str += "  <div text='" + prp.Name + "'  id='filediv_" + prp.Name + "' class='filediv col-md-12' style='padding:7px;' >                                              ";
+
+                                        var link = "/uploads/" + value.GetPropValue("Link");
+                                        str += "             <div class='shadow p-3 mb-5 bg-white rounded' dataid='" + value.GetPropValue("Id") + "' style='float:left;margin:5px;'>                                              ";
+
+                                        var linkStr = "<a href='" + link + "' title='" + value.GetPropValue("Title") + "' target='_blank' >" + value.GetPropValue("Name") + "</a>        ";
+
+                                        if (value.GetPropValue("Name").ToStr().Contains(".png") || value.GetPropValue("Name").ToStr().Contains(".jpeg") || value.GetPropValue("Name").ToStr().Contains(".jpg"))
+                                        {
+                                            var imageStr = "                 <img src='" + link + "' dataid='" + value.GetPropValue("Link") + "' name='" + value.GetPropValue("Name") + "' " +
+                                                 "alt='" + value.GetPropValue("Alt") + "' " +
+                                                 "title='" + value.GetPropValue("Title") + "' width='100' height='100' />                  ";
+                                            linkStr = "<a href='" + link + "' title='" + value.GetPropValue("Title") + "' target='_blank' >" + imageStr + "</a>        ";
+                                        }
+                                        str += linkStr;
+
+                                        str += "                 <a href='javascript:;' dataid='" + value.GetPropValue("Id") + "' class='deleteImage'><i style='margin:5px !important; ' class='far fa-trash-alt'></i></a>        ";
+                                        str += "             </div>                                                                                                                                        ";
+                                        str += "                                                                                                                                                           ";
+
+                                        str += "</div>                                                                                                                                                   ";
+                                    }
+
+                                    str += "</div></div>";
+
+
+                                    #region JS UPLOAD
+                                    var strUpload = $"   $('#btn_{prp.Name}').click(function(e)                                                               ";
+                                    strUpload += " {                                                                                  ";
+
+                                    strUpload += "      var fileUpload = $('#' + 'file_" + prp.Name + "').get(0);                                                                     ";
+                                    strUpload += "      var files = fileUpload.files;                                                                                             ";
+                                    strUpload += "                                                                                                                                ";
+                                    strUpload += "      if (files.length <1) {                                                                                            ";
+                                    strUpload += "          alert('Lütfen görsel ekleyiniz.');                                                          ";
+                                    strUpload += "          return;                                                                                                               ";
+                                    strUpload += "      }                                                                                                                         ";
+
+                                    strUpload += "                                                                                                                                ";
+                                    strUpload += "      var fileData = new FormData();                                                                                            ";
+                                    strUpload += "      for (var i = 0; i < files.length; i++) {                                                                                  ";
+                                    strUpload += "          fileData.append('files', files[i]);                                                                                   ";
+                                    strUpload += "      }                                                                                                                         ";
+                                    strUpload += "   var postModel = []; var ids={text:'" + prp.Name + "',value:" + (IdValue.ToInt() > 0 ? IdValue : 0) + "};   postModel.push(ids); fileData.append('postmodel', JSON.stringify(postModel));                                                                  ";
+
+                                    strUpload += "        $.LoadingOverlay('show');";
+                                    strUpload += $"       $.ajxUpload('/{controllerName}/ImportDocumentsSingle',                                                           ";
+                                    strUpload += "        fileData, function(resultData) {                                           ";
+
+                                    strUpload += "        alerts('Yüklendi');    location.reload();                                          ";
+
+                                    strUpload += "        $.LoadingOverlay('hide');                                                                  ";
+                                    strUpload += "        }, function() { location.reload(); });                                                     ";
+                                    strUpload += "        });                                                                                        ";
+
+
+
+                                    #region Delete Image
+                                    strUpload += $" $('#filediv_{prp.Name} .deleteImage').click(function ()                                                           ";
+                                    strUpload += " { var id = $(this).attr('dataid');                                                               ";
+                                    strUpload += " alerts('Silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
+                                    strUpload += "     if (result == true) {                                                                      ";
+                                    strUpload += "         $.LoadingOverlay('show');                                                              ";
+
+
+                                    strUpload += $"        $.ajx('/{controllerName}/DeleteImage',";
+                                    strUpload += "{ id: id }, function (resultID) { ";
+                                    strUpload += $@"           $(""#filediv_{prp.Name} div[dataid='"" + resultID + ""']"").remove();                                      ";
+                                    strUpload += "            $.LoadingOverlay('hide');                                                          ";
+                                    strUpload += "         });                                                                                    ";
+
+                                    strUpload += "     }                                                                                          ";
+                                    strUpload += " });   });                                                                                      ";
+
+                                    #endregion
+
+
+                                    str += "    <script>$(function(){ " + strUpload + " }) </script> ";
+                                    #endregion
+
                                 }
                                 else
                                 {
@@ -453,9 +611,9 @@ public static class Helpers
                                         "name='dp_" + prp.Name + "' " +
                                         "class='form-control '>" +
                                         "</select>";
-                                    str += "</div></div></div>";
+                                    str += "</div></div></div>" + Environment.NewLine;
 
-                                    strScript += " function Get" + prp.Name + "() { var enumTypeValue = getEnumRow(" + prp.Name + "All" + ",'" + value + "').value;  $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, enumTypeValue, '' , 'Seçiniz'); } Get" + prp.Name + "(); ";
+                                    strScript += " $('#dp_" + prp.Name + "').addOptionAjax('/" + t.Name + "/Get" + prp.Name + "', null, 'value', 'text', function () { }, function () { }, '" + (value == null ? "" : ((int)value).ToStr()) + "', '' , 'Seçiniz');";
                                 }
                                 else
                                 {
@@ -557,12 +715,15 @@ public static class Helpers
 
                                 if (textName != "")
                                 {
-                                    str += "<div class='" + "col-md-12" + "'><div class='row form-group'>";
-                                    str += "<div class='" + "col-md-2" + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
-                                    str += "<div class='" + "col-md-10" + "'> ";
-                                    str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + placeholder +
-                                        "' class='form-control'>" + value.ToStr().Trim() + "</textarea>";
-                                    str += "</div></div></div>";
+                                    if (textName == "text")
+                                    {
+                                        str += "<div class='" + "col-md-12" + "'><div class='row form-group'>";
+                                        str += "<div class='" + "col-md-2" + "'><label class='control-label ' for='" + prp.Name + "'>" + DisplayName + "</label></div>";
+                                        str += "<div class='" + "col-md-10" + "'> ";
+                                        str += " <textarea id='" + prp.Name + "' name='" + prp.Name + "' placeholder='" + placeholder +
+                                            "' class='form-control'>" + value.ToStr().Trim() + "</textarea>";
+                                        str += "</div></div></div>";
+                                    }
 
                                 }
                                 else
@@ -612,7 +773,7 @@ public static class Helpers
             strScript += $"    $('#{formname} textarea').each(function()    ";
             strScript += "{       if (CKEDITOR.instances[$(this).attr('name')])                ";
             strScript += "           CKEDITOR.instances[$(this).attr('name')].destroy();      ";
-            strScript += "       CKEDITOR.replace($(this).attr('name'), { });                 ";
+            strScript += "       CKEDITOR.replace($(this).attr('name'), { }); CKEDITOR.instances[$(this).attr('name')].config.allowedContent = true;   CKEDITOR.instances[$(this).attr('name')].config.autoParagraph = false;              ";
             strScript += "   });                                                              ";
             #endregion
             #region ceoLink
@@ -626,90 +787,23 @@ public static class Helpers
             strScript += "           $('#Name').dup({ target: '#MetaDescription' });  ";
             strScript += "       } catch (e) { }                                      ";
             #endregion
-            #region UploadDelete
-            if (props.Where(o => o.Name == "Documents").Any())
-            {
-                strScript += $" $('#{formname} .deleteImage').click(function ()                                                           ";
-                strScript += " { var id = $(this).attr('dataid');                                                               ";
-                strScript += " alerts('Resimi silmek istediğinize emin misiniz ? ', 'yesno', function (result) {              ";
-                strScript += "     if (result == true) {                                                                      ";
-                strScript += "         $.LoadingOverlay('show');                                                              ";
 
-
-                strScript += $"        $.ajx('/{controllerName}/DeleteImage',";
-                strScript += "{ id: id }, function (resultID) { ";
-                strScript += $@"           $(""#{formname} div[dataid='"" + resultID + ""']"").remove();                                      ";
-                strScript += "            $.LoadingOverlay('hide');                                                          ";
-                strScript += "         });                                                                                    ";
-
-
-                strScript += "     }                                                                                          ";
-                strScript += " });   });                                                                                      ";
-            }
-            #endregion
             #region Submit
+
             strScript += $"   $('#{formname}').submit(function(e)                                                               ";
             strScript += " {      e.preventDefault();                                                                                  ";
             strScript += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
 
-            if (props.Where(o => o.Name == "Documents").Any())
-            {
-                strScript += "      var fileUpload = $('#' + 'file_" + "Documents" + "').get(0);                                                                     ";
-                strScript += "      var files = fileUpload.files;                                                                                             ";
-                strScript += "      var maxFiles = 10;                                                                                                        ";
-                strScript += "                                                                                                                                ";
-                strScript += "      if (files.length > maxFiles) {                                                                                            ";
-                strScript += "          alert('Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');                                                          ";
-                strScript += "          return;                                                                                                               ";
-                strScript += "      }                                                                                                                         ";
-                strScript += $"      var totalImage = ($('#{formname} .deleteImage[dataid]').length + files.length);                                                       ";
-                strScript += "      if (totalImage > maxFiles) {                                                                                              ";
-                strScript += $"          alert($('#{formname} .deleteImage[dataid]').length + ' adet görsel mevcut. Lütfen Maksimum ' + maxFiles + ' görsel ekleyiniz.');  ";
-                strScript += "          return;                                                                                                               ";
-                strScript += "      }                                                                                                                         ";
-                strScript += "                                                                                                                                ";
-                strScript += "      var fileData = new FormData();                                                                                            ";
-                strScript += "      for (var i = 0; i < files.length; i++) {                                                                                  ";
-                strScript += "          fileData.append('files', files[i]);                                                                                   ";
-                strScript += "      }                                                                                                                         ";
-                strScript += "      fileData.append('postmodel', JSON.stringify(postModel));                                                                  ";
+            strScript += "        $.LoadingOverlay('show');";
+            strScript += $"       $.ajx('/{controllerName}/InsertOrUpdate',                                                           ";
+            strScript += "        { postModel: postModel }, function(resultData) {                                           ";
 
-                strScript += "        $.LoadingOverlay('show');";
-                strScript += $"       $.ajxUpload('/{controllerName}/InsertOrUpdate',                                                           ";
-                strScript += "        fileData, function(resultData) {                                           ";
-                strScript += "        if (resultData.ResultType.RType != 3)                                                      ";
-                strScript += "        {           try {                                                                          ";
-                strScript += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
-                strScript += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
-                strScript += "        }                                                                                          ";
-                strScript += "        else                                                                                       ";
-                strScript += "        {                                                                                          ";
-                strScript += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
-                strScript += "        }                                                                                          ";
-                strScript += "        $.LoadingOverlay('hide');                                                                  ";
-                strScript += "        }, function() { location.reload(); });                                                     ";
-                strScript += "        });                                                                                        ";
+            strScript += "try {location.href='/ContentPage/InsertOrUpdatePage?id=' + resultData.Id;} catch(ex){ location.reload();}";
 
+            strScript += "        $.LoadingOverlay('hide');                                                                  ";
+            strScript += "        }, function() {location.reload(); });                                                     ";
+            strScript += "        });                                                                                        ";
 
-            }
-            else
-            {
-                strScript += "        $.LoadingOverlay('show');";
-                strScript += $"       $.ajx('/{controllerName}/InsertOrUpdate',                                                           ";
-                strScript += "        { postModel: postModel }, function(resultData) {                                           ";
-                strScript += "        if (resultData.ResultType.RType != 3)                                                      ";
-                strScript += "        {           try {                                                                          ";
-                strScript += $"       {t.Name}_ListFunc.GetPaging();                                                             ";
-                strScript += @"       $(""#ajaxSub button[data-dismiss='modal']"").click();    } catch (e) {location.reload();}  ";
-                strScript += "        }                                                                                          ";
-                strScript += "        else                                                                                       ";
-                strScript += "        {                                                                                          ";
-                strScript += "        alerts(resultData.ResultType.MessageList[0]);                                              ";
-                strScript += "        }                                                                                          ";
-                strScript += "        $.LoadingOverlay('hide');                                                                  ";
-                strScript += "        }, function() { location.reload(); });                                                     ";
-                strScript += "        });                                                                                        ";
-            }
 
             #endregion
 
@@ -726,6 +820,7 @@ public static class Helpers
 
         return str;
     }
+
 
 
     private static Dictionary<Type, PropertyInfo[]> _TypesWithWriteableProperties = new Dictionary<Type, PropertyInfo[]>();
@@ -2239,6 +2334,7 @@ public static class Helpers
                 Uri.EscapeDataString(x.Key), "=",
                 Uri.EscapeDataString(x.Value.ToString()))));
     }
+
 
 
     public static bool isMail(this string email)

@@ -50,12 +50,13 @@ namespace CMS.Components
 
             var paths = _httpContextAccessor.HttpContext.Request.Path.ToUriComponent().Split('/').Where(o => !string.IsNullOrEmpty(o)).ToList();
 
-            listAll = listAll.Where(o => o.KurumId == SessionRequest.KurumId);
+            //listAll = listAll.Where(o => o.KurumId == SessionRequest.KurumId);
+#warning düzenlenecek
 
             if (paths.Count() > 2 && paths.Any(o => (o.Contains("sube") || o.Contains("iletisim"))) && SessionRequest.SubeId > 0)
             {
                 SessionRequest.SubeId = paths.LastOrDefault().ToInt();
-                listAll = listAll.Where(o => o.SubeId == SessionRequest.SubeId);
+#warning düzenlenecek               //listAll = listAll.Where(o => o.SubeId == SessionRequest.SubeId);
             }
             else
             {

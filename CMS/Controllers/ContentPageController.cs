@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Converters;
+using Entity;
 
 namespace CMS.Controllers
 {
@@ -32,20 +33,15 @@ namespace CMS.Controllers
         [HttpPost]
         public JsonResult GetPaging(DTParameters<ContentPage> param, ContentPage searchModel)
         {
-            //var list = _IContentPageService.Where(null, false, true).Result.ToList();
-            //list.ForEach(o => o.LangId = 1);
-            //_IContentPageService.UpdateBulk(list);
-            //_IContentPageService.SaveChanges();
-            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Kurum, o => o.Sube ,o => o.Lang, o => o.Documents, o => o.ContentPageChilds, o => o.Parent);
-            result.data = result.data.OrderByDescending(o => o.Id).ThenByDescending(o => o.Name).ToList();
+            var result = _IContentPageService.GetPaging(null, true, param, false, o => o.Lang, o => o.Documents, o => o.ContentPageChilds, o => o.Parent);
+            result.data = result.data.OrderByDescending(o => o.CreaDate).ThenByDescending(o => o.Name).ToList();
             return Json(result);
         }
 
         [HttpPost]
         public JsonResult GetSelect()
         {
-            var result = _IContentPageService.Where(null, true, false, o => o.Parent, o => o.Parent.Parent)
-               .Result.Select(o => new { value = o.Id, text = (o.Parent.Parent == null ? "" : o.Parent.Parent.Name + " / ") + (o.Parent == null ? "" : o.Parent.Name + " / ") + o.Name });
+            var result = _IContentPageService.Where(o => o.Name != "").Result.Select(o => new { value = o.Id, text = o.Name }).ToList();
             return Json(result);
         }
 
@@ -63,37 +59,12 @@ namespace CMS.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertOrUpdate()
+        public JsonResult InsertOrUpdate(ContentPage postmodel)
         {
             try
             {
-                var postModel = HttpContext.Request.Form["postmodel"][0].Deserialize<ContentPage>("dd/MM/yyyy");
-                var result = _IContentPageService.InsertOrUpdate(postModel);
-
-                if (result.ResultType.RType == RType.OK)
-                {
-                    var files = HttpContext.Request.Form.Files.ToList();
-                    files.ForEach(source =>
-                    {
-                        string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
-                        var orjinalFileName = filename;
-                        filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
-                        var path = this.GetPathAndFilename(filename);
-                        using (FileStream output = System.IO.File.Create(path))
-                            source.CopyTo(output);
-
-                        _IDocumentsService.InsertOrUpdate(new Documents
-                        {
-                            ContentPageId = result.ResultRow.Id,
-                            Link = filename,
-                            Guid = Guid.NewGuid().ToString(),
-                            Name = orjinalFileName,
-                            Types = "ContentPage"
-                        });
-                        _IDocumentsService.SaveChanges();
-                    });
-                }
-                return Json(result);
+                var result = _IContentPageService.InsertOrUpdate(postmodel);
+                return Json(result.ResultRow);
             }
             catch (Exception ex)
             {
@@ -102,6 +73,137 @@ namespace CMS.Controllers
             }
 
         }
+
+        [HttpPost]
+        public JsonResult ImportDocumentsSingle()
+        {
+            try
+            {
+                var aa = HttpContext.Request.Form["postmodel"];
+                var bb = aa[0].Replace("[", "").Replace("]", "");
+                var idValue = bb.Deserialize<TextValue>().value.ToInt();
+                var text = bb.Deserialize<TextValue>().text.ToStr();
+
+                var row = new Documents();
+
+                switch (text)
+                {
+                    case "ThumbImage":
+                        {
+                            row = _IDocumentsService.Where(o => o.ThumbImageId == idValue).Result.FirstOrDefault();
+                            if (row == null) { row = new Documents(); row.Guid = Guid.NewGuid().ToString(); }
+                            else
+                            {
+                            }
+                            row.ThumbImageId = idValue;
+                            break;
+                        }
+                    case "BannerImage":
+                        {
+                            row = _IDocumentsService.Where(o => o.BannerImageId == idValue).Result.FirstOrDefault();
+                            if (row == null) { row = new Documents(); row.Guid = Guid.NewGuid().ToString(); }
+                            else
+                            {
+                            }
+                            row.BannerImageId = idValue;
+                            break;
+                        }
+                    case "Picture":
+                        {
+                            row = _IDocumentsService.Where(o => o.PictureId == idValue).Result.FirstOrDefault();
+
+                            if (row == null) { row = new Documents(); row.Guid = Guid.NewGuid().ToString(); }
+                            else
+                            {
+                            }
+                            row.PictureId = idValue;
+                            break;
+                        }
+
+                }
+
+
+
+                var files = HttpContext.Request.Form.Files.FirstOrDefault();
+                string filename = ContentDispositionHeaderValue.Parse(files.ContentDisposition).FileName.ToString().Trim('"');
+                var orjinalFileName = filename;
+                filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
+                var path = this.GetPathAndFilename(filename);
+                using (FileStream output = System.IO.File.Create(path)) files.CopyTo(output);
+
+                row.Link = filename;
+                row.Name = orjinalFileName;
+                row.Types = "ContentPage";
+
+                //if (row != null)
+                //{
+                //    if (System.IO.File.Exists(path + row.Link))
+                //        System.IO.File.Delete(path + row.Link);
+
+                //}
+                //else
+                //{
+
+                //}
+                var rs = _IDocumentsService.InsertOrUpdate(row);
+                return Json(row);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult ImportDocuments()
+        {
+            try
+            {
+                var aa = HttpContext.Request.Form["postmodel"];
+                var bb = aa[0].Replace("[", "").Replace("]", "");
+                var postModel = bb.Deserialize<ContentPage>();
+
+                var files = HttpContext.Request.Form.Files.ToList();
+                var Documents = new List<Documents>();
+                var guid = Guid.NewGuid().ToString();
+
+                var gallleryOrdocumentName = postModel.Name == "Gallery" ? "Gallery" : "Document";
+
+                files.ForEach(source =>
+                {
+                    string filename = ContentDispositionHeaderValue.Parse(source.ContentDisposition).FileName.ToString().Trim('"');
+                    var orjinalFileName = filename;
+                    filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
+                    var path = this.GetPathAndFilename(filename);
+                    using (FileStream output = System.IO.File.Create(path))
+                        source.CopyTo(output);
+
+                    var row = new Documents
+                    {
+                        DocumentId = gallleryOrdocumentName == "Document" ? postModel?.Id : null,
+                        GalleryId = gallleryOrdocumentName == "Gallery" ? postModel?.Id : null,
+                        Link = filename,
+                        Guid = guid,
+                        Name = orjinalFileName,
+                        Types = "ContentPage"
+                    };
+                    _IDocumentsService.InsertOrUpdate(row);
+                    Documents.Add(row);
+                    _IDocumentsService.SaveChanges();
+                });
+
+                return Json(Documents);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
 
         public JsonResult DeleteImage(int id)
         {
@@ -119,7 +221,7 @@ namespace CMS.Controllers
 
         public JsonResult DeleteImageAll(int id)
         {
-            var resultList = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.ContentPageId == id).Result.ToList();
+            var resultList = _IDocumentsService.Where(o => o.Types == "ContentPage" && o.DocumentId == id).Result.ToList();
 
             resultList.ForEach(result =>
             {
@@ -139,7 +241,13 @@ namespace CMS.Controllers
 
         public ContentPage Get(int id)
         {
-            var result = _IContentPageService.Where(o => o.Id == id, true, false, o => o.Documents).Result.FirstOrDefault();
+            var result = _IContentPageService.Where(o => o.Id == id, true, false, o => o.Documents, o => o.ThumbImage, o => o.Picture, o => o.BannerImage, o => o.Gallery).Result.FirstOrDefault();
+            if (id > 0)
+            {
+                var dc = _IDocumentsService.Where().Result.ToList();
+                result.Documents = dc.Where(o => o.DocumentId == id).ToList();
+                result.Gallery = dc.Where(o => o.GalleryId == id).ToList();
+            }
             return (result);
         }
 
@@ -155,7 +263,7 @@ namespace CMS.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "ContentPage";
+            ViewBag.pageTitle = "İçerik Yönetimi";
             return View();
         }
 
