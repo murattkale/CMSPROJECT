@@ -77,13 +77,15 @@ namespace FacebookCrawler
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+              
             }
             else
             {
                 app.UseHsts();
                 //app.UseHttpsRedirection();
             }
+
+            app.UseDeveloperExceptionPage();
 
             app.UseStaticFiles();
             app.UseRouting();
@@ -92,7 +94,7 @@ namespace FacebookCrawler
 
             app.UseRequestLocalization();
 
-            //app.UseCors("MyPolicy");
+            app.UseMiddleware<ErrorMid>();
 
             SessionRequest.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
 
