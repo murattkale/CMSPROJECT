@@ -1,0 +1,1380 @@
+﻿<!DOCTYPE html>
+<html lang="tr-tr">
+<head>
+
+	<!-- Mobile Meta -->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+
+	<meta name="application-name" content="ÇUKUR" />
+    <meta name="apple-mobile-web-app-title" content="ÇUKUR" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	<meta http-equiv="Pragma" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	
+			<!-- Seo Tag -->
+		<meta name="robots" content="index,follow" />
+		<title>ÇUKUR</title>
+		<meta name="description" content="İstanbul'un suçla özdeşleşmiş mahallesi Çukur'un kontrolü Koçova ailesinin elindedir. Suçla bu kadar içli dışlı olsa da ailenin kendine göre kuralları vardır. Bu kurallardan bir t" />
+		<meta name="keywords" content="çukur, cukur, ÇUKUR, CUKUR, Ay Yapım" />
+		
+	<!-- Dns Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+	
+    <!-- Android icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/icon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/icon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/icon-16x16.png" />
+
+    <!-- iOS icons -->
+    <link rel="apple-touch-icon" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/touch-icon-iphone-retina.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="https://www.ayyapim.com/tema/assets/images/mobile-icon/touch-icon-ipad-retina.png" />
+	
+	<!-- Favicon -->
+    <link rel="shortcut icon" href="https://www.ayyapim.com/tema/assets/images/favicon.ico" />
+	
+	<!-- Mobile Theme Color -->
+    <meta name="theme-color" content="#323232" />
+	
+	<!-- Facebook Meta Tag -->
+    <meta property="og:url" content="https://www.ayyapim.com/cukur" /> 
+    <meta property="og:title" content="ÇUKUR" /> 
+    <meta property="og:description" content="İstanbul'un suçla özdeşleşmiş mahallesi Çukur'un kontrolü Koçova ailesinin elindedir. Suçla bu kadar içli dışlı olsa da ailenin kendine göre kuralları vardır. Bu kurallardan bir t" /> 
+    <meta property="og:image" content="https://www.ayyapim.com/media/images/yapim/cukur.jpg" /> 
+    <meta property="og:type" content="article" /> 
+    <meta property="og:site_name" content="-" /> 
+    <meta property="fb:app_id" content="-" /> 
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="314" />
+    <meta property="og:image:height" content="466" />
+
+    <!-- Twitter Meta Tag -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@-" />
+    <meta name="twitter:creator" content="@-" />
+    <meta name="twitter:url" content="https://www.ayyapim.com/cukur" />
+    <meta name="twitter:title" content="ÇUKUR" />
+    <meta name="twitter:description" content="İstanbul'un suçla özdeşleşmiş mahallesi Çukur'un kontrolü Koçova ailesinin elindedir. Suçla bu kadar içli dışlı olsa da ailenin kendine göre kuralları vardır. Bu kurallardan bir t" />
+    <meta name="twitter:image" content="https://www.ayyapim.com/media/images/yapim/cukur.jpg" />
+	
+	<script type="application/ld+json">
+        { 
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "url": "https://www.ayyapim.com",
+            "name": "Ay Yapım Resmi Web Sayfası | Official Website",
+            "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+90 212 259 57 57",
+            "contactType": "Customer service"
+            }
+        }
+    </script>
+	
+	<!-- bootstrap -->
+	<link href="https://www.ayyapim.com/tema/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+	<!-- plugins -->
+	<link href="https://www.ayyapim.com/tema/assets/css/plugins-css.css" rel="stylesheet" type="text/css" />
+
+	<!-- mega menu -->
+	<link href="https://www.ayyapim.com/tema/assets/css/mega-menu/mega_menu.css" rel="stylesheet" type="text/css" />
+
+	<!-- Scrollbar -->
+	<link href="https://www.ayyapim.com/tema/assets/css/portfolio/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+
+	<!-- revoluation -->
+	<link rel="stylesheet" type="text/css" href="https://www.ayyapim.com/tema/assets/js/revolution/css/extralayers.css" media="screen" /> 
+	<link rel="stylesheet" type="text/css" href="https://www.ayyapim.com/tema/assets/js/revolution/rs-plugin/css/settings.css" media="screen" />
+
+	<!-- default -->
+	<link href="https://www.ayyapim.com/tema/assets/css/default.css" rel="stylesheet" type="text/css" />
+	
+	<!-- shortcodes -->
+	<link href="https://www.ayyapim.com/tema/assets/css/shortcodes.css" rel="stylesheet" type="text/css" />
+	
+	<!-- colorbox -->
+	<link href="https://www.ayyapim.com/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css" />
+
+	<!-- main style -->
+	<link href="https://www.ayyapim.com/tema/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+	<!-- responsive -->
+	<link href="https://www.ayyapim.com/tema/assets/css/responsive.css" rel="stylesheet" type="text/css" />
+
+	<!-- custominstom style -->
+	<link href="https://www.ayyapim.com/tema/assets/css/custom.css" rel="stylesheet" type="text/css" />
+
+	
+	</head>
+<body>
+
+<div class="page-wrapper">
+
+<div id="preloader">
+  <div class="clear-loading loading-effect"> <span></span> </div>
+</div>
+
+
+<header id="header" class="header">
+
+<div class="menu">  
+  <!-- menu start -->
+   <nav id="menu-1" class="mega-menu desktopTopFixed displayblock">
+    <!-- menu list items container -->
+    <section class="menu-list-items">
+     <div class="container"> 
+      <div class="row"> 
+       <div class="col-lg-12 col-md-12"> 
+        <!-- menu logo -->
+        <ul class="menu-links" id="stil1">
+            <!-- active class -->
+						
+			<li class="active"><a href="#language?lang=tr-TR" title="Türkçe" rel="nofollow"> <strong>TR </strong></i></a> </li>
+						
+			<li ><a href="#language?lang=en-US" title="English" rel="nofollow"> <strong>EN </strong></i></a> </li>
+			
+            <li><a href="https://www.facebook.com/ayyapim/" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>            <li><a href="https://www.instagram.com/ayyapim" title="İnstagram" target="_blank"><i class="fa fa-instagram"></i></a></li>            <li><a href="#user/ayyapimtv" title="Youtube" target="_blank"><i class="fa fa-youtube"></i></a></li>            <li><a href="https://twitter.com/ayyapim" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>        </ul>
+		
+		<ul class="menu-logo">
+            <li>
+                <a href="#" title="Ayyapım">
+					<img src="https://www.ayyapim.com/tema/assets/images/logo.png" width="153" height="48" alt="Ayyapım" />
+				</a>
+            </li>
+        </ul>
+        <!-- menu links -->
+        <ul class="menu-links" id="menuyapimlar">
+            <!-- active class -->
+			            <li>
+				<a href="#" title="DİZİLER"> <strong>DİZİLER </strong></i></a>
+                <div class="drop-down grid-col-8 stil2">
+                <!--grid row-->
+                 <div class="grid-row">
+                  
+					  						<div class="grid-col-2">
+						 <ul>
+							<li>
+								<a href="#kuzgun" title="KUZGUN">
+									<img src="https://www.ayyapim.com/media/images/yapim/kuzgun.jpg" width="103" height="154" alt="KUZGUN" />
+									KUZGUN								</a>
+							</li>
+						 </ul>
+						</div>
+					  						<div class="grid-col-2">
+						 <ul>
+							<li>
+								<a href="#sahin-tepesi" title="ŞAHİN TEPESİ">
+									<img src="https://www.ayyapim.com/media/images/yapim/sahin-tepesi.jpg" width="103" height="154" alt="ŞAHİN TEPESİ" />
+									ŞAHİN TEPESİ								</a>
+							</li>
+						 </ul>
+						</div>
+					  						<div class="grid-col-2">
+						 <ul>
+							<li>
+								<a href="#carpisma" title="ÇARPIŞMA">
+									<img src="https://www.ayyapim.com/media/images/yapim/carpisma.jpg" width="103" height="154" alt="ÇARPIŞMA" />
+									ÇARPIŞMA								</a>
+							</li>
+						 </ul>
+						</div>
+					  						<div class="grid-col-2">
+						 <ul>
+							<li>
+								<a href="#8-gun" title="8.GÜN">
+									<img src="https://www.ayyapim.com/media/images/yapim/8-gun.jpg" width="103" height="154" alt="8.GÜN" />
+									8.GÜN								</a>
+							</li>
+						 </ul>
+						</div>
+					  						<div class="grid-col-2">
+						 <ul>
+							<li>
+								<a href="#sahsiyet" title="ŞAHSİYET">
+									<img src="https://www.ayyapim.com/media/images/yapim/sahsiyet.jpg" width="103" height="154" alt="ŞAHSİYET" />
+									ŞAHSİYET								</a>
+							</li>
+						 </ul>
+						</div>
+					  						<div class="grid-col-2">
+						 <ul>
+							<li>
+								<a href="#ufak-tefek-cinayetler" title="UFAK TEFEK CİNAYETLER">
+									<img src="https://www.ayyapim.com/media/images/yapim/ufak-tefek-cinayetler.jpg" width="103" height="154" alt="UFAK TEFEK CİNAYETLER" />
+									UFAK TEFEK CİNAYETLER								</a>
+							</li>
+						 </ul>
+						</div>
+					  					<div class="clearfix"></div>
+					<h5 class="stil3" onclick="location.href='#diziler'">Hepsini Göster</h5>
+                   </div>
+                  </div>
+            </li>
+			           
+             <li><a href="#" title="FİLMLER"> <strong>FİLMLER </strong></i></a>
+                <div class="drop-down grid-col-8 stil2">
+                <!--grid row-->
+                 <div class="grid-row">
+				 
+									    <div class="grid-col-2">
+                     <ul>
+                        <li>
+							<a href="#bir-ask-iki-hayat" title="BİR AŞK İKİ HAYAT">
+								<img src="https://www.ayyapim.com/media/images/yapim/bir-ask-iki-hayat.jpg" width="103" height="154" alt="BİR AŞK İKİ HAYAT" />
+								BİR AŞK İKİ HAYAT							</a>
+						</li>
+                     </ul>
+                    </div>
+									    <div class="grid-col-2">
+                     <ul>
+                        <li>
+							<a href="#sampiyon" title="ŞAMPİYON">
+								<img src="https://www.ayyapim.com/media/images/yapim/sampiyon.jpg" width="103" height="154" alt="ŞAMPİYON" />
+								ŞAMPİYON							</a>
+						</li>
+                     </ul>
+                    </div>
+									    <div class="grid-col-2">
+                     <ul>
+                        <li>
+							<a href="#daha" title="DAHA">
+								<img src="https://www.ayyapim.com/media/images/yapim/daha.jpg" width="103" height="154" alt="DAHA" />
+								DAHA							</a>
+						</li>
+                     </ul>
+                    </div>
+									    <div class="grid-col-2">
+                     <ul>
+                        <li>
+							<a href="#delibal" title="DELİBAL">
+								<img src="https://www.ayyapim.com/media/images/yapim/delibal.jpg" width="103" height="154" alt="DELİBAL" />
+								DELİBAL							</a>
+						</li>
+                     </ul>
+                    </div>
+									    <div class="grid-col-2">
+                     <ul>
+                        <li>
+							<a href="#bi-kucuk-eylul-meselesi" title="Bİ KÜÇÜK EYLÜL MESELESİ">
+								<img src="https://www.ayyapim.com/media/images/yapim/bi-kucuk-eylul-meselesi.jpg" width="103" height="154" alt="Bİ KÜÇÜK EYLÜL MESELESİ" />
+								Bİ KÜÇÜK EYLÜL MESELESİ							</a>
+						</li>
+                     </ul>
+                    </div>
+									    <div class="grid-col-2">
+                     <ul>
+                        <li>
+							<a href="#dedemin-insanlari" title="DEDEMİN İNSANLARI">
+								<img src="https://www.ayyapim.com/media/images/yapim/dedemin-insanlari.jpg" width="103" height="154" alt="DEDEMİN İNSANLARI" />
+								DEDEMİN İNSANLARI							</a>
+						</li>
+                     </ul>
+                    </div>
+										
+					<div class="clearfix"></div>
+					<h5 class="stil3" onclick="location.href='#filmler'">Hepsini Göster</h5>
+                   </div>
+                  </div>
+              </li>
+						
+			<li class="youtubeheadermenu"><a href="javascript:void(0)" rel="nofollow" title="Youtube"> <i class="fa fa-youtube-play stil4"></i> <strong>YOUTUBE </strong></i></a>
+                <div class="drop-down grid-col-8 stil2" id="youtubeheadercontainter">
+				   <!--grid row-->
+				   <div class="grid-row">
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCeVCtnbEvzGKu7sZbeBreVA?sub_confirmation=1" title="Çarpışma (Crash)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/carpisma.png" width="70" height="70" alt="Çarpışma (Crash)" />
+									Çarpışma (Crash)								</a>
+							</li>
+						 </ul>
+						</div>					
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCquAVnqz_Q0RoI6-wFlumbA?sub_confirmation=1" title="Şahin Tepesi (Falcon Crest)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/100100.png" width="70" height="70" alt="Şahin Tepesi (Falcon Crest)" />
+									Şahin Tepesi (Falcon Crest)								</a>
+							</li>
+						 </ul>
+						</div>					
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCODMmGmSrXvaepplMxcEa5w?sub_confirmation=1" title="8.Gün (The 8th Day)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/photo(1).jpg" width="70" height="70" alt="8.Gün (The 8th Day)" />
+									8.Gün (The 8th Day)								</a>
+							</li>
+						 </ul>
+						</div>					
+					<div class="clearfix"></div>						<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#user/ayyapimtv?sub_confirmation=1" title="Şahsiyet (Persona)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/Untitled-2.png" width="70" height="70" alt="Şahsiyet (Persona)" />
+									Şahsiyet (Persona)								</a>
+							</li>
+						 </ul>
+						</div>					
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCYpbJJdypj-c8uqUqKg3euw?sub_confirmation=1" title="Ufak Tefek Cinayetler (Stiletto Vendetta)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/utc100x100.png" width="70" height="70" alt="Ufak Tefek Cinayetler (Stiletto Vendetta)" />
+									Ufak Tefek Cinayetler (Stiletto Vendetta)								</a>
+							</li>
+						 </ul>
+						</div>					
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#user/ayyapimtv?sub_confirmation=1" title="Fi (Phi)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/fi%20logo%20web.png" width="70" height="70" alt="Fi (Phi)" />
+									Fi (Phi)								</a>
+							</li>
+						 </ul>
+						</div>					
+					<div class="clearfix"></div>						<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCTAkwLbVzHxsbgsp6cRsPDg?sub_confirmation=1" title="Çukur (The Pit)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/s.png" width="70" height="70" alt="Çukur (The Pit)" />
+									Çukur (The Pit)								</a>
+							</li>
+						 </ul>
+						</div>					
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCXOigwxHrUvgeU5tP5NZhxA?sub_confirmation=1" title="Bu Şehir Arkandan Gelecek (Heart Of The City)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/bu-sehir-arkadan-gelecek.png" width="70" height="70" alt="Bu Şehir Arkandan Gelecek (Heart Of The City)" />
+									Bu Şehir Arkandan Gelecek (Heart Of The City)								</a>
+							</li>
+						 </ul>
+						</div>					
+											<div class="grid-col-4">
+						 <ul>
+							<li>
+								<a href="#channel/UCM3g-yjAbZT0sRQppe2JFRw?sub_confirmation=1" title="Cesur ve Güzel (Brave and Beautiful)" target="_blank">
+									<img src="https://www.ayyapim.com//media/images/youtube/CVG-LOGO-WEB.png" width="70" height="70" alt="Cesur ve Güzel (Brave and Beautiful)" />
+									Cesur ve Güzel (Brave and Beautiful)								</a>
+							</li>
+						 </ul>
+						</div>					
+					<div class="clearfix"></div>                   
+				    <div class="clearfix"></div>
+					<h5 class="stil3" onclick="location.href='#youtube-channels'">Hepsini Göster</h5>
+				   
+				    </div>
+                 </div>
+            </li>
+			          
+        </ul>
+		
+		<div class="clearfix"></div>
+		
+       </div>
+      </div>
+     </div>
+	 
+	 		<div class="yapimcontainer">
+			<div class="row">
+				<div class="container">
+					<div class="col-lg-12">
+					
+						<div class="yapimustmenu">
+							<span>ÇUKUR</span>
+							<ul>
+																	<li id="teasers_tab" class="active" onclick="scrolling('teasers')"><a href="javascript:void(0);" title="Tanıtımlar" rel="nofollow">Tanıtımlar</a></li>
+																
+								<li id="about_tab" onclick="scrolling('about')"><a href="javascript:void(0);" title="Hakkında" rel="nofollow">Hakkında</a></li>
+								
+																<li id="casting_tab" onclick="scrolling('casting')"><a href="javascript:void(0);" title="Oyuncular" rel="nofollow">Oyuncular</a></li>
+																
+																
+																<li id="posters_tab" onclick="scrolling('posters')"><a href="javascript:void(0);" title="Posterler" rel="nofollow">Posterler</a></li>
+																
+																<li id="gallery_tab" onclick="scrolling('gallery')"><a href="javascript:void(0);" title="Galeri" rel="nofollow">Galeri</a></li>
+																
+																<li id="socialmedia_tab" onclick="scrolling('socialmedia')"><a href="javascript:void(0);" title="Sosyal Medya" rel="nofollow">Sosyal Medya</a></li>
+																
+																<li id="more_tab" onclick="scrolling('more')"><a href="javascript:void(0);" title="Daha Fazlası" rel="nofollow">Daha Fazlası</a></li>
+															</ul>
+							
+															<div class="equalizer-btn">
+								  <div class="equalizer">
+									 <ul id="bares-container">
+									   <li class="first-bar playEqualizer"></li>
+									   <li class="second-bar playEqualizer"></li>
+									   <li class="third-bar playEqualizer"></li>
+									   <li class="fourth-bar playEqualizer"></li>
+									   <li class="fifth-bar playEqualizer"></li>
+
+									   <li class="first-bar playEqualizer"></li>
+									   <li class="second-bar playEqualizer"></li>
+									   <li class="third-bar playEqualizer"></li>
+									   <li class="fourth-bar playEqualizer"></li>
+									   <li class="fifth-bar playEqualizer"></li>
+									   
+									   <li class="first-bar playEqualizer"></li>
+									   <li class="second-bar playEqualizer"></li>
+									   <li class="third-bar playEqualizer"></li>
+									   <li class="fourth-bar playEqualizer"></li>
+									   <li class="fifth-bar playEqualizer"></li>
+									</ul>
+								  </div>
+								</div>
+								<audio src="https://www.ayyapim.com/media/files/jenerik-muzikleri/CUKUR%20JENERIK%20MUZIGI%20ALTERNATIF.mp3" preload="auto" loop autoplay id="jenerikmuzik"></audio>
+								
+														
+							<div class="yapimdil"></div>						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	 	 
+    </section>
+   </nav>
+  <!-- menu end -->
+ </div>
+</header>
+
+<!-- slider -->
+<div class="rev-slider-2">
+ <div class="tp-banner-container">
+	<div class="tp-banner">
+	<ul>
+				<li data-transition="fade" data-slotamount="2" data-masterspeed="1000" data-saveperformance="on"  data-title="ÇUKUR" class="rav-1">
+			<img src="https://www.ayyapim.com/tema/assets/images/dummy.png" data-lazyload="https://www.ayyapim.com/media/images/sayfaici-yapim/1561968873.jpg"  alt="ÇUKUR" data-bgposition="center top" data-bgfit="normal" data-bgrepeat="no-repeat" width="1800" height="600"/>
+		</li>
+				<li data-transition="fade" data-slotamount="2" data-masterspeed="1000" data-saveperformance="on"  data-title="ÇUKUR" class="rav-1">
+			<img src="https://www.ayyapim.com/tema/assets/images/dummy.png" data-lazyload="https://www.ayyapim.com/media/images/sayfaici-yapim/1561968880.jpg"  alt="ÇUKUR" data-bgposition="center top" data-bgfit="normal" data-bgrepeat="no-repeat" width="1800" height="600"/>
+		</li>
+			</ul>
+   <div class="tp-bannertimer tp-bottom"></div> 
+  </div> 
+ </div>    
+</div>    
+
+<!-- butonlar -->
+<div class="row slidebutonlar" style="background-color:!important;">
+	<div class="col-lg-12 col-md-12 text-center">
+				 
+					<a href="javascript:void(0);" onclick="scrolling('teasers')" class="button large button-black" rel="nofollow" title="Tanıtımlar"
+				style="background-color:#adadad;"
+			><span style="color:#000000">Tanıtımlar </span> </a>
+			</div>
+</div>
+
+<!-- tanıtımlar -->
+	
+	<style>
+		#teasers .title-line:before, #teasers .title-line:after {
+			background-color:#000000		}
+	</style>
+
+	<section class="page-section-ptb content-box teaserpagebackground" id="teasers" style="background-image:url(/media/images/tasarim/teaser/1.png);">
+	<div class="container">
+	<div class="row">
+	   <div class="col-lg-12 col-md-12">
+		<div class="section-title-1 text-center">
+		  <h2 class="text-black fontweightbold" style="color:#000000;">Tanıtımlar</h2>
+		  <div class="title-line"></div>
+		</div>
+	  </div>
+	</div>
+	 <div class="container">
+	 
+			 <div class="row">
+				 <div class="col-lg-12 text-left"><div id="teaser_container"></div></div>
+			 </div>
+		
+	 </div>
+	</div>
+	</section>
+
+<!-- yapım içerik ve yapımcılar -->
+<section class="page-section-ptb content-box aboutpagebackground" id="about" style="background-image:url(/media/images/tasarim/hakkinda/1.png);">
+    <div class="container">
+	   <div class="row">
+			
+			<style>
+				#about .yapimicerik p, #about .yapimicerik {
+					color:;
+				}
+			</style>
+			
+			<div class="col-lg-6 col-md-6">
+				<div class="section-title-1 text-left">
+										<div class="col-xs-12 text-left">
+						<h2 class="text-black mb-30" style="color:#ffffff">ÇUKUR</h2>
+					</div>
+														
+					<div class="clearfix"></div>
+					<div class="col-lg-12">
+						<div class="mCustomScrollbar yapimicerik" data-mcs-theme="dark">
+							<p>İstanbul&#39;un suçla özdeşleşmiş mahallesi Çukur&#39;un kontrolü Koçova ailesinin elindedir. Suçla bu kadar içli dışlı olsa da ailenin kendine göre kuralları vardır. Bu kurallardan bir tanesi de uyuşturucu yasağıdır. Çukur&#39;da uyuşturucu üretilmez, kullanılmaz, satılmaz. Fakat oyuna yeni dahil olan bir grup bu yasağı delmeye kararlıdır. Önce Koçovalılarla anlaşma yoluna giderler, olmayınca ise var güçleriyle mahalleye ve aileye saldırırlar. Tam aileyi diz çöktürdüklerini düşündükleri sırada öngöremedikleri bir gelişme olur. Kartlar yeniden dağıtılacaktır.<br />
+&nbsp;</p>
+
+<p>Yamaç kendini sadece kendi istediği gibi yaşamaya odaklamış, yarını düşünmeyen genç bir adamdır. Bir gece kendisi kadar, yaralı, tehlikeli ama bir o kadar da güzel bir genç kadınla tanışır. Kadının adı Sena&rsquo;dır. Kısa sürede birbirlerine aşık olurlar ve evlenirler. Yamaç&rsquo;ın Sena&#39;ya söylediği gibi &quot;ölene kadar mutlu&quot; yaşayacaklarını düşünen genç sevgililerin arasına Yamaç&rsquo;ın geçmişte bıraktığını düşündüğü ailesi girer. Sena, Yamaç&rsquo;ın peşinden bu ailenin içine girerken ikisi de hayatlarında bir daha hiçbir şeyin eskisi gibi olmayacağını bilmemektedir.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+						<div class="col-lg-6 col-md-6">
+				<div class="section-title-1 text-right mb-40">
+					<a href="https://twitter.com/cukurdizi" title="Twitter" target="_blank" class="yapimsosyalmedya text-black"><i class="fa fa-twitter" style="color:"></i></a>										<a href="https://www.instagram.com/cukurdizi/" title="İnstagram" target="_blank" class="yapimsosyalmedya text-black"><i class="fa fa-instagram" style="color:"></i></a>					<a href="#channel/UCTAkwLbVzHxsbgsp6cRsPDg?sub_confirmation=1" title="Youtube" class="text-black" target="_blank"><i class="fa fa-youtube-play" style="color:"></i></a>				</div>
+			
+				<div class="text-left">
+				
+					<div class="table-responsive">
+						  <table class="table yapimtablo">
+							<tbody>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Kanal								</th>
+								<td style="color:">Show TV</td>
+							  </tr>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Yapım								</th>
+								<td style="color:">Ay Yapım</td>
+							  </tr>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Yapımcı								</th>
+								<td style="color:">Kerem Çatay,Pelin Diştaş</td>
+							  </tr>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Senaryo								</th>
+								<td style="color:">Gökhan Horzum</td>
+							  </tr>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Yönetmen								</th>
+								<td style="color:">Sinan Öztürk</td>
+							  </tr>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Müzik								</th>
+								<td style="color:">Toygar Işıklı</td>
+							  </tr>
+														  <tr>
+								<th style="width:25%;color:#ffffff">
+									Oyuncular								</th>
+								<td style="color:">Aras Bulut İynemli, Dilan Çiçek Deniz, Ercan Kesal. Perihan Savaş, Erkan Kolçak Köstendil, Öner Erkan, Rıza Kocaoğlu, Kubilay Aka</td>
+							  </tr>
+														</tbody>
+						  </table>
+					</div>
+					
+				</div>
+			</div>
+						
+		</div>
+    </div>
+  </section>
+ 
+<!-- oyuncular -->
+<section class="page-section-ptb content-box aboutpagebackground" id="casting" style="background-image:url(/media/images/tasarim/oyuncular/ana%20hat%20arka.png);">
+	<div class="container">
+	
+		<style>
+			#casting .title-line:before, #casting .title-line:after {
+				background-color:#000000			}
+		</style>
+	
+		<div class="row">
+		   
+				<div class="col-lg-12 col-md-12">
+					<div class="section-title-1 text-left">
+						<div class="row">
+						   <div class="col-lg-12 col-md-12">
+							<div class="section-title-1 text-center">
+							  <h2 class="text-black" style="color:#000000">Oyuncular</h2>
+							  <div class="title-line"></div>
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-12 col-md-12">
+				
+					<div class="row">
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2414&site_dili=&yapim_dili=" title="Aras Bulut İynemli" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/aras-bulut-iynemli-yamac-kocovali59dcb97cb101b.png" width="180" height="196" alt="Aras Bulut İynemli" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2414&site_dili=&yapim_dili=" title="Aras Bulut İynemli" rel="nofollow" class="oyuncu-detayi">Aras Bulut İynemli</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2415&site_dili=&yapim_dili=" title="Dilan Çiçek Deniz" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/dilan-cicek-deniz-sena-kocovali59dcb9b91dfc5.png" width="180" height="196" alt="Dilan Çiçek Deniz" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2415&site_dili=&yapim_dili=" title="Dilan Çiçek Deniz" rel="nofollow" class="oyuncu-detayi">Dilan Çiçek Deniz</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2416&site_dili=&yapim_dili=" title="Perihan Savaş" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/perihan-savas-sultan-kocovali59dcb9e91906d.png" width="180" height="196" alt="Perihan Savaş" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2416&site_dili=&yapim_dili=" title="Perihan Savaş" rel="nofollow" class="oyuncu-detayi">Perihan Savaş</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2417&site_dili=&yapim_dili=" title="Öner Erkan" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/oner-erkan-selim-kocovali59dcba2a45dd5.png" width="180" height="196" alt="Öner Erkan" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2417&site_dili=&yapim_dili=" title="Öner Erkan" rel="nofollow" class="oyuncu-detayi">Öner Erkan</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2418&site_dili=&yapim_dili=" title="Erkan Köstendil" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/erkan-kostendil-vartolu59dcba6328660.png" width="180" height="196" alt="Erkan Köstendil" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2418&site_dili=&yapim_dili=" title="Erkan Köstendil" rel="nofollow" class="oyuncu-detayi">Erkan Köstendil</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2419&site_dili=&yapim_dili=" title="Rıza Kocaoğlu" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/riza-kocaoglu-alico59dcba98cf308.png" width="180" height="196" alt="Rıza Kocaoğlu" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2419&site_dili=&yapim_dili=" title="Rıza Kocaoğlu" rel="nofollow" class="oyuncu-detayi">Rıza Kocaoğlu</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2420&site_dili=&yapim_dili=" title="Kubilay Aka" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/kubilay-aka-celasun59dcbafb5a64d.png" width="180" height="196" alt="Kubilay Aka" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2420&site_dili=&yapim_dili=" title="Kubilay Aka" rel="nofollow" class="oyuncu-detayi">Kubilay Aka</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2421&site_dili=&yapim_dili=" title="Ercan Kesal" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/ercan-kesal-idris-kocovali59dcbb8e770bb.png" width="180" height="196" alt="Ercan Kesal" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2421&site_dili=&yapim_dili=" title="Ercan Kesal" rel="nofollow" class="oyuncu-detayi">Ercan Kesal</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2422&site_dili=&yapim_dili=" title="Kadir Çermik" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/kadir-cermik-emmi5a1ea01e3bcf6.png" width="180" height="196" alt="Kadir Çermik" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2422&site_dili=&yapim_dili=" title="Kadir Çermik" rel="nofollow" class="oyuncu-detayi">Kadir Çermik</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2423&site_dili=&yapim_dili=" title="İrem Altuğ" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/irem-altug-ayse5a1ea03d03bed.png" width="180" height="196" alt="İrem Altuğ" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2423&site_dili=&yapim_dili=" title="İrem Altuğ" rel="nofollow" class="oyuncu-detayi">İrem Altuğ</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2424&site_dili=&yapim_dili=" title="Boncuk Yılmaz" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/boncuk-yilmaz-saadet5a1ea08582cc6.png" width="180" height="196" alt="Boncuk Yılmaz" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2424&site_dili=&yapim_dili=" title="Boncuk Yılmaz" rel="nofollow" class="oyuncu-detayi">Boncuk Yılmaz</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2425&site_dili=&yapim_dili=" title="Cem Uslu" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/cem-uslu-metin5a1ea0a3ad37d.png" width="180" height="196" alt="Cem Uslu" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2425&site_dili=&yapim_dili=" title="Cem Uslu" rel="nofollow" class="oyuncu-detayi">Cem Uslu</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2426&site_dili=&yapim_dili=" title="Uğur Yıldıran" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/ugur-yildiran-kemal5a1ea0bf9478d.png" width="180" height="196" alt="Uğur Yıldıran" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2426&site_dili=&yapim_dili=" title="Uğur Yıldıran" rel="nofollow" class="oyuncu-detayi">Uğur Yıldıran</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2427&site_dili=&yapim_dili=" title="Aytaş Uşun" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/aytas-usun-meke5a1ea0e57b2f4.png" width="180" height="196" alt="Aytaş Uşun" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2427&site_dili=&yapim_dili=" title="Aytaş Uşun" rel="nofollow" class="oyuncu-detayi">Aytaş Uşun</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2428&site_dili=&yapim_dili=" title="İlayda Alişan" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/ilayda-alisan-aksin5a1ea147754af.png" width="180" height="196" alt="İlayda Alişan" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2428&site_dili=&yapim_dili=" title="İlayda Alişan" rel="nofollow" class="oyuncu-detayi">İlayda Alişan</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2429&site_dili=&yapim_dili=" title="Ece Yaşar" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/ece-yasar-karaca5a1ea16a6074d.png" width="180" height="196" alt="Ece Yaşar" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2429&site_dili=&yapim_dili=" title="Ece Yaşar" rel="nofollow" class="oyuncu-detayi">Ece Yaşar</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2430&site_dili=&yapim_dili=" title="Mustafa Kırantepe" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/mustafa-kirantepe-medet5a1ea18e2dcf1.png" width="180" height="196" alt="Mustafa Kırantepe" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2430&site_dili=&yapim_dili=" title="Mustafa Kırantepe" rel="nofollow" class="oyuncu-detayi">Mustafa Kırantepe</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2431&site_dili=&yapim_dili=" title="Berkay  Ateş" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/berkay-ates-mahsun5bebf1d48ef67.png" width="180" height="196" alt="Berkay  Ateş" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2431&site_dili=&yapim_dili=" title="Berkay  Ateş" rel="nofollow" class="oyuncu-detayi">Berkay  Ateş</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2432&site_dili=&yapim_dili=" title="Necip Memilli" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/necip-memilli-cumali-kocovali5bebf20539a51.png" width="180" height="196" alt="Necip Memilli" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2432&site_dili=&yapim_dili=" title="Necip Memilli" rel="nofollow" class="oyuncu-detayi">Necip Memilli</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2433&site_dili=&yapim_dili=" title="Erkan Avcı" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/erkan-avci-ceto5bebf10916db7.png" width="180" height="196" alt="Erkan Avcı" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2433&site_dili=&yapim_dili=" title="Erkan Avcı" rel="nofollow" class="oyuncu-detayi">Erkan Avcı</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+												   <div class="col-lg-2 col-md-4 col-sm-4">
+							<div class="feature-15 text-center">
+							   <div class="feature-15-content">
+								 <a href="#?id=2434&site_dili=&yapim_dili=" title="Şenay Gürler" rel="nofollow" class="oyuncu-detayi">
+									<img src="https://www.ayyapim.com/media/images/oyuncular/senay-gurler-meliha5bf270c119574.png" width="180" height="196" alt="Şenay Gürler" class="img-responsive"/>
+								 </a>
+								 <h4>
+									<a href="/oyuncu-detay.php?id=2434&site_dili=&yapim_dili=" title="Şenay Gürler" rel="nofollow" class="oyuncu-detayi">Şenay Gürler</a>
+								 </h4>
+							   </div>
+							 </div>
+						   </div>
+											</div>  
+					
+				</div>
+		</div>
+
+	</div>
+</section>
+
+<!-- videolar -->
+
+
+<!-- posterler -->
+<section class="page-section-ptb content-box aboutpagebackground" id="posters" style="background-image:url(/media/images/tasarim/posterler/1.png);">
+    <div class="container">
+   
+		<style>
+			#posters .title-line:before, #posters .title-line:after {
+				background-color:#000000			}
+			
+			#posters .popup-gallery .owl-theme .owl-controls .owl-nav [class*="owl-"] {
+				background-color:#000000;
+				color:			}
+		</style>
+   
+	    <div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="section-title-1 text-center">
+				
+					<div class="row">
+					   <div class="col-lg-12 col-md-12">
+						<div class="section-title-1 text-center">
+						  <h2 class="text-black" style="color:#000000;">Posterler</h2>
+						  <div class="title-line"></div>
+						</div>
+					  </div>
+					</div>
+					
+					<div class="row text-center">
+						<div class="row" id="poster_container"></div>
+					</div>
+		 
+				</div>
+			</div>
+		</div>
+		
+
+    </div>
+</section>
+
+<!-- galeri -->
+<section class="page-section-ptb content-box aboutpagebackground" id="gallery" id="posters" style="background-image:url(/media/images/tasarim/galeri/1.png);">
+    <div class="container">
+		
+		<style>
+			#galeri_container .yapimicerik p, #galeri_container .yapimicerik {
+				color:;
+			}
+		</style>
+		
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="section-title-1 text-left">
+				  <h2 class="text-black mb-30" style="color:#000000">Galeri</h2>
+					
+					<select name="galerilist" id="galerilist" onchange="yapimgaleri(this.value)" class="select-css mb-20">
+													<option value="1147">70.Bölüm</option>
+													<option value="1146">69.Bölüm</option>
+													<option value="1145">68.Bölüm</option>
+													<option value="1122">67.Bölüm</option>
+													<option value="1121">66.Bölüm</option>
+													<option value="1120">65.Bölüm</option>
+													<option value="1119">64.Bölüm</option>
+													<option value="1118">63.Bölüm</option>
+													<option value="1117">62.Bölüm</option>
+													<option value="1116">61.Bölüm</option>
+													<option value="1115">60.Bölüm</option>
+													<option value="1114">59.Bölüm</option>
+													<option value="1113">58.Bölüm</option>
+													<option value="1112">57.Bölüm</option>
+													<option value="1111">56.Bölüm</option>
+													<option value="1110">55.Bölüm</option>
+													<option value="1109">54.Bölüm</option>
+													<option value="1108">53.Bölüm</option>
+													<option value="1107">52.Bölüm</option>
+													<option value="1036">51.Bölüm</option>
+													<option value="1035">50.Bölüm</option>
+													<option value="1034">49.Bölüm</option>
+													<option value="1033">48.Bölüm</option>
+													<option value="1032">47.Bölüm</option>
+													<option value="1031">46.Bölüm</option>
+													<option value="1030">45.Bölüm</option>
+													<option value="1029">44.Bölüm</option>
+													<option value="1028">43.Bölüm</option>
+													<option value="1027">42.Bölüm</option>
+													<option value="1026">41.Bölüm</option>
+													<option value="1025">40.Bölüm</option>
+													<option value="1024">39.Bölüm</option>
+													<option value="1023">38.Bölüm</option>
+													<option value="1022">37.Bölüm</option>
+													<option value="1021">36.Bölüm</option>
+													<option value="1020">35.Bölüm</option>
+													<option value="1019">34.Bölüm</option>
+													<option value="1018">33.Bölüm</option>
+													<option value="1017">32.Bölüm</option>
+													<option value="1016">31.Bölüm</option>
+													<option value="1015">30.Bölüm</option>
+													<option value="1014">29.Bölüm</option>
+													<option value="1013">28.Bölüm</option>
+													<option value="1012">27.Bölüm</option>
+													<option value="1011">26.Bölüm</option>
+													<option value="1010">25.Bölüm</option>
+													<option value="1009">24.Bölüm</option>
+													<option value="1008">23.Bölüm</option>
+													<option value="1007">22.Bölüm</option>
+													<option value="1006">21.Bölüm</option>
+													<option value="1005">20.Bölüm</option>
+													<option value="1004">19.Bölüm</option>
+													<option value="1003">18.Bölüm</option>
+													<option value="1002">17.Bölüm</option>
+													<option value="1001">16.Bölüm</option>
+													<option value="1000">15.Bölüm</option>
+													<option value="999">14.Bölüm</option>
+													<option value="998">13.Bölüm</option>
+													<option value="997">12.Bölüm</option>
+													<option value="996">11.Bölüm</option>
+													<option value="995">10.Bölüm</option>
+													<option value="994">9.Bölüm</option>
+													<option value="993">8.Bölüm</option>
+													<option value="992">7.Bölüm</option>
+													<option value="991">6.Bölüm</option>
+													<option value="990">5.Bölüm</option>
+													<option value="989">4.Bölüm</option>
+													<option value="988">3.Bölüm</option>
+													<option value="987">2.Bölüm</option>
+													<option value="986">1.Bölüm</option>
+												
+					</select>
+				</div>
+			</div>
+		</div>
+	
+	   <div class="row" id="galeri_container"></div>
+		
+    </div>
+  </section>
+
+<!-- abone ol -->
+<section class="page-section-ptb news-letter aboutpagebackground" style="background-image:url();">
+  <div class="container">
+     <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h1 class="text-black stil6" style="color:">Abone Olun...</h1>
+            <p style="color:">En güncel haberleri ilk gören olmak ister misiniz?</p>
+        </div>
+        <div class="col-lg-8 col-md-8">
+           <div class="section-field mt-30">
+		   
+              <div class="field-widget">
+                <i class="fa fa-envelope-o"></i>
+                <input type="email" placeholder="E-mail adresiniz" id="emailadresi" name="emailadresi" style="background-color:;border-color:;color:"/>
+                  <a class="button button-black pull-right send" onclick="ebulten()" href="javascript:void(0);" title="Abone Olun..." rel="nofollow" style="background-color:;">
+                    <span style="color:">Kayıt Ol</span>
+                  </a>
+
+              </div>  
+			  
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- socialmedia -->
+<section class="page-section-ptb content-box sosyalbackground" id="socialmedia" style="background-image:url(/media/images/tasarim/sosyalakis/1.png);">
+    <div class="container">
+   
+		<style>
+			#socialmedia .title-line:before, #socialmedia .title-line:after {
+				background-color:#ffffff			}
+			
+			#socialmedia .sb-loadmore {
+				background-color:;
+				display:none!important;
+			}
+			
+			.sb-loadmore p {
+				color:			}
+		</style>
+   
+	    <div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="section-title-1 text-center">
+				
+					<div class="row">
+					   <div class="col-lg-12 col-md-12">
+						<div class="section-title-1 text-center">
+						  <h2 class="text-black" style="color:#ffffff">Sosyal Medya</h2>
+						  <div class="title-line"></div>
+						</div>
+					  </div>
+					</div>
+					
+					<script src="https://www.ayyapim.com/plugins/social-stream/public/js/jquery.min.js"></script>
+					
+					<div id="sosyal_medya_container"></div>	
+		 
+				</div>
+			</div>
+		</div>
+		
+
+    </div>
+</section>
+
+<!-- daha fazla -->
+<section class="page-section-ptb content-box aboutpagebackground" id="more" style="background-image:url(/media/images/tasarim/digeryapimlar/1.png);">
+    <div class="container">
+   
+		<style>
+			#more .title-line:before, #more .title-line:after {
+				background-color:#000000			}
+		</style>
+   
+	    <div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="section-title-1 text-center">
+				
+					<div class="row">
+					   <div class="col-lg-12 col-md-12">
+						<div class="section-title-1 text-center">
+						  <h2 class="text-black" style="color:#000000">Diğer Yapımlar</h2>
+						  <div class="title-line"></div>
+						</div>
+					  </div>
+					</div>
+					
+					
+						<div class="row">
+													<div class="col-lg-3 col-md-4 col-sm-6">				   
+								<div class="feature-15 text-center">
+								   <div class="feature-15-content">
+									 
+										<a href="#kuzgun" title="KUZGUN">
+											<img alt="KUZGUN" src="https://www.ayyapim.com/media/images/yapim/kuzgun.jpg" width="262" height="148" class="img-responsive" />
+										</a>
+									 
+									 <h4>
+										<a href="#kuzgun" title="KUZGUN">
+											KUZGUN										</a>
+									 </h4>
+								   </div>
+								</div>
+							</div>
+													<div class="col-lg-3 col-md-4 col-sm-6">				   
+								<div class="feature-15 text-center">
+								   <div class="feature-15-content">
+									 
+										<a href="#sahin-tepesi" title="ŞAHİN TEPESİ">
+											<img alt="ŞAHİN TEPESİ" src="https://www.ayyapim.com/media/images/yapim/sahin-tepesi.jpg" width="262" height="148" class="img-responsive" />
+										</a>
+									 
+									 <h4>
+										<a href="#sahin-tepesi" title="ŞAHİN TEPESİ">
+											ŞAHİN TEPESİ										</a>
+									 </h4>
+								   </div>
+								</div>
+							</div>
+													<div class="col-lg-3 col-md-4 col-sm-6">				   
+								<div class="feature-15 text-center">
+								   <div class="feature-15-content">
+									 
+										<a href="#carpisma" title="ÇARPIŞMA">
+											<img alt="ÇARPIŞMA" src="https://www.ayyapim.com/media/images/yapim/carpisma.jpg" width="262" height="148" class="img-responsive" />
+										</a>
+									 
+									 <h4>
+										<a href="#carpisma" title="ÇARPIŞMA">
+											ÇARPIŞMA										</a>
+									 </h4>
+								   </div>
+								</div>
+							</div>
+													<div class="col-lg-3 col-md-4 col-sm-6">				   
+								<div class="feature-15 text-center">
+								   <div class="feature-15-content">
+									 
+										<a href="#8-gun" title="8.GÜN">
+											<img alt="8.GÜN" src="https://www.ayyapim.com/media/images/yapim/8-gun.jpg" width="262" height="148" class="img-responsive" />
+										</a>
+									 
+									 <h4>
+										<a href="#8-gun" title="8.GÜN">
+											8.GÜN										</a>
+									 </h4>
+								   </div>
+								</div>
+							</div>
+												</div>
+							<div class="row">
+								<div class="col-lg-12 text-center mt-20">
+																			<a href="#diziler" title="Tümünü Gör" class="button small button-black mb-20" style="background-color:#adadad"><span style="color:#000000">Tümünü Gör </span> </a>
+																	</div>
+							</div>
+						
+		 
+				</div>
+			</div>
+		</div>
+		
+
+    </div>
+</section>
+
+﻿<hr class="mr">
+
+
+	<footer class="footer-7">
+	   <div class="container">
+		<div class="row">
+			<div class="col-lg-8 col-md-12 text-center footer-about">
+			   <img id="logo-footer" class="footer-logo img-responsive center-block" width="127" height="40" src="https://www.ayyapim.com/tema/assets/images/logo.png" alt="Ayyapım" />
+			   <p class="stil7">
+				   <a href="https://www.ayyapim.com" title="Ana Sayfa">Ana sayfa</a> | 
+					
+				   						<a href="#hakkimizda" title="Hakkımızda">Hakkımızda</a> | 
+										   <a href="#bizden-haberler" title="HABERLER">HABERLER</a> | 
+				   <a href="#odullerimiz" title="ÖDÜLLERİMİZ">ÖDÜLLERİMİZ</a> | 
+				   <a href="#iletisim" title="SOSYAL SORUMLULUK">SOSYAL SORUMLULUK</a> | 
+				   <a href="#iletisim" title="İLETİŞİM">İLETİŞİM</a> | 
+				   <a href="https://e-sirket.mkk.com.tr/esir/Dashboard.jsp#/sirketbilgileri/15063" target="_blank" title="BİLGİ TOPLULUĞU HİZMETLERİ">BİLGİ TOPLULUĞU HİZMETLERİ</a>
+			   </p>
+			   
+			  <ul class="social mt-40">
+				
+				<li><a href="https://www.facebook.com/ayyapim/" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>				<li><a href="https://www.instagram.com/ayyapim" title="İnstagram" target="_blank"><i class="fa fa-instagram"></i></a></li>				<li><a href="#user/ayyapimtv" title="Youtube" target="_blank"><i class="fa fa-youtube"></i></a></li>				<li><a href="https://twitter.com/ayyapim" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>				
+			  </ul>
+			  
+			</div>
+			</div>
+	 <div class="row">
+		  <div class="col-lg-12 col-md-12 footer-bottom mt-10 text-center">
+			<p class="mb-0"> © Copyright <span id="copyright">2019</span> All Rights Reserved </p>
+		  </div>
+		</div>    
+	   </div>
+	</footer>
+
+<!--=================================
+ footer -->
+
+
+ </div>
+
+
+<!--=================================
+ style-customizer --> 
+
+<div id="back-to-top"><a class="top arrow" title="Yukarı Çık" href="#top"><i class="fa fa-long-arrow-up"></i></a></div>
+ 
+
+<!--=================================
+ jquery -->
+
+<!-- jquery  -->
+<script src="https://www.ayyapim.com/tema/assets/js/jquery.min.js"></script>
+ 
+<!-- bootstrap -->
+<script src="https://www.ayyapim.com/tema/assets/js/bootstrap.min.js"></script>
+
+<!-- plugins-jquery -->
+<script src="https://www.ayyapim.com/tema/assets/js/plugins-jquery.js"></script>
+
+<!-- appear -->
+<script src="https://www.ayyapim.com/tema/assets/js/jquery.appear.js"></script>
+
+<!-- mega menu -->
+<script src="https://www.ayyapim.com/tema/assets/js/mega-menu/mega_menu.js"></script>
+ 
+<!-- portfolio -->
+<script src="https://www.ayyapim.com/tema/assets/js/portfolio/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!-- hover -->
+<script src="https://www.ayyapim.com/tema/assets/js/portfolio/jquery.directional-hover.js"></script>
+
+<!-- skills -->
+<script src="https://www.ayyapim.com/tema/assets/js/skills-graph/jqbar.js"></script>
+ 
+<!-- colorbox -->
+<script src="https://www.ayyapim.com/plugins/colorbox/jquery.colorbox-min.js"></script>
+
+<!-- revoluation -->
+<script src="https://www.ayyapim.com/tema/assets/js/revolution/rs-plugin/js/jquery.themepunch.tools.min.js"></script>   
+<script src="https://www.ayyapim.com/tema/assets/js/revolution/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<!-- popup -->
+<script src="https://www.ayyapim.com/tema/assets/js/popup/jquery.magnific-popup.js"></script>
+
+
+<script>
+	
+					var teaser_iframe_code = '<iframe width="900" height="506" src="#embed/JcT_w41lepk?rel=0&showinfo=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>';
+					var yapim_dili = '';
+				
+		
+		var icerik_id = '19';
+	
+var site_dili = '';
+
+var lang54 = 'Önceki';
+var lang55 = 'Sonraki';
+var lang7 = 'E-mail adresiniz hatalı';
+var lang8 = 'E-mail adresiniz eklendi.';
+var lang9 = 'E-mail adresiniz çıkarıldı.';
+
+var token = 'b4718edf3348ace1997e3d9118e33eb6';
+
+</script>
+
+
+<!-- custom -->
+<script src="https://www.ayyapim.com/tema/assets/js/custom.js"></script>
+
+<script>
+	jQuery(document).ready(function() {
+	  jQuery('.tp-banner').show().revolution(
+	  {
+		dottedOverlay:"none",
+		delay:3000,
+		startwidth:1800,
+		startheight:600,
+		hideThumbs:200,
+		thumbWidth:100,
+		thumbHeight:50,
+		thumbAmount:5,
+		
+		navigationType:"off", 
+		navigationArrows:"solo",
+		navigationStyle:"preview4",
+		
+		touchenabled:"on",
+		onHoverStop:"on",
+		
+		swipe_velocity: 0.7,
+		swipe_min_touches: 1,
+		swipe_max_touches: 1,
+		drag_block_vertical: false,
+		lazyType: "smart",
+					
+					parallax:"mouse",
+		parallaxBgFreeze:"on",
+		parallaxLevels:[7,4,3,2,5,4,3,2,1,0],
+					
+		keyboardNavigation:"off",
+		
+		navigationHAlign:"center",
+		navigationVAlign:"bottom",
+		navigationHOffset:0,
+		navigationVOffset:20,
+		
+		soloArrowLeftHalign:"left",
+		soloArrowLeftValign:"center",
+		soloArrowLeftHOffset:20,
+		soloArrowLeftVOffset:0,
+
+		soloArrowRightHalign:"right",
+		soloArrowRightValign:"center",
+		soloArrowRightHOffset:20,
+		soloArrowRightVOffset:0,
+			
+		shadow:0,
+		fullWidth:"off",
+		fullScreen:"off",
+
+		spinner:"spinner4",
+		
+		stopLoop:"off",
+		stopAfterLoops:-1,
+		stopAtSlide:-1,
+
+		shuffle:"off",
+		
+		autoHeight:"off",           
+		forceFullWidth:"off",   
+		hideThumbsOnMobile:"off",
+		hideNavDelayOnMobile:1500,            
+		hideBulletsOnMobile:"off",
+		hideArrowsOnMobile:"off",
+		hideThumbsUnderResolution:0,
+		
+		hideSliderAtLimit:0,
+		hideCaptionAtLimit:0,
+		hideAllCaptionAtLilmit:0,
+		startWithSlide:0,
+		fullScreenOffsetContainer: ".header"  
+	  });
+	}); 
+</script>
+
+		
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-145643509-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-145643509-1');
+</script>
+
+
+	</body>
+</html>

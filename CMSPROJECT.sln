@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDBRepository", "MongoD
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleCrawlerService", "GoogleCrawlerService\GoogleCrawlerService.csproj", "{28338E42-4E70-474E-B862-E6B9534B222C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacebookCrawler", "FacebookCrawler\FacebookCrawler.csproj", "{E0B8D72C-B058-4152-A2C3-D0D892B44212}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacebookCrawlerLast", "FacebookCrawlerLast\FacebookCrawlerLast.csproj", "{B4BFF377-0D54-4503-B0E5-4B2A11F56CA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,10 +101,10 @@ Global
 		{28338E42-4E70-474E-B862-E6B9534B222C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28338E42-4E70-474E-B862-E6B9534B222C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28338E42-4E70-474E-B862-E6B9534B222C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0B8D72C-B058-4152-A2C3-D0D892B44212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0B8D72C-B058-4152-A2C3-D0D892B44212}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0B8D72C-B058-4152-A2C3-D0D892B44212}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0B8D72C-B058-4152-A2C3-D0D892B44212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4BFF377-0D54-4503-B0E5-4B2A11F56CA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4BFF377-0D54-4503-B0E5-4B2A11F56CA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4BFF377-0D54-4503-B0E5-4B2A11F56CA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4BFF377-0D54-4503-B0E5-4B2A11F56CA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

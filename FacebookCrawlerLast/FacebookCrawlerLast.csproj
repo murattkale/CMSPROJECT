@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B4BFF377-0D54-4503-B0E5-4B2A11F56CA7}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FacebookCrawlerLast</RootNamespace>
+    <AssemblyName>FacebookCrawlerLast</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44339</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="index_dosyalar\1.png" />
+    <Content Include="index_dosyalar\100100%282%29.png" />
+    <Content Include="index_dosyalar\100100.png" />
+    <Content Include="index_dosyalar\1561968873.jpg" />
+    <Content Include="index_dosyalar\1561968880.jpg" />
+    <Content Include="index_dosyalar\70-bolum-101161476-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-101161476-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-109032659-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-109032659-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-113760711-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-113760711-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-120989838-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-120989838-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-125690520-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-125690520-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-128311547-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-128311547-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-139364244-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-139364244-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-159033673-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-159033673-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-159044584-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-159044584-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-170279780-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-170279780-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-204406492-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-204406492-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-209614993-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-209614993-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-213208374-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-213208374-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-221856348-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-221856348-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-234514857-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-234514857-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-238106903-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-238106903-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-266130173-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-266130173-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-275688705-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-275688705-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-286530476-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-286530476-k.jpg" />
+    <Content Include="index_dosyalar\70-bolum-307751581-k%282%29.jpg" />
+    <Content Include="index_dosyalar\70-bolum-307751581-k.jpg" />
+    <Content Include="index_dosyalar\8-gun%282%29.jpg" />
+    <Content Include="index_dosyalar\8-gun.jpg" />
+    <Content Include="index_dosyalar\ana hat arka.png" />
+    <Content Include="index_dosyalar\analytics.js" />
+    <Content Include="index_dosyalar\aras-bulut-iynemli-yamac-kocovali59dcb97cb101b%282%29.png" />
+    <Content Include="index_dosyalar\aras-bulut-iynemli-yamac-kocovali59dcb97cb101b.png" />
+    <Content Include="index_dosyalar\aytas-usun-meke5a1ea0e57b2f4%282%29.png" />
+    <Content Include="index_dosyalar\aytas-usun-meke5a1ea0e57b2f4.png" />
+    <Content Include="index_dosyalar\berkay-ates-mahsun5bebf1d48ef67%282%29.png" />
+    <Content Include="index_dosyalar\berkay-ates-mahsun5bebf1d48ef67.png" />
+    <Content Include="index_dosyalar\bi-kucuk-eylul-meselesi%282%29.jpg" />
+    <Content Include="index_dosyalar\bi-kucuk-eylul-meselesi.jpg" />
+    <Content Include="index_dosyalar\bir-ask-iki-hayat%282%29.jpg" />
+    <Content Include="index_dosyalar\bir-ask-iki-hayat.jpg" />
+    <Content Include="index_dosyalar\boncuk-yilmaz-saadet5a1ea08582cc6%282%29.png" />
+    <Content Include="index_dosyalar\boncuk-yilmaz-saadet5a1ea08582cc6.png" />
+    <Content Include="index_dosyalar\bootstrap.css" />
+    <Content Include="index_dosyalar\bootstrap.js" />
+    <Content Include="index_dosyalar\bu-sehir-arkadan-gelecek%282%29.png" />
+    <Content Include="index_dosyalar\bu-sehir-arkadan-gelecek.png" />
+    <Content Include="index_dosyalar\carpisma%282%29.jpg" />
+    <Content Include="index_dosyalar\carpisma%282%29.png" />
+    <Content Include="index_dosyalar\carpisma.jpg" />
+    <Content Include="index_dosyalar\carpisma.png" />
+    <Content Include="index_dosyalar\cem-uslu-metin5a1ea0a3ad37d%282%29.png" />
+    <Content Include="index_dosyalar\cem-uslu-metin5a1ea0a3ad37d.png" />
+    <Content Include="index_dosyalar\colorbox.css" />
+    <Content Include="index_dosyalar\CUKUR JENERIK MUZIGI ALTERNATIF.mp3" />
+    <Content Include="index_dosyalar\CUKUR%2520JENERIK%2520MUZIGI%2520ALTERNATIF.mp3" />
+    <Content Include="index_dosyalar\cukur-60ece3ce0518227c8071594779bfaed7.jpg" />
+    <Content Include="index_dosyalar\cukur-916adba189180bd0cddf1acddd1dd30d.jpg" />
+    <Content Include="index_dosyalar\cukur-a4e44d9d139072dcb523a6f986573aaf.jpg" />
+    <Content Include="index_dosyalar\cukur-ecb5fd9f884a74e5e7ed38e9697abd64.jpg" />
+    <Content Include="index_dosyalar\cukur-f48d62eace501980f9f4468e39685cea.jpg" />
+    <Content Include="index_dosyalar\custom.css" />
+    <Content Include="index_dosyalar\custom.js" />
+    <Content Include="index_dosyalar\CVG-LOGO-WEB%282%29.png" />
+    <Content Include="index_dosyalar\CVG-LOGO-WEB.png" />
+    <Content Include="index_dosyalar\daha%282%29.jpg" />
+    <Content Include="index_dosyalar\daha.jpg" />
+    <Content Include="index_dosyalar\dedemin-insanlari%282%29.jpg" />
+    <Content Include="index_dosyalar\dedemin-insanlari.jpg" />
+    <Content Include="index_dosyalar\default.css" />
+    <Content Include="index_dosyalar\delibal%282%29.jpg" />
+    <Content Include="index_dosyalar\delibal.jpg" />
+    <Content Include="index_dosyalar\dilan-cicek-deniz-sena-kocovali59dcb9b91dfc5%282%29.png" />
+    <Content Include="index_dosyalar\dilan-cicek-deniz-sena-kocovali59dcb9b91dfc5.png" />
+    <Content Include="index_dosyalar\ece-yasar-karaca5a1ea16a6074d%282%29.png" />
+    <Content Include="index_dosyalar\ece-yasar-karaca5a1ea16a6074d.png" />
+    <Content Include="index_dosyalar\ercan-kesal-idris-kocovali59dcbb8e770bb%282%29.png" />
+    <Content Include="index_dosyalar\ercan-kesal-idris-kocovali59dcbb8e770bb.png" />
+    <Content Include="index_dosyalar\erkan-avci-ceto5bebf10916db7%282%29.png" />
+    <Content Include="index_dosyalar\erkan-avci-ceto5bebf10916db7.png" />
+    <Content Include="index_dosyalar\erkan-kostendil-vartolu59dcba6328660%282%29.png" />
+    <Content Include="index_dosyalar\erkan-kostendil-vartolu59dcba6328660.png" />
+    <Content Include="index_dosyalar\extralayers.css" />
+    <Content Include="index_dosyalar\favicon.ico" />
+    <Content Include="index_dosyalar\fblogo.jpg" />
+    <Content Include="index_dosyalar\fi logo web.png" />
+    <Content Include="index_dosyalar\fi%2520logo%2520web.png" />
+    <Content Include="index_dosyalar\gallery_download.png" />
+    <Content Include="index_dosyalar\icon-16x16.png" />
+    <Content Include="index_dosyalar\icon-192x192.png" />
+    <Content Include="index_dosyalar\icon-32x32.png" />
+    <Content Include="index_dosyalar\icon-96x96.png" />
+    <Content Include="index_dosyalar\icon_facebook.png" />
+    <Content Include="index_dosyalar\icon_twitter.png" />
+    <Content Include="index_dosyalar\ilayda-alisan-aksin5a1ea147754af%282%29.png" />
+    <Content Include="index_dosyalar\ilayda-alisan-aksin5a1ea147754af.png" />
+    <Content Include="index_dosyalar\irem-altug-ayse5a1ea03d03bed%282%29.png" />
+    <Content Include="index_dosyalar\irem-altug-ayse5a1ea03d03bed.png" />
+    <Content Include="index_dosyalar\JcT_w41lepk.html" />
+    <Content Include="index_dosyalar\JcT_w41lepk_data\ad_status.js" />
+    <Content Include="index_dosyalar\JcT_w41lepk_data\aPEEM9OJ9hGaYafZgWtx3Nc8atx1tS31xt75J5Meqn4.js" />
+    <Content Include="index_dosyalar\JcT_w41lepk_data\base.js" />
+    <Content Include="index_dosyalar\JcT_w41lepk_data\remote.js" />
+    <Content Include="index_dosyalar\JcT_w41lepk_data\www-embed-player.js" />
+    <Content Include="index_dosyalar\JcT_w41lepk_data\www-player-2x-vflxa1Smx.css" />
+    <Content Include="index_dosyalar\jqbar.js" />
+    <Content Include="index_dosyalar\jquery.css" />
+    <Content Include="index_dosyalar\jquery.js" />
+    <Content Include="index_dosyalar\jquery_002.js" />
+    <Content Include="index_dosyalar\jquery_003.js" />
+    <Content Include="index_dosyalar\jquery_004.js" />
+    <Content Include="index_dosyalar\jquery_005.js" />
+    <Content Include="index_dosyalar\jquery_006.js" />
+    <Content Include="index_dosyalar\jquery_007.js" />
+    <Content Include="index_dosyalar\jquery_008.js" />
+    <Content Include="index_dosyalar\jquery_009.js" />
+    <Content Include="index_dosyalar\kadir-cermik-emmi5a1ea01e3bcf6%282%29.png" />
+    <Content Include="index_dosyalar\kadir-cermik-emmi5a1ea01e3bcf6.png" />
+    <Content Include="index_dosyalar\kubilay-aka-celasun59dcbafb5a64d%282%29.png" />
+    <Content Include="index_dosyalar\kubilay-aka-celasun59dcbafb5a64d.png" />
+    <Content Include="index_dosyalar\kuzgun%282%29.jpg" />
+    <Content Include="index_dosyalar\kuzgun.jpg" />
+    <Content Include="index_dosyalar\loading.gif" />
+    <Content Include="index_dosyalar\loading_background.png" />
+    <Content Include="index_dosyalar\logo%282%29.png" />
+    <Content Include="index_dosyalar\logo.png" />
+    <Content Include="index_dosyalar\maxresdefault.jpg" />
+    <Content Include="index_dosyalar\mega_menu.css" />
+    <Content Include="index_dosyalar\mega_menu.js" />
+    <Content Include="index_dosyalar\mustafa-kirantepe-medet5a1ea18e2dcf1%282%29.png" />
+    <Content Include="index_dosyalar\mustafa-kirantepe-medet5a1ea18e2dcf1.png" />
+    <Content Include="index_dosyalar\necip-memilli-cumali-kocovali5bebf20539a51%282%29.png" />
+    <Content Include="index_dosyalar\necip-memilli-cumali-kocovali5bebf20539a51.png" />
+    <Content Include="index_dosyalar\next.png" />
+    <Content Include="index_dosyalar\oner-erkan-selim-kocovali59dcba2a45dd5%282%29.png" />
+    <Content Include="index_dosyalar\oner-erkan-selim-kocovali59dcba2a45dd5.png" />
+    <Content Include="index_dosyalar\opacity%282%29.png" />
+    <Content Include="index_dosyalar\opacity.png" />
+    <Content Include="index_dosyalar\perihan-savas-sultan-kocovali59dcb9e91906d%282%29.png" />
+    <Content Include="index_dosyalar\perihan-savas-sultan-kocovali59dcb9e91906d.png" />
+    <Content Include="index_dosyalar\photo%281%29.jpg" />
+    <Content Include="index_dosyalar\photo.jpg" />
+    <Content Include="index_dosyalar\photo1.jpg" />
+    <Content Include="index_dosyalar\plugins-css.css" />
+    <Content Include="index_dosyalar\plugins-jquery.js" />
+    <Content Include="index_dosyalar\prev.png" />
+    <Content Include="index_dosyalar\responsive.css" />
+    <Content Include="index_dosyalar\riza-kocaoglu-alico59dcba98cf308%282%29.png" />
+    <Content Include="index_dosyalar\riza-kocaoglu-alico59dcba98cf308.png" />
+    <Content Include="index_dosyalar\s%282%29.png" />
+    <Content Include="index_dosyalar\s.png" />
+    <Content Include="index_dosyalar\sahin-tepesi%282%29.jpg" />
+    <Content Include="index_dosyalar\sahin-tepesi.jpg" />
+    <Content Include="index_dosyalar\sahsiyet%282%29.jpg" />
+    <Content Include="index_dosyalar\sahsiyet.jpg" />
+    <Content Include="index_dosyalar\sampiyon%282%29.jpg" />
+    <Content Include="index_dosyalar\sampiyon.jpg" />
+    <Content Include="index_dosyalar\select-arrow.png" />
+    <Content Include="index_dosyalar\senay-gurler-meliha5bf270c119574%282%29.png" />
+    <Content Include="index_dosyalar\senay-gurler-meliha5bf270c119574.png" />
+    <Content Include="index_dosyalar\settings.css" />
+    <Content Include="index_dosyalar\share.png" />
+    <Content Include="index_dosyalar\shortcodes.css" />
+    <Content Include="index_dosyalar\style.css" />
+    <Content Include="index_dosyalar\timer.png" />
+    <Content Include="index_dosyalar\touch-icon-ipad-retina.png" />
+    <Content Include="index_dosyalar\touch-icon-ipad.png" />
+    <Content Include="index_dosyalar\touch-icon-iphone-retina.png" />
+    <Content Include="index_dosyalar\touch-icon-iphone.png" />
+    <Content Include="index_dosyalar\ufak-tefek-cinayetler%282%29.jpg" />
+    <Content Include="index_dosyalar\ufak-tefek-cinayetler.jpg" />
+    <Content Include="index_dosyalar\ugur-yildiran-kemal5a1ea0bf9478d%282%29.png" />
+    <Content Include="index_dosyalar\ugur-yildiran-kemal5a1ea0bf9478d.png" />
+    <Content Include="index_dosyalar\Untitled-2%282%29.png" />
+    <Content Include="index_dosyalar\Untitled-2.png" />
+    <Content Include="index_dosyalar\utc100x100%282%29.png" />
+    <Content Include="index_dosyalar\utc100x100.png" />
+    <Content Include="index_dosyalar\Arka plan" />
+    <Content Include="index_dosyalar\cukur" />
+    <Content Include="index_dosyalar\js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <Content Include="sonuc_files\100100.png" />
+    <Content Include="sonuc_files\8-gun.jpg" />
+    <Content Include="sonuc_files\bi-kucuk-eylul-meselesi.jpg" />
+    <Content Include="sonuc_files\bir-ask-iki-hayat.jpg" />
+    <Content Include="sonuc_files\bootstrap.css" />
+    <Content Include="sonuc_files\bu-sehir-arkadan-gelecek.png" />
+    <Content Include="sonuc_files\carpisma.jpg" />
+    <Content Include="sonuc_files\carpisma.png" />
+    <Content Include="sonuc_files\colorbox.css" />
+    <Content Include="sonuc_files\custom.css" />
+    <Content Include="sonuc_files\CVG-LOGO-WEB.png" />
+    <Content Include="sonuc_files\daha.jpg" />
+    <Content Include="sonuc_files\dedemin-insanlari.jpg" />
+    <Content Include="sonuc_files\default.css" />
+    <Content Include="sonuc_files\delibal.jpg" />
+    <Content Include="sonuc_files\extralayers.css" />
+    <Content Include="sonuc_files\fi%2520logo%2520web.png" />
+    <Content Include="sonuc_files\font-awesome.min.css" />
+    <Content Include="sonuc_files\jquery.css" />
+    <Content Include="sonuc_files\kuzgun.jpg" />
+    <Content Include="sonuc_files\logo.png" />
+    <Content Include="sonuc_files\mega_menu.css" />
+    <Content Include="sonuc_files\photo1.jpg" />
+    <Content Include="sonuc_files\plugins-css.css" />
+    <Content Include="sonuc_files\responsive.css" />
+    <Content Include="sonuc_files\s.png" />
+    <Content Include="sonuc_files\sahin-tepesi.jpg" />
+    <Content Include="sonuc_files\sahsiyet.jpg" />
+    <Content Include="sonuc_files\sampiyon.jpg" />
+    <Content Include="sonuc_files\settings.css" />
+    <Content Include="sonuc_files\shortcodes.css" />
+    <Content Include="sonuc_files\style.css" />
+    <Content Include="sonuc_files\ufak-tefek-cinayetler.jpg" />
+    <Content Include="sonuc_files\Untitled-2.png" />
+    <Content Include="sonuc_files\utc100x100.png" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="sonuc_files\analytics.js%281%29.indir" />
+    <Content Include="sonuc_files\analytics.js.indir" />
+    <Content Include="sonuc_files\bootstrap.js.indir" />
+    <Content Include="sonuc_files\jqbar.js.indir" />
+    <Content Include="sonuc_files\jquery.js.indir" />
+    <Content Include="sonuc_files\jquery_002.js.indir" />
+    <Content Include="sonuc_files\jquery_003.js.indir" />
+    <Content Include="sonuc_files\jquery_004.js.indir" />
+    <Content Include="sonuc_files\jquery_005.js.indir" />
+    <Content Include="sonuc_files\jquery_006.js.indir" />
+    <Content Include="sonuc_files\jquery_008.js.indir" />
+    <Content Include="sonuc_files\jquery_009.js.indir" />
+    <Content Include="sonuc_files\js" />
+    <Content Include="sonuc_files\mega_menu.js.indir" />
+    <Content Include="sonuc_files\plugins-jquery.js.indir" />
+    <Content Include="Views\Home\LoginPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63159</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44339/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
