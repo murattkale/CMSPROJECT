@@ -39,7 +39,7 @@ public partial class CMSDBContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql("Host=78.188.40.28;Database=PLTDB;Username=postgres;Password=123_*1", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema"));
+            //optionsBuilder.UseNpgsql("Host=85.98.10.19;Database=PLTDBLast;Username=postgres;Password=123_*1", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema"));
 
         }
     }
@@ -54,11 +54,37 @@ public partial class CMSDBContext : DbContext
                 .MakeGenericMethod(entityType.ClrType)
                 .Invoke(this, new object[] { modelBuilder, entityType });
         }
-        //modelBuilder.Entity<Documents>(e =>
-        //{
-        //    e.HasOne(r => r.ContentPage).WithMany(u => u.Images).HasForeignKey(r => r.ContentPageImagesId);
-        //    e.HasOne(r => r.ContentPage).WithMany(u => u.Documents).HasForeignKey(r => r.ContentPageDocumentsId);
-        //});
+
+        modelBuilder.Entity<ContentPage>()
+             .HasOne(a => a.ThumbImage)
+             .WithOne(b => b.ThumbImage)
+             .HasForeignKey<Documents>(b => b.ThumbImageId);
+
+        modelBuilder.Entity<ContentPage>()
+              .HasOne(a => a.Picture)
+              .WithOne(b => b.Picture)
+              .HasForeignKey<Documents>(b => b.PictureId);
+
+        modelBuilder.Entity<ContentPage>()
+              .HasOne(a => a.BannerImage)
+              .WithOne(b => b.BannerImage)
+              .HasForeignKey<Documents>(b => b.BannerImageId);
+
+
+
+        modelBuilder.Entity<ContentPage>()
+            .HasMany(a => a.Documents)
+            .WithOne(b => b.Document);
+
+
+        modelBuilder.Entity<ContentPage>()
+          .HasMany(a => a.Gallery)
+          .WithOne(b => b.Gallery);
+
+        modelBuilder.Entity<ContentPage>()
+       .HasMany(a => a.ContentPageChilds)
+       .WithOne(b => b.Parent);
+
 
         base.OnModelCreating(modelBuilder);
     }

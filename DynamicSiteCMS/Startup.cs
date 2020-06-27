@@ -46,7 +46,8 @@ namespace DynamicSiteCMS
             services.AddHttpContextAccessor();
 
 
-            services.AddEntityFrameworkSqlServer().AddDbContext<CMSDBContext>();
+            services.AddEntityFrameworkNpgsql().AddDbContext<CMSDBContext>(opt =>
+         opt.UseNpgsql(Configuration.GetConnectionString("CMSDBContext"), b => b.MigrationsAssembly("CMSDBContext")));
 
             services.AddScoped(typeof(IBaseSession), typeof(BaseSession));
             services.AddScoped(typeof(IGenericRepo<IBaseModel>), typeof(GenericRepo<CMSDBContext, IBaseModel>));

@@ -10,3 +10,24 @@
                        "class='btn btn-brand btn-elevate btn-icon-sm' /></div></div>"
                        ))
 
+
+<script>
+    var typeid = "@edit.ContentPageType";
+</script>
+
+<script>
+
+
+    $(function () {
+
+        var langInt = setInterval(function () {
+            $("#dp_LangId").val(1);
+            $("#dp_LangId").change();
+            $("#dp_LangId").parent().parent().parent().hide();
+            clearInterval(langInt);
+        }, 2000);
+
+       
+
+    });
+</script>

@@ -227,13 +227,17 @@ public static class Helpers
             {
                 try
                 {
+                    if (prp.Name == "IsAdmin")
+                    {
+
+                    }
                     #region Group Label
                     if (prp.Name == "ContentPageId")
                         str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>1. Sayfa Yapısı</h3> </div> </div> </div>";
                     //if (prp.Name == "BannerImage")
                     //    str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>2. Sayfa İçeriği</h3> </div> </div> </div>";
-                    else if (prp.Name == "LangId")
-                        str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>3. Sayfa Ayarları</h3> </div> </div> </div>";
+                    //else if (prp.Name == "LangId")
+                    //    str += "<div class='col-md-12'><div class='form-group m-form__group row'> <div class='col-10 ml-auto'> <h3 class='m-form__section'>3. Sayfa Ayarları</h3> </div> </div> </div>";
                     #endregion
 
                     object value = null;
@@ -598,6 +602,17 @@ public static class Helpers
                                 break;
                             }
                         case TypeCode.Boolean:
+                            {
+                                var boolCount = 12 / props.Count(o =>
+                                o.PropertyType.Name == "Boolean"
+                                 || o.PropertyType.GenericTypeArguments.Any(o => o.Name == "Boolean"));
+                                str += " <div class='col-md-" + boolCount + "'>                                                                                                                                               ";
+                                str += "     <div style='margin:15px;' class='custom-control custom-checkbox'>                                                                                                                     ";
+                                str += "         <input " + (value.ToBoolean() == true ? "checked='checked'" : "") + " " + Required + "  id='" + prp.Name + "' name='" + prp.Name + "' class='custom-control-input' type='checkbox'>   ";
+                                str += "         <label class='custom-control-label'  for='" + prp.Name + "'>" + DisplayName + "</label>                                                             ";
+                                str += "     </div>                                                                                                                                                           ";
+                                str += " </div>                                                                                                                                                               ";
+                            }
                             break;
                         case TypeCode.Int32:
                             {
@@ -798,7 +813,7 @@ public static class Helpers
             strScript += $"       $.ajx('/{controllerName}/InsertOrUpdate',                                                           ";
             strScript += "        { postModel: postModel }, function(resultData) {                                           ";
 
-            strScript += "try {location.href='/ContentPage/InsertOrUpdatePage?id=' + resultData.Id;} catch(ex){ location.reload();}";
+            strScript += "try { if (location.href.indexOf('/Departman/')>0 || location.href.indexOf('/Kategori/')>0 ) { location.reload();}else { location.href=  '/ContentPage/InsertOrUpdatePage?id=' + resultData.Id; } } catch(ex){ location.reload();}";
 
             strScript += "        $.LoadingOverlay('hide');                                                                  ";
             strScript += "        }, function() {location.reload(); });                                                     ";

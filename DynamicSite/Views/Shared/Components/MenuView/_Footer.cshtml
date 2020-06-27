@@ -60,9 +60,18 @@
             <div class="col-6 col-lg-3 footer-section">
                 <h5><a style="color:#fff;" href="/iletisim">İletişim</a></h5>
                 <ul>
-                    <li>Telefon: @SessionRequest.config.Phone</li>
-                    <li>Adres: @SessionRequest.config.Adress</li>
-                    <li>Mail : @SessionRequest.config.Mail</li>
+                    @if (SessionRequest.config.Phone != null)
+                    {
+                        <li>Telefon: @SessionRequest.config.Phone</li>
+                    }
+                    @if (SessionRequest.config.Adress != null)
+                    {
+                        <li>Adres: @SessionRequest.config.Adress</li>
+                    }
+                    @if (SessionRequest.config.Mail != null)
+                    {
+                        <li>Mail : @SessionRequest.config.Mail</li>
+                    }
                 </ul>
             </div>
         </div>
