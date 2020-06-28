@@ -36,6 +36,12 @@ public partial class ContentPage : BaseModel
     public string Link { get; set; }
 
 
+    [Column(Order = 1)]
+    [DisplayName("Dış Url")]
+    public string ExternalLink { get; set; }
+
+
+
 
 
     //2. Sayfa İçeriği
@@ -115,6 +121,16 @@ public partial class ContentPage : BaseModel
     [Column(Order = 3)]
     [DisplayName("Harita")]
     public bool? IsMap { get; set; }
+
+    [Column(Order = 3)]
+    [DisplayName("Aktiflik Durumu")]
+    public bool? IsActive { get; set; }
+
+    [Column(Order = 3)]
+    [DisplayName("Yayına Alama Durumu")]
+    public bool? IsPublish { get; set; }
+
+
 
     [Column(Order = 3)]
     [DisplayName("İçerik Sırası")]

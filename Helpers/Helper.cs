@@ -311,7 +311,8 @@ public static class Helpers
                                     {
                                         str += "<div class='" + "col-md-12" + "'><div class='row form-group shadow p-3 mb-5 bg-white rounded'>";
                                         str += "<div class='" + "col-md-4" + "'>";
-                                        str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'><h3>" + DisplayName + "</h3></label></div>";
+                                        str += "<div class='" + labelClass + "'><label class='control-label ' for='" + prp.Name + "'>" +
+                                            "<h3>" + DisplayName + "</h3></label></div>";
                                         str += "</div>";
                                         str += "<div class='" + "col-md-4" + "'>";
                                         str += "<input multiple class='btn-default' for='file_" + prp.Name + "' id='file_" + prp.Name + "' type='file'>    ";
@@ -342,6 +343,9 @@ public static class Helpers
                                                     linkStr = "<a href='" + link + "' title='" + image.GetPropValue("Title") + "' target='_blank' >" + imageStr + "</a>        ";
                                                 }
                                                 str += linkStr;
+
+                                                str += "<a href='javascript:;' dataid='" + image.GetPropValue("Id") + "' class='deleteImage'><i style='margin:5px !important; ' class='far fa-trash-alt'></i></a>        ";
+
 
                                                 str += "</div>";
                                             }
@@ -414,7 +418,7 @@ public static class Helpers
 
                                     }
                                 }
-                                else if (IdValue.ToInt() > 0 && prp.PropertyType.Name == "Documents")
+                                else if (IdValue.ToInt() > 0 && (prp.PropertyType.Name == "Documents" || prp.PropertyType.Name == "Gallery"))
                                 {
 
                                     str += "<div style='margin:1px;' class='" + "col-md-5" + "'><div class='row form-group'>";
