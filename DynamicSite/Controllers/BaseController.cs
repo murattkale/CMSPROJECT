@@ -43,7 +43,7 @@ namespace DynamicSite.Controllers
 
             if (!string.IsNullOrEmpty(link))
             {
-                var menu = _IContentPageService.Where(o => o.Link == link, true, false, o => o.Documents).Result.FirstOrDefault();
+                var menu = _IContentPageService.Where(o => o.Link == link, true, false, o => o.Parent, o => o.Documents, o => o.Picture, o => o.ThumbImage, o => o.BannerImage).Result.FirstOrDefault();
                 if (menu != null)
                 {
                     ViewBag.page = menu;
@@ -71,7 +71,7 @@ namespace DynamicSite.Controllers
         {
             #region dynamicContent
             var link = HttpContext.Request.Path.Value.Trim().ToStr();
-            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents).Result.ToList();
+            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Parent, o => o.Documents, o => o.Picture, o => o.ThumbImage, o => o.BannerImage).Result.ToList();
 
             contentPages.ForEach(o =>
             {
