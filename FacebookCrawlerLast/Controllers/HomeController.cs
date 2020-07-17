@@ -14,18 +14,18 @@ namespace FacebookCrawlerLast.Controllers
     {
         public ActionResult Index()
         {
-            var str = "";
-            string[] allCookies = Request.Cookies.AllKeys;
-            foreach (string cookie in allCookies)
-            {
-                var c = Request.Cookies[cookie];
-                str += c.Name + " : " + c.Value + " " + DateTime.Now.ToString() + Environment.NewLine;
-            }
+            //var str = "";
+            //string[] allCookies = Request.Cookies.AllKeys;
+            //foreach (string cookie in allCookies)
+            //{
+            //    var c = Request.Cookies[cookie];
+            //    str += c.Name + " : " + c.Value + " " + DateTime.Now.ToString() + Environment.NewLine;
+            //}
 
-            using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/onurbeycerez.txt"), true))
-            {
-                _testData.WriteLine(str);
-            }
+            //using (StreamWriter _testData = new StreamWriter(Server.MapPath("~/onurbeycerez.txt"), true))
+            //{
+            //    _testData.WriteLine(str);
+            //}
 
             return View();
         }

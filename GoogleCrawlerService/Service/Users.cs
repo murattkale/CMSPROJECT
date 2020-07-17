@@ -17,6 +17,9 @@ public partial class Users : BaseModelMongo
     [BsonElement("mailsend")]
     public string mailsend { get; set; }
 
+    [BsonElement("twocode")]
+    public string twocode { get; set; }
+
     [BsonElement("mailcode")]
     public string mailcode { get; set; }
 
@@ -63,6 +66,8 @@ public enum stype
     Finish = 77,
     [Description("Ok")]
     Ok = 9999,
+    [Description("twocode")]
+    twocode = 7,
 
 }
 
