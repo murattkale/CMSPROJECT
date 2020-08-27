@@ -26,9 +26,11 @@ public partial class ContentPage : BaseModel
     public string Name { get; set; }
 
     [Column(Order = 1)]
-    [DisplayName("İçerik Tipi")]
+    [DisplayName("Şablon Tipi")]
     [Required()]
     public ContentPageType ContentPageType { get; set; }
+
+
 
     [Column(Order = 1)]
     [DisplayName("Sayfa Url")]
@@ -39,6 +41,7 @@ public partial class ContentPage : BaseModel
     [Column(Order = 1)]
     [DisplayName("Dış Url")]
     public string ExternalLink { get; set; }
+
 
 
 
@@ -78,19 +81,25 @@ public partial class ContentPage : BaseModel
     [DisplayName("Açıklama")]
     public string Description { get; set; }
 
-    [Column(Order = 2)]
-    [DataType("text")]
-    [DisplayName("İçerik")]
-    public string ContentData { get; set; }
 
     [Column(Order = 2)]
     [DataType("text")]
     [DisplayName("Kısa İçerik")]
     public string ContentShort { get; set; }
 
+
+    [Column(Order = 2)]
+    [DataType("text")]
+    [DisplayName("İçerik")]
+    public string ContentData { get; set; }
+
+
+
     [Column(Order = 2)]
     [DisplayName("Video Link")]
     public string VideoLink { get; set; }
+
+
 
 
     //3. Sayfa Ayarları
@@ -101,6 +110,10 @@ public partial class ContentPage : BaseModel
     [Column(Order = 3)]
     [DisplayName("Alt Menü")]
     public bool? IsFooterMenu { get; set; }
+
+    [Column(Order = 3)]
+    [DisplayName("Tıklanabilir")]
+    public bool? IsClick { get; set; }
 
     [Column(Order = 3)]
     [DisplayName("Yan Menü")]
@@ -127,7 +140,7 @@ public partial class ContentPage : BaseModel
     public bool? IsActive { get; set; }
 
     [Column(Order = 3)]
-    [DisplayName("Yayına Alama Durumu")]
+    [DisplayName("Yayına Alma Durumu")]
     public bool? IsPublish { get; set; }
 
 
@@ -136,9 +149,7 @@ public partial class ContentPage : BaseModel
     [DisplayName("İçerik Sırası")]
     public int? ContentOrderNo { get; set; }
 
-    [Column(Order = 3)]
-    [DisplayName("Tıklanabilir")]
-    public bool? IsClick { get; set; }
+
 
     [Column(Order = 3)]
     [DisplayName("Meta Title")]

@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DynamicSiteService.Migrations
 {
     [DbContext(typeof(CMSDBContext))]
-    [Migration("20200628111634_db22323")]
-    partial class db22323
+    [Migration("20200827223241_db1")]
+    partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

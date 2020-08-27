@@ -49,6 +49,121 @@ public static class Helpers
 {
 
 
+    public static string strSqlColumn(this DataTable table)
+    {
+        string sql = "";
+        foreach (DataColumn column in table.Columns)
+        {
+            if (sql.Length > 0)
+                sql += ", ";
+            sql += column.ColumnName;
+        }
+        return sql;
+    }
+
+
+
+
+
+    public static string toSqlInsertInto<T>(this List<T> _list)
+    {
+        var baseType = new BaseModel().GetType().GetProperties().Where(o => o.Name != "Id" && o.Name != "CreaDate" && o.Name != "CreaUser").ToList();
+        var tablename = typeof(T).Name;
+        var str = Environment.NewLine + @"------------START " + tablename + "---------------------\n";
+
+        _list.ForEach(o =>
+        {
+            str += Environment.NewLine + @"insert into " + @"""" + tablename + @"""" + Environment.NewLine;
+            var i = 0;
+            var prop = o.GetType().GetProperties().ToList();
+            str += " (";
+            prop.ForEach(pp =>
+            {
+                var value = o.GetPropValue(pp.Name);
+                if (value == null || value == "" || baseType.Any(cc => cc.Name == pp.Name)) return;
+                str += i != 0 ? "," : "";
+                i++;
+                str += @"""" + pp.Name + @"""";
+            });
+            str += @" ) " + Environment.NewLine + "  values (";
+
+            i = 0;
+            prop.ForEach(pp =>
+            {
+                var value = o.GetPropValue(pp.Name);
+                if (value == null || value == "" || baseType.Any(cc => cc.Name == pp.Name)) return;
+
+                str += i != 0 ? "," : "";
+                i++;
+
+                switch (Type.GetTypeCode(pp.PropertyType))
+                {
+                    case TypeCode.Boolean:
+                        {
+                            value = value.ToBoolean();
+                            break;
+                        }
+                    case TypeCode.SByte:
+                    case TypeCode.Byte:
+                    case TypeCode.Int16:
+                    case TypeCode.UInt16:
+                    case TypeCode.Int32:
+                    case TypeCode.UInt32:
+                    case TypeCode.Int64:
+                    case TypeCode.UInt64:
+                    case TypeCode.Single:
+                        {
+                            value = value.ToInt();
+                            break;
+                        }
+                    case TypeCode.Double:
+                        {
+                            value = value.ToDouble();
+                            break;
+                        }
+                    case TypeCode.Decimal:
+                        {
+                            value = value.ToDecimal();
+                            break;
+                        }
+                    case TypeCode.DateTime:
+                        {
+                            value = @"'" + value.ToStr() + @"'";
+                            break;
+                        }
+                    case TypeCode.String:
+                        {
+                            value = @"'" + value.ToStr() + @"'";
+                            break;
+                        }
+                    case TypeCode.Object:
+                        {
+                            //value = value.ToInt();
+                            break;
+                        }
+                    default:
+                        {
+                            //value = value.ToInt();
+                            break;
+                        }
+                }
+
+                if (pp.Name == "CreaUser")
+                    str += 1;
+                else if (pp.Name == "CreaDate")
+                    str += @"'" + DateTime.Now.ToString() + @"'";
+                else
+                    str += value;
+
+
+            });
+            str += " );";
+        });
+        str += Environment.NewLine + Environment.NewLine + @"------------END " + tablename + "---------------------" + Environment.NewLine + Environment.NewLine;
+        return str;
+    }
+
+
     public static Expression<Func<T, bool>> Combine<T>(Expression<Func<T, bool>> expression1, Expression<Func<T, bool>> expression2)
     {
         if (expression1 == null && expression2 == null)
@@ -132,37 +247,11 @@ public static class Helpers
         return value;
     }
 
-    public static string DynamicInput(this object model, string controllerName, string nonProp, string orderby, string titleName, string PageType, string labelClass, string inputClass, string colClass, string btn)
+    public static string DynamicInput(this object model, string controllerName, string nonProp, string orderby, string titleName,
+        string PageType, string labelClass, string inputClass, string colClass, string btn)
     {
         string str = "";
         string strScript = "";
-        str += "<div formdata='" + model.GetType().Name + "'  class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
-        str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
-        str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                       ";
-        str += "          <div class='kt-portlet__head-label'>                                                                                                            ";
-        str += $"              <span class='kt-portlet__head-icon'><i class='kt-font-brand flaticon2-line-chart'></i></span><h3 class='kt-portlet__head-title'>{titleName}</h3><br/>   ";
-        str += "          </div>";
-        str += "     </div>";
-
-        #region popup
-        if (PageType == "modal")
-        {
-            str += "<style>.modal-dialog {width: 75% !important;} /*.form-group.row{margin-left: 0px;}*/</style>";
-            str += "<div class='kt-portlet__head-toolbar'>                                                                                                       ";
-            str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
-            str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";
-            str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</spa" +
-                "n></button>           ";
-            str += "                  </div>                                                                                                                                     ";
-            str += "              </div>                                                                                                                                         ";
-            str += "          </div>                                                                                                                                             ";
-            str += "</div>                                                                                                                                                 ";
-        }
-        #endregion
-
-        str += "<div class='kt-portlet__body'>                                                                                                                         ";
-        str += "    <div class='form-horizontal'>                                                                                                                      ";
-
         try
         {
             #region Configurations
@@ -170,13 +259,45 @@ public static class Helpers
             controllerName = string.IsNullOrEmpty(controllerName) ? t.Name : controllerName;
 
             var formname = "frm_" + t.Name;
-            str += $"<form name='{formname}' id='frm_" + t.Name + "'>";
+
             var props = t.GetProperties().ToList();
 
             var baseType = new BaseModel().GetType().GetProperties().Where(o => o.Name != "ModDate" && o.Name != "CreaDate").ToList();
             props = props.AsQueryable().Where(d => d.Name != "ModDate" && d.Name != "CreaDate" && !GetPropertyAttributes(d).Keys.Any(oo => oo == "NotMapped")).ToList();
 
             var IdValue = model.GetPropValue("Id");
+            var idval = IdValue.ToInt();
+
+            str += "<div formdata='" + model.GetType().Name + "'  class='kt-container  kt-grid__item kt-grid__item--fluid'>                                                                     ";
+            str += "  <div class='kt-portlet kt-portlet--mobile'>                                                                                                                ";
+            str += "      <div class='kt-portlet__head kt-portlet__head--lg'>                                                                                                       ";
+            str += "          <div class='kt-portlet__head-label'>                                                                                                            ";
+            str += $"              <span class='kt-portlet__head-icon'><i class='kt-font-brand flaticon2-line-chart'></i></span><h3 class='kt-portlet__head-title'>{titleName}</h3><br/>   ";
+            str += "          </div>";
+            str += idval < 1 ? "" : $"<div class='form-group row float-md-left'><div class='col-md-offset-9 col-md-9'><input dataid='{IdValue}' type='button' value='Sil' class='btnDelete btn btn-danger btn-elevate btn-icon-sm' /></div></div>";
+            str += "     </div>";
+
+            #region popup
+            if (PageType == "modal")
+            {
+                str += "<style>.modal-dialog {width: 75% !important;} /*.form-group.row{margin-left: 0px;}*/</style>";
+                str += "<div class='kt-portlet__head-toolbar'>                                                                                                       ";
+                str += "              <div class='kt-portlet__head-wrapper'>                                                                                                         ";
+                str += "                  <div class='kt-portlet__head-actions'>                                                                                                     ";
+                str += "                      <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>           ";
+                str += "                  </div>                                                                                                                                     ";
+                str += "              </div>                                                                                                                                         ";
+                str += "          </div>                                                                                                                                             ";
+                str += "</div>                                                                                                                                                 ";
+            }
+            #endregion
+
+            str += "<div class='kt-portlet__body'>                                                                                                                         ";
+            str += "    <div class='form-horizontal'>                                                                                                                      ";
+
+            str += $"<form name='{formname}' id='frm_" + t.Name + "'>";
+            str += "<div class='form-group row'>";
+
 
             baseType.ForEach(prp =>
             {
@@ -220,8 +341,10 @@ public static class Helpers
 
             #endregion
 
+
+
             #region forms
-            str += "<div class='form-group row'>";
+
 
             foreach (var prp in props)
             {
@@ -809,6 +932,28 @@ public static class Helpers
 
             #region Submit
 
+
+            strScript += $"   $('.btnDelete').click(function ()                                                                      ";
+            strScript += "{                  var dataid = $(this).attr('dataid');                                                                       ";
+            strScript += "                  alerts('Silinsin mi ?', 'yesno', function (result) {                                                       ";
+            strScript += "                      if (result == true) {                                                                                  ";
+            strScript += $"                          $.LoadingOverlay('show');                                                          ";
+            strScript += $"                          $.ajx('/{t.Name}/Delete', ";
+            strScript += " { id: dataid }, function (resultData) {          ";
+            strScript += "                              if (resultData && resultData.IsDeleted) {                                                      ";
+            strScript += "                                  location.href='/" + t.Name + "/InsertOrUpdatePage';                                                                     ";
+            strScript += "                              }                                                                                              ";
+            strScript += "                              else {                                                                                         ";
+            strScript += "                                  alerts(resultData.ResultType.MessageList[0]);                                              ";
+            strScript += "                              }                                                                                              ";
+            strScript += "                              $.LoadingOverlay('hide');                                                      ";
+            strScript += "                          });                                                                                                ";
+            strScript += "                      }                                                                                                      ";
+            strScript += "                  });                                                                                                        ";
+            strScript += "             }); ";
+
+
+
             strScript += $"   $('#{formname}').submit(function(e)                                                               ";
             strScript += " {      e.preventDefault();                                                                                  ";
             strScript += $"       var postModel = $.fn.toForm('#{formname}');                                                    ";
@@ -817,7 +962,7 @@ public static class Helpers
             strScript += $"       $.ajx('/{controllerName}/InsertOrUpdate',                                                           ";
             strScript += "        { postModel: postModel }, function(resultData) {                                           ";
 
-            strScript += "try { if (location.href.indexOf('/Departman/')>0 || location.href.indexOf('/Kategori/')>0 ) { location.reload();}else { location.href=  '/ContentPage/InsertOrUpdatePage?id=' + resultData.Id; } } catch(ex){ location.reload();}";
+            strScript += "try {location.href=  '/" + t.Name + "/InsertOrUpdatePage?id=' + resultData.Id; } catch(ex){ location.reload();}";
 
             strScript += "        $.LoadingOverlay('hide');                                                                  ";
             strScript += "        }, function() {location.reload(); });                                                     ";
@@ -1239,8 +1384,24 @@ public static class Helpers
         return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
     }
 
+    public static DataTable ToDataTable<T>(this List<T> data)
+    {
+        PropertyDescriptorCollection properties =
+            TypeDescriptor.GetProperties(typeof(T));
+        DataTable table = new DataTable();
+        foreach (PropertyDescriptor prop in properties)
+            table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+        foreach (T item in data)
+        {
+            DataRow row = table.NewRow();
+            foreach (PropertyDescriptor prop in properties)
+                row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+            table.Rows.Add(row);
+        }
+        return table;
+    }
 
-    public static DataTable ToDataTable<T>(IList<T> data)
+    public static DataTable ToDataTable<T>(this IList<T> data)
     {
         PropertyDescriptorCollection properties =
             TypeDescriptor.GetProperties(typeof(T));

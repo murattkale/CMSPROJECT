@@ -18,6 +18,11 @@ public enum LoginErrorType : int
     User = 4,
 }
 
+
+
+
+
+
 public enum ContentPageType : int
 {
     //[Description("Kategori")]

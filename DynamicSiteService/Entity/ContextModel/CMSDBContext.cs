@@ -39,7 +39,7 @@ public partial class CMSDBContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseNpgsql("Host=85.98.10.19;Database=PLTDBLast;Username=postgres;Password=123_*1", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema"));
+            optionsBuilder.UseNpgsql("Host=109.228.254.40;Database=MRTDB;Username=postgres;Password=123_*1", x => x.MigrationsHistoryTable("__EFMigrationsHistory", "mySchema"));
 
         }
     }
