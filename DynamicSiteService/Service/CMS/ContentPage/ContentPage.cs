@@ -32,6 +32,7 @@ public partial class ContentPage : BaseModel
 
 
 
+
     [Column(Order = 1)]
     [DisplayName("Sayfa Url")]
     [Required()]

@@ -11,7 +11,7 @@
             <i class="fas fa-circle-notch fa-spin"></i>
         </div>
         <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop=""
-               data="@Html.Raw(SessionRequest.config.ImageUrl + row.Documents.FirstOrDefault()?.Link)" src="">
+               data="@Html.Raw(SessionRequest.config.ImageUrl + row.VideoLink)" src="">
             <script>
                 $(function () {
                     $('#header-video').attr("src", $('#header-video').attr("data"));
@@ -58,7 +58,7 @@
 
                             <div class="carousel-inner">
 
-                                @foreach (var image in row.Documents)
+                                @foreach (var image in row.Gallery)
                                 {
                                     j++;
                                     var imageUrl = image.Link != null && image.Link.Contains("http") ? image.Link : SessionRequest.config.ImageUrl + image.Link;
@@ -157,7 +157,7 @@
 
                 @foreach (var row in content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row4).ContentPageChilds.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name))
                 {
-                    var imageUrl = SessionRequest.config.ImageUrl + row.Documents.FirstOrDefault()?.Link;
+                    var imageUrl = SessionRequest.config.ImageUrl + row.BannerImage?.Link;
 
                     <div class="col-12 col-lg-4">
                         <a href="@row.Link" class="clickable-card">

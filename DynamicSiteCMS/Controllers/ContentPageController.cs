@@ -13,7 +13,7 @@ using System.IO;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Converters;
 
-namespace CMSSİte.Controllers
+namespace CMS.Controllers
 {
     public class ContentPageController : Controller
     {
@@ -44,6 +44,7 @@ namespace CMSSİte.Controllers
             return Json(result);
         }
 
+
         public JsonResult GetContentPageType()
         {
             var list = Enum.GetValues(typeof(ContentPageType)).Cast<int>().Select(x => new { name = ((ContentPageType)x).ToStr(), value = x.ToString(), text = ((ContentPageType)x).ExGetDescription() }).ToArray();
@@ -53,7 +54,7 @@ namespace CMSSİte.Controllers
         [HttpPost]
         public JsonResult GetContentPage()
         {
-            var result = _IContentPageService.Where().Result.Select(o => new { value = o.Id, text = o.Name }).ToList();
+            var result = _IContentPageService.Where(null).Result.Select(o => new { value = o.Id, text = o.Name }).ToList();
             return Json(result);
         }
 
@@ -89,31 +90,34 @@ namespace CMSSİte.Controllers
                 {
                     case "ThumbImage":
                         {
-                            row = _IDocumentsService.Where(o => o.ThumbImageId == idValue).Result.FirstOrDefault();
+                            row = _IDocumentsService.Where(o => o.ThumbImageId == idValue, false, true).Result.FirstOrDefault();
                             if (row == null) { row = new Documents(); row.Guid = Guid.NewGuid().ToString(); }
                             else
                             {
+                                row.IsDeleted = null;
                             }
                             row.ThumbImageId = idValue;
                             break;
                         }
                     case "BannerImage":
                         {
-                            row = _IDocumentsService.Where(o => o.BannerImageId == idValue).Result.FirstOrDefault();
+                            row = _IDocumentsService.Where(o => o.BannerImageId == idValue, false, true).Result.FirstOrDefault();
                             if (row == null) { row = new Documents(); row.Guid = Guid.NewGuid().ToString(); }
                             else
                             {
+                                row.IsDeleted = null;
                             }
                             row.BannerImageId = idValue;
                             break;
                         }
                     case "Picture":
                         {
-                            row = _IDocumentsService.Where(o => o.PictureId == idValue).Result.FirstOrDefault();
+                            row = _IDocumentsService.Where(o => o.PictureId == idValue, false, true).Result.FirstOrDefault();
 
                             if (row == null) { row = new Documents(); row.Guid = Guid.NewGuid().ToString(); }
                             else
                             {
+                                row.IsDeleted = null;
                             }
                             row.PictureId = idValue;
                             break;
@@ -125,13 +129,12 @@ namespace CMSSİte.Controllers
 
                 var files = HttpContext.Request.Form.Files.FirstOrDefault();
                 string filename = ContentDispositionHeaderValue.Parse(files.ContentDisposition).FileName.ToString().Trim('"');
-                var orjinalFileName = filename;
-                filename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
-                var path = this.GetPathAndFilename(filename);
+                row.Name = filename;
+                var newfilename = Guid.NewGuid().ToString() + "." + filename.Split('.').LastOrDefault();
+                var path = this.GetPathAndFilename(newfilename);
                 using (FileStream output = System.IO.File.Create(path)) files.CopyTo(output);
 
-                row.Link = filename;
-                row.Name = orjinalFileName;
+                row.Link = newfilename;
                 row.Types = "ContentPage";
 
                 //if (row != null)
@@ -241,11 +244,11 @@ namespace CMSSİte.Controllers
         public ContentPage Get(int id)
         {
             var result = _IContentPageService.Where(o => o.Id == id, true, false, o => o.Documents, o => o.ThumbImage, o => o.Picture, o => o.BannerImage, o => o.Gallery).Result.FirstOrDefault();
-            if (id > 0)
+            if (result != null)
             {
                 var dc = _IDocumentsService.Where().Result.ToList();
-                result.Documents = dc.Where(o => o.DocumentId == id).ToList();
-                result.Gallery = dc.Where(o => o.GalleryId == id).ToList();
+                result.Documents = dc.Where(o => o.DocumentId == result.Id).ToList();
+                result.Gallery = dc.Where(o => o.GalleryId == result.Id).ToList();
             }
             return (result);
         }
@@ -262,13 +265,22 @@ namespace CMSSİte.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.pageTitle = "İçerik Yönetimi";
+            var selecttype = HttpContext.Request.Query["selecttype"].ToInt();
+            var EnumText = ((ContentPageType)selecttype).ExGetDescription();
+            ViewBag.pageTitle = (EnumText ?? "İçerik") + " Yönetimi";
             return View();
         }
 
         public IActionResult InsertOrUpdatePage()
         {
-            ViewBag.edit = Get(Request.Query["id"].ToInt());
+            var row = Get(Request.Query["id"].ToInt());
+            //if (row == null || row.Id < 1)
+            //{
+            //    return Redirect("/ContentPage/InsertOrUpdatePage");
+            //}
+            ViewBag.edit = row;
+            var EnumText = row?.ContentPageType.ExGetDescription();
+            ViewBag.pageTitle = (EnumText ?? "İçerik") + " Yönetimi";
             return View();
         }
 

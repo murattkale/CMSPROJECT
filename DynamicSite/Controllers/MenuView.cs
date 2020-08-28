@@ -33,11 +33,10 @@ namespace DynamicSite.Components
         {
             #region dynamicContent
             var link = HttpContext.Request.Path.Value.Trim().ToStr();
-            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents, o => o.Parent).Result.ToList();
 
-            ViewBag.IsHeaderMenu = contentPages.Where(o => o.IsHeaderMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
-            ViewBag.IsFooterMenu = contentPages.Where(o => o.IsFooterMenu == true).OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
-            var content = contentPages.Where(o => o.Link == link).ToList();
+            ViewBag.IsHeaderMenu = _IContentPageService.Where(o => o.IsHeaderMenu == true).Result.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
+            ViewBag.IsFooterMenu = _IContentPageService.Where(o => o.IsFooterMenu == true).Result.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
+            var content = _IContentPageService.Where(o => o.Link == link).Result.ToList();
 
 
             ViewBag.content = content;

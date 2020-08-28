@@ -36,7 +36,7 @@
     <section class="info p-90-0-90">
         <div class="container">
 
-            @if ( _page.Documents.Any())
+            @if (_page.Gallery.Any())
             {
                 <div class="row justify-content-center">
                     <link rel="stylesheet" href="~/sliderjs/jquery.rondell.css" type="text/css" media="all" title="Screen">
@@ -44,7 +44,7 @@
 
                     <div class="column size1of2 ">
                         <div id="rondellTopDemo">
-                            @foreach (var item in _page.Documents)
+                            @foreach (var item in _page.Gallery)
                             {
                                 var image = item.Link != null && item.Link.Contains("http") ? item.Link : SessionRequest.config.ImageUrl + item.Link;
                                 <a target="_blank" rel="rondell_1" href="@image" title="@item.Title">
@@ -109,6 +109,21 @@
 
             <div class="row">
                 <p class="text-justify">@Html.Raw(_page.ContentData)</p>
+
+
+            </div>
+
+            <div style="margin-top:20px;" class="row">
+
+                @foreach (var item in _page.Documents)
+                {
+                    <div style="display:flex;" class="col-md-6">
+                        <img src="/assets/img/file.svg" alt="">
+                        <a style="top:-20px;margin:10px;" target="_blank" href="@Html.Raw( SessionRequest.config.ImageUrl+ item.Link)" class="download">
+                            @Html.Raw(item.Name)    Dökümanını İndir
+                        </a>
+                    </div>
+                }
             </div>
 
 
