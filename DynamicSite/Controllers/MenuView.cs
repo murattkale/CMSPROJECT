@@ -34,12 +34,10 @@ namespace DynamicSite.Components
             #region dynamicContent
             var link = HttpContext.Request.Path.Value.Trim().ToStr();
 
-            ViewBag.IsHeaderMenu = _IContentPageService.Where(o => o.IsHeaderMenu == true).Result.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
-            ViewBag.IsFooterMenu = _IContentPageService.Where(o => o.IsFooterMenu == true).Result.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
-            var content = _IContentPageService.Where(o => o.Link == link).Result.ToList();
-
-
-            ViewBag.content = content;
+            ViewBag.IsHeaderMenu = _IContentPageService.Where(o => o.IsHeaderMenu == true, true, false, o => o.ContentPageChilds).Result.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
+            ViewBag.IsFooterMenu = _IContentPageService.Where(o => o.IsFooterMenu == true, true, false, o => o.ContentPageChilds).Result.OrderBy(o => o.ContentOrderNo).ThenBy(o => o.Name).ToList();
+            //var content = _IContentPageService.Where(o => o.Link == link).Result.ToList();
+            //ViewBag.content = content;
             #endregion
 
 

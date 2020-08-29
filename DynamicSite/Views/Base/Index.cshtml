@@ -6,30 +6,54 @@
 {
     var row = content.FirstOrDefault(o => o.ContentPageType == ContentPageType.row1);
 
-    <header ctype="@row.ContentPageType.ExGetDescription()" class="video-wrapper">
-        <div class="video-loader" style="display: none;">
-            <i class="fas fa-circle-notch fa-spin"></i>
-        </div>
-        <video id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop=""
-               data="@Html.Raw(SessionRequest.config.ImageUrl + row.VideoLink)" src="">
-            <script>
-                $(function () {
-                    $('#header-video').attr("src", $('#header-video').attr("data"));
-                    //$("#header-video")[0].autoplay = true;
-                });
-            </script>
-        </video>
-        <div class="overlay">
-            <div class="container">
-                <div class="main-title text-center">
-                    <h1 class="font-lighter mb-90">@Html.Raw(row.Name)</h1>
-                    <div class="hb">
-                        <a href="@row.ExternalLink" class="discover-now button button-filled">@row.ButtonText <i class="fas fa-chevron-down"></i></a>
+    <a href="@row.Link">
+        <header ctype="@row.ContentPageType.ExGetDescription()" class="video-wrapper">
+            <div class="video-loader" style="display: none;">
+                <i class="fas fa-circle-notch fa-spin"></i>
+            </div>
+            @if (!string.IsNullOrEmpty(row.VideoLink))
+            {
+                <video width="300" id="header-video" class="b-lazy b-loaded" playsinline="" autoplay="" muted="" loop=""
+                       data="@Html.Raw(SessionRequest.config.ImageUrl + row.VideoLink)" src="">
+                    <script>
+                        $(function () {
+                            $('#header-video').attr("src", $('#header-video').attr("data"));
+                            //$("#header-video")[0].autoplay = true;
+                        });
+                    </script>
+                </video>
+            }
+            else if (row.BannerImage != null)
+            {
+
+                var imageUrl = SessionRequest.config.ImageUrl + row.BannerImage.Link;
+                <img src="@imageUrl" class="img-fluid" />
+                @*<script>
+                        $(function () {
+                             $(".img-fluid").img2bg();
+                        });
+                    </script>*@
+            }
+
+            else
+            {
+
+            }
+
+            <div class="overlay">
+                <div class="container">
+                    <div class="main-title text-center">
+                        <a href="tel:@Html.Raw(row.ButtonLink)" >
+                            <h1 class="font-lighter mb-90">@Html.Raw(row.Name)</h1>
+                        </a>
+                        <div class="hb">
+                            <a href="tel:@Html.Raw(row.ButtonLink)" class="discover-now button button-filled">@row.ButtonText <i class="fas fa-chevron-down"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
+        </header>
+    </a>
 }
 
 
@@ -62,8 +86,8 @@
                                 {
                                     j++;
                                     var imageUrl = image.Link != null && image.Link.Contains("http") ? image.Link : SessionRequest.config.ImageUrl + image.Link;
-                                    <div class="carousel-item @Html.Raw(j==1 ? "active":"")" data-interval="3000">
-                                        <a href="@row.Link" class="">     <img src="@imageUrl" title="@image.Title" alt="@image.Alt" class="d-block w-100"></a>
+                                    <div style="max-height:250px !important;" class="carousel-item @Html.Raw(j==1 ? "active":"")" data-interval="3000">
+                                        <a href="@row.Link" class="">     <img style=" max-width:100%;height:auto;" src="@imageUrl" title="@image.Title" alt="@image.Alt" class="d-block"></a>
                                     </div>
                                 }
                             </div>

@@ -8,7 +8,7 @@
     }
 
 
-   
+
 
     var url = Context.Request.Path.Value.ToStr().ToLower();
 
@@ -18,12 +18,12 @@
 
 
 <header class="header-subpage">
-    <div class="header-subpage-bg-img" style="background-image: url(@Html.Raw(SessionRequest.config.ImageUrl + _page.ThumbImage?.Link)); background-position: top"></div>
+    <div class="header-subpage-bg-img" style="background-image: url(@Html.Raw(SessionRequest.config.ImageUrl + _page.BannerImage?.Link)); background-position: top"></div>
     <div class="overlay">
         <div class="container">
             <div class="row">
                 <div class="col-12 header-subpage-title text-center">
-                    <h1><span class="font-bold">@_page.Name</span></h1>
+                    <h1><span class="font-bold">@Html.Raw(_page.Description)</span></h1>
                 </div>
             </div>
         </div>
@@ -96,24 +96,22 @@
 
 
                 </div>
-                <br />
                 <hr />
             }
 
             <div class="row">
-                @Html.Raw(_page.ContentShort)
-                <br />
-                <hr />
+                <h2>@Html.Raw(_page.ContentShort)</h2>
             </div>
 
+            <hr />
 
             <div class="row">
                 <p class="text-justify">@Html.Raw(_page.ContentData)</p>
-
-
             </div>
 
-            <div style="margin-top:20px;" class="row">
+            <hr />
+
+            <div class="row">
 
                 @foreach (var item in _page.Documents)
                 {

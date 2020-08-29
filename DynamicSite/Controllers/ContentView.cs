@@ -31,7 +31,8 @@ namespace DynamicSite.Components
 
         public IViewComponentResult Invoke(ContentPageType ContentPageType)
         {
-            var contentPages = _IContentPageService.Where(null, true, false, o => o.ContentPageChilds, o => o.Documents, o => o.Parent, o => o.Picture, o => o.ThumbImage, o => o.BannerImage).Result;
+            var contentPages = _IContentPageService.Where(null, true, false, 
+                o => o.ContentPageChilds, o => o.Documents, o => o.Parent, o => o.Picture, o => o.ThumbImage, o => o.BannerImage,o=>o.Gallery).Result;
 
             var list = contentPages.Where(o => o.ContentPageType == ContentPageType);
           
